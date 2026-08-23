@@ -2,25 +2,31 @@ import React, { useState } from 'react';
 
 function App() {
   // ======== لیست بازی‌ها (بر اساس فایل‌های موجود) ========
-  // مسیر فایل‌ها: public/game/文件名
   const gamesData = [
-    // ghoran
+    // ghoran - فصل 1
     { id: 1, lesson: 'ghoran', chapter: 1, gameNum: 1, file: 'ghoran_p1_f1_g1.html' },
+    { id: 2, lesson: 'ghoran', chapter: 1, gameNum: 2, file: 'ghoran_p1_f1_g2.html' },
+    { id: 3, lesson: 'ghoran', chapter: 1, gameNum: 3, file: 'ghoran_p1_f1_g3.html' },
+
     // negaresh
-    { id: 2, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p1_f1_g1.html' },
-    { id: 3, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
-    // riyazi (فصل 1، بازی‌های 1 تا 10)
+    { id: 4, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p1_f1_g1.html' },
+    { id: 5, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p1_f1_g3.html' },
+    { id: 6, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
+
+    // riyazi - فصل 1 (بازی‌های 1 تا 10)
     ...Array.from({ length: 10 }, (_, i) => ({
-      id: 4 + i,
+      id: 7 + i,
       lesson: 'riyazi',
       chapter: 1,
       gameNum: i + 1,
       file: `riyazi_p1_f1_g${i + 1}.html`,
     })),
-    // riyazi فصل 2
-    { id: 14, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
-    // riyazi فصل 6
-    { id: 15, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
+    // riyazi - فصل 2
+    { id: 17, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
+    // riyazi - فصل 6
+    { id: 18, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
+    // riyazi - فصل 11
+    { id: 19, lesson: 'riyazi', chapter: 11, gameNum: 1, file: 'riyazi_p1_f11_g1.html' },
   ];
 
   // ======== ترجمه نام دروس به فارسی ========
@@ -28,19 +34,13 @@ function App() {
     riyazi: 'ریاضی',
     ghoran: 'قرآن',
     negaresh: 'نگارش',
-    olom: 'علوم',
-    farsi: 'فارسی',
+    // در صورت نیاز می‌توانید درس‌های دیگر را هم اضافه کنید
   };
 
   // ======== استخراج لیست دروس منحصر‌به‌فرد ========
   const lessons = [...new Set(gamesData.map(g => g.lesson))];
 
   // ======== وضعیت صفحه ========
-  // مقادیر ممکن:
-  // 'menu' → منوی دروس
-  // 'lesson:نامدرس' → لیست فصول آن درس
-  // 'chapter:نامدرس:شمارهفصل' → لیست بازی‌های آن فصل
-  // عدد (شناسه بازی) → نمایش iframe
   const [currentPage, setCurrentPage] = useState('menu');
 
   // ======== توابع کمکی ========
@@ -58,7 +58,6 @@ function App() {
     return null;
   };
 
-  // پیدا کردن بازی بر اساس id
   const findGame = (id) => gamesData.find(g => g.id === id);
 
   // ======== رندر صفحات ========
@@ -70,7 +69,6 @@ function App() {
       return <div style={{ padding: 40, textAlign: 'center' }}>بازی مورد نظر یافت نشد.</div>;
     }
     const filePath = `${process.env.PUBLIC_URL}/game/${game.file}`;
-    // صفحه بازگشت: به فصل مربوطه
     const backTo = `chapter:${game.lesson}:${game.chapter}`;
 
     return (
@@ -275,13 +273,10 @@ function App() {
       >
         {lessons.map((lesson) => {
           const faName = lessonNames[lesson] || lesson;
-          // رنگ‌های متفاوت برای هر درس
           const colors = {
             riyazi: { bg: '#f8d7da', border: '#f5c2c7', text: '#842029' },
             ghoran: { bg: '#d1e7dd', border: '#badbcc', text: '#0f5132' },
             negaresh: { bg: '#cfe2ff', border: '#b6d4fe', text: '#084298' },
-            olom: { bg: '#fff3cd', border: '#ffecb5', text: '#664d03' },
-            farsi: { bg: '#e2d9f3', border: '#ccc5e6', text: '#3d2a6b' },
           };
           const color = colors[lesson] || { bg: '#f8f9fa', border: '#dee2e6', text: '#212529' };
 
