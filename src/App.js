@@ -1,50 +1,51 @@
 import React, { useState } from 'react';
 
 function App() {
-  // ======== لیست بازی‌ها (نسخه جدید) ========
+  // ======== لیست بازی‌ها (بر اساس فایل‌های موجود) ========
   const gamesData = [
-    // ghoran - فصل 1
+    // ghoran - فصل 1 (۳ بازی)
     { id: 1, lesson: 'ghoran', chapter: 1, gameNum: 1, file: 'ghoran_p1_f1_g1.html' },
     { id: 2, lesson: 'ghoran', chapter: 1, gameNum: 2, file: 'ghoran_p1_f1_g2.html' },
     { id: 3, lesson: 'ghoran', chapter: 1, gameNum: 3, file: 'ghoran_p1_f1_g3.html' },
 
-    // negaresh
+    // negaresh - فصل ۱ (۳ بازی) + فصل ۲ (۱ بازی) = ۴ بازی
     { id: 4, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p1_f1_g1.html' },
-    { id: 5, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p1_f1_g3.html' },
-    { id: 6, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
+    { id: 5, lesson: 'negaresh', chapter: 1, gameNum: 2, file: 'negaresh_p1_f1_g2.html' }, // جدید
+    { id: 6, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p1_f1_g3.html' },
+    { id: 7, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
 
-    // riyazi - فصل 1 (بازی‌های 1 تا 10)
+    // riyazi - فصل ۱ (۱۰ بازی)
     ...Array.from({ length: 10 }, (_, i) => ({
-      id: 7 + i,
+      id: 8 + i,
       lesson: 'riyazi',
       chapter: 1,
       gameNum: i + 1,
       file: `riyazi_p1_f1_g${i + 1}.html`,
     })),
-    // riyazi - فصل 2
-    { id: 17, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
-    // riyazi - فصل 6
-    { id: 18, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
-    // riyazi - فصل 11 (جدید)
-    { id: 19, lesson: 'riyazi', chapter: 11, gameNum: 1, file: 'riyazi_p1_f11_g1.html' },
+    // riyazi - فصل ۲ (۲ بازی) - دومی جدید است
+    { id: 18, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
+    { id: 19, lesson: 'riyazi', chapter: 2, gameNum: 2, file: 'riyazi_p1_f2_g2.html' }, // جدید
+    // riyazi - فصل ۶
+    { id: 20, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
+    // riyazi - فصل ۱۱
+    { id: 21, lesson: 'riyazi', chapter: 11, gameNum: 1, file: 'riyazi_p1_f11_g1.html' },
   ];
 
   // ======== تعداد بازی‌های هر درس در نسخهٔ قبلی ========
-  // (این مقادیر را با توجه به آخرین نسخهٔ قبل تنظیم کنید)
   const previousCounts = {
-    riyazi: 12,   // قبلاً 12 تا داشت (فصل‌های 1،2،6)
-    ghoran: 1,    // قبلاً فقط 1 تا داشت
-    negaresh: 2,  // قبلاً 2 تا داشت (g1 و g2)
+    riyazi: 13,   // قبلاً ۱۳ تا (بدون riyazi_p1_f2_g2)
+    ghoran: 3,    // همان ۳ تا
+    negaresh: 3,  // قبلاً ۳ تا (بدون negaresh_p1_f1_g2)
   };
 
-  // ======== ترجمه نام دروس به فارسی ========
+  // ======== ترجمه نام دروس ========
   const lessonNames = {
     riyazi: 'ریاضی',
     ghoran: 'قرآن',
     negaresh: 'نگارش',
   };
 
-  // ======== استخراج لیست دروس ========
+  // ======== استخراج دروس ========
   const lessons = [...new Set(gamesData.map(g => g.lesson))];
 
   // ======== وضعیت صفحه ========
@@ -67,14 +68,14 @@ function App() {
 
   const findGame = (id) => gamesData.find(g => g.id === id);
 
-  // ======== محاسبه آمار ========
+  // ======== آمار ========
   const totalGames = gamesData.length;
   const totalPrevious = Object.values(previousCounts).reduce((a, b) => a + b, 0);
-  const totalAdded = totalGames - totalPrevious;
+  const totalAdded = totalGames - totalPrevious; // 21 - 19 = 2
 
   // ======== رندر صفحات ========
 
-  // ۱. صفحه iframe
+  // ۱. صفحه iframe (بازی)
   if (typeof currentPage === 'number') {
     const game = findGame(currentPage);
     if (!game) {
@@ -123,7 +124,7 @@ function App() {
     );
   }
 
-  // ۲. صفحه بازی‌های یک فصل
+  // ۲. صفحه نمایش بازی‌های یک فصل
   const parsed = parsePage(currentPage);
   if (parsed && parsed.type === 'chapter') {
     const { lesson, chapter } = parsed;
@@ -164,7 +165,10 @@ function App() {
           {chapterGames.map((game) => (
             <div
               key={game.id}
-              onClick={() => setCurrentPage(game.id)}
+              onClick={() => {
+                console.log('کلیک روی بازی:', game.id); // برای دیباگ
+                setCurrentPage(game.id);
+              }}
               style={{
                 backgroundColor: '#ffffff',
                 padding: '35px 15px',
@@ -195,7 +199,7 @@ function App() {
     );
   }
 
-  // ۳. صفحه فصول یک درس
+  // ۳. صفحه نمایش فصول یک درس
   if (parsed && parsed.type === 'lesson') {
     const lesson = parsed.lesson;
     const lessonGames = getGamesByLesson(lesson);
@@ -276,7 +280,6 @@ function App() {
       <p style={{ textAlign: 'center', color: '#6c757d', fontSize: '1.4rem', marginBottom: '5px', fontWeight: '500' }}>
         پایه اول
       </p>
-      {/* نمایش تعداد کل بازی‌ها و تعداد اضافه‌شده */}
       <p style={{ textAlign: 'center', color: '#6c757d', marginBottom: '10px', fontSize: '1.1rem' }}>
         {totalGames} بازی در مجموع
         {totalAdded > 0 && (
