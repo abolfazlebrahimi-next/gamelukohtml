@@ -1,0 +1,2701 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>یادگیری سایه - حیاط مدرسه</title>
+    <style>
+        @font-face {
+            font-family: "Shoor";
+            src: url("./fonts/Shoor-Thin.ttf") format("truetype");
+            font-weight: 100;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor";
+            src: url("./fonts/Shoor-Regular.ttf") format("truetype");
+            font-weight: 400;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor";
+            src: url("./fonts/Shoor-Medium.ttf") format("truetype");
+            font-weight: 500;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor";
+            src: url("./fonts/Shoor-Black.ttf") format("truetype");
+            font-weight: 900;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor";
+            src: url("./fonts/Shoor-ExtraBold.ttf") format("truetype");
+            font-weight: 800;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor Rounded";
+            src: url("./fonts/ShoorRounded-Thin.ttf") format("truetype");
+            font-weight: 100;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor Rounded";
+            src: url("./fonts/ShoorRounded-Regular.ttf") format("truetype");
+            font-weight: 400;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor Rounded";
+            src: url("./fonts/ShoorRounded-Medium.ttf") format("truetype");
+            font-weight: 500;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor Rounded";
+            src: url("./fonts/ShoorRounded-ExtraBold.ttf") format("truetype");
+            font-weight: 800;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: "Shoor Rounded";
+            src: url("./fonts/ShoorRounded-Black.ttf") format("truetype");
+            font-weight: 900;
+            font-display: swap;
+        }
+    </style>
+    <style>
+        /* ===== متغیرهای پایه ===== */
+        :root {
+            --primary: #6C5CE7;
+            --secondary: #00D2FF;
+            --neon-green: #00FF9D;
+            --success: #00B894;
+            --danger: #FF7675;
+            --dark: #1E1E2F;
+            --gold: #FFC93C;
+            --gold-dark: #B96F00;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --text-color: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --font-family: 'Shoor Rounded', 'Shoor', Tahoma, sans-serif;
+            --shadow-xl: 0 15px 70px rgba(0, 0, 0, 0.5);
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --body-bg: linear-gradient(135deg, #0c0a14 0%, #181225 50%, #1a1a3e 100%);
+            --btn-primary-bg: linear-gradient(135deg, #6C5CE7, #00D2FF);
+            --btn-primary-shadow: rgba(108, 92, 231, 0.35);
+            --btn-secondary-bg: rgba(255, 255, 255, 0.08);
+            --btn-secondary-hover: rgba(255, 255, 255, 0.15);
+            --btn-gold-bg: linear-gradient(135deg, #FFC93C, #f59e0b);
+            --btn-danger-bg: linear-gradient(135deg, #FF7675, #c0392b);
+            --menu-text-color: #FFFFFF;
+            --menu-text-secondary: #A0A0B0;
+            --help-text-color: #FFFFFF;
+            --btn-start-bg: linear-gradient(135deg, #FFC93C, #f59e0b);
+            --btn-start-color: #0a0a1a;
+            --btn-start-shadow: rgba(255, 201, 60, 0.3);
+            --btn-start-hover-bg: linear-gradient(135deg, #FF6B6B, #FFD93D);
+            --countdown-color: #FFC93C;
+            --countdown-glow: rgba(255, 201, 60, 0.3);
+            --theme-bg-image: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            font-family: var(--font-family);
+            outline: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        body {
+            color: var(--text-color);
+            position: relative;
+            background: var(--body-bg);
+            background-attachment: fixed;
+            transition: background 0.6s ease, color 0.6s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: var(--body-bg);
+        }
+
+        body.has-bg {
+            background-size: cover !important;
+            background-position: center !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+        }
+
+        body.has-bg::before {
+            background: rgba(0, 0, 0, 0.4) !important;
+            z-index: -1;
+        }
+
+        /* ===== تم‌های مختلف ===== */
+        body.theme-mamooli {
+            --body-bg: linear-gradient(135deg, #0c0a14 0%, #181225 50%, #1a1a3e 100%);
+            --text-color: #FFFFFF;
+            --text-secondary: #A0A0B0;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --primary: #6C5CE7;
+            --secondary: #00D2FF;
+            --gold: #FFC93C;
+            --btn-primary-bg: linear-gradient(135deg, #6C5CE7, #00D2FF);
+            --btn-primary-shadow: rgba(108, 92, 231, 0.35);
+            --btn-secondary-bg: rgba(255, 255, 255, 0.08);
+            --btn-secondary-hover: rgba(255, 255, 255, 0.15);
+            --btn-gold-bg: linear-gradient(135deg, #FFC93C, #f59e0b);
+            --btn-danger-bg: linear-gradient(135deg, #FF7675, #c0392b);
+            --menu-text-color: #FFFFFF;
+            --menu-text-secondary: #A0A0B0;
+            --help-text-color: #FFFFFF;
+            --countdown-color: #FFC93C;
+            --countdown-glow: rgba(255, 201, 60, 0.3);
+            --btn-start-bg: linear-gradient(135deg, #FFC93C, #f59e0b);
+            --btn-start-color: #0a0a1a;
+            --btn-start-shadow: rgba(255, 201, 60, 0.3);
+            --btn-start-hover-bg: linear-gradient(135deg, #FF6B6B, #FFD93D);
+            --theme-bg-image: none;
+        }
+
+        body.theme-fazayi {
+            --body-bg: linear-gradient(135deg, #0a0a2e 0%, #0d0d4a 50%, #1a1a4e 100%);
+            --text-color: #E0F0FF;
+            --text-secondary: #90C8E8;
+            --glass-bg: rgba(50, 150, 255, 0.08);
+            --glass-border: rgba(100, 200, 255, 0.20);
+            --primary: #00D4FF;
+            --secondary: #7B68EE;
+            --gold: #FFD700;
+            --btn-primary-bg: linear-gradient(135deg, #00D4FF, #7B68EE);
+            --btn-primary-shadow: rgba(0, 212, 255, 0.35);
+            --btn-secondary-bg: rgba(50, 150, 255, 0.08);
+            --btn-secondary-hover: rgba(50, 150, 255, 0.18);
+            --btn-gold-bg: linear-gradient(135deg, #FFD700, #00D4FF);
+            --btn-start-bg: linear-gradient(135deg, #00D4FF, #7B68EE);
+            --btn-start-color: #FFFFFF;
+            --btn-start-shadow: rgba(0, 212, 255, 0.35);
+            --btn-start-hover-bg: linear-gradient(135deg, #0099CC, #00D4FF);
+            --menu-text-color: #E0F0FF;
+            --menu-text-secondary: #90C8E8;
+            --help-text-color: #E0F0FF;
+            --countdown-color: #00D4FF;
+            --countdown-glow: rgba(0, 212, 255, 0.3);
+            --theme-bg-image: url('icons/m fazayi.jpg');
+        }
+
+        body.theme-dainasori {
+            --body-bg: linear-gradient(135deg, #1a2a0a 0%, #2a3a0a 50%, #3a4a0a 100%);
+            --text-color: #F0E8D0;
+            --text-secondary: #C0B090;
+            --glass-bg: rgba(200, 150, 50, 0.08);
+            --glass-border: rgba(200, 150, 50, 0.18);
+            --primary: #E8A040;
+            --secondary: #D4A050;
+            --gold: #FFD700;
+            --btn-primary-bg: linear-gradient(135deg, #E8A040, #D4A050);
+            --btn-primary-shadow: rgba(232, 160, 64, 0.35);
+            --btn-secondary-bg: rgba(200, 150, 50, 0.08);
+            --btn-secondary-hover: rgba(200, 150, 50, 0.18);
+            --btn-gold-bg: linear-gradient(135deg, #FFD700, #E8A040);
+            --btn-start-bg: linear-gradient(135deg, #E8A040, #D4A050);
+            --btn-start-color: #1a2a0a;
+            --btn-start-shadow: rgba(232, 160, 64, 0.35);
+            --btn-start-hover-bg: linear-gradient(135deg, #CC8833, #E8A040);
+            --menu-text-color: #F0E8D0;
+            --menu-text-secondary: #C0B090;
+            --help-text-color: #F0E8D0;
+            --countdown-color: #E8A040;
+            --countdown-glow: rgba(232, 160, 64, 0.3);
+            --theme-bg-image: url('icons/m dainasori.jpg');
+        }
+
+        body.theme-jangaly {
+            --body-bg: linear-gradient(135deg, #0a1a0a 0%, #0a2a0a 50%, #0a3a0a 100%);
+            --text-color: #E0F0D0;
+            --text-secondary: #A0C080;
+            --glass-bg: rgba(50, 200, 80, 0.08);
+            --glass-border: rgba(50, 200, 80, 0.18);
+            --primary: #22C55E;
+            --secondary: #4ADE80;
+            --gold: #FBBF24;
+            --btn-primary-bg: linear-gradient(135deg, #22C55E, #4ADE80);
+            --btn-primary-shadow: rgba(34, 197, 94, 0.35);
+            --btn-secondary-bg: rgba(50, 200, 80, 0.08);
+            --btn-secondary-hover: rgba(50, 200, 80, 0.18);
+            --btn-gold-bg: linear-gradient(135deg, #FBBF24, #22C55E);
+            --btn-start-bg: linear-gradient(135deg, #22C55E, #4ADE80);
+            --btn-start-color: #1e2319;
+            --btn-start-shadow: rgba(34, 197, 94, 0.35);
+            --btn-start-hover-bg: linear-gradient(135deg, #16A34A, #22C55E);
+            --menu-text-color: #1e2319;
+            --menu-text-secondary: #206b27;
+            --help-text-color: #030600;
+            --countdown-color: #4ADE80;
+            --countdown-glow: rgba(74, 222, 128, 0.3);
+            --theme-bg-image: url('icons/m jangaly.jpg');
+        }
+
+        body.theme-darya {
+            --body-bg: linear-gradient(135deg, #0a1a3a 0%, #0d2b5e 50%, #1a3a6e 100%);
+            --text-color: #D0F5FF;
+            --text-secondary: #80D0E0;
+            --glass-bg: rgba(0, 200, 255, 0.08);
+            --glass-border: rgba(0, 255, 200, 0.18);
+            --primary: #00D4AA;
+            --secondary: #FF6BB5;
+            --gold: #FFD700;
+            --btn-primary-bg: linear-gradient(135deg, #00D4AA, #FF6BB5);
+            --btn-primary-shadow: rgba(0, 212, 170, 0.35);
+            --btn-secondary-bg: rgba(0, 200, 255, 0.08);
+            --btn-secondary-hover: rgba(0, 200, 255, 0.18);
+            --btn-gold-bg: linear-gradient(135deg, #FFD700, #00D4AA);
+            --btn-start-bg: linear-gradient(135deg, #00D4AA, #FF6BB5);
+            --btn-start-color: #FFFFFF;
+            --btn-start-shadow: rgba(0, 212, 170, 0.35);
+            --btn-start-hover-bg: linear-gradient(135deg, #009977, #00D4AA);
+            --menu-text-color: #D0F5FF;
+            --menu-text-secondary: #80D0E0;
+            --help-text-color: #D0F5FF;
+            --countdown-color: #00D4AA;
+            --countdown-glow: rgba(0, 212, 170, 0.3);
+            --theme-bg-image: url('icons/m darya.jpg');
+        }
+
+        body.theme-minecraft {
+            --body-bg: linear-gradient(135deg, #1a2a1a 0%, #2a3a2a 50%, #3a4a3a 100%);
+            --text-color: #E0F0D0;
+            --text-secondary: #A0C090;
+            --glass-bg: rgba(50, 200, 80, 0.10);
+            --glass-border: rgba(50, 200, 80, 0.20);
+            --primary: #4CAF50;
+            --secondary: #FF6B35;
+            --gold: #FFD700;
+            --btn-primary-bg: linear-gradient(135deg, #4CAF50, #FF6B35);
+            --btn-primary-shadow: rgba(76, 175, 80, 0.35);
+            --btn-secondary-bg: rgba(50, 200, 80, 0.08);
+            --btn-secondary-hover: rgba(50, 200, 80, 0.18);
+            --btn-gold-bg: linear-gradient(135deg, #FFD700, #4CAF50);
+            --btn-start-bg: linear-gradient(135deg, #4CAF50, #FF6B35);
+            --btn-start-color: #FFFFFF;
+            --btn-start-shadow: rgba(76, 175, 80, 0.35);
+            --btn-start-hover-bg: linear-gradient(135deg, #388E3C, #4CAF50);
+            --menu-text-color: #E0F0D0;
+            --menu-text-secondary: #A0C090;
+            --help-text-color: #E0F0D0;
+            --countdown-color: #4CAF50;
+            --countdown-glow: rgba(76, 175, 80, 0.3);
+            --theme-bg-image: url('icons/m minecragti.jpg');
+        }
+
+        body.theme-abnabati {
+            --body-bg: linear-gradient(135deg, #1a0a1a 0%, #2a0a2a 50%, #3a1a2a 100%);
+            --text-color: #FFE8F5;
+            --text-secondary: #FFB0D0;
+            --glass-bg: rgba(255, 100, 200, 0.08);
+            --glass-border: rgba(255, 150, 220, 0.18);
+            --primary: #FF6BB5;
+            --secondary: #7B68EE;
+            --gold: #FFD700;
+            --btn-primary-bg: linear-gradient(135deg, #FF6BB5, #7B68EE);
+            --btn-primary-shadow: rgba(255, 107, 181, 0.35);
+            --btn-secondary-bg: rgba(255, 100, 200, 0.08);
+            --btn-secondary-hover: rgba(255, 100, 200, 0.18);
+            --btn-gold-bg: linear-gradient(135deg, #FFD700, #FF6BB5);
+            --btn-start-bg: linear-gradient(135deg, #FF6BB5, #7B68EE);
+            --btn-start-color: #FFFFFF;
+            --btn-start-shadow: rgba(255, 107, 181, 0.35);
+            --btn-start-hover-bg: linear-gradient(135deg, #FF1493, #FF6BB5);
+            --menu-text-color: #FFE8F5;
+            --menu-text-secondary: #FFB0D0;
+            --help-text-color: #FFE8F5;
+            --countdown-color: #FF6BB5;
+            --countdown-glow: rgba(255, 107, 181, 0.3);
+            --theme-bg-image: url('icons/m abnabati.jpg');
+        }
+
+        body.theme-modern {
+            --body-bg: linear-gradient(135deg, #1a0a0a 0%, #2a0a0a 50%, #3a0a0a 100%);
+            --text-color: #FFE8E0;
+            --text-secondary: #E8A090;
+            --glass-bg: rgba(255, 50, 50, 0.08);
+            --glass-border: rgba(255, 80, 80, 0.20);
+            --primary: #FF1744;
+            --secondary: #FF6B35;
+            --gold: #FFD700;
+            --btn-primary-bg: linear-gradient(135deg, #FF1744, #FF6B35);
+            --btn-primary-shadow: rgba(255, 23, 68, 0.35);
+            --btn-secondary-bg: rgba(255, 50, 50, 0.10);
+            --btn-secondary-hover: rgba(255, 50, 50, 0.20);
+            --btn-gold-bg: linear-gradient(135deg, #FFD700, #FF1744);
+            --btn-start-bg: linear-gradient(135deg, #FF1744, #FF6B35);
+            --btn-start-color: #FFFFFF;
+            --btn-start-shadow: rgba(255, 23, 68, 0.35);
+            --btn-start-hover-bg: linear-gradient(135deg, #B71C1C, #FF1744);
+            --menu-text-color: #FFE8E0;
+            --menu-text-secondary: #E8A090;
+            --help-text-color: #FFE8E0;
+            --countdown-color: #FF1744;
+            --countdown-glow: rgba(255, 23, 68, 0.3);
+            --theme-bg-image: url('icons/m modern.jpg');
+        }
+
+        /* ===== استایل دکمه شروع ===== */
+        .btn-start {
+            background: var(--btn-start-bg) !important;
+            color: var(--btn-start-color) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 4px 25px var(--btn-start-shadow) !important;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+        }
+        .btn-start:hover {
+            background: var(--btn-start-hover-bg) !important;
+            transform: translateY(-6px) scale(1.03) !important;
+            box-shadow: 0 8px 35px var(--btn-start-shadow), 0 0 30px rgba(255, 200, 100, 0.4) !important;
+            border-color: var(--gold) !important;
+        }
+        .btn-start:active {
+            transform: scale(0.95) !important;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite alternate;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            z-index: 1;
+            overflow-y: auto;
+        }
+        .screen.active {
+            display: flex;
+            animation: screenFadeIn 0.4s ease;
+        }
+        @keyframes screenFadeIn {
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-xl), inset 0 1px 1px rgba(255,255,255,0.03);
+            color: var(--text-color);
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-family: var(--font-family);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            min-height: 56px;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+            transition: left 0.6s;
+        }
+        .btn:hover::before { left: 100%; }
+        .btn:active { transform: scale(0.96); }
+
+        .btn-primary {
+            background: var(--btn-primary-bg);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 25px var(--btn-primary-shadow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 35px var(--btn-primary-shadow), 0 0 30px rgba(0, 210, 255, 0.3);
+            border-color: var(--secondary);
+        }
+
+        .btn-secondary {
+            background: var(--btn-secondary-bg);
+            backdrop-filter: blur(12px);
+            color: var(--text-color);
+            border: 1px solid var(--glass-border);
+        }
+        .btn-secondary:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: var(--btn-secondary-hover);
+            border-color: var(--secondary);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+        }
+
+        .btn-gold {
+            background: var(--btn-gold-bg);
+            color: #0a0a1a;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 25px rgba(255, 201, 60, 0.3);
+        }
+        .btn-gold:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 35px rgba(255, 201, 60, 0.4);
+        }
+
+        .btn-danger {
+            background: var(--btn-danger-bg);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 25px rgba(255, 118, 117, 0.3);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            border-radius: 12px;
+            cursor: pointer;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .back-btn:hover {
+            border-color: var(--danger);
+            box-shadow: 0 0 20px rgba(255, 118, 117, 0.4);
+            background: rgba(255, 118, 117, 0.1);
+            transform: rotate(180deg);
+        }
+
+        /* ===== منو ===== */
+        .menu-container {
+            padding: 30px 20px 25px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .menu-container.hidden {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        .coin-display {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px 6px 10px;
+            border-radius: 30px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 20px rgba(255, 201, 60, 0.15);
+            z-index: 10;
+        }
+        .coin-display img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            animation: coinSpin 3s ease-in-out infinite;
+        }
+        .coin-amount {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1rem;
+            text-shadow: 0 0 10px var(--gold);
+        }
+        @keyframes coinSpin {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+        }
+        .menu-title {
+            font-size: 2.4rem;
+            font-weight: 900;
+            margin-bottom: 4px;
+            font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif;
+            background: linear-gradient(135deg, var(--menu-text-color), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+        .menu-subtitle {
+            color: var(--menu-text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        .menu-character {
+            width: 150px;
+            height: 150px;
+            margin: 10px auto 15px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.3) 100%);
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 40px rgba(255, 201, 60, 0.2), inset 0 0 40px rgba(255,201,60,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: framePulse 3s ease-in-out infinite;
+        }
+        @keyframes framePulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 201, 60, 0.2); }
+            50% { box-shadow: 0 0 60px rgba(255, 201, 60, 0.4); }
+        }
+        .menu-character img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .menu-buttons .row {
+            display: flex;
+            gap: 10px;
+        }
+        .menu-buttons .row .btn {
+            flex: 1;
+        }
+
+        /* ===== دکمه‌های پایین صفحه بعد از انتخاب پوسته ===== */
+        .action-buttons {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 320px;
+            width: 100%;
+            margin-top: 20px;
+            animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .action-buttons.show {
+            display: flex;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== فروشگاه ===== */
+        .shop-container {
+            max-width: 420px;
+            width: 100%;
+            padding: 20px 15px 15px;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .shop-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+        .shop-header h2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--menu-text-color);
+            font-family: var(--font-family);
+        }
+        .shop-coin {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--gold);
+        }
+        .shop-coin img {
+            width: 18px;
+            height: 18px;
+        }
+        .shop-coin span {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+        .shop-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 12px;
+            background: rgba(0,0,0,0.3);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            flex-shrink: 0;
+        }
+        .shop-tab {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: transparent;
+            border: none;
+            color: var(--menu-text-secondary);
+            font-family: var(--font-family);
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            white-space: nowrap;
+        }
+        .shop-tab.active {
+            background: var(--btn-primary-bg);
+            color: #fff;
+            box-shadow: 0 0 15px var(--btn-primary-shadow);
+        }
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            overflow-y: auto;
+            padding: 5px 2px 10px;
+            flex: 1;
+        }
+        .shop-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+        .shop-grid::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 4px;
+        }
+
+        .shop-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+            color: var(--text-color);
+            min-height: 180px;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .shop-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--secondary);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .shop-item.active-item {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 201, 60, 0.2);
+        }
+        .shop-item.locked-item {
+            opacity: 0.6;
+            filter: grayscale(0.5);
+        }
+        .shop-item .preview {
+            width: 80px;
+            height: 60px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--glass-border);
+            flex-shrink: 0;
+        }
+        .shop-item .preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .shop-item .preview .emoji-only {
+            font-size: 2rem;
+        }
+        .shop-item .name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-color);
+            font-family: var(--font-family);
+        }
+        .shop-item .price {
+            font-size: 0.7rem;
+            color: var(--gold);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-family);
+        }
+        .shop-item .price img {
+            width: 14px;
+            height: 14px;
+        }
+        .shop-btn-sm {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-family);
+            font-weight: 700;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 2px;
+        }
+        .shop-btn-sm.buy {
+            background: var(--btn-gold-bg);
+            color: #0a0a1a;
+        }
+        .shop-btn-sm.buy:hover {
+            transform: scale(1.04);
+        }
+        .shop-btn-sm.select {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .shop-btn-sm.select:hover {
+            transform: scale(1.04);
+        }
+        .shop-btn-sm.active {
+            background: var(--success);
+            color: #fff;
+            cursor: default;
+        }
+        .shop-btn-sm.locked {
+            background: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.3);
+            cursor: not-allowed;
+        }
+
+        /* ===== صفحه کلاس ===== */
+        .class-container {
+            max-width: 420px;
+            width: 100%;
+            padding: 25px 20px;
+            text-align: center;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .class-container.show {
+            display: flex;
+            animation: screenFadeIn 0.4s ease;
+        }
+        .class-container h2 {
+            font-size: 1.6rem;
+            color: var(--gold);
+            font-family: 'Shoor Black', Tahoma, sans-serif;
+            margin-bottom: 5px;
+        }
+        .class-container .emoji-big {
+            font-size: 4rem;
+            margin: 5px 0;
+        }
+        .class-container p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ===== صفحه انتقال ===== */
+        .transition-container {
+            max-width: 420px;
+            width: 100%;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .transition-container .big-emoji {
+            font-size: 4rem;
+            animation: float 2s ease-in-out infinite;
+        }
+        .transition-container .tree-big {
+            font-size: 5rem;
+            margin: 10px 0;
+        }
+        .transition-container p {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ===== صفحه حیاط - تمام صفحه ===== */
+        .yard-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: url('icons/yard.jpg') no-repeat center center;
+            background-size: cover;
+            background-size: 100% 100%;
+        }
+
+        /* ساعت دیواری */
+        .clock-container {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 35;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 10px 15px;
+            border: 2px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            min-width: 80px;
+            pointer-events: none;
+        }
+        .clock-container .clock-face {
+            position: relative;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid var(--gold);
+        }
+        .clock-container .clock-face .hour-hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 3.5px;
+            height: 18px;
+            background: #FF6B6B;
+            transform-origin: bottom center;
+            border-radius: 3px;
+            margin-left: -1.75px;
+            z-index: 3;
+        }
+        .clock-container .clock-face .minute-hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 2.5px;
+            height: 25px;
+            background: #4ECDC4;
+            transform-origin: bottom center;
+            border-radius: 2px;
+            margin-left: -1.25px;
+            z-index: 2;
+        }
+        .clock-container .clock-face .second-hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 1.5px;
+            height: 28px;
+            background: #FFE66D;
+            transform-origin: bottom center;
+            border-radius: 1px;
+            margin-left: -0.75px;
+            z-index: 1;
+        }
+        .clock-container .clock-face .center-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 7px;
+            height: 7px;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+        }
+        .clock-container .clock-face .hour-mark {
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 1px;
+        }
+        .clock-container .clock-face .hour-mark.major {
+            height: 10px;
+            background: var(--gold);
+            width: 3px;
+        }
+        .clock-container .digital-time {
+            color: var(--gold);
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: 'Shoor Black', Tahoma, sans-serif;
+            text-shadow: 0 0 10px rgba(255, 201, 60, 0.3);
+            direction: ltr;
+        }
+        .clock-container .time-label {
+            color: var(--text-secondary);
+            font-size: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* تایمر شمارش معکوس - 70 ثانیه */
+        .timer-container {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 35;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 10px 18px;
+            border: 2px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            pointer-events: none;
+        }
+        .timer-container .timer-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--gold);
+            font-family: 'Shoor Black', Tahoma, sans-serif;
+            text-shadow: 0 0 20px rgba(255, 201, 60, 0.4);
+            direction: ltr;
+        }
+        .timer-container .timer-label {
+            color: var(--text-secondary);
+            font-size: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* خورشید - محدود به بالا و مرکز */
+        .sun-drag {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            cursor: grab;
+            touch-action: none;
+            z-index: 20;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            top: 8%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+        }
+        .sun-drag:active {
+            cursor: grabbing;
+        }
+        .sun-drag img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 40px rgba(255, 200, 50, 0.5));
+            animation: sunGlow 2s ease-in-out infinite;
+        }
+        @keyframes sunGlow {
+            0%, 100% { filter: drop-shadow(0 0 40px rgba(255, 200, 50, 0.5)) scale(1); }
+            50% { filter: drop-shadow(0 0 70px rgba(255, 200, 50, 0.7)) scale(1.05); }
+        }
+        .sun-drag.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* درخت و سایه - سایه دقیقاً با فایل saye yard.png */
+        .tree-wrapper {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .tree-image {
+            width: clamp(160px, 35vw, 260px);
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+            position: relative;
+            z-index: 2;
+        }
+
+        /* سایه درخت - با translateY */
+        .tree-shadow-container {
+            position: relative;
+            margin-top: 0;
+            z-index: 1;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.8;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(60px);
+        }
+        .tree-shadow-container img {
+            width: clamp(150px, 30vw, 220px);
+            height: auto;
+            filter: blur(2px) drop-shadow(0 0 8px rgba(0,0,0,0.1));
+            transition: none;
+        }
+
+        /* دکمه‌های کنترل حیاط */
+        .yard-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 30;
+            pointer-events: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .yard-controls .btn {
+            min-height: 36px;
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            width: auto;
+            min-width: 45px;
+            flex: 0 1 auto;
+            border-radius: 12px;
+        }
+        .yard-controls .btn-secondary {
+            background: rgba(255,255,255,0.1);
+        }
+        .yard-controls .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* هشدار */
+        .yard-hint {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            border: 1px solid rgba(255, 201, 60, 0.3);
+            z-index: 25;
+            pointer-events: none;
+            white-space: nowrap;
+            animation: hintPulse 2s ease-in-out infinite;
+            font-weight: 600;
+        }
+        @keyframes hintPulse {
+            0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        }
+
+        /* دکمه بازگشت */
+        .yard-back-btn {
+            position: absolute;
+            top: 15px;
+            right: 80px;
+            z-index: 35;
+            pointer-events: auto;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 8px 14px;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-family);
+        }
+        .yard-back-btn:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+
+        /* ===== صفحه راهنما - با gamer.png ===== */
+        .help-container {
+            max-width: 420px;
+            width: 100%;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .help-container h2 {
+            color: var(--gold);
+            font-size: 1.6rem;
+            font-family: 'Shoor Black', Tahoma, sans-serif;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 201, 60, 0.2);
+        }
+        .help-character {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+            box-shadow: 0 0 40px rgba(255, 201, 60, 0.15);
+            animation: float 3s ease-in-out infinite;
+        }
+        .help-character img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+        .help-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: right;
+            margin-bottom: 12px;
+        }
+        .help-steps .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 12px;
+            border-radius: 12px;
+        }
+        .help-steps .step .num {
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+        }
+        .help-steps .step .text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .help-tip {
+            background: rgba(255, 201, 60, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid var(--gold);
+            margin-bottom: 12px;
+        }
+        .help-tip span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== صفحه سوال ===== */
+        .quiz-container {
+            max-width: 420px;
+            width: 100%;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .quiz-container h2 {
+            color: var(--gold);
+            font-size: 1.6rem;
+            font-family: 'Shoor Black', Tahoma, sans-serif;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 201, 60, 0.2);
+        }
+        .quiz-container .question {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 2;
+            font-weight: 600;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            border-right: 4px solid var(--gold);
+        }
+        .quiz-options {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .quiz-option {
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 3px solid var(--glass-border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 100px;
+            font-family: var(--font-family);
+        }
+        .quiz-option:hover {
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.15);
+        }
+        .quiz-option .opt-emoji {
+            font-size: 2.5rem;
+        }
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(0, 184, 148, 0.25);
+            box-shadow: 0 0 30px rgba(0, 184, 148, 0.2);
+        }
+        .quiz-option.wrong {
+            border-color: var(--danger);
+            background: rgba(255, 118, 117, 0.25);
+            box-shadow: 0 0 30px rgba(255, 118, 117, 0.2);
+        }
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* ===== صفحه نتیجه ===== */
+        .result-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(16px);
+        }
+        .result-overlay.show {
+            display: flex;
+            animation: screenFadeIn 0.4s ease;
+        }
+        .result-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 3px solid var(--gold);
+            border-radius: 30px;
+            padding: 35px 25px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 80px rgba(255, 201, 60, 0.15);
+            animation: celebPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes celebPop {
+            0% { transform: scale(0.5) rotate(-3deg); opacity: 0; }
+            60% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        .result-box .result-char {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 4px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+            box-shadow: 0 0 60px rgba(255, 201, 60, 0.15);
+            animation: float 3s ease-in-out infinite;
+        }
+        .result-box .result-char img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+        .result-box .result-char.glow {
+            animation: charGlow 1.5s ease-in-out infinite;
+        }
+        @keyframes charGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 201, 60, 0.2); }
+            50% { box-shadow: 0 0 70px rgba(255, 201, 60, 0.5); }
+        }
+        .result-box h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            font-family: 'Shoor Black', Tahoma, sans-serif;
+            margin-bottom: 8px;
+            text-shadow: 0 0 30px rgba(255, 201, 60, 0.2);
+        }
+        .result-box .result-message {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .result-box .result-message strong {
+            color: var(--gold);
+        }
+        .result-box .result-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ===== مدال خرید موفق ===== */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+        }
+        .celebration-overlay.show {
+            display: flex;
+        }
+        .celebration-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 3px solid var(--gold);
+            border-radius: 30px;
+            padding: 35px 25px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 80px rgba(255, 201, 60, 0.3);
+            animation: celebPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .celebration-box .celeb-char {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 4px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+            box-shadow: 0 0 60px rgba(255, 201, 60, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+        .celebration-box .celeb-char img {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+        }
+        .celebration-box .celeb-char.glow {
+            animation: charGlow 1.5s ease-in-out infinite;
+        }
+        .celebration-box h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            font-family: 'Shoor Black', Tahoma, sans-serif;
+            margin: 10px 0 8px;
+            text-shadow: 0 0 30px rgba(255, 201, 60, 0.2);
+        }
+        .celebration-box .celeb-message {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.8;
+            padding: 5px 0;
+        }
+        .celebration-box .celeb-message strong {
+            color: var(--gold);
+        }
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9001;
+            overflow: hidden;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-10px) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg) scale(0.3); opacity: 0; }
+        }
+
+        /* ===== پاسخگو ===== */
+        @media (max-width: 480px) {
+            .menu-title { font-size: 1.8rem; }
+            .menu-character { width: 120px; height: 120px; }
+            .shop-item { min-height: 150px; }
+            .shop-item .preview { width: 60px; height: 45px; }
+            .sun-drag { width: 80px; height: 80px; }
+            .tree-image { width: clamp(120px, 30vw, 180px); }
+            .tree-shadow-container img { width: clamp(130px, 32vw, 190px); }
+            .yard-hint { font-size: 0.7rem; padding: 6px 14px; top: 70px; }
+            .yard-controls .btn { font-size: 0.65rem; padding: 4px 10px; min-height: 30px; min-width: 38px; }
+            .yard-controls { padding: 6px 10px; gap: 5px; bottom: 12px; }
+            .yard-back-btn { padding: 5px 10px; font-size: 0.7rem; top: 10px; right: 70px; }
+            .clock-container { padding: 6px 10px; min-width: 60px; }
+            .clock-container .clock-face { width: 50px; height: 50px; }
+            .clock-container .clock-face .hour-hand { height: 14px; }
+            .clock-container .clock-face .minute-hand { height: 19px; }
+            .clock-container .clock-face .second-hand { height: 22px; }
+            .clock-container .digital-time { font-size: 0.8rem; }
+            .timer-container { padding: 6px 12px; }
+            .timer-container .timer-number { font-size: 1.6rem; }
+            .result-box .result-char { width: 90px; height: 90px; }
+            .celebration-box .celeb-char { width: 90px; height: 90px; }
+            .help-character { width: 90px; height: 90px; }
+        }
+        @media (max-width: 380px) {
+            .menu-title { font-size: 1.5rem; }
+            .menu-character { width: 100px; height: 100px; }
+            .shop-item { min-height: 130px; padding: 8px; }
+            .shop-item .preview { width: 50px; height: 35px; }
+            .quiz-option { padding: 10px 15px; min-width: 80px; font-size: 0.9rem; }
+            .quiz-option .opt-emoji { font-size: 2rem; }
+            .sun-drag { width: 65px; height: 65px; }
+            .tree-image { width: clamp(100px, 25vw, 140px); }
+            .tree-shadow-container img { width: clamp(110px, 28vw, 150px); }
+            .yard-hint { font-size: 0.6rem; padding: 4px 10px; top: 60px; }
+            .yard-controls .btn { font-size: 0.55rem; padding: 3px 8px; min-height: 26px; min-width: 32px; }
+            .yard-controls { padding: 4px 8px; gap: 4px; bottom: 10px; }
+            .clock-container { padding: 4px 8px; min-width: 50px; }
+            .clock-container .clock-face { width: 42px; height: 42px; }
+            .clock-container .clock-face .hour-hand { height: 12px; }
+            .clock-container .clock-face .minute-hand { height: 16px; }
+            .clock-container .clock-face .second-hand { height: 18px; }
+            .clock-container .digital-time { font-size: 0.7rem; }
+            .timer-container { padding: 4px 8px; }
+            .timer-container .timer-number { font-size: 1.2rem; }
+            .result-box .result-char { width: 70px; height: 70px; }
+            .celebration-box .celeb-char { width: 70px; height: 70px; }
+            .help-character { width: 70px; height: 70px; }
+        }
+
+        /* ===== Toast ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 90%;
+            text-align: center;
+            z-index: 9999;
+            animation: toastIn 0.4s ease;
+            border-right: 4px solid var(--gold);
+        }
+        .toast.success { border-right-color: var(--success); }
+        .toast.error { border-right-color: var(--danger); }
+        .toast.info { border-right-color: var(--secondary); }
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="stars"></div>
+
+    <!-- ===== صفحه اصلی ===== -->
+    <div id="home-page" class="screen active">
+        <div class="menu-container glass-card" id="menu-container">
+            <div class="coin-display">
+                <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                <span class="coin-amount" id="menu-coin-amount">0</span>
+            </div>
+            <h1 class="menu-title">یادگیری سایه</h1>
+            <p class="menu-subtitle">🎯 علوم پایه اول - سایه‌ها رو یاد بگیر!</p>
+            <div class="menu-character">
+                <img src="icons/gamerhi.png" alt="Pixel" onerror="this.textContent='🧒'">
+            </div>
+            <div class="menu-buttons">
+                <button class="btn btn-start" id="start-btn">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polygon points="5,3 19,12 5,21"></polygon>
+                    </svg>
+                    شروع بازی
+                </button>
+                <div class="row">
+                    <button class="btn btn-secondary" id="help-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        راهنما
+                    </button>
+                    <button class="btn btn-secondary" id="shop-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        فروشگاه
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- دکمه‌های عمل بعد از انتخاب پوسته -->
+        <div class="action-buttons" id="action-buttons">
+            <button class="btn btn-primary" id="go-to-yard-btn">
+                <span style="font-size:1.2rem;">🚶</span>
+                بریم به حیاط
+            </button>
+            <button class="btn btn-secondary" id="back-to-menu-btn">
+                <span style="font-size:1.2rem;">↩️</span>
+                بازگشت
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== صفحه کلاس ===== -->
+    <div id="class-page" class="screen">
+        <div class="class-container glass-card show" id="class-container">
+            <h2>🏫 کلاس درس</h2>
+            <div class="emoji-big">🌳</div>
+            <p>بیا بریم حیاط مدرسه!<br>اونجا سایه‌ها رو بهتر می‌فهمیم 🌞</p>
+            <button class="btn btn-primary" id="class-go-to-yard" style="margin-top:10px;">
+                <span>بریم به حیاط</span>
+                <span style="font-size:1.2rem;">🚶</span>
+            </button>
+            <button class="btn btn-secondary" id="class-back-to-menu" style="margin-top:8px;">
+                بازگشت به منو
+            </button>
+        </div>
+    </div>
+
+    <!-- ===== صفحه انتقال ===== -->
+    <div id="transition-page" class="screen">
+        <div class="transition-container glass-card">
+            <div class="big-emoji">☀️</div>
+            <div class="tree-big">🌳</div>
+            <p>در حال انتقال به حیاط...</p>
+        </div>
+    </div>
+
+    <!-- ===== صفحه حیاط - تمام صفحه ===== -->
+    <div id="yard-page" class="screen" style="padding:0;">
+        <div class="yard-container" id="yard-container">
+            <!-- دکمه بازگشت -->
+            <button class="yard-back-btn" id="yard-back">
+                <span>🏠</span> بازگشت
+            </button>
+
+            <!-- ساعت دیواری -->
+            <div class="clock-container" id="clock-container">
+                <div class="clock-face" id="clock-face">
+                    <div class="hour-mark" style="top:0%;left:50%;transform:translate(-50%,-50%);"></div>
+                    <div class="hour-mark" style="bottom:0%;left:50%;transform:translate(-50%,50%);"></div>
+                    <div class="hour-mark" style="top:50%;left:0%;transform:translate(-50%,-50%);"></div>
+                    <div class="hour-mark" style="top:50%;right:0%;transform:translate(50%,-50%);"></div>
+                    <div class="hour-mark major" style="top:0%;left:50%;transform:translate(-50%,-50%);"></div>
+                    <div class="hour-mark major" style="bottom:0%;left:50%;transform:translate(-50%,50%);"></div>
+                    <div class="hour-mark major" style="top:50%;left:0%;transform:translate(-50%,-50%);"></div>
+                    <div class="hour-mark major" style="top:50%;right:0%;transform:translate(50%,-50%);"></div>
+                    <div class="hour-hand" id="hour-hand"></div>
+                    <div class="minute-hand" id="minute-hand"></div>
+                    <div class="second-hand" id="second-hand"></div>
+                    <div class="center-dot"></div>
+                </div>
+                <div class="digital-time" id="digital-time">12:00</div>
+                <div class="time-label">⏰ زمان</div>
+            </div>
+
+            <!-- تایمر 70 ثانیه -->
+            <div class="timer-container" id="timer-container">
+                <div class="timer-number" id="timer-number">70</div>
+                <div class="timer-label">⏱️ ثانیه</div>
+            </div>
+
+            <!-- هشدار -->
+            <div class="yard-hint" id="yard-hint">☀️ خورشید رو بکش و جابجا کن!</div>
+
+            <!-- خورشید -->
+            <div class="sun-drag" id="sun-drag">
+                <img src="icons/sun.jpg" alt="خورشید" onerror="this.textContent='☀️'">
+            </div>
+
+            <!-- درخت و سایه -->
+            <div class="tree-wrapper">
+                <img src="icons/tree.png" alt="درخت" class="tree-image" id="tree-image" onerror="this.style.display='none';">
+
+                <!-- سایه درخت -->
+                <div class="tree-shadow-container" id="tree-shadow-container">
+                    <img src="icons/saye yard.png" alt="سایه درخت" id="shadow-image" onerror="this.style.display='none';">
+                </div>
+            </div>
+
+            <!-- دکمه‌های کنترل -->
+            <div class="yard-controls">
+                <button class="btn btn-secondary" id="sun-left" style="min-width:45px;">⬅️</button>
+                <button class="btn btn-secondary" id="sun-center" style="min-width:45px;">⬆️</button>
+                <button class="btn btn-secondary" id="sun-right" style="min-width:45px;">➡️</button>
+                <button class="btn btn-secondary" id="reset-yard-btn" style="min-width:45px;">🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== صفحه سوال ===== -->
+    <div id="quiz-page" class="screen">
+        <div class="quiz-container glass-card" id="quiz-container">
+            <h2 id="quiz-title">❓ سوال</h2>
+            <p class="question" id="question-text">وقتی خورشید حرکت می‌کند، چه چیزی تغییر می‌کند؟</p>
+            <div class="quiz-options" id="quiz-options">
+                <button class="quiz-option" data-answer="shadow">
+                    <span class="opt-emoji">👤</span>
+                    <span>سایه</span>
+                </button>
+                <button class="quiz-option" data-answer="tree">
+                    <span class="opt-emoji">🌳</span>
+                    <span>درخت</span>
+                </button>
+            </div>
+            <button class="btn btn-secondary" onclick="showPage('home-page')" style="margin-top:12px;">بازگشت</button>
+        </div>
+    </div>
+
+    <!-- ===== صفحه راهنما - با gamer.png ===== -->
+    <div id="help-page" class="screen">
+        <div class="help-container glass-card">
+            <h2>❓ راهنمای بازی</h2>
+            <div class="help-character">
+                <img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🧒'">
+            </div>
+            <div class="help-steps">
+                <div class="step"><span class="num">۱</span><span class="text">به کلاس برو 🏫</span></div>
+                <div class="step"><span class="num">۲</span><span class="text">به حیاط برو 🌳</span></div>
+                <div class="step"><span class="num">۳</span><span class="text">خورشید رو جابجا کن ☀️</span></div>
+                <div class="step"><span class="num">۴</span><span class="text">سایه رو مشاهده کن 🔍</span></div>
+                <div class="step"><span class="num">۵</span><span class="text">به سوال جواب بده ❓</span></div>
+            </div>
+            <button class="btn btn-secondary" onclick="showPage('home-page')">بازگشت</button>
+        </div>
+    </div>
+
+    <!-- ===== فروشگاه ===== -->
+    <div id="shop-page" class="screen">
+        <div class="shop-container glass-card">
+            <div class="shop-header">
+                <button class="back-btn" onclick="showPage('home-page')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <h2>🛍️ فروشگاه</h2>
+                <div class="shop-coin">
+                    <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                    <span id="shop-coin-amount">0</span>
+                </div>
+            </div>
+            <div class="shop-tabs">
+                <button class="shop-tab active" data-tab="schools" onclick="switchShopTab('schools', this)">🏫 مدرسه</button>
+            </div>
+            <div class="shop-grid" id="shop-grid"></div>
+        </div>
+    </div>
+
+    <!-- ===== صفحه نتیجه ===== -->
+    <div class="result-overlay" id="result-overlay">
+        <div class="result-box" id="result-box">
+            <div class="result-char" id="result-char">
+                <img src="icons/happy gamer.png" alt="نتیجه" id="result-img" onerror="this.textContent='🎉'">
+            </div>
+            <h2 id="result-title">🎉 آفرین!</h2>
+            <div class="result-message" id="result-message">
+                <strong>جواب درست بود!</strong><br>
+                خیلی خوبه که سایه رو یاد گرفتی! 😍
+            </div>
+            <div class="result-buttons" id="result-buttons">
+                <button class="btn btn-primary" id="result-next-btn">مرحله بعد</button>
+                <button class="btn btn-secondary" id="result-home-btn">🏠 صفحه اصلی</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== مدال خرید موفق ===== -->
+    <div class="celebration-overlay" id="celebration-overlay">
+        <div class="confetti-container" id="confetti-container"></div>
+        <div class="celebration-box">
+            <div class="celeb-char glow">
+                <img src="icons/happy gamer.png" alt="Happy" onerror="this.textContent='🎉'">
+            </div>
+            <h2>🎉 آفرین!</h2>
+            <div class="celeb-message" id="celeb-message">
+                <strong>پوسته جدید خریداری شد!</strong><br>
+                حالا مدرسه‌ات با استایل جدید<br>
+                قشنگ‌تر از همیشه شده! 😍
+            </div>
+            <button class="btn btn-gold" onclick="closeCelebration()">🚀 بزن بریم!</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // ===== سیستم آهنگ‌های پس‌زمینه جهانی =====
+        // ============================================
+        
+        const THEME_SONGS = {
+            'mamooli': 'Piano (1).mp3',
+            'fazayi': 'space.mp3',
+            'dainasori': 'dinasor.mp3',
+            'jangaly': 'forest.mp3',
+            'darya': 'snowy.mp3',
+            'minecraft': 'minecraft.mp3',
+            'abnabati': 'Abnabat.mp3',
+            'modern': 'jadooyi forest.mp3'
+        };
+
+        let globalAudio = null;
+        let currentSongTheme = null;
+        let isAudioPlaying = false;
+
+        function playGlobalAudio(themeId) {
+            const songFile = THEME_SONGS[themeId];
+            if (!songFile) return;
+            
+            if (currentSongTheme !== themeId || !isAudioPlaying || !globalAudio) {
+                if (globalAudio) {
+                    globalAudio.pause();
+                    globalAudio.currentTime = 0;
+                    globalAudio = null;
+                }
+                try {
+                    globalAudio = new Audio(`musics/${songFile}`);
+                    globalAudio.loop = true;
+                    globalAudio.volume = 0.3;
+                    globalAudio.play().catch(() => {});
+                    isAudioPlaying = true;
+                    currentSongTheme = themeId;
+                } catch(e) {}
+            }
+        }
+
+        function pauseGlobalAudio() {
+            if (globalAudio) {
+                globalAudio.volume = 0.15;
+            }
+        }
+
+        function resumeGlobalAudio() {
+            if (globalAudio) {
+                globalAudio.volume = 0.3;
+                if (globalAudio.paused) {
+                    globalAudio.play().catch(() => {});
+                    isAudioPlaying = true;
+                }
+            }
+        }
+
+        // ============================================
+        // ===== ستاره‌ها =====
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = (Math.random() * 2 + 1) + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = (Math.random() * 3) + 's';
+                star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
+        // ===== نمایش صفحه =====
+        function showPage(pageId) {
+            document.querySelectorAll('.screen').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            if (pageId === 'home-page' || pageId === 'shop-page' || pageId === 'help-page') {
+                resumeGlobalAudio();
+            }
+            if (pageId === 'yard-page') {
+                resumeGlobalAudio();
+            }
+        }
+
+        // ===== داده‌های پوسته‌ها =====
+        const SCHOOL_THEMES = [
+            { id: 'mamooli', name: 'پیش‌فرض', image: 'icons/m mamooli.jpg', price: 0, emoji: '🏫' },
+            { id: 'fazayi', name: 'فضایی', image: 'icons/m fazayi.jpg', price: 12, emoji: '🚀' },
+            { id: 'dainasori', name: 'دایناسوری', image: 'icons/m dainasori.jpg', price: 12, emoji: '🦕' },
+            { id: 'jangaly', name: 'جنگلی', image: 'icons/m jangaly.jpg', price: 12, emoji: '🌿' },
+            { id: 'darya', name: 'زیر دریایی', image: 'icons/m darya.jpg', price: 12, emoji: '🌊' },
+            { id: 'minecraft', name: 'ماین‌کرافتی', image: 'icons/m minecragti.jpg', price: 14, emoji: '🧱' },
+            { id: 'abnabati', name: 'آبنباتی', image: 'icons/m abnabati.jpg', price: 10, emoji: '🍭' },
+            { id: 'modern', name: 'فوق مدرن', image: 'icons/m modern.jpg', price: 15, emoji: '🔴' }
+        ];
+
+        // ===== سوالات =====
+        const QUIZ_QUESTIONS = [
+            {
+                question: 'وقتی خورشید حرکت می‌کند، چه چیزی تغییر می‌کند؟',
+                options: [
+                    { answer: 'shadow', label: 'سایه', emoji: '👤' },
+                    { answer: 'tree', label: 'درخت', emoji: '🌳' }
+                ],
+                correct: 'shadow'
+            },
+            {
+                question: 'وقتی خورشید رو حرکت دادی، جای درخت تغییر کرد یا سایه درخت؟',
+                options: [
+                    { answer: 'shadow', label: 'سایه', emoji: '👤' },
+                    { answer: 'tree', label: 'درخت', emoji: '🌳' }
+                ],
+                correct: 'shadow'
+            },
+            {
+                question: 'برای اینکه سایه کوتاه‌تر بشه، خورشید باید کجا باشه؟',
+                options: [
+                    { answer: 'up', label: 'بالا', emoji: '⬆️' },
+                    { answer: 'down', label: 'پایین', emoji: '⬇️' }
+                ],
+                correct: 'up'
+            },
+            {
+                question: 'سایه از چی درست میشه؟',
+                options: [
+                    { answer: 'light', label: 'نور', emoji: '💡' },
+                    { answer: 'air', label: 'باد', emoji: '💨' }
+                ],
+                correct: 'light'
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let timerInterval = null;
+        let timerValue = 70;
+        let gameStarted = false;
+
+        // ===== وضعیت بازی =====
+        let GameState = {
+            coins: 0,
+            ownedThemes: ['mamooli'],
+            activeTheme: 'mamooli',
+            stats: { games: 0, correct: 0, wrong: 0, learned: 0 },
+            sunPosition: 1,
+            isDragging: false
+        };
+
+        // ===== بارگذاری اطلاعات =====
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('shadowGameData');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    GameState.coins = data.coins || 0;
+                    GameState.ownedThemes = data.ownedThemes || ['mamooli'];
+                    GameState.activeTheme = data.activeTheme || 'mamooli';
+                    GameState.stats = data.stats || { games: 0, correct: 0, wrong: 0, learned: 0 };
+                }
+            } catch(e) {}
+            updateCoinDisplay();
+            applyTheme(GameState.activeTheme);
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem('shadowGameData', JSON.stringify({
+                    coins: GameState.coins,
+                    ownedThemes: GameState.ownedThemes,
+                    activeTheme: GameState.activeTheme,
+                    stats: GameState.stats
+                }));
+            } catch(e) {}
+        }
+
+        // ===== اعمال تم =====
+        function applyTheme(themeId) {
+            const theme = SCHOOL_THEMES.find(t => t.id === themeId);
+            if (!theme) return;
+
+            document.body.className = document.body.className
+                .split(' ')
+                .filter(c => !c.startsWith('theme-'))
+                .join(' ');
+            
+            document.body.classList.add(`theme-${themeId}`);
+            
+            if (themeId === 'mamooli') {
+                document.body.classList.remove('has-bg');
+                document.body.style.backgroundImage = 'none';
+            } else {
+                document.body.classList.add('has-bg');
+                document.body.style.backgroundImage = `url('${theme.image}')`;
+            }
+            
+            GameState.activeTheme = themeId;
+            saveData();
+            renderShop();
+            playGlobalAudio(themeId);
+        }
+
+        // ===== خرید پوسته =====
+        function buyTheme(themeId) {
+            const theme = SCHOOL_THEMES.find(t => t.id === themeId);
+            if (!theme) return;
+            
+            if (GameState.ownedThemes.includes(themeId)) {
+                showToast('این پوسته رو قبلاً خریدی!', 'warning');
+                return;
+            }
+            
+            if (GameState.coins < theme.price) {
+                showToast('سکه کافی نداری! 😢', 'error');
+                return;
+            }
+            
+            GameState.coins -= theme.price;
+            GameState.ownedThemes.push(themeId);
+            GameState.activeTheme = themeId;
+            
+            updateCoinDisplay();
+            renderShop();
+            applyTheme(themeId);
+            saveData();
+            
+            showCelebration(theme.name);
+            showToast('✅ پوسته "' + theme.name + '" خریداری و فعال شد!', 'success');
+        }
+
+        // ===== انتخاب پوسته =====
+        function selectTheme(themeId) {
+            if (!GameState.ownedThemes.includes(themeId)) {
+                showToast('این پوسته رو نداری! اول بخر!', 'error');
+                return;
+            }
+            GameState.activeTheme = themeId;
+            applyTheme(themeId);
+            renderShop();
+            showToast('✅ پوسته "' + SCHOOL_THEMES.find(t => t.id === themeId).name + '" فعال شد!', 'success');
+        }
+
+        // ===== رندر فروشگاه =====
+        function renderShop() {
+            const grid = document.getElementById('shop-grid');
+            grid.innerHTML = '';
+            
+            SCHOOL_THEMES.forEach(theme => {
+                const isOwned = GameState.ownedThemes.includes(theme.id);
+                const isActive = GameState.activeTheme === theme.id;
+                
+                const item = document.createElement('div');
+                item.className = `shop-item ${isActive ? 'active-item' : ''} ${!isOwned && theme.price > 0 ? 'locked-item' : ''}`;
+                
+                let btnHtml = '';
+                if (isActive) {
+                    btnHtml = `<button class="shop-btn-sm active">✓ فعال</button>`;
+                } else if (isOwned) {
+                    btnHtml = `<button class="shop-btn-sm select" onclick="selectTheme('${theme.id}')">انتخاب</button>`;
+                } else {
+                    const canAfford = GameState.coins >= theme.price;
+                    btnHtml = `<button class="shop-btn-sm ${canAfford ? 'buy' : 'locked'}" ${canAfford ? `onclick="buyTheme('${theme.id}')"` : 'disabled'}>${canAfford ? '🛒 خرید' : '🔒 قفل'}</button>`;
+                }
+                
+                const imgSrc = theme.image;
+                item.innerHTML = `
+                    <div class="preview">
+                        <img src="${imgSrc}" alt="${theme.name}" onerror="this.innerHTML='<span class=\\'emoji-only\\'>${theme.emoji}</span>'">
+                    </div>
+                    <div class="name">${theme.emoji} ${theme.name}</div>
+                    <div class="price">
+                        ${theme.price > 0 ? `<img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${theme.price}` : 'رایگان'}
+                    </div>
+                    ${btnHtml}
+                `;
+                grid.appendChild(item);
+            });
+        }
+
+        // ===== نمایش جشن خرید =====
+        function showCelebration(name) {
+            const overlay = document.getElementById('celebration-overlay');
+            const message = document.getElementById('celeb-message');
+            
+            const msgs = [
+                '🎊 <strong>چه خرید قشنگی!</strong><br>پوسته <strong>' + name + '</strong> رو خریدی!<br>مدرسه‌ات خیلی شیک شد! 😍',
+                '🤩 <strong>وای وای!</strong><br>پوسته <strong>' + name + '</strong> رو خریدی!<br>چه انتخاب خوبی کردی! 👏',
+                '🌟 <strong>تبریک قهرمان!</strong><br>حالا با پوسته <strong>' + name + '</strong><br>بازی کردن قشنگ‌تر شده! 🚀'
+            ];
+            message.innerHTML = msgs[Math.floor(Math.random() * msgs.length)];
+            
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            const colors = ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#9B59B6', '#FF6BB5', '#FFB347', '#00D2FF'];
+            for (let i = 0; i < 50; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.left = Math.random() * 100 + '%';
+                c.style.top = '-10px';
+                c.style.width = (Math.random() * 8 + 4) + 'px';
+                c.style.height = (Math.random() * 8 + 4) + 'px';
+                c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                c.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                c.style.animationDelay = (Math.random() * 1.5) + 's';
+                container.appendChild(c);
+            }
+            
+            overlay.classList.add('show');
+            setTimeout(() => {
+                setTimeout(() => { container.innerHTML = ''; }, 3000);
+            }, 100);
+        }
+
+        function closeCelebration() {
+            document.getElementById('celebration-overlay').classList.remove('show');
+            document.getElementById('confetti-container').innerHTML = '';
+            resumeGlobalAudio();
+        }
+
+        // ===== تغییر تب فروشگاه =====
+        function switchShopTab(tab, btn) {
+            document.querySelectorAll('.shop-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            renderShop();
+        }
+
+        // ===== نمایش پیام =====
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            if (type === 'success') toast.classList.add('success');
+            else if (type === 'error') toast.classList.add('error');
+            else if (type === 'info') toast.classList.add('info');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 2500);
+        }
+
+        function updateCoinDisplay() {
+            document.getElementById('menu-coin-amount').textContent = GameState.coins;
+            document.getElementById('shop-coin-amount').textContent = GameState.coins;
+        }
+
+        // ============================================
+        // ===== تنظیم ساعت بر اساس موقعیت خورشید =====
+        // ============================================
+
+        function updateClock(position) {
+            const hourHand = document.getElementById('hour-hand');
+            const minuteHand = document.getElementById('minute-hand');
+            const secondHand = document.getElementById('second-hand');
+            const digitalTime = document.getElementById('digital-time');
+            
+            let hours, minutes, seconds;
+            
+            switch(position) {
+                case 0:
+                    hours = 6; minutes = 0; seconds = 0;
+                    break;
+                case 1:
+                    hours = 12; minutes = 0; seconds = 0;
+                    break;
+                case 2:
+                    hours = 18; minutes = 0; seconds = 0;
+                    break;
+                default:
+                    hours = 12; minutes = 0; seconds = 0;
+            }
+            
+            const hourAngle = (hours % 12) * 30 + minutes * 0.5;
+            const minuteAngle = minutes * 6;
+            const secondAngle = seconds * 6;
+            
+            hourHand.style.transform = `rotate(${hourAngle}deg)`;
+            minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
+            secondHand.style.transform = `rotate(${secondAngle}deg)`;
+            
+            let displayHour = hours % 12;
+            if (displayHour === 0) displayHour = 12;
+            const displayMinute = minutes.toString().padStart(2, '0');
+            const period = hours >= 12 ? 'بعد از ظهر' : 'قبل از ظهر';
+            digitalTime.textContent = `${displayHour}:${displayMinute} ${period}`;
+        }
+
+        // ============================================
+        // ===== کنترل‌های حیاط =====
+        // ============================================
+
+        function updateShadow(position) {
+            const container = document.getElementById('tree-shadow-container');
+            const shadowImg = document.getElementById('shadow-image');
+            
+            let offsetX;
+            
+            switch(position) {
+                case 0:
+                    offsetX = 55;
+                    break;
+                case 1:
+                    offsetX = 0;
+                    break;
+                case 2:
+                    offsetX = -55;
+                    break;
+                default:
+                    offsetX = 0;
+            }
+            
+            container.style.transform = 'translateX(' + offsetX + 'px) translateY(60px)';
+            shadowImg.style.opacity = 0.8;
+            
+            updateClock(position);
+        }
+
+        function updateSunPosition(position) {
+            const sun = document.getElementById('sun-drag');
+            
+            let left;
+            let timeLabel;
+            
+            switch(position) {
+                case 0:
+                    left = 15;
+                    timeLabel = '🌅 صبح';
+                    break;
+                case 1:
+                    left = 50;
+                    timeLabel = '☀️ ظهر';
+                    break;
+                case 2:
+                    left = 85;
+                    timeLabel = '🌇 عصر';
+                    break;
+                default:
+                    left = 50;
+                    timeLabel = '☀️ ظهر';
+            }
+            
+            sun.style.left = left + '%';
+            sun.style.top = '10%';
+            sun.style.transform = 'translate(-50%, -50%)';
+            
+            GameState.sunPosition = position;
+            updateShadow(position);
+            
+            const hint = document.getElementById('yard-hint');
+            if (hint) {
+                hint.style.opacity = '0.3';
+                hint.textContent = '☀️ ' + timeLabel + ' - سایه رو ببین!';
+            }
+            
+            updateClock(position);
+        }
+
+        function initYard() {
+            GameState.sunPosition = 1;
+            updateSunPosition(1);
+            updateClock(1);
+            
+            const hint = document.getElementById('yard-hint');
+            if (hint) {
+                hint.style.opacity = '1';
+                hint.textContent = '☀️ خورشید رو بکش و جابجا کن!';
+            }
+        }
+
+        // ===== تایمر 70 ثانیه =====
+        function startTimer() {
+            const timerElement = document.getElementById('timer-number');
+            timerValue = 70;
+            timerElement.textContent = timerValue;
+            
+            const sun = document.getElementById('sun-drag');
+            sun.classList.remove('disabled');
+            
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            timerInterval = setInterval(() => {
+                timerValue--;
+                timerElement.textContent = timerValue;
+                
+                if (timerValue <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    sun.classList.add('disabled');
+                    startQuiz();
+                }
+            }, 1000);
+        }
+
+        // ===== سوال =====
+        function startQuiz() {
+            pauseGlobalAudio();
+            showPage('quiz-page');
+            currentQuizIndex = 0;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = QUIZ_QUESTIONS[currentQuizIndex];
+            document.getElementById('quiz-title').textContent = `❓ سوال ${currentQuizIndex + 1} از ${QUIZ_QUESTIONS.length}`;
+            document.getElementById('question-text').textContent = q.question;
+            
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+            
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.dataset.answer = opt.answer;
+                btn.innerHTML = `<span class="opt-emoji">${opt.emoji}</span><span>${opt.label}</span>`;
+                btn.addEventListener('click', () => handleQuizAnswer(opt.answer));
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleQuizAnswer(answer) {
+            const q = QUIZ_QUESTIONS[currentQuizIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => {
+                opt.classList.add('disabled');
+                if (opt.dataset.answer === q.correct) {
+                    opt.classList.add('correct');
+                }
+                if (opt.dataset.answer === answer && answer !== q.correct) {
+                    opt.classList.add('wrong');
+                }
+            });
+            
+            const isCorrect = answer === q.correct;
+            
+            setTimeout(() => {
+                showResult(isCorrect);
+            }, 800);
+        }
+
+        // ===== نمایش نتیجه با سیستم جایزه هوشمند =====
+        function showResult(isCorrect) {
+            const overlay = document.getElementById('result-overlay');
+            const char = document.getElementById('result-char');
+            const img = document.getElementById('result-img');
+            const title = document.getElementById('result-title');
+            const message = document.getElementById('result-message');
+            const nextBtn = document.getElementById('result-next-btn');
+            const homeBtn = document.getElementById('result-home-btn');
+            
+            if (isCorrect) {
+                // ===== سیستم جایزه بر اساس سکه‌های فعلی =====
+                const currentCoins = GameState.coins;
+                let reward = 0;
+                if (currentCoins === 0) {
+                    reward = 10;  // اگر سکه 0 بود، 10 سکه جایزه بده
+                } else {
+                    reward = 1;   // اگر سکه بیشتر از 0 بود، 1 سکه جایزه بده
+                }
+                GameState.coins += reward;
+                updateCoinDisplay();
+                saveData();
+                
+                img.src = 'icons/happy gamer.png';
+                char.classList.add('glow');
+                title.textContent = '🎉 آفرین!';
+                message.innerHTML = `<strong>جواب درست بود!</strong><br>✨ ${reward} سکه گرفتی!<br>خیلی خوبه که سایه رو یاد گرفتی! 😍`;
+                nextBtn.textContent = 'مرحله بعد';
+                nextBtn.style.display = 'block';
+                
+                GameState.stats.correct++;
+                GameState.stats.learned++;
+                
+                showToast(`✅ ${reward} سکه گرفتی!`, 'success');
+                createConfetti();
+            } else {
+                img.src = 'icons/sad gamer.png';
+                char.classList.remove('glow');
+                title.textContent = '💪 تلاش کن!';
+                message.innerHTML = '<strong>جواب درست نبود!</strong><br>دوباره امتحان کن، می‌تونی! 🧒';
+                nextBtn.textContent = '🔄 تلاش دوباره';
+                
+                GameState.stats.wrong++;
+                saveData();
+            }
+            
+            overlay.classList.add('show');
+            
+            nextBtn.onclick = () => {
+                overlay.classList.remove('show');
+                resumeGlobalAudio();
+                if (isCorrect) {
+                    currentQuizIndex++;
+                    if (currentQuizIndex < QUIZ_QUESTIONS.length) {
+                        showQuestion();
+                    } else {
+                        showPage('home-page');
+                        showToast('🎉 همه سوالات رو با موفقیت پاسخ دادی!', 'success');
+                    }
+                } else {
+                    showQuestion();
+                }
+            };
+            
+            homeBtn.onclick = () => {
+                overlay.classList.remove('show');
+                resumeGlobalAudio();
+                showPage('home-page');
+            };
+        }
+
+        // ===== کانفتی =====
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            const colors = ['#FF6B6B', '#FFD93D', '#6BCB77', '#4D96FF', '#9B59B6', '#FF6BB5', '#FFB347', '#00D2FF'];
+            for (let i = 0; i < 40; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.left = Math.random() * 100 + '%';
+                c.style.top = '-10px';
+                c.style.width = (Math.random() * 8 + 4) + 'px';
+                c.style.height = (Math.random() * 8 + 4) + 'px';
+                c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                c.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                c.style.animationDelay = (Math.random() * 1.5) + 's';
+                container.appendChild(c);
+            }
+            setTimeout(() => { container.innerHTML = ''; }, 3500);
+        }
+
+        // ===== درگ خورشید =====
+        function initSunDrag() {
+            const sun = document.getElementById('sun-drag');
+            const container = document.getElementById('yard-container');
+            let isDragging = false;
+            let startX, startY, startLeft, startTop;
+            let rafId = null;
+            
+            function onStart(e) {
+                if (sun.classList.contains('disabled')) return;
+                e.preventDefault();
+                e.stopPropagation();
+                isDragging = true;
+                GameState.isDragging = true;
+                
+                const touch = e.touches ? e.touches[0] : e;
+                const rect = container.getBoundingClientRect();
+                
+                startX = touch.clientX;
+                startY = touch.clientY;
+                startLeft = parseFloat(sun.style.left) || 50;
+                startTop = parseFloat(sun.style.top) || 10;
+                
+                sun.style.cursor = 'grabbing';
+                sun.style.transition = 'none';
+                sun.style.transform = 'translate(-50%, -50%) scale(1.15)';
+            }
+            
+            function onMove(e) {
+                if (!isDragging || sun.classList.contains('disabled')) return;
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (rafId) {
+                    cancelAnimationFrame(rafId);
+                }
+                
+                rafId = requestAnimationFrame(() => {
+                    const touch = e.touches ? e.touches[0] : e;
+                    const rect = container.getBoundingClientRect();
+                    
+                    let deltaX = (touch.clientX - startX) / rect.width * 100;
+                    let deltaY = (touch.clientY - startY) / rect.height * 100;
+                    
+                    let newLeft = Math.min(Math.max(startLeft + deltaX, 3), 97);
+                    let newTop = Math.min(Math.max(startTop + deltaY, 3), 35);
+                    
+                    sun.style.left = newLeft + '%';
+                    sun.style.top = newTop + '%';
+                    sun.style.transform = 'translate(-50%, -50%) scale(1.15)';
+                    
+                    let position;
+                    if (newLeft < 35) position = 0;
+                    else if (newLeft > 65) position = 2;
+                    else position = 1;
+                    
+                    GameState.sunPosition = position;
+                    updateShadow(position);
+                    
+                    const hint = document.getElementById('yard-hint');
+                    if (hint) {
+                        hint.style.opacity = '0.3';
+                        hint.textContent = '☀️ عالی! سایه رو ببین!';
+                    }
+                    
+                    rafId = null;
+                });
+            }
+            
+            function onEnd(e) {
+                if (isDragging) {
+                    isDragging = false;
+                    GameState.isDragging = false;
+                    sun.style.cursor = 'grab';
+                    sun.style.transition = 'all 0.3s ease';
+                    sun.style.transform = 'translate(-50%, -50%) scale(1)';
+                    
+                    if (rafId) {
+                        cancelAnimationFrame(rafId);
+                        rafId = null;
+                    }
+                    
+                    GameState.stats.games++;
+                    saveData();
+                }
+            }
+            
+            sun.removeEventListener('mousedown', onStart);
+            sun.removeEventListener('touchstart', onStart);
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onEnd);
+            document.removeEventListener('touchmove', onMove);
+            document.removeEventListener('touchend', onEnd);
+            
+            sun.addEventListener('mousedown', onStart);
+            sun.addEventListener('touchstart', onStart, { passive: false });
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onEnd);
+            document.addEventListener('touchmove', onMove, { passive: false });
+            document.addEventListener('touchend', onEnd);
+        }
+
+        // ===== رفتن به حیاط =====
+        function goToYard() {
+            showPage('transition-page');
+            setTimeout(() => {
+                showPage('yard-page');
+                setTimeout(() => {
+                    initYard();
+                    initSunDrag();
+                    startTimer();
+                    gameStarted = true;
+                    resumeGlobalAudio();
+                }, 300);
+            }, 1500);
+        }
+
+        // ===== شروع بازی =====
+        function startGame() {
+            document.getElementById('menu-container').classList.add('hidden');
+            document.getElementById('action-buttons').classList.add('show');
+        }
+
+        function backToMenu() {
+            document.getElementById('menu-container').classList.remove('hidden');
+            document.getElementById('action-buttons').classList.remove('show');
+            resumeGlobalAudio();
+        }
+
+        // ===== رویدادها =====
+        document.addEventListener('DOMContentLoaded', () => {
+            GameState.coins = 0;
+            GameState.activeTheme = 'mamooli';
+            if (!GameState.ownedThemes.includes('mamooli')) {
+                GameState.ownedThemes.unshift('mamooli');
+            }
+            loadData();
+            applyTheme(GameState.activeTheme);
+            renderShop();
+            
+            document.getElementById('start-btn').addEventListener('click', startGame);
+            document.getElementById('help-btn').addEventListener('click', () => {
+                showPage('help-page');
+                resumeGlobalAudio();
+            });
+            document.getElementById('shop-btn').addEventListener('click', () => {
+                renderShop();
+                showPage('shop-page');
+                resumeGlobalAudio();
+            });
+            
+            document.getElementById('go-to-yard-btn').addEventListener('click', goToYard);
+            document.getElementById('back-to-menu-btn').addEventListener('click', backToMenu);
+            
+            document.getElementById('class-go-to-yard').addEventListener('click', goToYard);
+            document.getElementById('class-back-to-menu').addEventListener('click', () => {
+                backToMenu();
+                showPage('home-page');
+                resumeGlobalAudio();
+            });
+            
+            document.getElementById('yard-back').addEventListener('click', () => {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                }
+                showPage('home-page');
+                resumeGlobalAudio();
+            });
+            
+            document.getElementById('sun-left').addEventListener('click', () => {
+                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
+                    updateSunPosition(0);
+                    showToast('🌅 صبح - ساعت 6', 'info');
+                }
+            });
+            document.getElementById('sun-center').addEventListener('click', () => {
+                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
+                    updateSunPosition(1);
+                    showToast('☀️ ظهر - ساعت 12', 'info');
+                }
+            });
+            document.getElementById('sun-right').addEventListener('click', () => {
+                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
+                    updateSunPosition(2);
+                    showToast('🌇 عصر - ساعت 18', 'info');
+                }
+            });
+            document.getElementById('reset-yard-btn').addEventListener('click', () => {
+                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
+                    updateSunPosition(1);
+                    const hint = document.getElementById('yard-hint');
+                    if (hint) {
+                        hint.style.opacity = '1';
+                        hint.textContent = '☀️ خورشید رو بکش و جابجا کن!';
+                    }
+                    showToast('🔄 ریست شد!', 'info');
+                }
+            });
+        });
+
+        // ===== توابع global =====
+        window.buyTheme = buyTheme;
+        window.selectTheme = selectTheme;
+        window.switchShopTab = switchShopTab;
+        window.showPage = showPage;
+        window.closeCelebration = closeCelebration;
+        window.goToYard = goToYard;
+        window.updateSunPosition = updateSunPosition;
+        window.updateShadow = updateShadow;
+        window.updateClock = updateClock;
+    </script>
+</body>
+</html>

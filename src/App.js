@@ -1,52 +1,72 @@
 import React, { useState } from 'react';
 
 function App() {
-  // ======== لیست بازی‌ها (نسخه جدید - ۲۷ بازی) ========
+  // ======== لیست بازی‌ها (نسخه جدید - ۳۴ بازی) ========
   const gamesData = [
-    // ===== ghoran (قرآن) =====
-    { id: 1, lesson: 'ghoran', chapter: 1, gameNum: 1, file: 'ghoran_p1_f1_g1.html' },
-    { id: 2, lesson: 'ghoran', chapter: 1, gameNum: 2, file: 'ghoran_p1_f1_g2.html' },
-    { id: 3, lesson: 'ghoran', chapter: 1, gameNum: 3, file: 'ghoran_p1_f1_g3.html' },
-    { id: 4, lesson: 'ghoran', chapter: 1, gameNum: 4, file: 'ghoran_p1_f1_g4.html' }, // جدید
+    // ===== ghoran (قرآن) - پایه ۱ =====
+    { id: 1, base: 1, lesson: 'ghoran', chapter: 1, gameNum: 1, file: 'ghoran_p1_f1_g1.html' },
+    { id: 2, base: 1, lesson: 'ghoran', chapter: 1, gameNum: 2, file: 'ghoran_p1_f1_g2.html' },
+    { id: 3, base: 1, lesson: 'ghoran', chapter: 1, gameNum: 3, file: 'ghoran_p1_f1_g3.html' },
+    { id: 4, base: 1, lesson: 'ghoran', chapter: 1, gameNum: 4, file: 'ghoran_p1_f1_g4.html' },
 
-    // ===== negaresh (نگارش) =====
-    { id: 5, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p1_f1_g1.html' },
-    { id: 6, lesson: 'negaresh', chapter: 1, gameNum: 2, file: 'negaresh_p1_f1_g2.html' },
-    { id: 7, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p1_f1_g3.html' },
-    { id: 8, lesson: 'negaresh', chapter: 1, gameNum: 4, file: 'negaresh_p1_f1_g4.html' }, // جدید
-    { id: 9, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
+    // ===== negaresh (نگارش) - پایه ۱ =====
+    // فصل ۱ (۵ بازی)
+    { id: 5, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p1_f1_g1.html' },
+    { id: 6, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 2, file: 'negaresh_p1_f1_g2.html' },
+    { id: 7, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p1_f1_g3.html' },
+    { id: 8, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 4, file: 'negaresh_p1_f1_g4.html' },
+    { id: 9, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 5, file: 'negaresh_p1_f1_g5.html' }, // جدید
+    // فصل ۲ (۲ بازی)
+    { id: 10, base: 1, lesson: 'negaresh', chapter: 2, gameNum: 1, file: 'negaresh_p1_f2_g1.html' }, // جدید
+    { id: 11, base: 1, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
 
-    // ===== riyazi (ریاضی) =====
+    // ===== negaresh (نگارش) - پایه ۴ =====
+    { id: 12, base: 4, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p4_f1_g1.html' }, // جدید
+
+    // ===== riyazi (ریاضی) - پایه ۱ =====
     // فصل ۱ (۱۰ بازی)
     ...Array.from({ length: 10 }, (_, i) => ({
-      id: 10 + i,
+      id: 13 + i,
+      base: 1,
       lesson: 'riyazi',
       chapter: 1,
       gameNum: i + 1,
       file: `riyazi_p1_f1_g${i + 1}.html`,
     })),
-    // فصل ۲ (۳ بازی) - سومی جدید
-    { id: 20, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
-    { id: 21, lesson: 'riyazi', chapter: 2, gameNum: 2, file: 'riyazi_p1_f2_g2.html' },
-    { id: 22, lesson: 'riyazi', chapter: 2, gameNum: 3, file: 'riyazi_p1_f2_g3.html' }, // جدید
-    // فصل ۳ (جدید)
-    { id: 23, lesson: 'riyazi', chapter: 3, gameNum: 1, file: 'riyazi_p1_f3_g1.html' }, // جدید
-    // فصل ۶ (اکنون ۲ بازی) - g1 جدید است
-    { id: 24, lesson: 'riyazi', chapter: 6, gameNum: 1, file: 'riyazi_p1_f6_g1.html' }, // جدید
-    { id: 25, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
+    // فصل ۲ (۳ بازی)
+    { id: 23, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
+    { id: 24, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 2, file: 'riyazi_p1_f2_g2.html' },
+    { id: 25, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 3, file: 'riyazi_p1_f2_g3.html' },
+    // فصل ۳
+    { id: 26, base: 1, lesson: 'riyazi', chapter: 3, gameNum: 1, file: 'riyazi_p1_f3_g1.html' },
+    // فصل ۶ (۲ بازی)
+    { id: 27, base: 1, lesson: 'riyazi', chapter: 6, gameNum: 1, file: 'riyazi_p1_f6_g1.html' },
+    { id: 28, base: 1, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
+    // فصل ۸ (جدید)
+    { id: 29, base: 1, lesson: 'riyazi', chapter: 8, gameNum: 1, file: 'riyazi_p1_f8_g1.html' },
     // فصل ۱۱
-    { id: 26, lesson: 'riyazi', chapter: 11, gameNum: 1, file: 'riyazi_p1_f11_g1.html' },
+    { id: 30, base: 1, lesson: 'riyazi', chapter: 11, gameNum: 1, file: 'riyazi_p1_f11_g1.html' },
 
-    // ===== olom (علوم) - درس جدید =====
-    { id: 27, lesson: 'olom', chapter: 3, gameNum: 1, file: 'olom_p1_f3_g1.html' }, // جدید
+    // ===== olom (علوم) - پایه ۱ =====
+    // فصل ۱ (۲ بازی)
+    { id: 31, base: 1, lesson: 'olom', chapter: 1, gameNum: 1, file: 'olom_p1_f1_g1.html' },
+    { id: 32, base: 1, lesson: 'olom', chapter: 1, gameNum: 2, file: 'olom_p1_f1_g2.html' }, // جدید
+    // فصل ۲
+    { id: 33, base: 1, lesson: 'olom', chapter: 2, gameNum: 2, file: 'olom_p1_f2_g2.html' },
+    // فصل ۳
+    { id: 34, base: 1, lesson: 'olom', chapter: 3, gameNum: 1, file: 'olom_p1_f3_g1.html' },
   ];
 
-  // ======== تعداد بازی‌های هر درس در نسخهٔ قبلی (۲۱ بازی) ========
+  // ======== تعداد بازی‌های هر درس در هر پایه برای نسخهٔ قبلی (برای نمایش اضافات) ========
+  // قبلاً ۳۰ بازی داشتیم (۲۷ تا قبلی + ۳ تا جدید در آپدیت قبل)
+  // حالا ۴ تا جدید اضافه شده: negaresh_p1_f1_g5, negaresh_p1_f2_g1, negaresh_p4_f1_g1, olom_p1_f1_g2
+  // پس previousCounts را بر اساس پایه و درس تعریف می‌کنیم
   const previousCounts = {
-    riyazi: 14,   // قبلاً ۱۴ تا (بدون f2_g3، f3_g1، f6_g1)
-    ghoran: 3,    // قبلاً ۳ تا (بدون g4)
-    negaresh: 4,  // قبلاً ۴ تا (بدون g4)
-    olom: 0,      // درس جدید
+    '1_ghoran': 4,
+    '1_negaresh': 5,  // قبلاً ۵ تا داشت (g1-g4 در f1 و g2 در f2)
+    '4_negaresh': 0,  // جدید
+    '1_riyazi': 17,   // قبلاً ۱۷ تا (بدون f8)
+    '1_olom': 3,      // قبلاً ۳ تا (بدون f1_g2)
   };
 
   // ======== ترجمه نام دروس ========
@@ -57,23 +77,31 @@ function App() {
     olom: 'علوم',
   };
 
-  // ======== استخراج دروس ========
-  const lessons = [...new Set(gamesData.map(g => g.lesson))];
+  // ======== استخراج پایه‌ها ========
+  const bases = [...new Set(gamesData.map(g => g.base))].sort();
 
   // ======== وضعیت صفحه ========
   const [currentPage, setCurrentPage] = useState('menu');
 
   // ======== توابع کمکی ========
-  const getGamesByLesson = (lesson) => gamesData.filter(g => g.lesson === lesson);
-  const getGamesByChapter = (lesson, chapter) => gamesData.filter(g => g.lesson === lesson && g.chapter === chapter);
+  const getGamesByBase = (base) => gamesData.filter(g => g.base === base);
+  const getGamesByBaseAndLesson = (base, lesson) => gamesData.filter(g => g.base === base && g.lesson === lesson);
+  const getGamesByBaseLessonChapter = (base, lesson, chapter) =>
+    gamesData.filter(g => g.base === base && g.lesson === lesson && g.chapter === chapter);
 
   const parsePage = (page) => {
-    if (page.startsWith('lesson:')) {
-      return { type: 'lesson', lesson: page.split(':')[1] };
-    }
-    if (page.startsWith('chapter:')) {
+    if (page === 'menu') return { type: 'menu' };
+    if (page.startsWith('base:')) {
       const parts = page.split(':');
-      return { type: 'chapter', lesson: parts[1], chapter: parseInt(parts[2], 10) };
+      if (parts.length === 2) {
+        return { type: 'base', base: parseInt(parts[1], 10) };
+      }
+      if (parts.length === 4 && parts[2] === 'lesson') {
+        return { type: 'lesson', base: parseInt(parts[1], 10), lesson: parts[3] };
+      }
+      if (parts.length === 6 && parts[2] === 'lesson' && parts[4] === 'chapter') {
+        return { type: 'chapter', base: parseInt(parts[1], 10), lesson: parts[3], chapter: parseInt(parts[5], 10) };
+      }
     }
     return null;
   };
@@ -81,19 +109,20 @@ function App() {
   const findGame = (id) => gamesData.find(g => g.id === id);
 
   // ======== آمار ========
-  const totalGames = gamesData.length; // ۲۷
-  const totalPrevious = Object.values(previousCounts).reduce((a, b) => a + b, 0); // ۲۱
-  const totalAdded = totalGames - totalPrevious; // ۶
+  const totalGames = gamesData.length; // ۳۴
+  const totalPrevious = Object.values(previousCounts).reduce((a, b) => a + b, 0); // ۴+۵+۰+۱۷+۳ = ۲۹
+  const totalAdded = totalGames - totalPrevious; // ۵ (چون ۳۴-۲۹=۵)
 
-  // ======== رندر صفحات (بدون تغییر) ========
-  // ۱. صفحه iframe
+  // ======== رندر صفحات ========
+
+  // ۱. صفحه iframe (بازی)
   if (typeof currentPage === 'number') {
     const game = findGame(currentPage);
     if (!game) {
       return <div style={{ padding: 40, textAlign: 'center' }}>بازی مورد نظر یافت نشد.</div>;
     }
     const filePath = `${process.env.PUBLIC_URL}/game/${game.file}`;
-    const backTo = `chapter:${game.lesson}:${game.chapter}`;
+    const backTo = `base:${game.base}:lesson:${game.lesson}:chapter:${game.chapter}`;
 
     return (
       <div style={{ position: 'relative', width: '100vw', height: '100vh', backgroundColor: '#f8f9fa' }}>
@@ -138,14 +167,14 @@ function App() {
   // ۲. صفحه بازی‌های یک فصل
   const parsed = parsePage(currentPage);
   if (parsed && parsed.type === 'chapter') {
-    const { lesson, chapter } = parsed;
-    const chapterGames = getGamesByChapter(lesson, chapter);
+    const { base, lesson, chapter } = parsed;
+    const chapterGames = getGamesByBaseLessonChapter(base, lesson, chapter);
     const lessonFa = lessonNames[lesson] || lesson;
 
     return (
       <div style={{ padding: '40px 20px', fontFamily: '"Vazir", "IRANSans", sans-serif', maxWidth: '1100px', margin: '0 auto' }}>
         <button
-          onClick={() => setCurrentPage(`lesson:${lesson}`)}
+          onClick={() => setCurrentPage(`base:${base}:lesson:${lesson}`)}
           style={{
             padding: '8px 20px',
             fontSize: '16px',
@@ -164,7 +193,7 @@ function App() {
           ⬅ بازگشت به فصول
         </button>
         <h2 style={{ textAlign: 'center', color: '#343a40', marginBottom: '30px' }}>
-          {lessonFa} – فصل {chapter}
+          پایه {base} – {lessonFa} – فصل {chapter}
         </h2>
         <div
           style={{
@@ -207,17 +236,17 @@ function App() {
     );
   }
 
-  // ۳. صفحه فصول یک درس
+  // ۳. صفحه فصول یک درس در یک پایه
   if (parsed && parsed.type === 'lesson') {
-    const lesson = parsed.lesson;
-    const lessonGames = getGamesByLesson(lesson);
+    const { base, lesson } = parsed;
+    const lessonGames = getGamesByBaseAndLesson(base, lesson);
     const chapters = [...new Set(lessonGames.map(g => g.chapter))].sort((a, b) => a - b);
     const lessonFa = lessonNames[lesson] || lesson;
 
     return (
       <div style={{ padding: '40px 20px', fontFamily: '"Vazir", "IRANSans", sans-serif', maxWidth: '1100px', margin: '0 auto' }}>
         <button
-          onClick={() => setCurrentPage('menu')}
+          onClick={() => setCurrentPage(`base:${base}`)}
           style={{
             padding: '8px 20px',
             fontSize: '16px',
@@ -236,7 +265,7 @@ function App() {
           ⬅ بازگشت به دروس
         </button>
         <h2 style={{ textAlign: 'center', color: '#343a40', marginBottom: '30px' }}>
-          📘 {lessonFa}
+          📘 پایه {base} – {lessonFa}
         </h2>
         <div
           style={{
@@ -248,7 +277,7 @@ function App() {
           {chapters.map((ch) => (
             <div
               key={ch}
-              onClick={() => setCurrentPage(`chapter:${lesson}:${ch}`)}
+              onClick={() => setCurrentPage(`base:${base}:lesson:${lesson}:chapter:${ch}`)}
               style={{
                 backgroundColor: '#e3f2fd',
                 padding: '30px 10px',
@@ -279,15 +308,112 @@ function App() {
     );
   }
 
-  // ۴. صفحه اصلی (منوی دروس)
+  // ۴. صفحه دروس یک پایه
+  if (parsed && parsed.type === 'base') {
+    const base = parsed.base;
+    const baseGames = getGamesByBase(base);
+    const lessons = [...new Set(baseGames.map(g => g.lesson))];
+
+    return (
+      <div style={{ padding: '40px 20px', fontFamily: '"Vazir", "IRANSans", sans-serif', maxWidth: '1100px', margin: '0 auto' }}>
+        <button
+          onClick={() => setCurrentPage('menu')}
+          style={{
+            padding: '8px 20px',
+            fontSize: '16px',
+            backgroundColor: '#6c757d',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '30px',
+            cursor: 'pointer',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            transition: '0.2s',
+            marginBottom: '20px',
+          }}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#5a6268'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#6c757d'}
+        >
+          ⬅ بازگشت به پایه‌ها
+        </button>
+        <h2 style={{ textAlign: 'center', color: '#343a40', marginBottom: '30px' }}>
+          📚 پایه {base}
+        </h2>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            gap: '30px',
+          }}
+        >
+          {lessons.map((lesson) => {
+            const faName = lessonNames[lesson] || lesson;
+            const count = getGamesByBaseAndLesson(base, lesson).length;
+            const key = `${base}_${lesson}`;
+            const prevCount = previousCounts[key] || 0;
+            const added = count - prevCount;
+
+            const colors = {
+              riyazi: { bg: '#f8d7da', border: '#f5c2c7', text: '#842029' },
+              ghoran: { bg: '#d1e7dd', border: '#badbcc', text: '#0f5132' },
+              negaresh: { bg: '#cfe2ff', border: '#b6d4fe', text: '#084298' },
+              olom: { bg: '#fff3cd', border: '#ffecb5', text: '#664d03' },
+            };
+            const color = colors[lesson] || { bg: '#f8f9fa', border: '#dee2e6', text: '#212529' };
+
+            return (
+              <div
+                key={lesson}
+                onClick={() => setCurrentPage(`base:${base}:lesson:${lesson}`)}
+                style={{
+                  backgroundColor: color.bg,
+                  padding: '25px 10px',
+                  borderRadius: '24px',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
+                  transition: 'transform 0.25s, box-shadow 0.25s',
+                  border: `2px solid ${color.border}`,
+                  fontWeight: 'bold',
+                  fontSize: '1.5rem',
+                  color: color.text,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.04)';
+                  e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.12)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.06)';
+                }}
+              >
+                <div>{faName}</div>
+                <div style={{ fontSize: '1rem', fontWeight: 'normal', marginTop: '8px', opacity: 0.8 }}>
+                  {count} بازی
+                  {added > 0 && (
+                    <span style={{ color: '#28a745', marginRight: '4px', fontSize: '0.9rem' }}>
+                      &nbsp;(+{added})
+                    </span>
+                  )}
+                  {added < 0 && (
+                    <span style={{ color: '#dc3545', marginRight: '4px', fontSize: '0.9rem' }}>
+                      &nbsp;({added})
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // ۵. صفحه اصلی (منوی پایه‌ها)
   return (
     <div style={{ padding: '40px 20px', fontFamily: '"Vazir", "IRANSans", sans-serif', maxWidth: '1100px', margin: '0 auto' }}>
       <h1 style={{ textAlign: 'center', color: '#212529', fontSize: '2.8rem', marginBottom: '5px' }}>
-        📚 منوی دروس
+        📚 منوی پایه‌ها
       </h1>
-      <p style={{ textAlign: 'center', color: '#6c757d', fontSize: '1.4rem', marginBottom: '5px', fontWeight: '500' }}>
-        پایه اول
-      </p>
       <p style={{ textAlign: 'center', color: '#6c757d', marginBottom: '10px', fontSize: '1.1rem' }}>
         {totalGames} بازی در مجموع
         {totalAdded > 0 && (
@@ -297,45 +423,33 @@ function App() {
         )}
       </p>
       <p style={{ textAlign: 'center', color: '#6c757d', marginBottom: '40px', fontSize: '1rem' }}>
-        یکی از دروس زیر را انتخاب کنید
+        یکی از پایه‌ها را انتخاب کنید
       </p>
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
           gap: '30px',
         }}
       >
-        {lessons.map((lesson) => {
-          const faName = lessonNames[lesson] || lesson;
-          const currentCount = getGamesByLesson(lesson).length;
-          const prevCount = previousCounts[lesson] || 0;
-          const added = currentCount - prevCount;
-
-          const colors = {
-            riyazi: { bg: '#f8d7da', border: '#f5c2c7', text: '#842029' },
-            ghoran: { bg: '#d1e7dd', border: '#badbcc', text: '#0f5132' },
-            negaresh: { bg: '#cfe2ff', border: '#b6d4fe', text: '#084298' },
-            olom: { bg: '#fff3cd', border: '#ffecb5', text: '#664d03' },
-          };
-          const color = colors[lesson] || { bg: '#f8f9fa', border: '#dee2e6', text: '#212529' };
-
+        {bases.map((base) => {
+          const count = getGamesByBase(base).length;
           return (
             <div
-              key={lesson}
-              onClick={() => setCurrentPage(`lesson:${lesson}`)}
+              key={base}
+              onClick={() => setCurrentPage(`base:${base}`)}
               style={{
-                backgroundColor: color.bg,
-                padding: '25px 10px',
+                backgroundColor: '#e9ecef',
+                padding: '40px 10px',
                 borderRadius: '24px',
                 textAlign: 'center',
                 cursor: 'pointer',
                 boxShadow: '0 8px 24px rgba(0,0,0,0.06)',
                 transition: 'transform 0.25s, box-shadow 0.25s',
-                border: `2px solid ${color.border}`,
+                border: '2px solid #dee2e6',
                 fontWeight: 'bold',
-                fontSize: '1.5rem',
-                color: color.text,
+                fontSize: '2rem',
+                color: '#212529',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'scale(1.04)';
@@ -346,19 +460,9 @@ function App() {
                 e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.06)';
               }}
             >
-              <div>{faName}</div>
-              <div style={{ fontSize: '1rem', fontWeight: 'normal', marginTop: '8px', opacity: 0.8 }}>
-                {currentCount} بازی
-                {added > 0 && (
-                  <span style={{ color: '#28a745', marginRight: '4px', fontSize: '0.9rem' }}>
-                    &nbsp;(+{added})
-                  </span>
-                )}
-                {added < 0 && (
-                  <span style={{ color: '#dc3545', marginRight: '4px', fontSize: '0.9rem' }}>
-                    &nbsp;({added})
-                  </span>
-                )}
+              <div>پایه {base}</div>
+              <div style={{ fontSize: '1rem', fontWeight: 'normal', marginTop: '8px', opacity: 0.7 }}>
+                {count} بازی
               </div>
             </div>
           );
