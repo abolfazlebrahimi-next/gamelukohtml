@@ -1535,7 +1535,7 @@
                 <h2>🛍️ فروشگاه</h2>
                 <div class="shop-coin">
                     <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
-                    <span id="shop-coin-amount">10000</span>
+                    <span id="shop-coin-amount">0</span>
                 </div>
             </div>
             <div class="shop-tabs">
@@ -1734,7 +1734,7 @@
             isHolding: false,
             holdProgress: 0,
             holdRequired: 2000,
-            coins: 10000,
+            coins: 0,
             ownedThemes: ['mamooli'],
             activeTheme: 'mamooli',
             audioContext: null,
@@ -1862,7 +1862,7 @@
 
         // ===== سکه =====
         function getCoins() {
-            try { return parseInt(localStorage.getItem('fruitGameCoins')) || 10000; } catch(e) { return 10000; }
+            try { return parseInt(localStorage.getItem('fruitGameCoins')) || 0; } catch(e) { return 0; }
         }
 
         function setCoins(v) {
@@ -2736,7 +2736,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initAudio();
             
-            setCoins(10000);
+            setCoins(0);
             updateCoinDisplay();
 
             const shopData = getShopData();

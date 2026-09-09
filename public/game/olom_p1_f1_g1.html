@@ -102,6 +102,17 @@
             --countdown-color: #FFC93C;
             --countdown-glow: rgba(255, 201, 60, 0.3);
             --theme-bg-image: none;
+
+            /* رنگ‌های صحنه حیاط (از کد 2) */
+            --sky-morning: #87CEEB;
+            --sky-noon: #5DADE2;
+            --sky-evening: #F39C12;
+            --grass: #7CB342;
+            --grass-dark: #558B2F;
+            --tree-green: #4CAF50;
+            --tree-dark: #388E3C;
+            --trunk: #8D6E63;
+            --shadow: rgba(40, 40, 40, 0.4);
         }
 
         * {
@@ -906,305 +917,141 @@
             50% { transform: translateY(-10px); }
         }
 
-        /* ===== صفحه حیاط - تمام صفحه ===== */
-        .yard-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            background: url('icons/yard.jpg') no-repeat center center;
-            background-size: cover;
-            background-size: 100% 100%;
-        }
+        /* ===== صفحه حیاط (جایگزین شده با کد 2) ===== */
+        #yard-page { flex-direction: column; background: linear-gradient(180deg, var(--sky-morning) 0%, var(--sky-morning) 55%, var(--grass) 55%, var(--grass-dark) 100%); }
+        .yard-scene { width: 100%; height: 100%; position: relative; overflow: hidden; }
+        .yard-sky { position: absolute; top: 0; left: 0; width: 100%; height: 55%; overflow: hidden; }
+        
+        .yard-sun { position: absolute; width: clamp(50px, 12vw, 70px); height: clamp(50px, 12vw, 70px); cursor: grab; z-index: 100; transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1), top 0.8s cubic-bezier(0.4, 0, 0.2, 1); touch-action: none; }
+        .sun-core { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: clamp(35px, 8vw, 50px); height: clamp(35px, 8vw, 50px); background: radial-gradient(circle, #FFE66D 0%, #F39C12 100%); border-radius: 50%; box-shadow: 0 0 30px rgba(255,230,109,0.8); z-index: 2; }
+        .sun-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: clamp(55px, 13vw, 80px); height: clamp(55px, 13vw, 80px); background: radial-gradient(circle, rgba(255,230,109,0.4) 0%, transparent 70%); border-radius: 50%; animation: sunGlow 2s ease-in-out infinite; }
+        @keyframes sunGlow { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; } }
+        .sun-rays-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: clamp(70px, 16vw, 100px); height: clamp(70px, 16vw, 100px); animation: raysSpin 20s linear infinite; }
+        @keyframes raysSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .sun-ray { position: absolute; top: 50%; left: 50%; width: 4px; height: clamp(14px, 3vw, 20px); background: linear-gradient(180deg, rgba(255,230,109,0.8) 0%, transparent 100%); transform-origin: center clamp(35px, 8vw, 50px); border-radius: 2px; }
+        .sun-ray:nth-child(1) { transform: translate(-50%, -50px) rotate(0deg); } .sun-ray:nth-child(2) { transform: translate(-50%, -50px) rotate(45deg); } .sun-ray:nth-child(3) { transform: translate(-50%, -50px) rotate(90deg); } .sun-ray:nth-child(4) { transform: translate(-50%, -50px) rotate(135deg); } .sun-ray:nth-child(5) { transform: translate(-50%, -50px) rotate(180deg); } .sun-ray:nth-child(6) { transform: translate(-50%, -50px) rotate(225deg); } .sun-ray:nth-child(7) { transform: translate(-50%, -50px) rotate(270deg); } .sun-ray:nth-child(8) { transform: translate(-50%, -50px) rotate(315deg); }
+        
+        .yard-clouds { position: absolute; width: 100%; height: 100%; }
+        .soft-cloud { position: absolute; background: white; border-radius: 50px; opacity: 0.8; }
+        .sc1 { width: clamp(60px, 15vw, 80px); height: clamp(22px, 5vw, 30px); top: 15%; right: 10%; animation: softCloudFloat 15s ease-in-out infinite; }
+        .sc1::before { content: ''; position: absolute; background: white; border-radius: 50%; width: clamp(30px, 7vw, 40px); height: clamp(30px, 7vw, 40px); top: -20px; left: 10px; }
+        .sc1::after { content: ''; position: absolute; background: white; border-radius: 50%; width: clamp(22px, 5vw, 30px); height: clamp(22px, 5vw, 30px); top: -10px; left: 40px; }
+        .sc2 { width: clamp(45px, 12vw, 60px); height: clamp(18px, 4vw, 25px); top: 25%; right: 30%; animation: softCloudFloat 18s ease-in-out 3s infinite; }
+        .sc2::before { content: ''; position: absolute; background: white; border-radius: 50%; width: clamp(22px, 5vw, 30px); height: clamp(22px, 5vw, 30px); top: -15px; left: 8px; }
+        .sc2::after { content: ''; position: absolute; background: white; border-radius: 50%; width: clamp(18px, 4vw, 25px); height: clamp(18px, 4vw, 25px); top: -8px; left: 30px; }
+        .sc3 { width: clamp(50px, 13vw, 70px); height: clamp(20px, 4.5vw, 28px); top: 10%; right: 50%; animation: softCloudFloat 20s ease-in-out 6s infinite; }
+        .sc3::before { content: ''; position: absolute; background: white; border-radius: 50%; width: clamp(25px, 6vw, 35px); height: clamp(25px, 6vw, 35px); top: -18px; left: 8px; }
+        .sc3::after { content: ''; position: absolute; background: white; border-radius: 50%; width: clamp(20px, 4.5vw, 28px); height: clamp(20px, 4.5vw, 28px); top: -8px; left: 35px; }
+        @keyframes softCloudFloat { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-20px); } }
+        
+        .sky-birds { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+        .sky-bird { position: absolute; font-size: clamp(14px, 3vw, 20px); animation: skyBirdFly 12s linear infinite; opacity: 0.6; }
+        .sky-bird.sb1 { top: 20%; animation-delay: 0s; } .sky-bird.sb2 { top: 35%; animation-delay: 4s; } .sky-bird.sb3 { top: 15%; animation-delay: 8s; font-size: clamp(18px, 4vw, 28px); }
+        @keyframes skyBirdFly { 0% { transform: translateX(-30px) translateY(0) scaleX(-1); } 25% { transform: translateX(25vw) translateY(-15px) scaleX(-1); } 50% { transform: translateX(50vw) translateY(5px) scaleX(-1); } 75% { transform: translateX(75vw) translateY(-10px) scaleX(-1); } 100% { transform: translateX(calc(100vw + 30px)) translateY(0) scaleX(-1); } }
+        
+        .yard-ground { position: absolute; bottom: 0; left: 0; width: 100%; height: 45%; background: linear-gradient(180deg, var(--grass) 0%, var(--grass-dark) 100%); }
+        .yard-wall { position: absolute; top: 0; left: 0; width: 100%; height: 15%; background: linear-gradient(180deg, #BCAAA4 0%, #A1887F 100%); }
+        .wall-line { position: absolute; top: 50%; left: 5%; width: 90%; height: 3px; background: #8D6E63; transform: translateY(-50%); }
+        .wall-line::before, .wall-line::after { content: ''; position: absolute; top: 0; width: 2px; height: 100%; background: #8D6E63; }
+        .wall-line::before { left: 33%; } .wall-line::after { right: 33%; }
+        
+        .flowers { position: absolute; bottom: 8%; width: 100%; display: flex; justify-content: space-around; padding: 0 8%; }
+        .flower { font-size: clamp(24px, 5vw, 30px); animation: flowerSway 3s ease-in-out infinite; }
+        .f1 { animation-delay: 0s; } .f2 { animation-delay: 0.5s; } .f3 { animation-delay: 1s; } .f4 { animation-delay: 1.5s; } .f5 { animation-delay: 0.75s; }
+        @keyframes flowerSway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+        
+        .grass-patches { position: absolute; bottom: 5%; width: 100%; display: flex; justify-content: space-around; padding: 0 5%; }
+        .grass-blade { font-size: clamp(16px, 3vw, 22px); animation: grassWave 2s ease-in-out infinite; }
+        .grass-blade:nth-child(2) { animation-delay: 0.3s; } .grass-blade:nth-child(3) { animation-delay: 0.6s; } .grass-blade:nth-child(4) { animation-delay: 0.9s; }
+        @keyframes grassWave { 0%, 100% { transform: scaleY(1) rotate(-3deg); } 50% { transform: scaleY(1.1) rotate(3deg); } }
+        
+        .butterflies { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+        .butterfly { position: absolute; font-size: clamp(18px, 4vw, 26px); animation: butterflyFloat 8s ease-in-out infinite; }
+        .butterfly.bf1 { bottom: 30%; left: 20%; animation-delay: 0s; } .butterfly.bf2 { bottom: 35%; right: 25%; animation-delay: 3s; }
+        @keyframes butterflyFloat { 0% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(20px, -30px) rotate(10deg); } 50% { transform: translate(40px, 0) rotate(0deg); } 75% { transform: translate(20px, 30px) rotate(-10deg); } 100% { transform: translate(0, 0) rotate(0deg); } }
+        
+        .tree-area { position: absolute; bottom: 12%; left: 15%; display: flex; flex-direction: column; align-items: center; z-index: 10; }
+        .tree { position: relative; z-index: 10; }
+        .tree-trunk { width: clamp(28px, 6vw, 40px); height: clamp(65px, 14vw, 90px); background: linear-gradient(90deg, #5D4037 0%, #8D6E63 50%, #5D4037 100%); border-radius: 0 0 5px 5px; margin: 0 auto; }
+        .tree-leaves { position: absolute; bottom: clamp(60px, 13vw, 80px); left: 50%; transform: translateX(-50%); }
+        .leaf-cluster { position: absolute; background: var(--tree-green); border-radius: 50%; box-shadow: inset -5px -5px 15px rgba(0,0,0,0.1); }
+        .lc1 { width: clamp(80px, 18vw, 110px); height: clamp(80px, 18vw, 110px); bottom: 0; left: 50%; transform: translateX(-50%); background: linear-gradient(145deg, var(--tree-green) 0%, var(--tree-dark) 100%); }
+        .lc2 { width: clamp(55px, 12vw, 75px); height: clamp(55px, 12vw, 75px); bottom: clamp(30px, 7vw, 45px); left: -15px; background: linear-gradient(145deg, #66BB6A 0%, var(--tree-green) 100%); }
+        .lc3 { width: clamp(55px, 12vw, 75px); height: clamp(55px, 12vw, 75px); bottom: clamp(30px, 7vw, 45px); right: -15px; background: linear-gradient(145deg, #81C784 0%, var(--tree-green) 100%); }
+        .lc4 { width: clamp(45px, 10vw, 60px); height: clamp(45px, 10vw, 60px); bottom: clamp(55px, 12vw, 75px); left: 50%; transform: translateX(-50%); background: linear-gradient(145deg, #A5D6A7 0%, var(--tree-green) 100%); }
+        
+        .tree-shadow { position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); background: var(--shadow); border-radius: 50%; transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); z-index: 5; }
+        .shadow-canvas-container { position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); z-index: 15; display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+        .shadow-canvas-container.active { pointer-events: auto; }
+        #shadow-canvas { background: transparent; cursor: crosshair; border-radius: 50%; touch-action: none; border: 2px dashed rgba(255, 107, 107, 0.5); }
+        .trace-hint { background: rgba(255,255,255,0.95); color: #050a10; padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2.5vw, 15px); border-radius: 20px; font-size: clamp(11px, 2.2vw, 13px); font-weight: 600; margin-top: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); animation: hintPulse 1.5s ease-in-out infinite; white-space: nowrap; }
+        @keyframes hintPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        
+        .bench { position: absolute; bottom: 10%; right: 12%; }
+        .bench-top { width: clamp(80px, 18vw, 110px); height: 12px; background: linear-gradient(180deg, #A1887F 0%, #8D6E63 100%); border-radius: 3px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+        .bench-leg { position: absolute; width: 8px; height: 25px; background: #5D4037; bottom: -25px; }
+        .bench-leg.l1 { left: 10px; } .bench-leg.l2 { right: 10px; }
+        .bench-back { position: absolute; width: 80%; height: 8px; background: linear-gradient(180deg, #8D6E63 0%, #6D4C41 100%); top: -15px; left: 10%; border-radius: 3px; }
+        
+        .yard-character { position: absolute; bottom: 15%; left: 55%; z-index: 30; width: 80px; height: 80px; }
+        .yard-character img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px var(--primary)); animation: float 3s ease-in-out infinite; }
+        
+        .yard-speech { position: absolute; bottom: 35%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); border: 1px solid var(--gold); padding: clamp(10px, 2.5vw, 12px) clamp(14px, 3.5vw, 18px); border-radius: 18px; text-align: center; box-shadow: 0 0 20px rgba(255, 201, 60, 0.3); max-width: 250px; z-index: 35; display: none; }
+        .yard-speech.show { display: block; animation: bubblePop 0.3s ease; }
+        .yard-speech p { color: var(--gold); font-size: clamp(12px, 2.5vw, 14px); line-height: 1.5; }
+        
+        .trace-start-btn { position: absolute; bottom: 3%; left: 50%; transform: translateX(-50%); z-index: 40; display: none; max-width: 280px; }
+        .trace-start-btn.show { display: block; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { transform: translateX(-50%) translateY(30px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+        
+        .time-indicator { position: absolute; top: 5%; left: 5%; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid var(--gold); padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2.5vw, 15px); border-radius: 20px; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 15px rgba(255, 201, 60, 0.3); z-index: 50; }
+        .time-icon { font-size: clamp(14px, 3vw, 18px); }
+        .time-value { font-size: clamp(13px, 2.8vw, 16px); font-weight: 700; color: var(--gold); }
+        
+        .sun-hint { position: absolute; top: 18%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid var(--secondary); padding: clamp(8px, 2vw, 10px) clamp(14px, 3vw, 18px); border-radius: 25px; display: flex; align-items: center; gap: 8px; font-size: clamp(12px, 2.5vw, 14px); font-weight: 600; color: var(--secondary); box-shadow: 0 0 20px rgba(0,210,255,0.3); z-index: 60; display: none; }
+        .sun-hint.show { display: flex; animation: fadeInDown 0.4s ease; }
+        @keyframes fadeInDown { from { transform: translateX(-50%) translateY(-20px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+        
+        .shadow-hint { position: absolute; bottom: 28%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid var(--neon-pink); padding: clamp(8px, 2vw, 10px) clamp(14px, 3vw, 18px); border-radius: 25px; display: flex; align-items: center; gap: 8px; font-size: clamp(12px, 2.5vw, 14px); font-weight: 600; color: var(--neon-pink); box-shadow: 0 0 20px rgba(255,0,160,0.3); z-index: 60; display: none; white-space: nowrap; }
+        .shadow-hint.show { display: flex; animation: fadeInUp 0.4s ease; }
+        @keyframes fadeInUp { from { transform: translateX(-50%) translateY(20px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+        
+        .wall-clock { position: absolute; top: 5%; right: 5%; z-index: 50; }
+        .clock-body { background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 15px; padding: clamp(8px, 2vw, 12px); box-shadow: 0 0 20px rgba(255,255,255,0.1); border: 2px solid var(--gold); }
+        .clock-face { width: clamp(60px, 14vw, 90px); height: clamp(60px, 14vw, 90px); background: #1a1a2e; border-radius: 50%; position: relative; border: 3px solid #333; }
+        .clock-marks { position: absolute; width: 100%; height: 100%; }
+        .mark { position: absolute; background: #fff; border-radius: 2px; }
+        .m12 { width: 3px; height: 10px; top: 5px; left: 50%; transform: translateX(-50%); }
+        .m3 { width: 10px; height: 3px; top: 50%; right: 5px; transform: translateY(-50%); }
+        .m6 { width: 3px; height: 10px; bottom: 5px; left: 50%; transform: translateX(-50%); }
+        .m9 { width: 10px; height: 3px; top: 50%; left: 5px; transform: translateY(-50%); }
+        .clock-center-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background: var(--neon-pink); border-radius: 50%; z-index: 5; box-shadow: 0 0 10px var(--neon-pink); }
+        .clock-hand { position: absolute; background: #fff; transform-origin: bottom center; border-radius: 3px; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hour-hand { width: 4px; height: clamp(16px, 4vw, 25px); top: 20px; left: calc(50% - 2px); z-index: 3; }
+        .minute-hand { width: 3px; height: clamp(24px, 5.5vw, 35px); top: 10px; left: calc(50% - 1.5px); z-index: 4; }
+        .clock-time-display { text-align: center; margin-top: 8px; font-size: clamp(12px, 2.5vw, 16px); font-weight: 700; color: var(--gold); background: rgba(255, 201, 60, 0.1); padding: 5px 12px; border-radius: 10px; border: 1px solid var(--gold); }
 
-        /* ساعت دیواری */
-        .clock-container {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            z-index: 35;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 10px 15px;
-            border: 2px solid var(--gold);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            min-width: 80px;
-            pointer-events: none;
-        }
-        .clock-container .clock-face {
-            position: relative;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            border: 2px solid var(--gold);
-        }
-        .clock-container .clock-face .hour-hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            width: 3.5px;
-            height: 18px;
-            background: #FF6B6B;
-            transform-origin: bottom center;
-            border-radius: 3px;
-            margin-left: -1.75px;
-            z-index: 3;
-        }
-        .clock-container .clock-face .minute-hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            width: 2.5px;
-            height: 25px;
-            background: #4ECDC4;
-            transform-origin: bottom center;
-            border-radius: 2px;
-            margin-left: -1.25px;
-            z-index: 2;
-        }
-        .clock-container .clock-face .second-hand {
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            width: 1.5px;
-            height: 28px;
-            background: #FFE66D;
-            transform-origin: bottom center;
-            border-radius: 1px;
-            margin-left: -0.75px;
-            z-index: 1;
-        }
-        .clock-container .clock-face .center-dot {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 7px;
-            height: 7px;
-            background: var(--gold);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 4;
-        }
-        .clock-container .clock-face .hour-mark {
-            position: absolute;
-            width: 2px;
-            height: 6px;
-            background: rgba(255,255,255,0.25);
-            border-radius: 1px;
-        }
-        .clock-container .clock-face .hour-mark.major {
-            height: 10px;
-            background: var(--gold);
-            width: 3px;
-        }
-        .clock-container .digital-time {
-            color: var(--gold);
-            font-size: 1rem;
-            font-weight: 800;
-            font-family: 'Shoor Black', Tahoma, sans-serif;
-            text-shadow: 0 0 10px rgba(255, 201, 60, 0.3);
-            direction: ltr;
-        }
-        .clock-container .time-label {
-            color: var(--text-secondary);
-            font-size: 0.5rem;
-            font-weight: 500;
-        }
-
-        /* تایمر شمارش معکوس - 70 ثانیه */
-        .timer-container {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 35;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 10px 18px;
-            border: 2px solid var(--gold);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            pointer-events: none;
-        }
-        .timer-container .timer-number {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--gold);
-            font-family: 'Shoor Black', Tahoma, sans-serif;
-            text-shadow: 0 0 20px rgba(255, 201, 60, 0.4);
-            direction: ltr;
-        }
-        .timer-container .timer-label {
-            color: var(--text-secondary);
-            font-size: 0.5rem;
-            font-weight: 500;
-        }
-
-        /* خورشید - محدود به بالا و مرکز */
-        .sun-drag {
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            cursor: grab;
-            touch-action: none;
-            z-index: 20;
-            transition: all 0.3s ease;
-            pointer-events: auto;
-            top: 8%;
-            left: 70%;
-            transform: translate(-50%, -50%);
-        }
-        .sun-drag:active {
-            cursor: grabbing;
-        }
-        .sun-drag img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 40px rgba(255, 200, 50, 0.5));
-            animation: sunGlow 2s ease-in-out infinite;
-        }
-        @keyframes sunGlow {
-            0%, 100% { filter: drop-shadow(0 0 40px rgba(255, 200, 50, 0.5)) scale(1); }
-            50% { filter: drop-shadow(0 0 70px rgba(255, 200, 50, 0.7)) scale(1.05); }
-        }
-        .sun-drag.disabled {
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        /* درخت و سایه - سایه دقیقاً با فایل saye yard.png */
-        .tree-wrapper {
-            position: absolute;
-            bottom: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .tree-image {
-            width: clamp(160px, 35vw, 260px);
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
-            position: relative;
-            z-index: 2;
-        }
-
-        /* سایه درخت - با translateY */
-        .tree-shadow-container {
-            position: relative;
-            margin-top: 0;
-            z-index: 1;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0.8;
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: translateY(60px);
-        }
-        .tree-shadow-container img {
-            width: clamp(150px, 30vw, 220px);
-            height: auto;
-            filter: blur(2px) drop-shadow(0 0 8px rgba(0,0,0,0.1));
-            transition: none;
-        }
-
-        /* دکمه‌های کنترل حیاط */
-        .yard-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 30;
-            pointer-events: auto;
-            flex-wrap: wrap;
-            justify-content: center;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            padding: 8px 12px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .yard-controls .btn {
-            min-height: 36px;
-            padding: 6px 14px;
-            font-size: 0.75rem;
-            width: auto;
-            min-width: 45px;
-            flex: 0 1 auto;
-            border-radius: 12px;
-        }
-        .yard-controls .btn-secondary {
-            background: rgba(255,255,255,0.1);
-        }
-        .yard-controls .btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* هشدار */
-        .yard-hint {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            color: var(--gold);
-            border: 1px solid rgba(255, 201, 60, 0.3);
-            z-index: 25;
-            pointer-events: none;
-            white-space: nowrap;
-            animation: hintPulse 2s ease-in-out infinite;
-            font-weight: 600;
-        }
-        @keyframes hintPulse {
-            0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
-            50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
-        }
-
-        /* دکمه بازگشت */
         .yard-back-btn {
             position: absolute;
             top: 15px;
-            right: 80px;
-            z-index: 35;
-            pointer-events: auto;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 14px;
-            padding: 8px 14px;
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            right: 15px;
+            z-index: 200; 
+            background: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255,255,255,0.15); 
+            border-radius: 14px; 
+            padding: 8px 14px; 
+            color: #fff; 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
             font-family: var(--font-family);
         }
-        .yard-back-btn:hover {
-            background: rgba(255,255,255,0.15);
-            transform: scale(1.05);
-        }
+        .yard-back-btn:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
 
         /* ===== صفحه راهنما - با gamer.png ===== */
         .help-container {
@@ -1536,13 +1383,10 @@
             .menu-character { width: 120px; height: 120px; }
             .shop-item { min-height: 150px; }
             .shop-item .preview { width: 60px; height: 45px; }
-            .sun-drag { width: 80px; height: 80px; }
-            .tree-image { width: clamp(120px, 30vw, 180px); }
-            .tree-shadow-container img { width: clamp(130px, 32vw, 190px); }
             .yard-hint { font-size: 0.7rem; padding: 6px 14px; top: 70px; }
             .yard-controls .btn { font-size: 0.65rem; padding: 4px 10px; min-height: 30px; min-width: 38px; }
             .yard-controls { padding: 6px 10px; gap: 5px; bottom: 12px; }
-            .yard-back-btn { padding: 5px 10px; font-size: 0.7rem; top: 10px; right: 70px; }
+            .yard-back-btn { padding: 5px 10px; font-size: 0.7rem; top: 10px; right: 10px; }
             .clock-container { padding: 6px 10px; min-width: 60px; }
             .clock-container .clock-face { width: 50px; height: 50px; }
             .clock-container .clock-face .hour-hand { height: 14px; }
@@ -1562,9 +1406,6 @@
             .shop-item .preview { width: 50px; height: 35px; }
             .quiz-option { padding: 10px 15px; min-width: 80px; font-size: 0.9rem; }
             .quiz-option .opt-emoji { font-size: 2rem; }
-            .sun-drag { width: 65px; height: 65px; }
-            .tree-image { width: clamp(100px, 25vw, 140px); }
-            .tree-shadow-container img { width: clamp(110px, 28vw, 150px); }
             .yard-hint { font-size: 0.6rem; padding: 4px 10px; top: 60px; }
             .yard-controls .btn { font-size: 0.55rem; padding: 3px 8px; min-height: 26px; min-width: 32px; }
             .yard-controls { padding: 4px 8px; gap: 4px; bottom: 10px; }
@@ -1692,64 +1533,114 @@
         </div>
     </div>
 
-    <!-- ===== صفحه حیاط - تمام صفحه ===== -->
-    <div id="yard-page" class="screen" style="padding:0;">
-        <div class="yard-container" id="yard-container">
-            <!-- دکمه بازگشت -->
-            <button class="yard-back-btn" id="yard-back">
-                <span>🏠</span> بازگشت
-            </button>
-
-            <!-- ساعت دیواری -->
-            <div class="clock-container" id="clock-container">
-                <div class="clock-face" id="clock-face">
-                    <div class="hour-mark" style="top:0%;left:50%;transform:translate(-50%,-50%);"></div>
-                    <div class="hour-mark" style="bottom:0%;left:50%;transform:translate(-50%,50%);"></div>
-                    <div class="hour-mark" style="top:50%;left:0%;transform:translate(-50%,-50%);"></div>
-                    <div class="hour-mark" style="top:50%;right:0%;transform:translate(50%,-50%);"></div>
-                    <div class="hour-mark major" style="top:0%;left:50%;transform:translate(-50%,-50%);"></div>
-                    <div class="hour-mark major" style="bottom:0%;left:50%;transform:translate(-50%,50%);"></div>
-                    <div class="hour-mark major" style="top:50%;left:0%;transform:translate(-50%,-50%);"></div>
-                    <div class="hour-mark major" style="top:50%;right:0%;transform:translate(50%,-50%);"></div>
-                    <div class="hour-hand" id="hour-hand"></div>
-                    <div class="minute-hand" id="minute-hand"></div>
-                    <div class="second-hand" id="second-hand"></div>
-                    <div class="center-dot"></div>
+    <!-- ===== صفحه حیاط (اطمینان از جایگزینی کامل با کد 2) ===== -->
+    <div id="yard-page" class="screen">
+        <button class="yard-back-btn" id="yard-back">
+            <span>🏠</span> بازگشت
+        </button>
+        <div class="yard-scene">
+            <!-- آسمان -->
+            <div class="yard-sky">
+                <div class="yard-sun" id="yard-sun">
+                    <div class="sun-core"></div>
+                    <div class="sun-glow"></div>
+                    <div class="sun-rays-container">
+                        <div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div>
+                        <div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div><div class="sun-ray"></div>
+                    </div>
                 </div>
-                <div class="digital-time" id="digital-time">12:00</div>
-                <div class="time-label">⏰ زمان</div>
-            </div>
-
-            <!-- تایمر 70 ثانیه -->
-            <div class="timer-container" id="timer-container">
-                <div class="timer-number" id="timer-number">70</div>
-                <div class="timer-label">⏱️ ثانیه</div>
-            </div>
-
-            <!-- هشدار -->
-            <div class="yard-hint" id="yard-hint">☀️ خورشید رو بکش و جابجا کن!</div>
-
-            <!-- خورشید -->
-            <div class="sun-drag" id="sun-drag">
-                <img src="icons/sun.jpg" alt="خورشید" onerror="this.textContent='☀️'">
-            </div>
-
-            <!-- درخت و سایه -->
-            <div class="tree-wrapper">
-                <img src="icons/tree.png" alt="درخت" class="tree-image" id="tree-image" onerror="this.style.display='none';">
-
-                <!-- سایه درخت -->
-                <div class="tree-shadow-container" id="tree-shadow-container">
-                    <img src="icons/saye yard.png" alt="سایه درخت" id="shadow-image" onerror="this.style.display='none';">
+                <div class="yard-clouds">
+                    <div class="soft-cloud sc1"></div>
+                    <div class="soft-cloud sc2"></div>
+                    <div class="soft-cloud sc3"></div>
+                </div>
+                <div class="sky-birds">
+                    <span class="sky-bird sb1">🕊️</span>
+                    <span class="sky-bird sb2">🕊️</span>
+                    <span class="sky-bird sb3">🦅</span>
                 </div>
             </div>
 
-            <!-- دکمه‌های کنترل -->
-            <div class="yard-controls">
-                <button class="btn btn-secondary" id="sun-left" style="min-width:45px;">⬅️</button>
-                <button class="btn btn-secondary" id="sun-center" style="min-width:45px;">⬆️</button>
-                <button class="btn btn-secondary" id="sun-right" style="min-width:45px;">➡️</button>
-                <button class="btn btn-secondary" id="reset-yard-btn" style="min-width:45px;">🔄</button>
+            <!-- زمین حیاط -->
+            <div class="yard-ground">
+                <div class="yard-wall">
+                    <div class="wall-line wl1"></div>
+                    <div class="wall-line wl2"></div>
+                </div>
+                <div class="flowers">
+                    <div class="flower f1">🌸</div><div class="flower f2">🌼</div><div class="flower f3">🌺</div><div class="flower f4">🌻</div><div class="flower f5">🌷</div>
+                </div>
+                <div class="grass-patches">
+                    <span class="grass-blade">🌱</span><span class="grass-blade">🌿</span><span class="grass-blade">☘️</span><span class="grass-blade">🌱</span>
+                </div>
+
+                <div class="tree-area" id="tree-area">
+                    <div class="tree">
+                        <div class="tree-trunk"></div>
+                        <div class="tree-leaves">
+                            <div class="leaf-cluster lc1"></div><div class="leaf-cluster lc2"></div><div class="leaf-cluster lc3"></div><div class="leaf-cluster lc4"></div>
+                        </div>
+                    </div>
+                    <div class="tree-shadow" id="tree-shadow"></div>
+                    <div class="shadow-canvas-container" id="shadow-canvas-container">
+                        <canvas id="shadow-canvas"></canvas>
+                        <div class="trace-hint">✏️ دور سایه را بکش</div>
+                    </div>
+                </div>
+
+                <div class="bench">
+                    <div class="bench-top"></div>
+                    <div class="bench-leg l1"></div>
+                    <div class="bench-leg l2"></div>
+                    <div class="bench-back"></div>
+                </div>
+
+                <div class="butterflies">
+                    <span class="butterfly bf1">🦋</span>
+                    <span class="butterfly bf2">🦋</span>
+                </div>
+            </div>
+
+            <div class="wall-clock" id="wall-clock">
+                <div class="clock-body">
+                    <div class="clock-face">
+                        <div class="clock-marks">
+                            <div class="mark m12"></div><div class="mark m3"></div><div class="mark m6"></div><div class="mark m9"></div>
+                        </div>
+                        <div class="clock-center-dot"></div>
+                        <div class="clock-hand hour-hand" id="hour-hand"></div>
+                        <div class="clock-hand minute-hand" id="minute-hand"></div>
+                    </div>
+                    <div class="clock-time-display" id="clock-time">۷:۰۰</div>
+                </div>
+            </div>
+
+            <div class="yard-character" id="yard-character">
+                <img src="icons/gamer.png" alt="گیمر" onerror="this.textContent='🧒'">
+            </div>
+
+            <div class="yard-speech" id="yard-speech">
+                <p id="speech-text">به حیاط مدرسه رسیدیم! 🌳</p>
+            </div>
+
+            <div class="trace-start-btn" id="trace-start-btn">
+                <button class="btn btn-trace" id="trace-btn">
+                    <span class="btn-icon">✏️</span>
+                    <span>شروع رسم دور سایه</span>
+                </button>
+            </div>
+
+            <div class="time-indicator" id="time-indicator">
+                <span class="time-icon">⏰</span>
+                <span class="time-value" id="current-time">۷:۰۰</span>
+            </div>
+
+            <div class="sun-hint" id="sun-hint">
+                <span>🔆</span> خورشید را بکش و جابجا کن
+            </div>
+
+            <div class="shadow-hint" id="shadow-hint">
+                <span>👆</span> به سایه نگاه کن، با حرکت خورشید تغییر می‌کنه!
             </div>
         </div>
     </div>
@@ -1988,14 +1879,51 @@
         let timerValue = 70;
         let gameStarted = false;
 
-        // ===== وضعیت بازی =====
+        // ===== وضعیت بازی (تلفیق شده) =====
         let GameState = {
             coins: 0,
             ownedThemes: ['mamooli'],
             activeTheme: 'mamooli',
             stats: { games: 0, correct: 0, wrong: 0, learned: 0 },
-            sunPosition: 1,
-            isDragging: false
+            sunPosition: 0,
+            currentHour: 7,
+            currentMinute: 0,
+            clockInterval: null,
+            isTracing: false,
+            hasTraced: false,
+            hasMovedSun: false,
+            isDraggingSun: false,
+            sunDragHandlersAttached: false,
+            traceHandlersAttached: false,
+            handleSunStart: null,
+            handleSunMove: null,
+            handleSunEnd: null,
+            startDraw: null,
+            draw: null,
+            endDraw: null,
+            handleTouchStart: null,
+            handleTouchMove: null
+        };
+
+        // ===== المان‌های DOM حیاط =====
+        const elements = {
+            sun: document.getElementById('yard-sun'),
+            sky: document.querySelector('.yard-sky'),
+            treeShadow: document.getElementById('tree-shadow'),
+            shadowCanvas: document.getElementById('shadow-canvas'),
+            shadowCanvasContainer: document.getElementById('shadow-canvas-container'),
+            hourHand: document.getElementById('hour-hand'),
+            minuteHand: document.getElementById('minute-hand'),
+            clockTime: document.getElementById('clock-time'),
+            currentTime: document.getElementById('current-time'),
+            yardSpeech: document.getElementById('yard-speech'),
+            speechText: document.getElementById('speech-text'),
+            traceStartBtn: document.getElementById('trace-start-btn'),
+            traceBtn: document.getElementById('trace-btn'),
+            sunHint: document.getElementById('sun-hint'),
+            shadowHint: document.getElementById('shadow-hint'),
+            timeIndicator: document.getElementById('time-indicator'),
+            treeArea: document.getElementById('tree-area')
         };
 
         // ===== بارگذاری اطلاعات =====
@@ -2198,160 +2126,433 @@
         }
 
         // ============================================
-        // ===== تنظیم ساعت بر اساس موقعیت خورشید =====
+        // ===== توابع منطق حیاط (از کد 2) =====
         // ============================================
 
-        function updateClock(position) {
-            const hourHand = document.getElementById('hour-hand');
-            const minuteHand = document.getElementById('minute-hand');
-            const secondHand = document.getElementById('second-hand');
-            const digitalTime = document.getElementById('digital-time');
-            
-            let hours, minutes, seconds;
+        function updateSunPosition(position, animate = true) {
+            const sky = elements.sky;
+            const skyRect = sky.getBoundingClientRect();
+            let x, y;
             
             switch(position) {
                 case 0:
-                    hours = 6; minutes = 0; seconds = 0;
+                    x = skyRect.width * 0.8;
+                    y = skyRect.height * 0.35;
                     break;
                 case 1:
-                    hours = 12; minutes = 0; seconds = 0;
+                    x = skyRect.width * 0.5;
+                    y = skyRect.height * 0.15;
                     break;
                 case 2:
-                    hours = 18; minutes = 0; seconds = 0;
+                    x = skyRect.width * 0.2;
+                    y = skyRect.height * 0.35;
                     break;
-                default:
-                    hours = 12; minutes = 0; seconds = 0;
             }
             
-            const hourAngle = (hours % 12) * 30 + minutes * 0.5;
-            const minuteAngle = minutes * 6;
-            const secondAngle = seconds * 6;
+            if (animate) {
+                elements.sun.style.transition = 'left 0.8s cubic-bezier(0.4, 0, 0.2, 1), top 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            } else {
+                elements.sun.style.transition = 'none';
+            }
             
-            hourHand.style.transform = `rotate(${hourAngle}deg)`;
-            minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
-            secondHand.style.transform = `rotate(${secondAngle}deg)`;
-            
-            let displayHour = hours % 12;
-            if (displayHour === 0) displayHour = 12;
-            const displayMinute = minutes.toString().padStart(2, '0');
-            const period = hours >= 12 ? 'بعد از ظهر' : 'قبل از ظهر';
-            digitalTime.textContent = `${displayHour}:${displayMinute} ${period}`;
+            elements.sun.style.left = `${x}px`;
+            elements.sun.style.top = `${y}px`;
+            elements.sun.style.transform = 'translate(-50%, -50%)';
         }
 
-        // ============================================
-        // ===== کنترل‌های حیاط =====
-        // ============================================
-
-        function updateShadow(position) {
-            const container = document.getElementById('tree-shadow-container');
-            const shadowImg = document.getElementById('shadow-image');
+        function updateClock(animate = true) {
+            const hourAngle = (GameState.currentHour % 12) * 30 + GameState.currentMinute * 0.5;
+            const minuteAngle = GameState.currentMinute * 6;
             
-            let offsetX;
-            
-            switch(position) {
-                case 0:
-                    offsetX = 55;
-                    break;
-                case 1:
-                    offsetX = 0;
-                    break;
-                case 2:
-                    offsetX = -55;
-                    break;
-                default:
-                    offsetX = 0;
+            if (!animate) {
+                elements.hourHand.style.transition = 'none';
+                elements.minuteHand.style.transition = 'none';
+            } else {
+                elements.hourHand.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                elements.minuteHand.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             }
             
-            container.style.transform = 'translateX(' + offsetX + 'px) translateY(60px)';
-            shadowImg.style.opacity = 0.8;
+            elements.hourHand.style.transform = `rotate(${hourAngle}deg)`;
+            elements.minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
             
-            updateClock(position);
+            const timeStr = `${GameState.currentHour}:${GameState.currentMinute.toString().padStart(2, '0')}`;
+            elements.clockTime.textContent = toPersianNum(timeStr);
+            elements.currentTime.textContent = toPersianNum(timeStr);
+        }
+        
+        function toPersianNum(num) {
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return num.toString().replace(/\d/g, d => persianDigits[d]);
         }
 
-        function updateSunPosition(position) {
-            const sun = document.getElementById('sun-drag');
-            
-            let left;
-            let timeLabel;
-            
+        function startClockAnimation() {
+            if (GameState.clockInterval) {
+                clearInterval(GameState.clockInterval);
+            }
+            GameState.clockInterval = setInterval(() => {
+                GameState.currentMinute += 30;
+                if (GameState.currentMinute >= 60) {
+                    GameState.currentMinute = 0;
+                    GameState.currentHour++;
+                    if (GameState.currentHour > 12) {
+                        GameState.currentHour = 7;
+                    }
+                }
+                updateClock(true);
+                if (GameState.currentHour === 8 && GameState.currentMinute === 0) {
+                    clearInterval(GameState.clockInterval);
+                    GameState.clockInterval = null;
+                    showSpeech('زمان متوقف شد! ⏰');
+                    setTimeout(() => {
+                        enableSunDrag();
+                    }, 1500);
+                }
+            }, 5000);
+        }
+
+        function updateShadow(position, animate = true) {
+            let shadowWidth, shadowHeight, shadowX;
             switch(position) {
                 case 0:
-                    left = 15;
-                    timeLabel = '🌅 صبح';
+                    shadowWidth = 120;
+                    shadowHeight = 50;
+                    shadowX = -40;
                     break;
                 case 1:
-                    left = 50;
-                    timeLabel = '☀️ ظهر';
+                    shadowWidth = 50;
+                    shadowHeight = 25;
+                    shadowX = 0;
                     break;
                 case 2:
-                    left = 85;
-                    timeLabel = '🌇 عصر';
+                    shadowWidth = 120;
+                    shadowHeight = 50;
+                    shadowX = 40;
                     break;
-                default:
-                    left = 50;
-                    timeLabel = '☀️ ظهر';
             }
+            if (animate) {
+                elements.treeShadow.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            } else {
+                elements.treeShadow.style.transition = 'none';
+            }
+            elements.treeShadow.style.width = `${shadowWidth}px`;
+            elements.treeShadow.style.height = `${shadowHeight}px`;
+            elements.treeShadow.style.transform = `translateX(calc(-50% + ${shadowX}px))`;
             
-            sun.style.left = left + '%';
-            sun.style.top = '10%';
-            sun.style.transform = 'translate(-50%, -50%)';
+            const canvas = elements.shadowCanvas;
+            canvas.style.width = `${shadowWidth}px`;
+            canvas.style.height = `${shadowHeight}px`;
+            canvas.width = shadowWidth;
+            canvas.height = shadowHeight;
+        }
+
+        function removeSunDragHandlers() {
+            if (!GameState.sunDragHandlersAttached) return;
+            elements.sun.removeEventListener('mousedown', GameState.handleSunStart);
+            elements.sun.removeEventListener('touchstart', GameState.handleSunStart, { passive: false });
+            document.removeEventListener('mousemove', GameState.handleSunMove);
+            document.removeEventListener('mouseup', GameState.handleSunEnd);
+            document.removeEventListener('touchmove', GameState.handleSunMove, { passive: false });
+            document.removeEventListener('touchend', GameState.handleSunEnd);
+            GameState.sunDragHandlersAttached = false;
+        }
+
+        function enableSunDrag() {
+            elements.sunHint.classList.add('show');
+            let isDragging = false;
+            let startX, startY, initialLeft, initialTop;
+            const sky = elements.sky;
             
-            GameState.sunPosition = position;
-            updateShadow(position);
+            GameState.handleSunStart = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                isDragging = true;
+                GameState.isDraggingSun = true;
+                const touch = e.touches ? e.touches[0] : e;
+                const skyRect = sky.getBoundingClientRect();
+                startX = touch.clientX;
+                startY = touch.clientY;
+                initialLeft = parseInt(elements.sun.style.left) || skyRect.width * 0.8;
+                initialTop = parseInt(elements.sun.style.top) || skyRect.height * 0.35;
+            };
             
-            const hint = document.getElementById('yard-hint');
+            GameState.handleSunMove = function(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                const touch = e.touches ? e.touches[0] : e;
+                const skyRect = sky.getBoundingClientRect();
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+                let newLeft = initialLeft + deltaX;
+                let newTop = initialTop + deltaY;
+                newLeft = Math.max(35, Math.min(skyRect.width - 35, newLeft));
+                newTop = Math.max(35, Math.min(skyRect.height - 35, newTop));
+                elements.sun.style.transition = 'none';
+                elements.sun.style.left = `${newLeft}px`;
+                elements.sun.style.top = `${newTop}px`;
+                const centerX = skyRect.width / 2;
+                let newPosition;
+                if (newLeft > centerX + 50) newPosition = 0;
+                else if (newLeft < centerX - 50) newPosition = 2;
+                else newPosition = 1;
+                updateShadow(newPosition, true);
+                if (newPosition === 0) { GameState.currentHour = 7; GameState.currentMinute = 0; }
+                else if (newPosition === 1) { GameState.currentHour = 12; GameState.currentMinute = 0; }
+                else { GameState.currentHour = 5; GameState.currentMinute = 0; }
+                updateClock(true);
+            };
+            
+            GameState.handleSunEnd = function(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                GameState.isDraggingSun = false;
+                const currentLeft = parseInt(elements.sun.style.left);
+                const skyRect = sky.getBoundingClientRect();
+                const centerX = skyRect.width / 2;
+                if (currentLeft > centerX + 50) { GameState.sunPosition = 0; GameState.currentHour = 7; GameState.currentMinute = 0; }
+                else if (currentLeft < centerX - 50) { GameState.sunPosition = 2; GameState.currentHour = 5; GameState.currentMinute = 0; }
+                else { GameState.sunPosition = 1; GameState.currentHour = 12; GameState.currentMinute = 0; }
+                GameState.hasMovedSun = true;
+                updateSunPosition(GameState.sunPosition, true);
+                updateShadow(GameState.sunPosition, true);
+                updateClock(true);
+                elements.sunHint.classList.remove('show');
+                showSpeech('عالی! سایه تغییر کرد! 🌟');
+                setTimeout(() => {
+                    checkGameCompletion();
+                }, 2500);
+            };
+            
+            removeSunDragHandlers();
+            elements.sun.addEventListener('mousedown', GameState.handleSunStart);
+            elements.sun.addEventListener('touchstart', GameState.handleSunStart, { passive: false });
+            document.addEventListener('mousemove', GameState.handleSunMove);
+            document.addEventListener('mouseup', GameState.handleSunEnd);
+            document.addEventListener('touchmove', GameState.handleSunMove, { passive: false });
+            document.addEventListener('touchend', GameState.handleSunEnd);
+            GameState.sunDragHandlersAttached = true;
+        }
+
+        function showSpeech(text) {
+            elements.speechText.textContent = text;
+            elements.yardSpeech.classList.add('show');
+            setTimeout(() => {
+                elements.yardSpeech.classList.remove('show');
+            }, 3000);
+        }
+
+        function removeTraceHandlers() {
+            if (!GameState.traceHandlersAttached) return;
+            const canvas = elements.shadowCanvas;
+            canvas.removeEventListener('mousedown', GameState.startDraw);
+            canvas.removeEventListener('mousemove', GameState.draw);
+            canvas.removeEventListener('mouseup', GameState.endDraw);
+            canvas.removeEventListener('mouseleave', GameState.endDraw);
+            canvas.removeEventListener('touchstart', GameState.handleTouchStart);
+            canvas.removeEventListener('touchmove', GameState.handleTouchMove);
+            canvas.removeEventListener('touchend', GameState.endDraw);
+            GameState.traceHandlersAttached = false;
+        }
+
+        function startTracing() {
+            elements.traceStartBtn.classList.remove('show');
+            GameState.isTracing = true;
+            elements.shadowCanvasContainer.classList.add('active');
+            const canvas = elements.shadowCanvas;
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+            
+            GameState.startDraw = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                isDrawing = true;
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                if (e.touches) {
+                    lastX = (e.touches[0].clientX - rect.left) * scaleX;
+                    lastY = (e.touches[0].clientY - rect.top) * scaleY;
+                } else {
+                    lastX = (e.clientX - rect.left) * scaleX;
+                    lastY = (e.clientY - rect.top) * scaleY;
+                }
+                ctx.beginPath();
+                ctx.arc(lastX, lastY, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#FF6B6B';
+                ctx.fill();
+            };
+            
+            GameState.draw = function(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                e.stopPropagation();
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                let x, y;
+                if (e.touches) {
+                    x = (e.touches[0].clientX - rect.left) * scaleX;
+                    y = (e.touches[0].clientY - rect.top) * scaleY;
+                } else {
+                    x = (e.clientX - rect.left) * scaleX;
+                    y = (e.clientY - rect.top) * scaleY;
+                }
+                ctx.strokeStyle = '#FF6B6B';
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                lastX = x;
+                lastY = y;
+            };
+            
+            GameState.endDraw = function(e) {
+                if (e) e.preventDefault();
+                isDrawing = false;
+            };
+            
+            GameState.handleTouchStart = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                lastX = (touch.clientX - rect.left) * scaleX;
+                lastY = (touch.clientY - rect.top) * scaleY;
+                isDrawing = true;
+                ctx.beginPath();
+                ctx.arc(lastX, lastY, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#FF6B6B';
+                ctx.fill();
+            };
+            
+            GameState.handleTouchMove = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (!isDrawing) return;
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                const x = (touch.clientX - rect.left) * scaleX;
+                const y = (touch.clientY - rect.top) * scaleY;
+                ctx.strokeStyle = '#FF6B6B';
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                lastX = x;
+                lastY = y;
+            };
+            
+            removeTraceHandlers();
+            canvas.addEventListener('mousedown', GameState.startDraw);
+            canvas.addEventListener('mousemove', GameState.draw);
+            canvas.addEventListener('mouseup', GameState.endDraw);
+            canvas.addEventListener('mouseleave', GameState.endDraw);
+            canvas.addEventListener('touchstart', GameState.handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', GameState.handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', GameState.endDraw);
+            GameState.traceHandlersAttached = true;
+            
+            setTimeout(() => {
+                stopTracing();
+            }, 20000);
+        }
+
+        function stopTracing() {
+            if (!GameState.isTracing) return;
+            GameState.isTracing = false;
+            GameState.hasTraced = true;
+            removeTraceHandlers();
+            elements.shadowCanvasContainer.classList.remove('active');
+            const hint = document.querySelector('.trace-hint');
             if (hint) {
-                hint.style.opacity = '0.3';
-                hint.textContent = '☀️ ' + timeLabel + ' - سایه رو ببین!';
+                hint.style.display = 'none';
             }
-            
-            updateClock(position);
+            showSpeech('حرفه‌ای! دور سایه رو کشیدی! ✏️');
+            setTimeout(() => {
+                checkGameCompletion();
+            }, 2500);
+        }
+
+        function checkGameCompletion() {
+            if (GameState.hasTraced && GameState.hasMovedSun) {
+                setTimeout(() => {
+                    startQuiz();
+                }, 1500);
+            }
         }
 
         function initYard() {
-            GameState.sunPosition = 1;
-            updateSunPosition(1);
-            updateClock(1);
+            GameState.sunPosition = 0;
+            GameState.currentHour = 7;
+            GameState.currentMinute = 0;
+            GameState.hasTraced = false;
+            GameState.hasMovedSun = false;
+            GameState.isTracing = false;
+            GameState.isDraggingSun = false;
             
-            const hint = document.getElementById('yard-hint');
-            if (hint) {
-                hint.style.opacity = '1';
-                hint.textContent = '☀️ خورشید رو بکش و جابجا کن!';
-            }
-        }
-
-        // ===== تایمر 70 ثانیه =====
-        function startTimer() {
-            const timerElement = document.getElementById('timer-number');
-            timerValue = 70;
-            timerElement.textContent = timerValue;
-            
-            const sun = document.getElementById('sun-drag');
-            sun.classList.remove('disabled');
-            
-            if (timerInterval) {
-                clearInterval(timerInterval);
+            if (GameState.clockInterval) {
+                clearInterval(GameState.clockInterval);
+                GameState.clockInterval = null;
             }
             
-            timerInterval = setInterval(() => {
-                timerValue--;
-                timerElement.textContent = timerValue;
-                
-                if (timerValue <= 0) {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                    sun.classList.add('disabled');
-                    startQuiz();
+            removeSunDragHandlers();
+            removeTraceHandlers();
+            
+            const canvas = elements.shadowCanvas;
+            const ctx = canvas.getContext('2d');
+            canvas.width = 120;
+            canvas.height = 50;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.width = '120px';
+            canvas.style.height = '50px';
+            
+            elements.traceStartBtn.classList.remove('show');
+            elements.sunHint.classList.remove('show');
+            elements.shadowHint.classList.remove('show');
+            elements.yardSpeech.classList.remove('show');
+            elements.shadowCanvasContainer.classList.remove('active');
+            
+            elements.shadowHint.classList.add('show');
+            
+            updateSunPosition(0, false);
+            updateClock(false);
+            updateShadow(0, false);
+            
+            setTimeout(() => {
+                showSpeech('به حیاط مدرسه رسیدیم! 🌳');
+            }, 500);
+            
+            setTimeout(() => {
+                if (!GameState.hasTraced) {
+                    elements.traceStartBtn.classList.add('show');
                 }
-            }, 1000);
+            }, 6000);
+            
+            setTimeout(() => {
+                elements.shadowHint.classList.remove('show');
+                startClockAnimation();
+            }, 8000);
         }
 
-        // ===== سوال =====
+        // ===== شروع سوالات =====
         function startQuiz() {
             pauseGlobalAudio();
             showPage('quiz-page');
             currentQuizIndex = 0;
             showQuestion();
+            GameState.stats.games++;
+            saveData();
         }
 
         function showQuestion() {
@@ -2404,13 +2605,12 @@
             const homeBtn = document.getElementById('result-home-btn');
             
             if (isCorrect) {
-                // ===== سیستم جایزه بر اساس سکه‌های فعلی =====
                 const currentCoins = GameState.coins;
                 let reward = 0;
                 if (currentCoins === 0) {
-                    reward = 10;  // اگر سکه 0 بود، 10 سکه جایزه بده
+                    reward = 10;
                 } else {
-                    reward = 1;   // اگر سکه بیشتر از 0 بود، 1 سکه جایزه بده
+                    reward = 1;
                 }
                 GameState.coins += reward;
                 updateCoinDisplay();
@@ -2464,7 +2664,6 @@
             };
         }
 
-        // ===== کانفتی =====
         function createConfetti() {
             const container = document.getElementById('confetti-container');
             container.innerHTML = '';
@@ -2485,108 +2684,6 @@
             setTimeout(() => { container.innerHTML = ''; }, 3500);
         }
 
-        // ===== درگ خورشید =====
-        function initSunDrag() {
-            const sun = document.getElementById('sun-drag');
-            const container = document.getElementById('yard-container');
-            let isDragging = false;
-            let startX, startY, startLeft, startTop;
-            let rafId = null;
-            
-            function onStart(e) {
-                if (sun.classList.contains('disabled')) return;
-                e.preventDefault();
-                e.stopPropagation();
-                isDragging = true;
-                GameState.isDragging = true;
-                
-                const touch = e.touches ? e.touches[0] : e;
-                const rect = container.getBoundingClientRect();
-                
-                startX = touch.clientX;
-                startY = touch.clientY;
-                startLeft = parseFloat(sun.style.left) || 50;
-                startTop = parseFloat(sun.style.top) || 10;
-                
-                sun.style.cursor = 'grabbing';
-                sun.style.transition = 'none';
-                sun.style.transform = 'translate(-50%, -50%) scale(1.15)';
-            }
-            
-            function onMove(e) {
-                if (!isDragging || sun.classList.contains('disabled')) return;
-                e.preventDefault();
-                e.stopPropagation();
-                
-                if (rafId) {
-                    cancelAnimationFrame(rafId);
-                }
-                
-                rafId = requestAnimationFrame(() => {
-                    const touch = e.touches ? e.touches[0] : e;
-                    const rect = container.getBoundingClientRect();
-                    
-                    let deltaX = (touch.clientX - startX) / rect.width * 100;
-                    let deltaY = (touch.clientY - startY) / rect.height * 100;
-                    
-                    let newLeft = Math.min(Math.max(startLeft + deltaX, 3), 97);
-                    let newTop = Math.min(Math.max(startTop + deltaY, 3), 35);
-                    
-                    sun.style.left = newLeft + '%';
-                    sun.style.top = newTop + '%';
-                    sun.style.transform = 'translate(-50%, -50%) scale(1.15)';
-                    
-                    let position;
-                    if (newLeft < 35) position = 0;
-                    else if (newLeft > 65) position = 2;
-                    else position = 1;
-                    
-                    GameState.sunPosition = position;
-                    updateShadow(position);
-                    
-                    const hint = document.getElementById('yard-hint');
-                    if (hint) {
-                        hint.style.opacity = '0.3';
-                        hint.textContent = '☀️ عالی! سایه رو ببین!';
-                    }
-                    
-                    rafId = null;
-                });
-            }
-            
-            function onEnd(e) {
-                if (isDragging) {
-                    isDragging = false;
-                    GameState.isDragging = false;
-                    sun.style.cursor = 'grab';
-                    sun.style.transition = 'all 0.3s ease';
-                    sun.style.transform = 'translate(-50%, -50%) scale(1)';
-                    
-                    if (rafId) {
-                        cancelAnimationFrame(rafId);
-                        rafId = null;
-                    }
-                    
-                    GameState.stats.games++;
-                    saveData();
-                }
-            }
-            
-            sun.removeEventListener('mousedown', onStart);
-            sun.removeEventListener('touchstart', onStart);
-            document.removeEventListener('mousemove', onMove);
-            document.removeEventListener('mouseup', onEnd);
-            document.removeEventListener('touchmove', onMove);
-            document.removeEventListener('touchend', onEnd);
-            
-            sun.addEventListener('mousedown', onStart);
-            sun.addEventListener('touchstart', onStart, { passive: false });
-            document.addEventListener('mousemove', onMove);
-            document.addEventListener('mouseup', onEnd);
-            document.addEventListener('touchmove', onMove, { passive: false });
-            document.addEventListener('touchend', onEnd);
-        }
-
         // ===== رفتن به حیاط =====
         function goToYard() {
             showPage('transition-page');
@@ -2594,8 +2691,6 @@
                 showPage('yard-page');
                 setTimeout(() => {
                     initYard();
-                    initSunDrag();
-                    startTimer();
                     gameStarted = true;
                     resumeGlobalAudio();
                 }, 300);
@@ -2647,43 +2742,17 @@
             });
             
             document.getElementById('yard-back').addEventListener('click', () => {
-                if (timerInterval) {
-                    clearInterval(timerInterval);
-                    timerInterval = null;
+                if (GameState.clockInterval) {
+                    clearInterval(GameState.clockInterval);
+                    GameState.clockInterval = null;
                 }
+                removeSunDragHandlers();
+                removeTraceHandlers();
                 showPage('home-page');
                 resumeGlobalAudio();
             });
             
-            document.getElementById('sun-left').addEventListener('click', () => {
-                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
-                    updateSunPosition(0);
-                    showToast('🌅 صبح - ساعت 6', 'info');
-                }
-            });
-            document.getElementById('sun-center').addEventListener('click', () => {
-                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
-                    updateSunPosition(1);
-                    showToast('☀️ ظهر - ساعت 12', 'info');
-                }
-            });
-            document.getElementById('sun-right').addEventListener('click', () => {
-                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
-                    updateSunPosition(2);
-                    showToast('🌇 عصر - ساعت 18', 'info');
-                }
-            });
-            document.getElementById('reset-yard-btn').addEventListener('click', () => {
-                if (!document.getElementById('sun-drag').classList.contains('disabled')) {
-                    updateSunPosition(1);
-                    const hint = document.getElementById('yard-hint');
-                    if (hint) {
-                        hint.style.opacity = '1';
-                        hint.textContent = '☀️ خورشید رو بکش و جابجا کن!';
-                    }
-                    showToast('🔄 ریست شد!', 'info');
-                }
-            });
+            document.getElementById('trace-btn').addEventListener('click', startTracing);
         });
 
         // ===== توابع global =====
@@ -2693,9 +2762,6 @@
         window.showPage = showPage;
         window.closeCelebration = closeCelebration;
         window.goToYard = goToYard;
-        window.updateSunPosition = updateSunPosition;
-        window.updateShadow = updateShadow;
-        window.updateClock = updateClock;
     </script>
 </body>
 </html>

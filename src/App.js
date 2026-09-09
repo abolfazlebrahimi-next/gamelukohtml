@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function App() {
-  // ======== لیست بازی‌ها (نسخه جدید - ۳۴ بازی) ========
+  // ======== لیست بازی‌ها (نسخه جدید - ۵۱ بازی) ========
   const gamesData = [
     // ===== ghoran (قرآن) - پایه ۱ =====
     { id: 1, base: 1, lesson: 'ghoran', chapter: 1, gameNum: 1, file: 'ghoran_p1_f1_g1.html' },
@@ -9,72 +9,108 @@ function App() {
     { id: 3, base: 1, lesson: 'ghoran', chapter: 1, gameNum: 3, file: 'ghoran_p1_f1_g3.html' },
     { id: 4, base: 1, lesson: 'ghoran', chapter: 1, gameNum: 4, file: 'ghoran_p1_f1_g4.html' },
 
+    // ===== farsi (فارسی) - پایه ۱ =====
+    { id: 5, base: 1, lesson: 'farsi', chapter: 1, gameNum: 2, file: 'farsi_p1_f1_g2.html' },
+
     // ===== negaresh (نگارش) - پایه ۱ =====
-    // فصل ۱ (۵ بازی)
-    { id: 5, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p1_f1_g1.html' },
-    { id: 6, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 2, file: 'negaresh_p1_f1_g2.html' },
-    { id: 7, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p1_f1_g3.html' },
-    { id: 8, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 4, file: 'negaresh_p1_f1_g4.html' },
-    { id: 9, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 5, file: 'negaresh_p1_f1_g5.html' }, // جدید
-    // فصل ۲ (۲ بازی)
-    { id: 10, base: 1, lesson: 'negaresh', chapter: 2, gameNum: 1, file: 'negaresh_p1_f2_g1.html' }, // جدید
-    { id: 11, base: 1, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
+    // فصل ۱ (۷ بازی)
+    { id: 6, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p1_f1_g1.html' },
+    { id: 7, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 2, file: 'negaresh_p1_f1_g2.html' },
+    { id: 8, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p1_f1_g3.html' },
+    { id: 9, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 4, file: 'negaresh_p1_f1_g4.html' },
+    { id: 10, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 5, file: 'negaresh_p1_f1_g5.html' },
+    { id: 11, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 6, file: 'negaresh_p1_f1_g6.html' },
+    { id: 12, base: 1, lesson: 'negaresh', chapter: 1, gameNum: 7, file: 'negaresh_p1_f1_g7.html' },
+    // فصل ۲ (۳ بازی)
+    { id: 13, base: 1, lesson: 'negaresh', chapter: 2, gameNum: 1, file: 'negaresh_p1_f2_g1.html' },
+    { id: 14, base: 1, lesson: 'negaresh', chapter: 2, gameNum: 2, file: 'negaresh_p1_f2_g2.html' },
+    { id: 15, base: 1, lesson: 'negaresh', chapter: 2, gameNum: 3, file: 'negaresh_p1_f2_g3.html' },
+
+    // ===== negaresh (نگارش) - پایه ۲ =====
+    { id: 16, base: 2, lesson: 'negaresh', chapter: 1, gameNum: 8, file: 'negaresh_p2_f1_g8.html' },
+    { id: 17, base: 2, lesson: 'negaresh', chapter: 6, gameNum: 1, file: 'negaresh_p2_f6_g1.html' },
 
     // ===== negaresh (نگارش) - پایه ۴ =====
-    { id: 12, base: 4, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p4_f1_g1.html' }, // جدید
+    { id: 18, base: 4, lesson: 'negaresh', chapter: 1, gameNum: 1, file: 'negaresh_p4_f1_g1.html' },
+    { id: 19, base: 4, lesson: 'negaresh', chapter: 1, gameNum: 2, file: 'negaresh_p4_f1_g2.html' },
+    { id: 20, base: 4, lesson: 'negaresh', chapter: 1, gameNum: 3, file: 'negaresh_p4_f1_g3.html' },
 
     // ===== riyazi (ریاضی) - پایه ۱ =====
     // فصل ۱ (۱۰ بازی)
     ...Array.from({ length: 10 }, (_, i) => ({
-      id: 13 + i,
+      id: 21 + i,
       base: 1,
       lesson: 'riyazi',
       chapter: 1,
       gameNum: i + 1,
       file: `riyazi_p1_f1_g${i + 1}.html`,
     })),
-    // فصل ۲ (۳ بازی)
-    { id: 23, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
-    { id: 24, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 2, file: 'riyazi_p1_f2_g2.html' },
-    { id: 25, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 3, file: 'riyazi_p1_f2_g3.html' },
+    // فصل ۲ (۴ بازی)
+    { id: 31, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 1, file: 'riyazi_p1_f2_g1.html' },
+    { id: 32, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 2, file: 'riyazi_p1_f2_g2.html' },
+    { id: 33, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 3, file: 'riyazi_p1_f2_g3.html' },
+    { id: 34, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 4, file: 'riyazi_p1_f2_g4.html' },
+    { id: 51, base: 1, lesson: 'riyazi', chapter: 2, gameNum: 5, file: 'riyazi_p1_f2_g5.html' },
     // فصل ۳
-    { id: 26, base: 1, lesson: 'riyazi', chapter: 3, gameNum: 1, file: 'riyazi_p1_f3_g1.html' },
+    { id: 35, base: 1, lesson: 'riyazi', chapter: 3, gameNum: 1, file: 'riyazi_p1_f3_g1.html' },
+    // فصل ۴
+    { id: 36, base: 1, lesson: 'riyazi', chapter: 4, gameNum: 1, file: 'riyazi_p1_f4_g1.html' },
     // فصل ۶ (۲ بازی)
-    { id: 27, base: 1, lesson: 'riyazi', chapter: 6, gameNum: 1, file: 'riyazi_p1_f6_g1.html' },
-    { id: 28, base: 1, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
-    // فصل ۸ (جدید)
-    { id: 29, base: 1, lesson: 'riyazi', chapter: 8, gameNum: 1, file: 'riyazi_p1_f8_g1.html' },
+    { id: 37, base: 1, lesson: 'riyazi', chapter: 6, gameNum: 1, file: 'riyazi_p1_f6_g1.html' },
+    { id: 38, base: 1, lesson: 'riyazi', chapter: 6, gameNum: 2, file: 'riyazi_p1_f6_g2.html' },
+    // فصل ۸
+    { id: 39, base: 1, lesson: 'riyazi', chapter: 8, gameNum: 1, file: 'riyazi_p1_f8_g1.html' },
     // فصل ۱۱
-    { id: 30, base: 1, lesson: 'riyazi', chapter: 11, gameNum: 1, file: 'riyazi_p1_f11_g1.html' },
+    { id: 40, base: 1, lesson: 'riyazi', chapter: 11, gameNum: 1, file: 'riyazi_p1_f11_g1.html' },
+    // فصل ۱۵
+    { id: 41, base: 1, lesson: 'riyazi', chapter: 15, gameNum: 1, file: 'riyazi_p1_f15_g1.html' },
 
     // ===== olom (علوم) - پایه ۱ =====
-    // فصل ۱ (۲ بازی)
-    { id: 31, base: 1, lesson: 'olom', chapter: 1, gameNum: 1, file: 'olom_p1_f1_g1.html' },
-    { id: 32, base: 1, lesson: 'olom', chapter: 1, gameNum: 2, file: 'olom_p1_f1_g2.html' }, // جدید
+    // فصل ۱ (۴ بازی)
+    { id: 42, base: 1, lesson: 'olom', chapter: 1, gameNum: 1, file: 'olom_p1_f1_g1.html' },
+    { id: 43, base: 1, lesson: 'olom', chapter: 1, gameNum: 2, file: 'olom_p1_f1_g2.html' },
+    { id: 44, base: 1, lesson: 'olom', chapter: 1, gameNum: 3, file: 'olom_p1_f1_g3.html' },
+    { id: 45, base: 1, lesson: 'olom', chapter: 1, gameNum: 4, file: 'olom_p1_f1_g4.html' },
     // فصل ۲
-    { id: 33, base: 1, lesson: 'olom', chapter: 2, gameNum: 2, file: 'olom_p1_f2_g2.html' },
+    { id: 46, base: 1, lesson: 'olom', chapter: 2, gameNum: 2, file: 'olom_p1_f2_g2.html' },
     // فصل ۳
-    { id: 34, base: 1, lesson: 'olom', chapter: 3, gameNum: 1, file: 'olom_p1_f3_g1.html' },
+    { id: 47, base: 1, lesson: 'olom', chapter: 3, gameNum: 1, file: 'olom_p1_f3_g1.html' },
+
+    // ===== olom (علوم) - پایه ۳ =====
+    // فصل ۱ (۳ بازی)
+    { id: 48, base: 3, lesson: 'olom', chapter: 1, gameNum: 1, file: 'olom_p3_f1_g1.html' },
+    { id: 49, base: 3, lesson: 'olom', chapter: 1, gameNum: 2, file: 'olom_p3_f1_g2.html' },
+    { id: 50, base: 3, lesson: 'olom', chapter: 1, gameNum: 3, file: 'olom_p3_f1_g3.html' },
   ];
 
-  // ======== تعداد بازی‌های هر درس در هر پایه برای نسخهٔ قبلی (برای نمایش اضافات) ========
-  // قبلاً ۳۰ بازی داشتیم (۲۷ تا قبلی + ۳ تا جدید در آپدیت قبل)
-  // حالا ۴ تا جدید اضافه شده: negaresh_p1_f1_g5, negaresh_p1_f2_g1, negaresh_p4_f1_g1, olom_p1_f1_g2
-  // پس previousCounts را بر اساس پایه و درس تعریف می‌کنیم
+  // ======== تعداد بازی‌های هر درس در هر پایه برای نسخهٔ قبلی ========
   const previousCounts = {
     '1_ghoran': 4,
-    '1_negaresh': 5,  // قبلاً ۵ تا داشت (g1-g4 در f1 و g2 در f2)
-    '4_negaresh': 0,  // جدید
-    '1_riyazi': 17,   // قبلاً ۱۷ تا (بدون f8)
-    '1_olom': 3,      // قبلاً ۳ تا (بدون f1_g2)
+    '1_farsi': 0,
+    '1_negaresh': 5,
+    '2_negaresh': 0,
+    '4_negaresh': 1,
+    '1_riyazi': 17,
+    '1_olom': 2,      // قبلاً ۲ تا (f1_g1, f2_g2)
+    '3_olom': 0,      // جدید
   };
 
   // ======== ترجمه نام دروس ========
   const lessonNames = {
     riyazi: 'ریاضی',
     ghoran: 'قرآن',
+    farsi: 'فارسی',
     negaresh: 'نگارش',
     olom: 'علوم',
+  };
+
+  // ======== رنگ‌بندی دروس ========
+  const lessonColors = {
+    riyazi: { bg: '#f8d7da', border: '#f5c2c7', text: '#842029' },
+    ghoran: { bg: '#d1e7dd', border: '#badbcc', text: '#0f5132' },
+    farsi: { bg: '#cfe2ff', border: '#b6d4fe', text: '#084298' },
+    negaresh: { bg: '#fff3cd', border: '#ffecb5', text: '#664d03' },
+    olom: { bg: '#d1e7dd', border: '#badbcc', text: '#0f5132' },
   };
 
   // ======== استخراج پایه‌ها ========
@@ -109,9 +145,9 @@ function App() {
   const findGame = (id) => gamesData.find(g => g.id === id);
 
   // ======== آمار ========
-  const totalGames = gamesData.length; // ۳۴
-  const totalPrevious = Object.values(previousCounts).reduce((a, b) => a + b, 0); // ۴+۵+۰+۱۷+۳ = ۲۹
-  const totalAdded = totalGames - totalPrevious; // ۵ (چون ۳۴-۲۹=۵)
+  const totalGames = gamesData.length;
+  const totalPrevious = Object.values(previousCounts).reduce((a, b) => a + b, 0);
+  const totalAdded = totalGames - totalPrevious;
 
   // ======== رندر صفحات ========
 
@@ -351,14 +387,7 @@ function App() {
             const key = `${base}_${lesson}`;
             const prevCount = previousCounts[key] || 0;
             const added = count - prevCount;
-
-            const colors = {
-              riyazi: { bg: '#f8d7da', border: '#f5c2c7', text: '#842029' },
-              ghoran: { bg: '#d1e7dd', border: '#badbcc', text: '#0f5132' },
-              negaresh: { bg: '#cfe2ff', border: '#b6d4fe', text: '#084298' },
-              olom: { bg: '#fff3cd', border: '#ffecb5', text: '#664d03' },
-            };
-            const color = colors[lesson] || { bg: '#f8f9fa', border: '#dee2e6', text: '#212529' };
+            const color = lessonColors[lesson] || { bg: '#f8f9fa', border: '#dee2e6', text: '#212529' };
 
             return (
               <div

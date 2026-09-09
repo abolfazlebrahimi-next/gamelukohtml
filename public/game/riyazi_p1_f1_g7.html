@@ -374,7 +374,7 @@
     <div id="menu-screen" class="screen active">
         <div class="menu-container glass-card">
             <div class="coin-display">
-                <span class="coin-amount" id="menu-coin-amount">1000</span>
+                <span class="coin-amount" id="menu-coin-amount">0</span>
                 <img src="./icons/coin.png" alt="Coin" class="coin-icon-img">
             </div>
             <div class="menu-title-banner">
@@ -434,7 +434,7 @@
                 <button id="btn-shop-back" class="btn-icon" style="width:40px;height:40px;font-size:1.2rem;">✖</button>
                 <h2>🛍️ فروشگاه</h2>
                 <div class="coin-display" style="position:relative;top:0;right:0;padding:4px 12px;background:rgba(0,0,0,0.3);border:none;box-shadow:none;">
-                    <span class="coin-amount" id="shop-coin-amount" style="font-size:1rem;">1000</span>
+                    <span class="coin-amount" id="shop-coin-amount" style="font-size:1rem;">0</span>
                     <img src="./icons/coin.png" alt="Coin" class="coin-icon-img" style="width:20px;height:20px;">
                 </div>
             </div>
@@ -521,7 +521,7 @@
                 <p>حرکات غلط: <span id="celeb-wrong">0</span></p>
                 <p>زمان: <span id="celeb-time">00:00</span></p>
             </div>
-            <div class="coin-reward-display" id="coin-reward-display" style="display: none;">
+            <div class="coin-reward-display" id="coin-reward-display">
                 <img src="./icons/coin.png" alt="Coin">
                 <span id="celeb-reward">+0</span>
             </div>
@@ -725,7 +725,7 @@
         };
 
         // ============================================================
-        // 7. ذخیره‌سازی (SavedStats) - مقدار اولیه سکه 1000
+        // 7. ذخیره‌سازی (SavedStats) - مقدار اولیه سکه 0
         // ============================================================
         let savedStats = {
             totalCorrect: 0,
@@ -734,8 +734,8 @@
             highestLevel: 1,
             completedLevels: [],
             currentLevel: 1,
-            lokoCoins: 1000,
-            initialLokoCoins: 1000,
+            lokoCoins: 0,
+            initialLokoCoins: 0,
             ownedSkins: ['default'],
             activeSkin: 'default',
             ownedThemes: ['simple'],
@@ -794,11 +794,10 @@
                 if (parsed.currentLevel) savedStats.currentLevel = parsed.currentLevel;
                 if (parsed.hasSeenHelp !== undefined) savedStats.hasSeenHelp = parsed.hasSeenHelp;
             }
-            // اگر سکه کمتر از 1000 بود، به 1000 برسان
-            if (savedStats.lokoCoins < 1000) {
-                savedStats.lokoCoins = 1000;
-                savedStats.initialLokoCoins = 1000;
-            }
+            // سکه‌ها را همیشه صفر نگه دار (برای شروع جدید)
+            savedStats.lokoCoins = 0;
+            savedStats.initialLokoCoins = 0;
+            
             GameState.activeSkin = savedStats.activeSkin || 'default';
             GameState.ownedSkins = savedStats.ownedSkins || ['default'];
             GameState.activeTheme = savedStats.activeTheme || 'simple';
@@ -1727,15 +1726,17 @@
             savedStats.currentLevel = GameState.currentLevel + 1;
             if (savedStats.currentLevel > 50) savedStats.currentLevel = 50;
 
+            // ======== سیستم پاداش سکه ========
             let reward = 0;
-            if (GameState.currentLevel === 50) {
-                if (savedStats.initialLokoCoins === 1000) {
-                    reward = 10;
-                } else {
-                    reward = 1;
-                }
-                savedStats.lokoCoins += reward;
+            // اگر سکه‌ها 0 باشد، 10 سکه جایزه بده
+            if (savedStats.lokoCoins === 0) {
+                reward = 10;
+            } else {
+                // اگر سکه‌ها بیشتر از 0 باشد، 1 سکه جایزه بده
+                reward = 1;
             }
+            savedStats.lokoCoins += reward;
+            // =================================
             
             saveStats();
             updateCoinDisplay();
