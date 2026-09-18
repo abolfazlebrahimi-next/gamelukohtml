@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>الگوی ساختمان </title>
+<title>مغازه‌دار باهوش</title>
 <style>
 @font-face { font-family: "Shoor"; src: url("./fonts/Shoor-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Shoor"; src: url("./fonts/Shoor-Medium.ttf") format("truetype"); font-weight: 500; font-display: swap; }
@@ -79,8 +79,6 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .btn-secondary:hover { transform: translateY(-4px) scale(1.02); background: var(--btn-secondary-hover); border-color: var(--secondary); box-shadow: 0 0 25px var(--secondary); }
 .btn-gold { background: var(--btn-gold-bg); color: #0a0a1a; border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 4px 25px rgba(255, 201, 60, 0.3); }
 .btn-gold:hover { transform: translateY(-4px); box-shadow: 0 8px 35px rgba(255, 201, 60, 0.4); }
-.btn-success { background: linear-gradient(135deg, #00B894, #00a383); color: #fff; border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 4px 25px rgba(0, 184, 148, 0.4); }
-.btn-success:hover { transform: translateY(-4px); box-shadow: 0 8px 35px rgba(0, 184, 148, 0.5); }
 .btn-start { background: var(--btn-start-bg) !important; color: var(--btn-start-color) !important; border: 1px solid rgba(255, 255, 255, 0.15) !important; box-shadow: 0 4px 25px var(--btn-start-shadow) !important; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important; }
 .btn-start:hover { background: var(--btn-start-hover-bg) !important; transform: translateY(-6px) scale(1.03) !important; box-shadow: 0 8px 35px var(--btn-start-shadow), 0 0 50px var(--secondary) !important; border-color: var(--secondary) !important; }
 .btn-start:active { transform: scale(0.95) !important; }
@@ -117,7 +115,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .shop-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-shrink: 0; overflow-x: auto; padding: 2px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid var(--glass-border); }
 .shop-tabs::-webkit-scrollbar { height: 3px; }
 .shop-tabs::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
-.shop-tab { flex: 1; padding: 10px 6px; border: none; border-radius: 10px; background: transparent; color: var(--text-secondary); font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; font-family: var(--font-family); text-align: center; }
+.shop-tab { flex: 1; padding: 10px 6px; border: none; border-radius: 10px; background: transparent; color: var(--text-secondary); font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; white-space: nowrap; font-family: var(--font-family); text-align: center; }
 .shop-tab:hover { color: var(--text-color); }
 .shop-tab.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #fff; box-shadow: 0 0 20px var(--btn-primary-shadow); }
 
@@ -169,54 +167,247 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 
 .instruction-msg { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 14px; padding: 10px; text-align: center; color: var(--text-secondary); font-weight: 700; margin: 8px 0; font-size: 0.9rem; box-shadow: 0 0 15px var(--border-glow); transition: all 0.5s ease; min-height: 50px; display: flex; align-items: center; justify-content: center; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
 
-.game-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px; padding: 10px 0; position: relative; overflow-y: auto; }
+.game-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px; padding: 10px 0; position: relative; }
 
-.building-display { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 12px; background: var(--card-bg); border-radius: var(--radius); flex-shrink: 0; width: 100%; border: 1px solid var(--glass-border); }
+.shop-visual { width: 100%; max-width: 220px; margin: 0 auto; display: flex; align-items: center; justify-content: center; min-height: 70px; }
+.shop-visual img { max-width: 100%; max-height: 70px; object-fit: contain; filter: drop-shadow(0 4px 15px rgba(0,0,0,0.3)); }
 
-.building-floor { display: flex; align-items: center; gap: 8px; width: 100%; max-width: 320px; padding: 8px 12px; border-radius: var(--radius-sm); transition: var(--transition); }
+/* ============================================================
+   ⭐ Drag & Drop
+   ============================================================ */
 
-.floor-label { font-size: 0.8rem; color: var(--text-color); min-width: 55px; text-align: center; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; font-weight: 700; }
-.floor-units { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; justify-content: center; }
+.customer-stage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
 
-.unit { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
-.unit svg { width: 14px; height: 14px; }
+.customer-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--card-bg);
+    border-radius: 18px;
+    border: 2px solid var(--glass-border);
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 25px var(--border-glow);
+    transition: all 0.3s ease;
+    position: relative;
+}
 
-.floor-8 { background: rgba(76, 175, 80, 0.15); border: 1px solid #4CAF50; }
-.floor-8 .unit { background: #4CAF50; }
-.floor-7 { background: rgba(33, 150, 243, 0.15); border: 1px solid #2196F3; }
-.floor-7 .unit { background: #2196F3; }
-.floor-6 { background: rgba(255, 152, 0, 0.15); border: 1px solid #FF9800; }
-.floor-6 .unit { background: #FF9800; }
-.floor-5 { background: rgba(233, 30, 99, 0.15); border: 1px solid #E91E63; }
-.floor-5 .unit { background: #E91E63; }
-.floor-4 { background: rgba(156, 39, 176, 0.15); border: 1px solid #9C27B0; }
-.floor-4 .unit { background: #9C27B0; }
-.floor-3 { background: rgba(255, 87, 34, 0.15); border: 1px solid #FF5722; }
-.floor-3 .unit { background: #FF5722; }
-.floor-2 { background: rgba(0, 188, 212, 0.15); border: 1px solid #00BCD4; }
-.floor-2 .unit { background: #00BCD4; }
-.floor-1 { background: rgba(255, 193, 7, 0.15); border: 1px solid #FFC107; }
-.floor-1 .unit { background: #FFC107; }
+.customer-area.drop-hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 45px rgba(255, 201, 60, 0.5);
+    background: rgba(255, 201, 60, 0.08);
+    transform: scale(1.02);
+}
 
-.question-section { text-align: center; flex-shrink: 0; width: 100%; }
-.question-text { font-size: 1.05rem; margin-bottom: 14px; color: var(--text-color); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; font-weight: 700; line-height: 1.7; }
-.question-text span { color: var(--gold); font-weight: 900; font-size: 1.2rem; }
+.customer-avatar {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+}
 
-.options-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 340px; margin: 0 auto; }
+.customer-avatar > img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    object-fit: contain;
+    background: rgba(0,0,0,0.3);
+    padding: 4px;
+    box-shadow: 0 0 20px rgba(255, 201, 60, 0.3);
+    animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
 
-.option-btn { padding: 16px 12px; background: var(--card-bg); border: 3px solid transparent; border-radius: 14px; color: var(--text-color); font-size: 1.1rem; font-weight: 900; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; transition: var(--transition); cursor: pointer; min-height: 55px; }
+.customer-area.drop-hover .customer-avatar > img {
+    transform: scale(1.1);
+}
+
+.speech-bubble {
+    flex: 1;
+    text-align: right;
+}
+
+.speech-bubble p {
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif;
+    line-height: 1.7;
+}
+
+.speech-bubble strong {
+    color: var(--gold);
+    font-size: 1.3rem;
+}
+
+.progress-info {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.progress-info strong {
+    color: var(--secondary);
+    font-size: 1rem;
+}
+
+.tray-section {
+    width: 100%;
+    max-width: 400px;
+    flex-shrink: 0;
+}
+
+.tray-label {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif;
+    margin-bottom: 8px;
+}
+
+.chocolate-tray {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: linear-gradient(180deg, rgba(121, 85, 72, 0.15) 0%, rgba(93, 64, 55, 0.3) 100%);
+    border-radius: 16px;
+    border: 2px solid rgba(121, 85, 72, 0.4);
+    min-height: 70px;
+    box-shadow: inset 0 4px 15px rgba(0,0,0,0.3);
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.tray-choco {
+    width: 42px;
+    height: 42px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #A1887F, #6D4C41);
+    border-radius: 8px;
+    border: 2px solid #4E342E;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.1);
+    font-size: 22px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    touch-action: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.tray-choco img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.tray-choco::before {
+    content: '';
+    position: absolute;
+    top: 4px; left: 4px; right: 4px; bottom: 4px;
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.tray-choco:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 201, 60, 0.3);
+    border-color: var(--gold);
+}
+
+.tray-choco.dragging {
+    opacity: 0.25;
+    transform: scale(0.85);
+}
+
+.customer-avatar.happy > img {
+    animation: happyBounce 0.6s ease;
+}
+
+@keyframes happyBounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    25% { transform: translateY(-15px) scale(1.1); }
+    50% { transform: translateY(0) scale(1.15); }
+    75% { transform: translateY(-8px) scale(1.1); }
+}
+
+.tray-choco.vanishing {
+    animation: chocoVanish 0.4s ease forwards;
+}
+
+@keyframes chocoVanish {
+    0%   { transform: scale(1) rotate(0deg); opacity: 1; }
+    50%  { transform: scale(1.2) rotate(10deg); opacity: 0.7; }
+    100% { transform: scale(0) rotate(180deg); opacity: 0; }
+}
+
+/* ============================================================
+   کارت نتیجه
+   ============================================================ */
+
+.result-card { width: 100%; text-align: center; }
+.chocolates-sold { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 16px; }
+.choco-display { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; min-height: 60px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 14px; border: 1px solid var(--glass-border); }
+.choco-item { animation: popIn 0.3s ease backwards; }
+@keyframes popIn { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: scale(1); } }
+.choco-count { font-size: 1rem; color: var(--text-secondary); font-weight: 700; }
+.choco-count span { font-weight: 900; color: var(--gold); font-size: 1.3rem; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+
+.profit-display { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 18px; background: var(--card-bg); border-radius: 16px; border: 2px solid var(--gold); margin-bottom: 16px; box-shadow: 0 0 30px rgba(255, 201, 60, 0.15); }
+.profit-icon { width: 50px; height: 50px; background: var(--btn-gold-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.profit-info { text-align: right; }
+.profit-label { display: block; color: var(--text-secondary); font-size: 0.85rem; font-weight: 700; }
+.profit-amount { font-size: 2rem; font-weight: 900; color: var(--gold); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; text-shadow: 0 0 20px var(--gold); }
+.profit-amount small { font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); }
+
+.question-card { width: 100%; text-align: center; }
+.question-step { margin-bottom: 12px; }
+.step-badge { display: inline-block; padding: 6px 16px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 20px; font-size: 0.8rem; font-weight: 700; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; box-shadow: 0 0 20px var(--btn-primary-shadow); }
+.question-title { color: var(--text-color); font-size: 1.15rem; font-weight: 900; margin-bottom: 8px; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+.question-text { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 18px; font-weight: 700; }
+.question-text strong { color: var(--gold); font-size: 1.1rem; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+
+.answer-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.option-btn { padding: 16px 10px; border: 3px solid transparent; border-radius: 14px; background: var(--card-bg); color: var(--text-color); font-size: 1.1rem; font-weight: 900; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; cursor: pointer; transition: var(--transition); min-height: 55px; }
 .option-btn:hover:not(:disabled) { border-color: var(--secondary); box-shadow: 0 0 30px var(--secondary); transform: translateY(-2px); }
 .option-btn:disabled { cursor: not-allowed; opacity: 0.7; }
-.option-btn.correct { background: rgba(0, 184, 148, 0.3); border-color: var(--success); color: #fff; box-shadow: 0 0 30px var(--success); animation: correctPulse 0.5s ease; }
-.option-btn.wrong { background: rgba(255, 118, 117, 0.3); border-color: var(--danger); color: #fff; animation: shake 0.5s ease; }
+.option-btn.correct { border-color: var(--success); background: rgba(0, 184, 148, 0.3); color: #fff; box-shadow: 0 0 30px var(--success); animation: correctPulse 0.5s ease; }
+.option-btn.wrong { border-color: var(--danger); background: rgba(255, 118, 117, 0.3); color: #fff; animation: shake 0.5s ease; }
 @keyframes correctPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 
-.challenge-section { text-align: center; padding: 15px; background: rgba(255, 201, 60, 0.1); border-radius: var(--radius); border: 2px dashed var(--gold); flex-shrink: 0; width: 100%; box-shadow: 0 0 30px rgba(255, 201, 60, 0.2); }
-.challenge-section.hidden { display: none; }
-.challenge-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: var(--btn-gold-bg); color: #0a0a1a; border-radius: 15px; font-size: 0.8rem; font-weight: 900; margin-bottom: 12px; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; box-shadow: 0 0 25px rgba(255, 201, 60, 0.4); }
-.challenge-question { font-size: 1rem; margin-bottom: 14px; color: var(--text-color); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; font-weight: 700; line-height: 1.7; }
-.challenge-question span { color: var(--gold); font-weight: 900; font-size: 1.2rem; }
+.feedback-box { margin-top: 16px; padding: 16px; border-radius: 14px; border: 2px solid var(--glass-border); }
+.feedback-box.success { background: rgba(0, 184, 148, 0.15); border-color: var(--success); }
+.feedback-box.error { background: rgba(255, 118, 117, 0.15); border-color: var(--danger); }
+.feedback-icon { font-size: 2rem; margin-bottom: 6px; }
+.feedback-text { font-size: 1rem; font-weight: 700; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+.feedback-box.success .feedback-text { color: var(--success); }
+.feedback-box.error .feedback-text { color: var(--danger); }
 
 .stop-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 6000; display: none; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); }
 .stop-modal.show { display: flex; animation: screenFadeIn 0.3s ease; }
@@ -241,7 +432,6 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .modal-card h3 { font-size: 2rem; font-weight: 800; color: var(--gold); font-family: 'Shoor Rounded', 'Shoor', Tahoma, sans-serif; margin-bottom: 8px; text-shadow: 0 0 30px rgba(255, 201, 60, 0.3); letter-spacing: 2px; }
 .modal-card.fail h3 { color: var(--danger); text-shadow: 0 0 30px rgba(255, 118, 117, 0.2); }
 .modal-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px; }
-.modal-card p strong { color: var(--gold); }
 .modal-card .btn { margin-top: 8px; }
 .modal-card .result-char { width: 120px; height: 120px; margin: 0 auto 15px; border-radius: 50%; border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; overflow: hidden; background: radial-gradient(circle, rgba(255,255,255,0.05), transparent); box-shadow: 0 0 50px rgba(255, 201, 60, 0.2); animation: celebFloat 2s ease-in-out infinite; }
 .modal-card .result-char img { width: 85%; height: 85%; object-fit: contain; }
@@ -249,9 +439,6 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .modal-card .win-coin { font-size: 2.5rem; color: var(--gold); display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0; }
 .modal-card .win-coin img { width: 40px; height: 40px; object-fit: contain; }
 .modal-card .win-level { font-size: 1.3rem; color: var(--text-secondary); margin-bottom: 10px; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
-.modal-card .score-info { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 12px; margin-bottom: 15px; }
-.modal-card .score-info div { color: var(--text-secondary); font-size: 0.9rem; line-height: 2; font-weight: 700; }
-.modal-card .score-info div strong { color: var(--gold); font-size: 1.05rem; }
 .result-buttons { display: flex; flex-direction: column; gap: 10px; }
 
 .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: var(--card-bg); backdrop-filter: blur(25px); border: 2px solid var(--gold); border-radius: 20px; padding: 18px 30px; z-index: 7000; box-shadow: 0 0 80px rgba(255, 201, 60, 0.25); color: var(--text-color); font-weight: 700; font-size: 1.1rem; display: none; align-items: center; gap: 16px; max-width: 90%; animation: toastSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), toastGlow 2s ease-in-out infinite; }
@@ -287,38 +474,21 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .celebration-box .celeb-message strong { color: var(--gold); }
 .celebration-box .btn { min-height: 48px; }
 
-.question-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 5500; display: none; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); padding: 20px; }
-.question-modal-overlay.show { display: flex; animation: screenFadeIn 0.3s ease; }
-.question-modal-box { background: var(--card-bg); backdrop-filter: blur(25px); border: 3px solid var(--success); border-radius: 28px; padding: 35px 25px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 100px rgba(0, 184, 148, 0.3); color: var(--text-color); animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.question-modal-box.wrong { border-color: var(--danger); box-shadow: 0 0 100px rgba(255, 118, 117, 0.3); }
-@keyframes modalPop { 0% { transform: scale(0.5) rotate(-5deg); opacity: 0; } 50% { transform: scale(1.05) rotate(2deg); } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
-.question-modal-box .modal-feedback-icon { width: 90px; height: 90px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0, 184, 148, 0.2); animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.question-modal-box.wrong .modal-feedback-icon { background: rgba(255, 118, 117, 0.2); }
-@keyframes iconPop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
-.question-modal-box .modal-feedback-icon svg { width: 50px; height: 50px; }
-.question-modal-box .modal-feedback-icon svg path { fill: var(--success); }
-.question-modal-box.wrong .modal-feedback-icon svg path { fill: var(--danger); }
-.question-modal-box h3 { font-size: 1.8rem; font-weight: 900; color: var(--success); font-family: 'Shoor Rounded', 'Shoor', Tahoma, sans-serif; margin-bottom: 12px; text-shadow: 0 0 30px rgba(0, 184, 148, 0.4); }
-.question-modal-box.wrong h3 { color: var(--danger); text-shadow: 0 0 30px rgba(255, 118, 117, 0.4); }
-.question-modal-box p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 20px; font-weight: 700; }
-.question-modal-box p strong { color: var(--gold); font-size: 1.1rem; }
-.question-modal-box .modal-time-info { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 10px; margin-bottom: 20px; color: var(--text-secondary); font-size: 0.85rem; font-weight: 700; }
-.question-modal-box .modal-time-info strong { color: var(--gold); }
-
 .hidden { display: none !important; }
 
 @media (max-width: 480px) {
 .menu-title { font-size: 1.8rem; } .menu-character { width: 120px; height: 120px; } .levels-container h2 { font-size: 1.5rem; } .level-grid { gap: 6px; } .level-box { min-height: 40px; font-size: 1rem; } .level-box:hover .level-number { font-size: 1.4rem; } .game-card { padding: 12px 10px; } .game-header .game-title { font-size: 0.65rem; } .game-header .game-level { font-size: 0.6rem; padding: 2px 8px; } .game-header .target-box { font-size: 0.6rem; padding: 2px 8px; } .stop-btn { width: 34px; height: 34px; font-size: 1rem; } .modal-card { padding: 24px 18px; } .modal-card h3 { font-size: 1.6rem; } .modal-card p { font-size: 0.85rem; } .modal-card .result-char { width: 90px; height: 90px; } .shop-item { min-height: 140px; padding: 10px 6px; } .shop-item .shop-preview { height: 70px; font-size: 2.5rem; } .countdown-number { font-size: 9rem; } .countdown-number.go-text { font-size: 5rem; } .toast { padding: 14px 20px; font-size: 0.9rem; } .toast .toast-emoji { font-size: 2rem; } .guide-container .guide-text { font-size: 0.95rem; padding: 12px 16px; min-height: 100px; } .guide-container .guide-char { width: 90px; height: 90px; } .celebration-box { padding: 30px 20px; } .celebration-box .celeb-char { width: 100px; height: 100px; } .celebration-box h2 { font-size: 1.6rem; } .back-btn { width: 38px; height: 38px; } .coin-display { padding: 4px 12px 4px 8px; } .coin-display img { width: 22px; height: 22px; } .coin-amount { font-size: 0.9rem; } .shop-coin img { width: 18px; height: 18px; } .modal-card .win-coin img { width: 32px; height: 32px; } .shop-item .price img { width: 14px; height: 14px; }
-.option-btn { padding: 12px 8px; font-size: 0.95rem; min-height: 48px; }
-.unit { width: 18px; height: 18px; }
-.unit svg { width: 12px; height: 12px; }
-.floor-label { font-size: 0.7rem; min-width: 45px; }
-.question-text { font-size: 0.9rem; }
-.challenge-question { font-size: 0.9rem; }
-.question-modal-box { padding: 25px 18px; }
-.question-modal-box h3 { font-size: 1.4rem; }
-.question-modal-box .modal-feedback-icon { width: 70px; height: 70px; }
-.question-modal-box .modal-feedback-icon svg { width: 40px; height: 40px; }
+.option-btn { padding: 12px 8px; font-size: 0.9rem; min-height: 48px; }
+.question-title { font-size: 1rem; }
+.question-text { font-size: 0.85rem; }
+.profit-amount { font-size: 1.6rem; }
+.customer-area { padding: 10px 12px; gap: 10px; }
+.customer-avatar { width: 65px; height: 65px; }
+.customer-avatar > img { width: 55px; height: 55px; }
+.speech-bubble p { font-size: 0.85rem; }
+.speech-bubble strong { font-size: 1.1rem; }
+.tray-choco { width: 36px; height: 36px; font-size: 18px; }
+.shop-tab { font-size: 0.6rem; padding: 8px 4px; }
 }
 </style>
 </head>
@@ -355,16 +525,6 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 </div>
 </div>
 
-<div class="question-modal-overlay" id="questionModal">
-<div class="question-modal-box" id="questionModalBox">
-<div class="modal-feedback-icon" id="modalFeedbackIcon"></div>
-<h3 id="modalTitle">آفرین!</h3>
-<div class="modal-time-info hidden" id="modalTimeInfo"></div>
-<p id="modalMessage">درست بود!</p>
-<button class="btn btn-success" id="modalNextBtn">➡️ سوال بعدی</button>
-</div>
-</div>
-
 <div id="winModal" class="modal">
 <div class="modal-card">
 <div class="result-char">
@@ -377,7 +537,6 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="winCoinAmount">10</span>
 </div>
-<div class="score-info" id="winScoreInfo"></div>
 <p id="winMsg">عالی بود! 😍</p>
 <div class="result-buttons">
 <button class="btn btn-primary" id="winNextBtn">➡️ مرحله بعد</button>
@@ -393,7 +552,6 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <img src="icons/sad gamer.png" alt="ناراحت" onerror="this.textContent='😢'">
 </div>
 <h3 id="resultTitle">❌ اشتباه شد!</h3>
-<div class="score-info" id="resultScoreInfo"></div>
 <p id="resultMsg">دوباره تلاش کن، می‌تونی! 💪</p>
 <div class="result-buttons">
 <button class="btn btn-primary" id="resultRetryBtn">🔄 تلاش دوباره</button>
@@ -421,10 +579,10 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <span class="coin-amount" id="menu-coin-amount">0</span>
 </div>
 <div class="menu-character">
-<img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='🏢'">
+<img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='🏪'">
 </div>
-<h1 class="menu-title">الگوی ساختمان </h1>
-<p class="menu-subtitle">الگوها رو کشف کن، بدون شمردن!</p>
+<h1 class="menu-title">مغازه‌دار باهوش</h1>
+<p class="menu-subtitle">شکلات‌ها رو بکش و به مشتری بده!</p>
 <div class="menu-buttons">
 <button class="btn btn-start" id="startGameBtn">🚀 شروع بازی</button>
 <div class="row">
@@ -438,9 +596,9 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="guideScreen" class="screen">
 <div class="guide-container">
 <div class="guide-char">
-<img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🏢'">
+<img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🏪'">
 </div>
-<div class="guide-text" id="guideText">سلام کارآگاه الگوها! 🏢</div>
+<div class="guide-text" id="guideText">سلام مغازه‌دار باهوش! 🏪</div>
 <div class="guide-progress">
 <div class="guide-progress-bar" id="guideProgressBar"></div>
 </div>
@@ -463,6 +621,8 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div class="shop-tabs" id="shopTabs">
 <button class="shop-tab active" data-tab="themes">🎨 پوسته‌ها</button>
 <button class="shop-tab" data-tab="effects">✨ افکت‌ها</button>
+<button class="shop-tab" data-tab="houses">🏪 شکلات‌فروشی</button>
+<button class="shop-tab" data-tab="chocolates">🍫 نوع شکلات</button>
 </div>
 <div class="shop-grid" id="shop-grid"></div>
 </div>
@@ -481,7 +641,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="gameScreen" class="screen">
 <div class="game-card">
 <div class="game-header">
-<span class="game-title">🏢 الگوی ساختمان</span>
+<span class="game-title">🏪 مغازه‌دار باهوش</span>
 <span class="game-level" id="gameLevelDisplay">مرحله ۱</span>
 <span class="target-box" id="targetDisplay">🕒 ۰۰:۰۰</span>
 <button class="stop-btn" id="stopGameBtn">
@@ -489,49 +649,211 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 </button>
 </div>
 
-<div class="instruction-msg" id="gameFeedback">به الگو دقت کن و جواب درست رو انتخاب کن!</div>
+<div class="instruction-msg" id="gameFeedback">مشتری میاد و شکلات می‌خواد!</div>
 
-<div class="game-area" id="gameArea">
+<div class="game-area" id="shop-area">
+    <div class="customer-stage">
+        <div class="shop-visual">
+            <img id="shop-house-img" src="icons/khoone sade.png" alt="شکلات‌فروشی" onerror="this.src='icons/khoone sade.png'">
+        </div>
 
-<div class="building-display" id="building-display"></div>
+        <div class="customer-area" id="customer-area">
+            <div class="customer-avatar" id="customer-avatar-box">
+                <img id="customer-avatar-img" src="icons/ashpaz.png" alt="مشتری" onerror="this.src='icons/gamerhi.png'">
+            </div>
+            <div class="speech-bubble">
+                <p>سلام! می‌خوام <strong id="wanted-count">۳</strong> تا شکلات بخرم.</p>
+                <div class="progress-info">
+                    <span>دریافت کرده: <strong id="received-count">۰</strong> از <strong id="wanted-count-2">۳</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="question-section" id="question-section">
-<div class="question-text" id="question-text"></div>
-<div class="options-container" id="options-container"></div>
+    <div class="tray-section">
+        <div class="tray-label">🍫 شکلات‌ها رو بکش و بنداز روی مشتری</div>
+        <div class="chocolate-tray" id="chocolate-tray"></div>
+    </div>
+
+    <button class="btn btn-gold hidden" id="sellBtn">
+        ✅ فروش و ادامه
+    </button>
 </div>
 
-<div class="challenge-section hidden" id="challenge-section">
-<div class="challenge-badge">
-⭐ چالش
-</div>
-<div class="challenge-question" id="challenge-question"></div>
-<div class="options-container" id="challenge-options"></div>
+<div class="game-area hidden" id="result-area">
+<div class="result-card">
+<div class="chocolates-sold">
+<div class="choco-display" id="choco-display"></div>
+<span class="choco-count"><span id="sold-count">۳</span> عدد شکلات فروخته شد</span>
 </div>
 
+<div class="profit-display">
+<div class="profit-icon">
+<svg viewBox="0 0 24 24" width="28" height="28"><path fill="#fff" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/></svg>
+</div>
+<div class="profit-info">
+<span class="profit-label">سود کل شما:</span>
+<span class="profit-amount"><span id="total-profit">۱۵۰</span> <small>ریال</small></span>
+</div>
+</div>
+
+<button class="btn btn-primary" id="continueBtn" style="margin-top:15px;">
+ادامه و پاسخ به سوالات
+</button>
+</div>
+</div>
+
+<div class="game-area hidden" id="question-area">
+<div class="question-card">
+<div class="question-step">
+<span class="step-badge" id="question-step-badge">سوال ۱ از ۵</span>
+</div>
+
+<h3 class="question-title" id="question-title">سوال</h3>
+<p class="question-text" id="question-text">متن سوال</p>
+
+<div class="answer-options" id="answer-options"></div>
+
+<div class="feedback-box hidden" id="feedback-box">
+<div class="feedback-icon" id="feedback-icon">🎉</div>
+<p class="feedback-text" id="feedback-text">آفرین! درست بود!</p>
+</div>
+
+<button class="btn btn-primary hidden" id="btn-next" style="margin-top:15px;">
+سوال بعدی
+</button>
+</div>
 </div>
 </div>
 </div>
 
 <audio id="bgMusic" loop></audio>
-<audio id="guideAudio" src="musics/pixel24.mp3" preload="auto"></audio>
+<audio id="guideAudio" src="musics/pixel23.mp3" preload="auto"></audio>
 
 <script>
 var currentLevel = 1;
-var totalLevels = 25;
+var totalLevels = 20;
 var isResultShowing = false;
 var levelUnlocked = {};
 var levelCompleted = {};
 var soundEnabled = true;
 
-var currentQuestion = null;
+var currentWanted = 0;
+var currentProfit = 0;
+var currentReceived = 0;
 var currentQuestionIndex = 0;
 var totalQuestions = 5;
 var correctCount = 0;
+var wrongAttempts = 0;
 var levelStartTime = 0;
-var questionStartTime = 0;
 var timerInterval = null;
-var currentTotalFloors = 5;
-var usedQuestionTypes = [];
+
+// ⭐ Drag & Drop
+var isDraggingChoco = false;
+var draggingTrayElement = null;
+var currentDragX = 0;
+var currentDragY = 0;
+
+var PRICE_PER_CHOCO = 50;
+
+// ⭐ انواع شکلات
+var CHOCOLATE_TYPES = [
+    {id:'mamooli', name:'شکلات معمولی', price:0,  file:'sh mamooli.png', emoji:'🍫'},
+    {id:'talayi',  name:'شکلات طلایی',  price:10, file:'sh talayi.png',  emoji:'🥇'},
+    {id:'abi',     name:'شکلات آبی',    price:12, file:'sh abi.png',     emoji:'💙'},
+    {id:'qhermez', name:'شکلات قرمز',   price:14, file:'sh qhermez.png', emoji:'❤️'},
+    {id:'almasi',  name:'شکلات الماسی', price:16, file:'sh almasi.png',  emoji:'💎'},
+    {id:'ajili',   name:'شکلات آجیلی',  price:18, file:'sh ajili.png',   emoji:'🌰'}
+];
+
+var ownedChocolates = ['mamooli'];
+var activeChocolate = 'mamooli';
+
+function loadChocolateData() {
+    try {
+        var saved = localStorage.getItem('shopkeeperChocolates');
+        if (saved) {
+            var data = JSON.parse(saved);
+            ownedChocolates = data.owned || ['mamooli'];
+            activeChocolate = data.active || 'mamooli';
+        }
+    } catch(e) {}
+}
+
+function saveChocolateData() {
+    try {
+        localStorage.setItem('shopkeeperChocolates', JSON.stringify({
+            owned: ownedChocolates,
+            active: activeChocolate
+        }));
+    } catch(e) {}
+}
+
+function getActiveChocolate() {
+    return CHOCOLATE_TYPES.find(function(c){ return c.id === activeChocolate; }) || CHOCOLATE_TYPES[0];
+}
+
+function applyChocolateType(chocId, showToastMsg) {
+    if (showToastMsg === undefined) showToastMsg = true;
+    var choc = CHOCOLATE_TYPES.find(function(c){ return c.id === chocId; });
+    if (!choc) return;
+    if (ownedChocolates.indexOf(chocId) === -1) { 
+        showToast('این شکلات رو نداری!', 'error'); 
+        return; 
+    }
+    activeChocolate = chocId;
+    saveChocolateData();
+    renderShop();
+    if (showToastMsg) showToast('🍫 شکلات ' + choc.name + ' فعال شد!', 'success');
+}
+
+function buyChocolate(chocId) {
+    var choc = CHOCOLATE_TYPES.find(function(c){ return c.id === chocId; });
+    if (!choc) return;
+    var coins = parseInt(localStorage.getItem('shopkeeperCoins')) || 0;
+    if (coins < choc.price) { showToast('سکه کافی نداری! 😢', 'error'); return; }
+    if (ownedChocolates.indexOf(chocId) !== -1) { showToast('این شکلات رو قبلاً خریدی!', 'warning'); return; }
+    localStorage.setItem('shopkeeperCoins', (coins - choc.price).toString());
+    ownedChocolates.push(chocId);
+    saveChocolateData();
+    renderShop();
+    updateCoinDisplay();
+    applyChocolateType(chocId, true);
+    var overlay = document.getElementById('celebrationOverlay');
+    document.getElementById('celebMessage').innerHTML = '<strong>' + choc.name + '</strong> خریداری شد!<br>حالا با شکلات‌های جدیدت بازی کن! 😍';
+    overlay.classList.add('show');
+    fireEffect(activeEffect);
+}
+
+// ⭐ لیست کاراکترهای مشتری
+var CUSTOMER_ICONS = [
+'ashpaz.png',
+'atashneshan.png',
+'baqhdar.png',
+'daneshmand.png',
+'doctor.png',
+'dozd daryaiy.png',
+'ezdaha.png',
+'fazanavard.png',
+'jadoogar.png',
+'kadoo.png',
+'keshavarz.png',
+'khalaban.png',
+'khoon asham.png',
+'moalem.png',
+'nahqash.png',
+'najar.png',
+'pary.png',
+'police.png',
+'robat.png',
+'shazde kocholo.png',
+'shovalie.png',
+'sooperman.png'
+];
+
+function getRandomCustomerIcon() {
+    return CUSTOMER_ICONS[Math.floor(Math.random() * CUSTOMER_ICONS.length)];
+}
 
 var EFFECTS = [
 {id:'confetti', name:'کاغذ رنگی', price:0, emoji:'🎊', type:'confetti'},
@@ -542,16 +864,24 @@ var EFFECTS = [
 {id:'fireworks', name:'آتش‌بازی', price:16, emoji:'🎆', type:'firework'}
 ];
 
+var HOUSES = [
+{id:'khoone_sade', name:'شکلات‌فروشی ساده', price:0, file:'khoone sade.png'},
+{id:'khoone_abnabati', name:'شکلات‌فروشی آب‌نباتی', price:10, file:'khoone abnabati.png'},
+{id:'khoone_padeshahi', name:'شکلات‌فروشی پادشاهی', price:12, file:'khoone padeshahi.png'},
+{id:'khoone_qhasr', name:'شکلات‌فروشی قصر', price:13, file:'khoone qhasr.png'},
+{id:'khoone_yakhi', name:'شکلات‌فروشی یخی', price:15, file:'khoone yakhi.png'}
+];
+
 var THEMES = [
-{id:'default', name:'پیش‌فرض', price:0, themeClass:'theme-default', file:''},
-{id:'jangal', name:'جنگل بارانی', price:12, themeClass:'theme-jangal', file:'h jangal.jpg'},
-{id:'oqhianoos', name:'اقیانوس عمیق', price:11, themeClass:'theme-oqhianoos', file:'h oqhianoos.jpg'},
-{id:'mahtabi', name:'مهتابی', price:10, themeClass:'theme-mahtabi', file:'h mahtabi.jpg'},
-{id:'atashfeshani', name:'آتشفشانی', price:14, themeClass:'theme-atashfeshani', file:'h atashfeshani.jpg'},
-{id:'barfi', name:'برفی', price:10, themeClass:'theme-barfi', file:'h barfi.jpg'},
-{id:'jangal-sami', name:'جنگل سمی', price:15, themeClass:'theme-jangal-sami', file:'h jangal sami.jpg'},
-{id:'kahkeshani', name:'کهکشانی', price:16, themeClass:'theme-kahkeshani', file:'h kahkeshani.jpg'},
-{id:'jangal-jadooy', name:'جنگل جادویی', price:18, themeClass:'theme-jangal-jadooy', file:'h jangal jadooy.jpg'}
+{id:'default', name:'ساده', price:0, themeClass:'theme-default', file:'m sade.jpg'},
+{id:'jangal', name:'جنگل بارانی', price:12, themeClass:'theme-jangal', file:'m jangali.jpg'},
+{id:'oqhianoos', name:'اقیانوس عمیق', price:11, themeClass:'theme-oqhianoos', file:'m oqhianoos.jpg'},
+{id:'mahtabi', name:'مهتابی', price:10, themeClass:'theme-mahtabi', file:'m mahtabi.jpg'},
+{id:'atashfeshani', name:'آتشفشانی', price:14, themeClass:'theme-atashfeshani', file:'m atashfeshani.jpg'},
+{id:'barfi', name:'برفی', price:10, themeClass:'theme-barfi', file:'m barfi.jpg'},
+{id:'jangal-sami', name:'جنگل سمی', price:15, themeClass:'theme-jangal-sami', file:'m jangal sami.jpg'},
+{id:'kahkeshani', name:'کهکشانی', price:16, themeClass:'theme-kahkeshani', file:'m kahkeshani.jpg'},
+{id:'jangal-jadooy', name:'جنگل جادویی', price:18, themeClass:'theme-jangal-jadooy', file:'m jadooi.jpg'}
 ];
 
 var THEME_SONGS = {
@@ -564,6 +894,8 @@ var ownedThemes = ['default'];
 var activeTheme = 'default';
 var ownedEffects = ['confetti'];
 var activeEffect = 'confetti';
+var ownedHouses = ['khoone_sade'];
+var activeHouse = 'khoone_sade';
 var musicStarted = false;
 
 function toPersianNum(num) {
@@ -588,14 +920,6 @@ var secs = seconds % 60;
 return toPersianNum(String(mins).padStart(2, '0')) + ':' + toPersianNum(String(secs).padStart(2, '0'));
 }
 
-function getUnitsForFloor(floor) {
-return floor * 2;
-}
-
-function getTotalFloorsForLevel(level) {
-return Math.min(4 + Math.floor(level / 3), 8);
-}
-
 function createStars() {
 var container = document.getElementById('stars');
 for (var i = 0; i < 80; i++) {
@@ -615,9 +939,14 @@ document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('ac
 document.getElementById(id).classList.add('active');
 }
 
+function showArea(id) {
+document.querySelectorAll('.game-area').forEach(function(a){ a.classList.add('hidden'); });
+document.getElementById(id).classList.remove('hidden');
+}
+
 function loadShopData() {
 try {
-var saved = localStorage.getItem('patternBuildingThemes');
+var saved = localStorage.getItem('shopkeeperThemes');
 if (saved) {
 var data = JSON.parse(saved);
 ownedThemes = data.owned || ['default'];
@@ -627,12 +956,12 @@ activeTheme = data.active || 'default';
 }
 
 function saveThemeData() {
-try { localStorage.setItem('patternBuildingThemes', JSON.stringify({owned:ownedThemes, active:activeTheme})); } catch(e) {}
+try { localStorage.setItem('shopkeeperThemes', JSON.stringify({owned:ownedThemes, active:activeTheme})); } catch(e) {}
 }
 
 function loadEffectData() {
 try {
-var saved = localStorage.getItem('patternBuildingEffects');
+var saved = localStorage.getItem('shopkeeperEffects');
 if (saved) {
 var data = JSON.parse(saved);
 ownedEffects = data.owned || ['confetti'];
@@ -642,14 +971,29 @@ activeEffect = data.active || 'confetti';
 }
 
 function saveEffectData() {
-try { localStorage.setItem('patternBuildingEffects', JSON.stringify({owned:ownedEffects, active:activeEffect})); } catch(e) {}
+try { localStorage.setItem('shopkeeperEffects', JSON.stringify({owned:ownedEffects, active:activeEffect})); } catch(e) {}
+}
+
+function loadHouseData() {
+try {
+var saved = localStorage.getItem('shopkeeperHouses');
+if (saved) {
+var data = JSON.parse(saved);
+ownedHouses = data.owned || ['khoone_sade'];
+activeHouse = data.active || 'khoone_sade';
+}
+} catch(e) {}
+}
+
+function saveHouseData() {
+try { localStorage.setItem('shopkeeperHouses', JSON.stringify({owned:ownedHouses, active:activeHouse})); } catch(e) {}
 }
 
 function loadLevelStatus() {
 levelUnlocked = {};
 levelCompleted = {};
 try {
-var saved = localStorage.getItem('patternBuildingLevelStatus');
+var saved = localStorage.getItem('shopkeeperLevelStatus');
 if (saved) {
 var data = JSON.parse(saved);
 levelUnlocked = data.unlocked || {};
@@ -665,7 +1009,7 @@ saveLevelStatus();
 }
 
 function saveLevelStatus() {
-try { localStorage.setItem('patternBuildingLevelStatus', JSON.stringify({unlocked:levelUnlocked, completed:levelCompleted})); } catch(e) {}
+try { localStorage.setItem('shopkeeperLevelStatus', JSON.stringify({unlocked:levelUnlocked, completed:levelCompleted})); } catch(e) {}
 }
 
 function applyTheme(themeId, showToastMsg) {
@@ -674,12 +1018,11 @@ var theme = THEMES.find(function(t){ return t.id === themeId; });
 if (!theme) return;
 if (ownedThemes.indexOf(themeId) === -1 && themeId !== 'default') { showToast('این پوسته رو نداری!', 'error'); return; }
 document.body.className = '';
-if (theme.id === 'default' || !theme.file) {
-document.body.classList.add('theme-default');
-document.body.style.backgroundImage = 'linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0d1b2a 60%, #0a0a1a 100%)';
-} else {
 if (theme.themeClass) document.body.classList.add(theme.themeClass);
-document.body.style.backgroundImage = 'url("icons/' + theme.file + '")';
+if (theme.file) {
+    document.body.style.backgroundImage = 'url("icons/' + theme.file + '")';
+} else {
+    document.body.style.backgroundImage = 'linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0d1b2a 60%, #0a0a1a 100%)';
 }
 var bgMusic = document.getElementById('bgMusic');
 if (bgMusic && musicStarted) {
@@ -694,10 +1037,32 @@ updateCoinDisplay();
 if (showToastMsg) showToast('🎨 پوسته ' + theme.name + ' فعال شد!', 'success');
 }
 
+function applyHouse(houseId, showToastMsg) {
+if (showToastMsg === undefined) showToastMsg = true;
+var house = HOUSES.find(function(h){ return h.id === houseId; });
+if (!house) return;
+if (ownedHouses.indexOf(houseId) === -1) { showToast('این خونه رو نداری!', 'error'); return; }
+activeHouse = houseId;
+saveHouseData();
+renderShop();
+updateHouseDisplay();
+if (showToastMsg) showToast('🏪 ' + house.name + ' فعال شد!', 'success');
+}
+
+function updateHouseDisplay() {
+var house = HOUSES.find(function(h){ return h.id === activeHouse; });
+if (!house) house = HOUSES[0];
+var img = document.getElementById('shop-house-img');
+if (img) {
+img.src = 'icons/' + house.file;
+img.alt = house.name;
+}
+}
+
 function renderShop() {
 var grid = document.getElementById('shop-grid');
 grid.innerHTML = '';
-var coins = parseInt(localStorage.getItem('patternBuildingCoins')) || 0;
+var coins = parseInt(localStorage.getItem('shopkeeperCoins')) || 0;
 document.getElementById('shop-coin-amount').textContent = coins;
 var activeTab = document.querySelector('.shop-tab.active');
 var tab = activeTab ? activeTab.dataset.tab : 'themes';
@@ -716,16 +1081,11 @@ var canAfford = coins >= theme.price;
 if (theme.id === 'default') btnHtml = '<button class="shop-btn-sm select" onclick="applyTheme(\'default\')">✨ انتخاب</button>';
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyTheme(\'' + theme.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
-var previewHtml;
-if (theme.file) {
-previewHtml = '<img src="icons/' + theme.file + '" alt="' + theme.name + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent=\'🎨\'">';
-} else {
-previewHtml = '<span style="font-size:3rem;background:linear-gradient(135deg,#6C5CE7,#00D2FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">🌙</span>';
-}
+var previewHtml = '<img src="icons/' + theme.file + '" alt="' + theme.name + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent=\'🎨\'">';
 card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + theme.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
-} else {
+} else if (tab === 'effects') {
 EFFECTS.forEach(function(effect) {
 var isOwned = ownedEffects.indexOf(effect.id) !== -1;
 var isActive = activeEffect === effect.id;
@@ -742,20 +1102,70 @@ else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + 
 card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + effect.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
+} else if (tab === 'houses') {
+HOUSES.forEach(function(house) {
+var isOwned = ownedHouses.indexOf(house.id) !== -1;
+var isActive = activeHouse === house.id;
+var card = document.createElement('div');
+card.className = 'shop-item' + (isActive ? ' active-item' : '');
+var btnHtml = '';
+if (isActive) btnHtml = '<button class="shop-btn-sm active">✓ فعال</button>';
+else if (isOwned) btnHtml = '<button class="shop-btn-sm select" onclick="applyHouse(\'' + house.id + '\')">✨ انتخاب</button>';
+else {
+var canAfford = coins >= house.price;
+if (house.id === 'khoone_sade') btnHtml = '<button class="shop-btn-sm select" onclick="applyHouse(\'khoone_sade\')">✨ انتخاب</button>';
+else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyHouse(\'' + house.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
+}
+var previewHtml = '<img src="icons/' + house.file + '" alt="' + house.name + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentElement.textContent=\'🏪\'">';
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + house.name + '</div><div class="price">' + (house.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + house.price : '🎁 رایگان') + '</div>' + btnHtml;
+grid.appendChild(card);
+});
+} else if (tab === 'chocolates') {
+CHOCOLATE_TYPES.forEach(function(choc) {
+var isOwned = ownedChocolates.indexOf(choc.id) !== -1;
+var isActive = activeChocolate === choc.id;
+var card = document.createElement('div');
+card.className = 'shop-item' + (isActive ? ' active-item' : '');
+var btnHtml = '';
+if (isActive) btnHtml = '<button class="shop-btn-sm active">✓ فعال</button>';
+else if (isOwned) btnHtml = '<button class="shop-btn-sm select" onclick="applyChocolateType(\'' + choc.id + '\')">✨ انتخاب</button>';
+else {
+var canAfford = coins >= choc.price;
+if (choc.id === 'mamooli') btnHtml = '<button class="shop-btn-sm select" onclick="applyChocolateType(\'mamooli\')">✨ انتخاب</button>';
+else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyChocolate(\'' + choc.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
+}
+var previewHtml = '<img src="icons/' + choc.file + '" alt="' + choc.name + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentElement.textContent=\'' + choc.emoji + '\'">';
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + choc.name + '</div><div class="price">' + (choc.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + choc.price : '🎁 رایگان') + '</div>' + btnHtml;
+grid.appendChild(card);
+});
 }
 }
 
 function buyTheme(themeId) {
 var theme = THEMES.find(function(t){ return t.id === themeId; });
 if (!theme) return;
-var coins = parseInt(localStorage.getItem('patternBuildingCoins')) || 0;
+var coins = parseInt(localStorage.getItem('shopkeeperCoins')) || 0;
 if (coins < theme.price) { showToast('سکه کافی نداری! 😢', 'error'); return; }
 if (ownedThemes.indexOf(themeId) !== -1) { showToast('این پوسته رو قبلاً خریدی!', 'warning'); return; }
-localStorage.setItem('patternBuildingCoins', (coins - theme.price).toString());
+localStorage.setItem('shopkeeperCoins', (coins - theme.price).toString());
 ownedThemes.push(themeId);
 saveThemeData(); renderShop(); updateCoinDisplay(); applyTheme(themeId, true);
 var overlay = document.getElementById('celebrationOverlay');
 document.getElementById('celebMessage').innerHTML = '<strong>' + theme.name + '</strong> خریداری شد!<br>حالا با استایل جدیدت بدرخش! 😍';
+overlay.classList.add('show'); fireEffect(activeEffect);
+}
+
+function buyHouse(houseId) {
+var house = HOUSES.find(function(h){ return h.id === houseId; });
+if (!house) return;
+var coins = parseInt(localStorage.getItem('shopkeeperCoins')) || 0;
+if (coins < house.price) { showToast('سکه کافی نداری! 😢', 'error'); return; }
+if (ownedHouses.indexOf(houseId) !== -1) { showToast('این خونه رو قبلاً خریدی!', 'warning'); return; }
+localStorage.setItem('shopkeeperCoins', (coins - house.price).toString());
+ownedHouses.push(houseId);
+saveHouseData(); renderShop(); updateCoinDisplay(); applyHouse(houseId, true);
+var overlay = document.getElementById('celebrationOverlay');
+document.getElementById('celebMessage').innerHTML = '<strong>' + house.name + '</strong> خریداری شد!<br>حالا شکلات‌فروشیت رو با این خونه ببین! 🏪😍';
 overlay.classList.add('show'); fireEffect(activeEffect);
 }
 
@@ -771,10 +1181,10 @@ if (showToastMsg) showToast('✨ افکت ' + effect.name + ' فعال شد!', '
 function buyEffect(effectId) {
 var effect = EFFECTS.find(function(e){ return e.id === effectId; });
 if (!effect) return;
-var coins = parseInt(localStorage.getItem('patternBuildingCoins')) || 0;
+var coins = parseInt(localStorage.getItem('shopkeeperCoins')) || 0;
 if (coins < effect.price) { showToast('سکه کافی نداری! 😢', 'error'); return; }
 if (ownedEffects.indexOf(effectId) !== -1) { showToast('این افکت رو قبلاً خریدی!', 'warning'); return; }
-localStorage.setItem('patternBuildingCoins', (coins - effect.price).toString());
+localStorage.setItem('shopkeeperCoins', (coins - effect.price).toString());
 ownedEffects.push(effectId); saveEffectData(); renderShop(); updateCoinDisplay(); applyEffect(effectId, true);
 var overlay = document.getElementById('celebrationOverlay');
 document.getElementById('celebMessage').innerHTML = '<strong>' + effect.name + '</strong> خریداری شد!<br>حالا با افکت جدیدت جشن بگیر! 😍';
@@ -844,7 +1254,7 @@ setTimeout(function(){ toast.classList.remove('show'); }, 4000);
 }
 
 function updateCoinDisplay() {
-var coins = parseInt(localStorage.getItem('patternBuildingCoins')) || 0;
+var coins = parseInt(localStorage.getItem('shopkeeperCoins')) || 0;
 document.getElementById('menu-coin-amount').textContent = toPersianNum(coins);
 document.getElementById('shop-coin-amount').textContent = toPersianNum(coins);
 }
@@ -874,15 +1284,14 @@ setTimeout(function(){ playBeep(250, 0.3); }, 350);
 }
 
 // ============================================================
-// GUIDE SCRIPTS
+// GUIDE
 // ============================================================
 const GUIDE_SCRIPTS = [
-    { start: 0, end: 5.5, text: 'سلام کارآگاه الگوها! 🏢<br>به بازی الگوی ساختمان خوش اومدی!<br>من پیکسل هستم!' },
-    { start: 5.5, end: 9, text: 'یه ساختمان می‌بینی!<br>ساختمان چند طبقه داره.' },
-    { start: 9, end: 17, text: 'مثلاً: طبقه ۱ = ۲ واحد، طبقه ۲ = ۴ واحد، طبقه ۳ = ۶ واحد' },
-    { start: 17, end: 24, text: 'باید الگو رو کشف کنی و جواب بدی!<br>سعی کن الگو رو ببینی، نه اینکه بشمری!' },
-    { start: 24, end: 28, text: 'اگه حداقل ۳ تا رو درست جواب بدی، مرحله بعد باز می‌ شه!' },
-    { start: 28, end: 999, text: 'موفق باشی کارآگاه! 🔍' }
+    { start: 0, end: 6, text: 'سلام مغازه‌دار باهوش! 🏪<br>به بازی مغازه‌دار باهوش خوش اومدی!<br>من پیکسل هستم.' },
+    { start: 6, end: 12, text: 'مشتری‌ها میان و شکلات می‌خوان.<br>باید شکلات‌ها رو بکشی و بندازی روی مشتری!' },
+    { start: 12, end: 18, text: 'هر شکلات ۵۰ ریال سود داره!<br>باید تعداد شکلات × ۵۰ رو حساب کنی.' },
+    { start: 18, end: 24, text: 'اگه ۳ تا از ۵ سوال رو درست جواب بدی،<br>مرحله بعد باز می‌ شه!' },
+    { start: 24, end: 999, text: 'موفق باشی مغازه‌دارِ قهرمان ! 💰' }
 ];
 
 let isGuidePlaying = false;
@@ -919,8 +1328,7 @@ function startGuide(callback, fromMenu = false) {
     
     guideInterval = setInterval(() => {
         const elapsed = (Date.now() - guideStartTime) / 1000;
-        // Assuming audio is roughly 32 seconds long based on timings
-        let progress = Math.min((elapsed / 32) * 100, 100); 
+        let progress = Math.min((elapsed / 28) * 100, 100); 
         progressBar.style.width = progress + '%';
         
         let currentText = GUIDE_SCRIPTS[0].text, currentIndex = 0;
@@ -942,7 +1350,7 @@ function startGuide(callback, fromMenu = false) {
         }
         
         const isAudioEnded = window.guideAudio && window.guideAudio.ended;
-        if (isAudioEnded || elapsed >= 32) {
+        if (isAudioEnded || elapsed >= 28) {
             endGuide();
         }
     }, 100);
@@ -1024,10 +1432,10 @@ currentLevel = level;
 isResultShowing = false;
 currentQuestionIndex = 0;
 correctCount = 0;
-currentTotalFloors = getTotalFloorsForLevel(level);
-usedQuestionTypes = [];
+wrongAttempts = 0;
 document.getElementById('gameLevelDisplay').textContent = 'مرحله ' + toPersianNum(level);
-document.getElementById('gameFeedback').textContent = 'به الگو دقت کن و جواب درست رو انتخاب کن!';
+document.getElementById('gameFeedback').textContent = 'مشتری میاد و شکلات می‌خواد!';
+updateHouseDisplay();
 
 const setupGame = () => {
     showScreen('gameScreen');
@@ -1036,8 +1444,8 @@ const setupGame = () => {
     });
 };
 
-if (level === 1 && !localStorage.getItem('patternBuildingGuideSeen')) {
-    localStorage.setItem('patternBuildingGuideSeen', 'true');
+if (level === 1 && !localStorage.getItem('shopkeeperGuideSeen')) {
+    localStorage.setItem('shopkeeperGuideSeen', 'true');
     startGuide(setupGame, false);
 } else {
     setupGame();
@@ -1047,8 +1455,7 @@ if (level === 1 && !localStorage.getItem('patternBuildingGuideSeen')) {
 function startLevel() {
 levelStartTime = Date.now();
 startTimer();
-buildBuilding();
-showQuestion(0);
+generateCustomer();
 }
 
 function startTimer() {
@@ -1060,257 +1467,358 @@ targetDisplay.textContent = '🕒 ' + formatTime(elapsed);
 }, 1000);
 }
 
-function buildBuilding() {
-var container = document.getElementById('building-display');
-container.innerHTML = '';
-for (var floor = currentTotalFloors; floor >= 1; floor--) {
-var units = getUnitsForFloor(floor);
-var floorDiv = document.createElement('div');
-floorDiv.className = 'building-floor floor-' + floor;
-floorDiv.id = 'floor-' + floor;
-var unitsHTML = '';
-for (var i = 0; i < units; i++) {
-unitsHTML += '<div class="unit"><svg viewBox="0 0 24 24" fill="white"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>';
+// ⭐ ساخت مشتری جدید
+function generateCustomer() {
+    var minQ = Math.min(2 + Math.floor(currentLevel / 3), 8);
+    var maxQ = Math.min(5 + Math.floor(currentLevel / 2), 15);
+    var wanted = Math.floor(Math.random() * (maxQ - minQ + 1)) + minQ;
+    currentWanted = wanted;
+    currentProfit = wanted * PRICE_PER_CHOCO;
+    currentReceived = 0;
+
+    document.getElementById('wanted-count').textContent = toPersianNum(wanted);
+    document.getElementById('wanted-count-2').textContent = toPersianNum(wanted);
+    document.getElementById('received-count').textContent = toPersianNum(0);
+    
+    var avatarBox = document.getElementById('customer-avatar-box');
+    avatarBox.classList.remove('happy');
+
+    var iconFile = getRandomCustomerIcon();
+    var avatarImg = document.getElementById('customer-avatar-img');
+    avatarImg.src = 'icons/' + iconFile;
+    avatarImg.alt = 'مشتری';
+    avatarImg.onerror = function() { this.src = 'icons/gamerhi.png'; };
+
+    buildChocolateTray();
+
+    document.getElementById('gameFeedback').textContent = 'مشتری ' + toPersianNum(wanted) + ' تا شکلات می‌خواد!';
+    document.getElementById('sellBtn').classList.add('hidden');
+    showArea('shop-area');
 }
-floorDiv.innerHTML = '<span class="floor-label">طبقه ' + toPersianNum(floor) + '</span><div class="floor-units">' + unitsHTML + '</div>';
-container.appendChild(floorDiv);
+
+// ⭐ ساخت سینی شکلات با نوع انتخابی کاربر
+function buildChocolateTray() {
+    var tray = document.getElementById('chocolate-tray');
+    tray.innerHTML = '';
+    
+    var choc = getActiveChocolate();
+    
+    // تعداد تصادفی بین ۵ تا ۱۵
+    var randomCount = Math.floor(Math.random() * 11) + 5;
+    
+    for (var i = 0; i < randomCount; i++) {
+        var chocoEl = document.createElement('div');
+        chocoEl.className = 'tray-choco';
+        chocoEl.dataset.id = 'choco-' + i;
+        chocoEl.setAttribute('draggable', 'false');
+        
+        if (choc.file) {
+            chocoEl.innerHTML = '<img src="icons/' + choc.file + '" alt="شکلات" onerror="this.parentElement.textContent=\'' + choc.emoji + '\'">';
+        } else {
+            chocoEl.textContent = choc.emoji;
+        }
+        
+        tray.appendChild(chocoEl);
+    }
 }
+
+// ============================================================
+// ⭐ DRAG & DROP — بدون آیکون شبح
+// ============================================================
+function initDragAndDrop() {
+    var tray = document.getElementById('chocolate-tray');
+    if (!tray) return;
+
+    function getCoords(e) {
+        if (e.touches && e.touches.length) {
+            return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+        if (e.changedTouches && e.changedTouches.length) {
+            return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+        }
+        return { x: e.clientX, y: e.clientY };
+    }
+
+    function isOverCustomer(x, y) {
+        var customerArea = document.getElementById('customer-area');
+        if (!customerArea) return false;
+        var rect = customerArea.getBoundingClientRect();
+        return x >= rect.left && x <= rect.right &&
+               y >= rect.top  && y <= rect.bottom;
+    }
+
+    function setDropHover(on) {
+        var customerArea = document.getElementById('customer-area');
+        if (!customerArea) return;
+        if (on) customerArea.classList.add('drop-hover');
+        else    customerArea.classList.remove('drop-hover');
+    }
+
+    function startDrag(e) {
+        var choco = e.target.closest('.tray-choco');
+        if (!choco) return;
+        if (currentReceived >= currentWanted) return;
+        if (isDraggingChoco) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        var coords = getCoords(e);
+        currentDragX = coords.x;
+        currentDragY = coords.y;
+
+        isDraggingChoco = true;
+        draggingTrayElement = choco;
+        choco.classList.add('dragging');
+
+        setDropHover(isOverCustomer(currentDragX, currentDragY));
+
+        playBeep(700, 0.08);
+    }
+
+    function moveDrag(e) {
+        if (!isDraggingChoco) return;
+        e.preventDefault();
+
+        var coords = getCoords(e);
+        currentDragX = coords.x;
+        currentDragY = coords.y;
+
+        setDropHover(isOverCustomer(currentDragX, currentDragY));
+    }
+
+    function endDrag(e) {
+        if (!isDraggingChoco) return;
+
+        var coords = getCoords(e);
+        var endX = coords.x;
+        var endY = coords.y;
+
+        isDraggingChoco = false;
+
+        if (draggingTrayElement) draggingTrayElement.classList.remove('dragging');
+
+        var dropped = isOverCustomer(endX, endY);
+        setDropHover(false);
+
+        if (dropped && draggingTrayElement) {
+            dropChocolateToCustomer(draggingTrayElement);
+        }
+
+        draggingTrayElement = null;
+    }
+
+    function preventScroll(e) {
+        if (isDraggingChoco) e.preventDefault();
+    }
+
+    // Mouse
+    tray.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', moveDrag);
+    document.addEventListener('mouseup', endDrag);
+
+    // Touch
+    tray.addEventListener('touchstart', startDrag, { passive: false });
+    document.addEventListener('touchmove', moveDrag, { passive: false });
+    document.addEventListener('touchend', endDrag);
+    document.addEventListener('touchcancel', endDrag);
+
+    document.addEventListener('touchmove', preventScroll, { passive: false });
+}
+
+// ⭐ انداختن شکلات روی مشتری — با محو شدن
+function dropChocolateToCustomer(trayChoco) {
+    if (currentReceived >= currentWanted) return;
+    if (!trayChoco) return;
+
+    currentReceived++;
+
+    trayChoco.classList.add('vanishing');
+    setTimeout(function () {
+        if (trayChoco.parentNode) trayChoco.parentNode.removeChild(trayChoco);
+    }, 400);
+
+    playBeep(600 + currentReceived * 40, 0.1);
+
+    document.getElementById('received-count').textContent = toPersianNum(currentReceived);
+
+    if (currentReceived >= currentWanted) {
+        var avatarBox = document.getElementById('customer-avatar-box');
+        avatarBox.classList.add('happy');
+        
+        document.getElementById('sellBtn').classList.remove('hidden');
+        document.getElementById('gameFeedback').textContent = '🎉 عالیه! مشتری راضی شد!';
+        
+        playWinSound();
+        fireEffect(activeEffect);
+    }
+}
+
+// ⭐ دکمه فروش
+function sellToCustomer() {
+    var profit = currentWanted * PRICE_PER_CHOCO;
+    currentProfit = profit;
+    document.getElementById('sold-count').textContent = toPersianNum(currentWanted);
+    document.getElementById('total-profit').textContent = toPersianNum(profit);
+
+    var choc = getActiveChocolate();
+    var display = document.getElementById('choco-display');
+    display.innerHTML = '';
+    for (var i = 0; i < currentWanted; i++) {
+        var choco = document.createElement('div');
+        choco.className = 'choco-item';
+        choco.style.animationDelay = (i * 0.05) + 's';
+        if (choc.file) {
+            choco.innerHTML = '<img src="icons/' + choc.file + '" alt="شکلات" style="width:30px;height:30px;object-fit:contain;" onerror="this.parentElement.innerHTML=\'<svg viewBox=&quot;0 0 40 40&quot; width=&quot;30&quot; height=&quot;30&quot;><rect x=&quot;4&quot; y=&quot;8&quot; width=&quot;32&quot; height=&quot;24&quot; rx=&quot;4&quot; fill=&quot;#795548&quot;/><rect x=&quot;7&quot; y=&quot;11&quot; width=&quot;26&quot; height=&quot;18&quot; rx=&quot;3&quot; fill=&quot;#8D6E63&quot;/></svg>\'">';
+        } else {
+            choco.innerHTML = '<svg viewBox="0 0 40 40" width="30" height="30"><rect x="4" y="8" width="32" height="24" rx="4" fill="#795548"/><rect x="7" y="11" width="26" height="18" rx="3" fill="#8D6E63"/></svg>';
+        }
+        display.appendChild(choco);
+    }
+
+    showArea('result-area');
+    document.getElementById('gameFeedback').textContent = 'آفرین! سودت رو حساب کن!';
+}
+
+function continueToQuestions() {
+    currentQuestionIndex = 0;
+    correctCount = 0;
+    showQuestion(0);
+}
+
+function getQuestions() {
+    var q = currentWanted;
+    var p = currentProfit;
+    return [
+        {
+            title: 'سود کل چقدره؟',
+            text: 'مشتری <strong>' + toPersianNum(q) + '</strong> تا شکلات خرید. سود تو چقدر شد؟',
+            correct: p,
+            options: [p - 50, p, p + 50, p + 100]
+        },
+        {
+            title: 'سود هر شکلات',
+            text: 'تو <strong>' + toPersianNum(p) + '</strong> ریال سود کردی. سود هر شکلات چقدره؟',
+            correct: 50,
+            options: [30, 40, 50, 60]
+        },
+        {
+            title: 'چند شکلات کشیدی؟',
+            text: 'تو <strong>' + toPersianNum(currentReceived) + '</strong> شکلات کشیدی و انداختی. اگه هر شکلات ۵۰ ریال باشه، سودت چقدره؟',
+            correct: currentReceived * 50,
+            options: [currentReceived * 30, currentReceived * 40, currentReceived * 50, currentReceived * 60]
+        },
+        {
+            title: 'محاسبه کن!',
+            text: 'اگر <strong>۷</strong> تا شکلات بفروشی، سودت چقدر میشه؟',
+            correct: 350,
+            options: [300, 350, 400, 450]
+        },
+        {
+            title: 'چالش نهایی',
+            text: 'اگر <strong>۱۰</strong> تا شکلات بفروشی، سودت چقدر میشه؟',
+            correct: 500,
+            options: [400, 450, 500, 550]
+        }
+    ];
 }
 
 function showQuestion(index) {
-currentQuestionIndex = index;
-var questionSection = document.getElementById('question-section');
-var challengeSection = document.getElementById('challenge-section');
+    var questions = getQuestions();
+    var question = questions[index];
+    if (!question) { finishLevel(); return; }
 
-var isChallenge = (index === 4);
+    currentQuestionIndex = index;
+    document.getElementById('question-step-badge').textContent = 'سوال ' + toPersianNum(index + 1) + ' از ' + toPersianNum(totalQuestions);
+    document.getElementById('question-title').textContent = question.title;
+    document.getElementById('question-text').innerHTML = question.text;
 
-if (isChallenge) {
-questionSection.classList.add('hidden');
-challengeSection.classList.remove('hidden');
-generateChallengeQuestion();
-} else {
-questionSection.classList.remove('hidden');
-challengeSection.classList.add('hidden');
-generateNormalQuestion();
+    var container = document.getElementById('answer-options');
+    container.innerHTML = '';
+    var shuffled = shuffle(question.options);
+
+    shuffled.forEach(function(opt) {
+        var btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = toPersianNum(opt);
+        btn.dataset.value = opt;
+        btn.onclick = function() { selectAnswer(btn, opt, question.correct); };
+        container.appendChild(btn);
+    });
+
+    document.getElementById('feedback-box').classList.add('hidden');
+    document.getElementById('btn-next').classList.add('hidden');
+    showArea('question-area');
+    document.getElementById('gameFeedback').textContent = 'سوال ' + toPersianNum(index + 1) + ' از ' + toPersianNum(totalQuestions);
 }
 
-document.getElementById('gameFeedback').textContent = 'سوال ' + toPersianNum(index + 1) + ' از ' + toPersianNum(totalQuestions);
-}
+function selectAnswer(btn, value, correct) {
+    if (isResultShowing) return;
+    var buttons = document.querySelectorAll('#answer-options .option-btn');
+    buttons.forEach(function(b) { b.disabled = true; });
 
-function pickQuestionType() {
-var types = [
-'floor_units',
-'sum_two_floors',
-'diff_two_floors',
-'top_floor',
-'compare'
-];
-var available = types.filter(function(t) { return usedQuestionTypes.indexOf(t) === -1; });
-if (available.length === 0) {
-usedQuestionTypes = [];
-available = types;
-}
-var picked = available[Math.floor(Math.random() * available.length)];
-usedQuestionTypes.push(picked);
-return picked;
-}
+    var isCorrect = value === correct;
 
-function generateNormalQuestion() {
-questionStartTime = Date.now();
-var type = pickQuestionType();
-var questionText = '', correctAnswer = 0;
+    buttons.forEach(function(b) {
+        var val = parseInt(b.dataset.value);
+        if (val === correct) b.classList.add('correct');
+        else if (val === value && !isCorrect) b.classList.add('wrong');
+    });
 
-if (type === 'floor_units') {
-var floor = Math.floor(Math.random() * currentTotalFloors) + 1;
-correctAnswer = getUnitsForFloor(floor);
-questionText = 'طبقه <span>' + toPersianNum(floor) + '</span> چند واحد داره؟';
-} else if (type === 'sum_two_floors') {
-var f1 = Math.floor(Math.random() * currentTotalFloors) + 1;
-var f2;
-do { f2 = Math.floor(Math.random() * currentTotalFloors) + 1; } while (f2 === f1);
-correctAnswer = getUnitsForFloor(f1) + getUnitsForFloor(f2);
-questionText = 'مجموع واحدهای طبقه <span>' + toPersianNum(f1) + '</span> و طبقه <span>' + toPersianNum(f2) + '</span> چنده؟';
-} else if (type === 'diff_two_floors') {
-var a = Math.floor(Math.random() * currentTotalFloors) + 1;
-var b;
-do { b = Math.floor(Math.random() * currentTotalFloors) + 1; } while (b === a);
-var big = Math.max(a, b), small = Math.min(a, b);
-correctAnswer = getUnitsForFloor(big) - getUnitsForFloor(small);
-questionText = 'طبقه <span>' + toPersianNum(big) + '</span> چند واحد بیشتر از طبقه <span>' + toPersianNum(small) + '</span> داره؟';
-} else if (type === 'top_floor') {
-correctAnswer = getUnitsForFloor(currentTotalFloors);
-questionText = 'بالاترین طبقه (طبقه <span>' + toPersianNum(currentTotalFloors) + '</span>) چند واحد داره؟';
-} else {
-var x = Math.floor(Math.random() * currentTotalFloors) + 1;
-var y;
-do { y = Math.floor(Math.random() * currentTotalFloors) + 1; } while (y === x);
-correctAnswer = Math.max(x, y);
-questionText = 'کدوم طبقه واحد بیشتری داره؟ (فقط شماره طبقه رو بزن)';
-}
+    var feedback = document.getElementById('feedback-box');
+    feedback.classList.remove('hidden', 'success', 'error');
+    feedback.classList.add(isCorrect ? 'success' : 'error');
+    document.getElementById('feedback-icon').textContent = isCorrect ? '🎉' : '🤔';
+    document.getElementById('feedback-text').textContent = isCorrect ? 'آفرین! درست بود!' : 'اشتباه! جواب درست ' + toPersianNum(correct) + ' بود.';
 
-currentQuestion = { answer: correctAnswer, isChallenge: false, type: type };
-document.getElementById('question-text').innerHTML = questionText;
-generateOptions(correctAnswer, 'options-container', false, type);
-}
-
-function generateChallengeQuestion() {
-questionStartTime = Date.now();
-var challengeType = Math.floor(Math.random() * 2);
-var answer, questionText;
-
-if (challengeType === 0) {
-var floorsCount = Math.floor(Math.random() * 3) + 3;
-var total = 0;
-for (var i = 1; i <= floorsCount; i++) total += getUnitsForFloor(i);
-answer = total;
-questionText = 'اگه ساختمان <span>' + toPersianNum(floorsCount) + '</span> طبقه داشته باشه، مجموع همه واحدها چنده؟';
-} else {
-var f = Math.floor(Math.random() * 2) + 2;
-var sum = getUnitsForFloor(f) + getUnitsForFloor(f + 1);
-answer = sum;
-questionText = 'مجموع واحدهای طبقه <span>' + toPersianNum(f) + '</span> و طبقه <span>' + toPersianNum(f + 1) + '</span> چنده؟';
-}
-
-currentQuestion = { answer: answer, isChallenge: true };
-document.getElementById('challenge-question').innerHTML = questionText;
-generateOptions(answer, 'challenge-options', true, 'challenge');
-}
-
-function generateOptions(correctAnswer, containerId, isChallenge, type) {
-var container = document.getElementById(containerId);
-container.innerHTML = '';
-var options = [correctAnswer];
-var step = isChallenge ? 4 : 2;
-var attempts = 0;
-
-while (options.length < 4 && attempts < 100) {
-attempts++;
-var offset = Math.floor(Math.random() * 3) + 1;
-var wrong = correctAnswer + (Math.random() > 0.5 ? 1 : -1) * (offset * step);
-if (wrong > 0 && options.indexOf(wrong) === -1) options.push(wrong);
-}
-
-var shuffled = shuffle(options);
-shuffled.forEach(function(option) {
-var btn = document.createElement('button');
-btn.className = 'option-btn';
-btn.textContent = toPersianNum(option);
-btn.dataset.value = option;
-btn.onclick = function() { handleAnswer(option, btn); };
-container.appendChild(btn);
-});
-}
-
-function handleAnswer(selected, btnElement) {
-if (isResultShowing) return;
-
-var timeTaken = (Date.now() - questionStartTime) / 1000;
-var correct = selected === currentQuestion.answer;
-
-var containerId = currentQuestion.isChallenge ? 'challenge-options' : 'options-container';
-document.querySelectorAll('#' + containerId + ' .option-btn').forEach(function(btn) {
-btn.disabled = true;
-if (parseInt(btn.dataset.value) === currentQuestion.answer) btn.classList.add('correct');
-});
-
-if (correct) {
-btnElement.classList.add('correct');
-playWinSound();
-correctCount++;
-showQuestionModal(true, timeTaken, currentQuestion.isChallenge);
-} else {
-btnElement.classList.add('wrong');
-playLoseSound();
-showQuestionModal(false, timeTaken, currentQuestion.isChallenge);
-}
-}
-
-function showQuestionModal(isCorrect, timeTaken, isChallenge) {
-var modal = document.getElementById('questionModal');
-var box = document.getElementById('questionModalBox');
-var icon = document.getElementById('modalFeedbackIcon');
-var title = document.getElementById('modalTitle');
-var message = document.getElementById('modalMessage');
-var timeInfo = document.getElementById('modalTimeInfo');
-var nextBtn = document.getElementById('modalNextBtn');
-
-box.classList.toggle('wrong', !isCorrect);
-
-if (isCorrect) {
-icon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
-title.textContent = '🎉 آفرین!';
-if (isChallenge) message.innerHTML = 'چالش رو حل کردی! <strong>فوق‌العاده بود!</strong>';
-else message.innerHTML = 'درست بود! <strong>ادامه بده!</strong>';
-timeInfo.classList.remove('hidden');
-timeInfo.innerHTML = 'زمان پاسخ: <strong>' + toPersianNum(timeTaken.toFixed(1)) + ' ثانیه</strong>';
-nextBtn.textContent = (currentQuestionIndex + 1 >= totalQuestions) ? '🏁 پایان مرحله' : '➡️ سوال بعدی';
-} else {
-icon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
-title.textContent = '😢 اشتباه شد!';
-message.innerHTML = 'این سوال دوباره تکرار می‌شه. با دقت فکر کن!';
-timeInfo.classList.add('hidden');
-nextBtn.textContent = '🔄 تلاش دوباره';
-}
-
-modal.classList.add('show');
+    if (isCorrect) {
+        playWinSound();
+        correctCount++;
+    } else {
+        playLoseSound();
+    }
+    
+    document.getElementById('btn-next').classList.remove('hidden');
+    document.getElementById('btn-next').textContent = (currentQuestionIndex + 1 >= totalQuestions) ? 'پایان مرحله' : 'سوال بعدی';
 }
 
 function nextQuestion() {
-var modal = document.getElementById('questionModal');
-var wasCorrect = !document.getElementById('questionModalBox').classList.contains('wrong');
-modal.classList.remove('show');
-
-if (!wasCorrect) {
-showQuestion(currentQuestionIndex);
-return;
-}
-
-var nextIdx = currentQuestionIndex + 1;
-if (nextIdx >= totalQuestions) {
-finishLevel();
-} else {
-showQuestion(nextIdx);
-}
+    var nextIdx = currentQuestionIndex + 1;
+    if (nextIdx >= totalQuestions) {
+        finishLevel();
+    } else {
+        showQuestion(nextIdx);
+    }
 }
 
 function finishLevel() {
-if (timerInterval) clearInterval(timerInterval);
-var totalTime = Math.floor((Date.now() - levelStartTime) / 1000);
-isResultShowing = true;
+    if (timerInterval) clearInterval(timerInterval);
 
-if (correctCount >= 3) {
-if (!levelCompleted[currentLevel]) levelCompleted[currentLevel] = true;
-if (currentLevel < totalLevels && !levelUnlocked[currentLevel + 1]) levelUnlocked[currentLevel + 1] = true;
-saveLevelStatus();
+    if (correctCount >= 3) {
+        if (!levelCompleted[currentLevel]) levelCompleted[currentLevel] = true;
+        if (currentLevel < totalLevels && !levelUnlocked[currentLevel + 1]) levelUnlocked[currentLevel + 1] = true;
+        saveLevelStatus();
 
-var coins = parseInt(localStorage.getItem('patternBuildingCoins')) || 0;
-var reward = (coins === 0) ? 10 : 1;
-coins += reward;
-localStorage.setItem('patternBuildingCoins', coins.toString());
-updateCoinDisplay();
+        var coins = parseInt(localStorage.getItem('shopkeeperCoins')) || 0;
+        var reward = (coins === 0) ? 10 : 1;
+        coins += reward;
+        localStorage.setItem('shopkeeperCoins', coins.toString());
+        updateCoinDisplay();
 
-fireEffect(activeEffect);
-showWinModal(correctCount, totalTime, reward);
-} else {
-showResultModal(correctCount);
-}
-}
-
-function getWinMessage(totalTime) {
-if (totalTime < 30) return '🏆 عالی بودی! خیلی سریع!';
-if (totalTime < 60) return '⭐ خیلی خوب بود!';
-if (totalTime < 90) return '👍 خوب بود!';
-return '💪 ضعیف بودی، ولی بردی!';
+        fireEffect(activeEffect);
+        isResultShowing = true;
+        showWinModal('🎉 آفرین!', 'مرحله ' + toPersianNum(currentLevel) + ' رو بردی!', reward);
+    } else {
+        isResultShowing = true;
+        showResultModal('❌ اشتباه شد!', 'دوباره تلاش کن، می‌تونی! 💪');
+    }
 }
 
-function showWinModal(correct, totalTime, coinReward) {
+function showWinModal(title, msg, coinReward) {
 var modal = document.getElementById('winModal');
-document.getElementById('winTitle').textContent = '🎉 آفرین!';
-document.getElementById('winLevel').textContent = 'مرحله ' + toPersianNum(currentLevel) + ' رو بردی!';
+document.getElementById('winTitle').textContent = title;
+document.getElementById('winLevel').textContent = msg;
 document.getElementById('winCoinAmount').textContent = '+' + toPersianNum(coinReward);
-document.getElementById('winScoreInfo').innerHTML = '<div>تعداد درست: <strong>' + toPersianNum(correct) + ' از ' + toPersianNum(totalQuestions) + '</strong></div><div>زمان کل: <strong>' + toPersianNum(totalTime) + ' ثانیه</strong></div>';
-document.getElementById('winMsg').textContent = getWinMessage(totalTime);
-
 var next = currentLevel + 1;
 var nextBtn = document.getElementById('winNextBtn');
 if (next <= totalLevels && levelUnlocked[next]) {
@@ -1347,11 +1855,10 @@ showScreen('homeScreen');
 modal.classList.add('open');
 }
 
-function showResultModal(correct) {
+function showResultModal(title, msg) {
 var modal = document.getElementById('resultModal');
-document.getElementById('resultTitle').textContent = '😢 اشتباه شد!';
-document.getElementById('resultScoreInfo').innerHTML = '<div>تعداد درست: <strong>' + toPersianNum(correct) + ' از ' + toPersianNum(totalQuestions) + '</strong></div><div>حداقل نیاز: <strong>' + toPersianNum(3) + ' از ' + toPersianNum(totalQuestions) + '</strong></div>';
-document.getElementById('resultMsg').textContent = 'دوباره تلاش کن، می‌تونی! 💪';
+document.getElementById('resultTitle').textContent = title;
+document.getElementById('resultMsg').textContent = msg;
 modal.classList.add('open');
 }
 
@@ -1392,13 +1899,17 @@ document.addEventListener('touchstart', startMusic, {once:true});
 document.addEventListener('DOMContentLoaded', function() {
 loadShopData();
 loadEffectData();
+loadHouseData();
+loadChocolateData();
 loadLevelStatus();
 createStars();
+initDragAndDrop();
 
-if (!localStorage.getItem('patternBuildingCoins')) localStorage.setItem('patternBuildingCoins', '0');
+if (!localStorage.getItem('shopkeeperCoins')) localStorage.setItem('shopkeeperCoins', '0');
 updateCoinDisplay();
 applyTheme(activeTheme, false);
 applyEffect(activeEffect, false);
+updateHouseDisplay();
 
 document.getElementById('startGameBtn').addEventListener('click', function() {
 renderLevels();
@@ -1409,7 +1920,10 @@ document.getElementById('guideSkipBtn').addEventListener('click', skipGuide);
 document.getElementById('shopBtn').addEventListener('click', function() { renderShop(); showScreen('shopScreen'); });
 document.getElementById('backHomeBtn').addEventListener('click', function() { showScreen('homeScreen'); });
 document.getElementById('celebCloseBtn').addEventListener('click', function() { document.getElementById('celebrationOverlay').classList.remove('show'); });
-document.getElementById('modalNextBtn').addEventListener('click', nextQuestion);
+
+document.getElementById('sellBtn').addEventListener('click', sellToCustomer);
+document.getElementById('continueBtn').addEventListener('click', continueToQuestions);
+document.getElementById('btn-next').addEventListener('click', nextQuestion);
 
 document.getElementById('stopGameBtn').addEventListener('click', function() {
 if (!isResultShowing) document.getElementById('stopModal').classList.add('show');
@@ -1457,6 +1971,10 @@ window.applyTheme = applyTheme;
 window.buyTheme = buyTheme;
 window.applyEffect = applyEffect;
 window.buyEffect = buyEffect;
+window.applyHouse = applyHouse;
+window.buyHouse = buyHouse;
+window.applyChocolateType = applyChocolateType;
+window.buyChocolate = buyChocolate;
 window.renderShop = renderShop;
 window.startGameFromLevel = startGameFromLevel;
 window.renderLevels = renderLevels;
