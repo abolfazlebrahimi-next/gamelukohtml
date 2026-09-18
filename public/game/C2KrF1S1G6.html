@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>کارآگاه الگوها</title>
+<title>پل‌سازی اعداد</title>
 <style>
 @font-face { font-family: "Shoor"; src: url("./fonts/Shoor-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Shoor"; src: url("./fonts/Shoor-Medium.ttf") format("truetype"); font-weight: 500; font-display: swap; }
@@ -32,6 +32,7 @@
 --border-glow: rgba(0, 210, 255, 0.15); --card-bg: rgba(255, 255, 255, 0.03);
 --header-border: rgba(0, 210, 255, 0.15); --game-card-border: rgba(0, 210, 255, 0.06);
 --guide-bg: rgba(0, 0, 0, 0.8); --countdown-color: #FFC93C;
+--radius-sm: 10px;
 }
 
 body.theme-default { --primary: #6C5CE7; --secondary: #00D2FF; --body-bg: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 30%, #0d1b2a 60%, #0a0a1a 100%); --btn-primary-bg: linear-gradient(135deg, #6C5CE7, #00D2FF); --btn-primary-shadow: rgba(108, 92, 231, 0.5); --neon-glow: 0 0 30px rgba(0, 210, 255, 0.15), 0 0 60px rgba(108, 92, 231, 0.1); --border-glow: rgba(0, 210, 255, 0.15); --glass-border: rgba(255, 255, 255, 0.08); --card-bg: rgba(255, 255, 255, 0.03); --countdown-color: #FFC93C; }
@@ -137,14 +138,13 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .shop-btn-sm.locked { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); cursor: not-allowed; }
 
 .levels-container { max-width: 420px; width: 100%; padding: 25px 20px; text-align: center; max-height: 92vh; display: flex; flex-direction: column; }
-.levels-container h2 { color: var(--gold); font-size: 1.8rem; font-family: 'Shoor Black', Tahoma, sans-serif; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 201, 60, 0.2); flex-shrink: 0; }
+.levels-container h2 { color: var(--gold); font-size: 1.8rem; font-family: 'Shoor Rounded', 'Shoor', Tahoma, sans-serif; font-weight: 900; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 201, 60, 0.2); flex-shrink: 0; }
 .level-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 10px 0; flex: 1; align-content: start; overflow-y: auto; }
 .level-grid::-webkit-scrollbar { width: 4px; }
 .level-grid::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
-
 .level-box { aspect-ratio: 1/1; background: var(--card-bg); backdrop-filter: blur(10px); border: 2px solid var(--glass-border); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: var(--text-color); position: relative; min-height: 50px; font-size: 1.2rem; font-weight: 700; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; }
 .level-box:hover { border-color: var(--secondary); box-shadow: 0 0 40px var(--secondary); z-index: 2; background: rgba(0, 210, 255, 0.1); }
-.level-box:hover .level-number { font-weight: 900; color: var(--secondary); text-shadow: 0 0 20px var(--secondary); }
+.level-box:hover .level-number { font-weight: 900; color: var(--secondary); text-shadow: 0 0 20px var(--secondary); font-size: 1.6rem; }
 .level-number { transition: all 0.3s ease; display: inline-block; }
 .level-box.completed { border-color: var(--success); background: rgba(0, 184, 148, 0.1); box-shadow: 0 0 20px rgba(0, 184, 148, 0.15); }
 .level-box.completed .level-number { color: var(--success); }
@@ -154,7 +154,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .level-box .check-icon { position: absolute; top: 4px; left: 6px; font-size: 0.7rem; }
 
 #gameScreen { padding: 12px; justify-content: flex-start; padding-top: 14px; }
-.game-card { max-width: 480px; width: 100%; margin: 0 auto; padding: 15px 14px; text-align: center; position: relative; background: var(--card-bg); backdrop-filter: blur(25px) saturate(200%); -webkit-backdrop-filter: blur(25px) saturate(200%); border: 1px solid var(--game-card-border); border-radius: 24px; box-shadow: var(--shadow-xl), var(--neon-glow), inset 0 1px 1px rgba(255,255,255,0.02); transition: all 0.5s ease; min-height: 92vh; display: flex; flex-direction: column; }
+.game-card { max-width: 700px; width: 100%; margin: 0 auto; padding: 15px 14px; text-align: center; position: relative; background: var(--card-bg); backdrop-filter: blur(25px) saturate(200%); -webkit-backdrop-filter: blur(25px) saturate(200%); border: 1px solid var(--game-card-border); border-radius: 24px; box-shadow: var(--shadow-xl), var(--neon-glow), inset 0 1px 1px rgba(255,255,255,0.02); transition: all 0.5s ease; min-height: 92vh; display: flex; flex-direction: column; }
 
 .game-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; margin-bottom: 12px; background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid var(--header-border); box-shadow: 0 0 30px var(--border-glow); flex-shrink: 0; transition: all 0.5s ease; gap: 8px; }
 .game-header .game-title { font-size: 0.85rem; font-weight: 700; color: var(--neon-blue); text-shadow: 0 0 20px var(--secondary); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
@@ -167,40 +167,48 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 
 .instruction-msg { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 14px; padding: 10px; text-align: center; color: var(--text-secondary); font-weight: 700; margin: 8px 0; font-size: 0.9rem; box-shadow: 0 0 15px var(--border-glow); transition: all 0.5s ease; min-height: 50px; display: flex; align-items: center; justify-content: center; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
 
-.timer-bar-container { margin: 8px 0 12px; }
-.timer-bar { width: 100%; height: 10px; background: rgba(0,0,0,0.4); border-radius: 5px; overflow: hidden; border: 1px solid var(--glass-border); }
-.timer-fill { height: 100%; background: linear-gradient(90deg, var(--success), var(--gold), var(--danger)); border-radius: 5px; transition: width 0.1s linear; width: 100%; box-shadow: 0 0 15px var(--secondary); }
+.game-area { flex: 1; display: flex; flex-direction: column; justify-content: space-between; position: relative; padding: 10px 0; gap: 8px; }
 
-.game-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; padding: 10px 0; position: relative; }
+.number-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 14px 12px; background: rgba(0,0,0,0.15); border-radius: var(--radius); border: 1px solid var(--glass-border); min-height: 80px; align-items: center; }
+.english-row { background: linear-gradient(180deg, rgba(108, 92, 231, 0.15) 0%, rgba(108, 92, 231, 0.05) 100%); border-color: rgba(108, 92, 231, 0.3); }
+.persian-row { background: linear-gradient(0deg, rgba(0, 210, 255, 0.15) 0%, rgba(0, 210, 255, 0.05) 100%); border-color: rgba(0, 210, 255, 0.3); }
 
-.detective-card { background: var(--card-bg); border: 2px solid rgba(255, 215, 0, 0.2); border-radius: var(--radius); padding: 18px; animation: slideIn 0.5s ease; width: 100%; }
-@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.number-item { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; font-size: 1.3rem; font-weight: 900; cursor: grab; transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; touch-action: none; -webkit-touch-callout: none; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+.english-row .number-item { background: linear-gradient(135deg, #6C5CE7, #4f46e5); color: white; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.5); border: 2px solid rgba(255,255,255,0.15); }
+.persian-row .number-item { background: linear-gradient(135deg, #00D2FF, #0088cc); color: white; box-shadow: 0 4px 15px rgba(0, 210, 255, 0.5); border: 2px solid rgba(255,255,255,0.15); }
+.number-item:active { cursor: grabbing; }
+.number-item.selected { transform: scale(1.15); box-shadow: 0 0 0 4px rgba(255, 201, 60, 0.6), 0 8px 25px rgba(0,0,0,0.3); z-index: 10; }
+.number-item.matched { opacity: 0.25; pointer-events: none; transform: scale(0.8); }
+.number-item.hint { animation: hint-flash 0.5s ease 4; }
+@keyframes hint-flash { 0%, 100% { box-shadow: 0 4px 15px rgba(0, 210, 255, 0.5); } 50% { box-shadow: 0 0 0 6px rgba(255, 201, 60, 0.8), 0 0 40px rgba(255, 201, 60, 0.5); transform: scale(1.1); } }
+.number-item.wrong { animation: shake 0.5s ease; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.number-item.hover-target { transform: scale(1.12); box-shadow: 0 0 0 4px rgba(255, 201, 60, 0.9), 0 8px 25px rgba(0,0,0,0.3); z-index: 10; }
 
-.card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; color: var(--gold); justify-content: center; }
-.card-header h2 { font-size: 1.1rem; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+.river-section { position: relative; height: 120px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: var(--radius); background: linear-gradient(180deg, rgba(93, 173, 226, 0.15) 0%, rgba(0, 119, 190, 0.4) 50%, rgba(93, 173, 226, 0.15) 100%); border: 1px solid rgba(93, 173, 226, 0.3); }
+.river-svg { width: 100%; height: 100%; }
 
-.clues-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 18px; }
-.clue-item { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: rgba(0, 0, 0, 0.3); border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.1); min-width: 90px; justify-content: center; animation: correctPulse 0.5s ease both; }
-.clue-number { font-size: 1.4rem; font-weight: 900; color: var(--text-color); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
-.clue-arrow { color: var(--gold); font-size: 1.4rem; }
-.clue-result { font-size: 1.4rem; font-weight: 900; color: var(--success); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+.water-wave-1 { animation: waterMove1 4s ease-in-out infinite; }
+.water-wave-2 { animation: waterMove2 5s ease-in-out infinite; }
+@keyframes waterMove1 { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-30px); } }
+@keyframes waterMove2 { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(30px); } }
 
-.question-box { text-align: center; padding: 12px; background: rgba(253, 203, 110, 0.1); border-radius: var(--radius-sm); border: 1px dashed var(--gold); }
-.question-text { font-size: 1rem; color: var(--gold); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; font-weight: 700; }
+.plank { stroke: #8B4513; stroke-width: 7; stroke-linecap: round; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); animation: plankAppear 0.5s ease forwards; }
+@keyframes plankAppear { from { stroke-dasharray: 0 500; opacity: 0; } to { stroke-dasharray: 500 0; opacity: 1; } }
 
-.options-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 30px; }
-.option-btn { padding: 18px 12px; background: var(--card-bg); border: 3px solid transparent; border-radius: var(--radius); color: var(--text-color); font-size: 1rem; font-weight: 700; cursor: pointer; transition: var(--transition); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; min-height: 60px; }
-.option-btn:hover:not(:disabled) { border-color: var(--secondary); box-shadow: 0 0 30px var(--secondary); transform: translateY(-2px); }
-.option-btn:disabled { cursor: not-allowed; opacity: 0.7; }
-.option-btn.correct { background: rgba(0, 184, 148, 0.3); border-color: var(--success); color: #fff; box-shadow: 0 0 30px var(--success); animation: correctPulse 0.5s ease; }
-.option-btn.wrong { background: rgba(255, 118, 117, 0.3); border-color: var(--danger); color: #fff; animation: shake 0.5s ease; }
-@keyframes correctPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.bridge-main { stroke: #A0522D; stroke-width: 10; fill: none; stroke-linecap: round; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
+.bridge-railing { stroke: #D2691E; stroke-width: 4; fill: none; stroke-linecap: round; }
+.bridge-pillar { fill: #654321; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5)); }
+.bridge-arch { stroke: #8B4513; stroke-width: 6; fill: none; stroke-linecap: round; }
+
+.connection-svg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+#drag-line { display: none; }
+#drag-line.active { display: block; }
 
 .stop-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 6000; display: none; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); }
 .stop-modal.show { display: flex; animation: screenFadeIn 0.3s ease; }
 .stop-modal-box { background: var(--card-bg); backdrop-filter: blur(25px); border: 2px solid var(--danger); border-radius: 24px; padding: 30px 24px; max-width: 320px; width: 100%; text-align: center; box-shadow: 0 0 80px rgba(255, 118, 117, 0.15); color: var(--text-color); }
-.stop-modal-box h2 { color: var(--danger); font-size: 1.4rem; font-family: 'Shoor Black', Tahoma, sans-serif; margin-bottom: 8px; text-shadow: 0 0 30px rgba(255, 118, 117, 0.2); }
+.stop-modal-box h2 { color: var(--danger); font-size: 1.4rem; font-family: 'Shoor Rounded', 'Shoor', Tahoma, sans-serif; font-weight: 900; margin-bottom: 8px; text-shadow: 0 0 30px rgba(255, 118, 117, 0.2); }
 .stop-modal-box p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 18px; }
 .stop-modal-box .stop-btns { display: flex; flex-direction: column; gap: 10px; }
 
@@ -213,21 +221,75 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 @keyframes countdownGo { 0% { transform: scale(0.3) translateY(30px); opacity: 0; } 40% { transform: scale(1.2) translateY(-5px); opacity: 1; } 70% { transform: scale(0.95); } 100% { transform: scale(1) translateY(0); opacity: 1; } }
 .countdown-label { font-size: 1.8rem; font-weight: 700; color: var(--text-secondary); margin-top: 15px; opacity: 0.7; font-family: var(--font-family); letter-spacing: 2px; }
 
+/* ============================================================
+   ⭐ مودال‌ها — نسخه کوچک و تمیز
+   ============================================================ */
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal.open { display: flex; animation: screenFadeIn 0.3s ease; }
-.modal-card { background: var(--card-bg); backdrop-filter: blur(25px); border: 2px solid var(--gold); border-radius: 24px; padding: 30px 24px; max-width: 380px; width: 100%; text-align: center; box-shadow: 0 0 80px rgba(255, 201, 60, 0.15); color: var(--text-color); transition: all 0.5s ease; }
+
+.modal-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(25px);
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 18px 16px 16px;
+    max-width: 280px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 80px rgba(255, 201, 60, 0.15);
+    color: var(--text-color);
+    transition: all 0.5s ease;
+}
 .modal-card.fail { border-color: var(--danger); box-shadow: 0 0 80px rgba(255, 118, 117, 0.15); }
-.modal-card h3 { font-size: 2rem; font-weight: 800; color: var(--gold); font-family: 'Shoor-ExtraBold', 'Shoor', Tahoma, sans-serif; margin-bottom: 8px; text-shadow: 0 0 30px rgba(255, 201, 60, 0.3); letter-spacing: 2px; }
+
+.modal-card h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--gold);
+    font-family: 'Shoor Rounded', 'Shoor', Tahoma, sans-serif;
+    margin-bottom: 6px;
+    text-shadow: 0 0 30px rgba(255, 201, 60, 0.3);
+    letter-spacing: 1px;
+}
 .modal-card.fail h3 { color: var(--danger); text-shadow: 0 0 30px rgba(255, 118, 117, 0.2); }
-.modal-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px; }
-.modal-card .btn { margin-top: 8px; }
-.modal-card .result-char { width: 120px; height: 120px; margin: 0 auto 15px; border-radius: 50%; border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; overflow: hidden; background: radial-gradient(circle, rgba(255,255,255,0.05), transparent); box-shadow: 0 0 50px rgba(255, 201, 60, 0.2); animation: celebFloat 2s ease-in-out infinite; }
+
+.modal-card .result-char {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent);
+    box-shadow: 0 0 40px rgba(255, 201, 60, 0.2);
+    animation: celebFloat 2s ease-in-out infinite;
+}
 .modal-card .result-char img { width: 85%; height: 85%; object-fit: contain; }
-@keyframes celebFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.05); } }
-.modal-card .win-coin { font-size: 2.5rem; color: var(--gold); display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0; }
-.modal-card .win-coin img { width: 40px; height: 40px; object-fit: contain; }
-.modal-card .win-level { font-size: 1.3rem; color: var(--text-secondary); margin-bottom: 10px; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
-.result-buttons { display: flex; flex-direction: column; gap: 10px; }
+
+@keyframes celebFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.05); } }
+
+.modal-card .win-coin {
+    font-size: 1.5rem;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 6px 0 12px;
+    font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif;
+}
+.modal-card .win-coin img { width: 28px; height: 28px; object-fit: contain; }
+
+.result-buttons { display: flex; flex-direction: column; gap: 6px; }
+.result-buttons .btn {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    border-radius: 12px;
+}
 
 .toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: var(--card-bg); backdrop-filter: blur(25px); border: 2px solid var(--gold); border-radius: 20px; padding: 18px 30px; z-index: 7000; box-shadow: 0 0 80px rgba(255, 201, 60, 0.25); color: var(--text-color); font-weight: 700; font-size: 1.1rem; display: none; align-items: center; gap: 16px; max-width: 90%; animation: toastSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), toastGlow 2s ease-in-out infinite; }
 .toast.show { display: flex; }
@@ -243,10 +305,10 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 .guide-container { max-width: 450px; width: 100%; background: var(--card-bg); backdrop-filter: blur(30px); border: 2px solid var(--glass-border); border-radius: 24px; padding: 30px 25px; box-shadow: var(--shadow-xl), var(--neon-glow); text-align: center; position: relative; min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
 .guide-container .guide-char { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; overflow: hidden; background: radial-gradient(circle, rgba(255,255,255,0.05), transparent); box-shadow: 0 0 60px rgba(255, 201, 60, 0.2); flex-shrink: 0; animation: celebFloat 2s ease-in-out infinite; }
 .guide-container .guide-char img { width: 85%; height: 85%; object-fit: contain; }
-.guide-container .guide-text { font-size: 1.1rem; font-weight: 700; color: var(--text-color); line-height: 2.2; text-align: center; min-height: 120px; display: flex; align-items: center; justify-content: center; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; background: rgba(255,255,255,0.03); padding: 15px 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); width: 100%; transition: all 0.3s ease; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+.guide-container .guide-text { font-size: 1.2rem; font-weight: 900; color: var(--text-color); line-height: 2.2; text-align: center; min-height: 120px; display: flex; align-items: center; justify-content: center; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; background: rgba(255,255,255,0.03); padding: 15px 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); width: 100%; transition: all 0.3s ease; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
 .guide-container .guide-progress { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; margin-top: 10px; }
 .guide-container .guide-progress-bar { height: 100%; background: linear-gradient(90deg, var(--gold), var(--neon-blue)); width: 0%; border-radius: 2px; transition: width 0.1s linear; }
-.guide-container .guide-skip { background: none; border: none; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer; font-family: var(--font-family); padding: 8px 16px; border-radius: 12px; transition: all 0.3s ease; }
+.guide-container .guide-skip { background: none; border: none; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer; font-family: var(--font-family); padding: 8px 16px; border-radius: 12px; transition: all 0.3s ease; margin-top: 5px; }
 .guide-container .guide-skip:hover { color: var(--text-color); background: rgba(255,255,255,0.05); }
 
 @keyframes guideTextPop { 0% { opacity: 0; transform: translateY(30px) scale(0.9); filter: blur(5px); } 100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
@@ -257,17 +319,17 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 @keyframes celebPop { 0% { transform: scale(0.3) rotate(-10deg); opacity: 0; } 50% { transform: scale(1.1) rotate(3deg); } 70% { transform: scale(0.95); } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
 .celebration-box .celeb-char { width: 130px; height: 130px; margin: 0 auto 15px; border-radius: 50%; border: 4px solid var(--gold); display: flex; align-items: center; justify-content: center; overflow: hidden; background: radial-gradient(circle, rgba(255,255,255,0.05), transparent); box-shadow: 0 0 80px rgba(255, 201, 60, 0.25); animation: celebFloat 2s ease-in-out infinite; }
 .celebration-box .celeb-char img { width: 85%; height: 85%; object-fit: contain; }
-.celebration-box h2 { font-size: 2rem; font-weight: 900; color: var(--gold); font-family: 'Shoor Black', Tahoma, sans-serif; margin-bottom: 8px; text-shadow: 0 0 50px rgba(255, 201, 60, 0.3); }
+.celebration-box h2 { font-size: 2rem; font-weight: 900; color: var(--gold); font-family: 'Shoor Rounded', Tahoma, sans-serif; margin-bottom: 8px; text-shadow: 0 0 50px rgba(255, 201, 60, 0.3); }
 .celebration-box .celeb-message { color: var(--text-color); font-size: 1.1rem; font-weight: 500; line-height: 2; margin-bottom: 20px; }
 .celebration-box .celeb-message strong { color: var(--gold); }
 .celebration-box .btn { min-height: 48px; }
 
+.hidden { display: none !important; }
+
 @media (max-width: 480px) {
-.menu-title { font-size: 1.8rem; } .menu-character { width: 120px; height: 120px; } .levels-container h2 { font-size: 1.5rem; } .level-grid { gap: 6px; } .level-box { min-height: 40px; font-size: 1rem; } .game-card { padding: 12px 10px; } .game-header .game-title { font-size: 0.65rem; } .game-header .game-level { font-size: 0.6rem; padding: 2px 8px; } .game-header .target-box { font-size: 0.6rem; padding: 2px 8px; } .stop-btn { width: 34px; height: 34px; font-size: 1rem; } .modal-card { padding: 24px 18px; } .modal-card h3 { font-size: 1.6rem; } .modal-card p { font-size: 0.85rem; } .modal-card .result-char { width: 90px; height: 90px; } .shop-item { min-height: 140px; padding: 10px 6px; } .shop-item .shop-preview { height: 70px; font-size: 2.5rem; } .countdown-number { font-size: 9rem; } .countdown-number.go-text { font-size: 5rem; } .toast { padding: 14px 20px; font-size: 0.9rem; } .toast .toast-emoji { font-size: 2rem; } .guide-container .guide-text { font-size: 0.95rem; padding: 12px 16px; min-height: 100px; } .guide-container .guide-char { width: 90px; height: 90px; } .celebration-box { padding: 30px 20px; } .celebration-box .celeb-char { width: 100px; height: 100px; } .celebration-box h2 { font-size: 1.6rem; } .back-btn { width: 38px; height: 38px; } .coin-display { padding: 4px 12px 4px 8px; } .coin-display img { width: 22px; height: 22px; } .coin-amount { font-size: 0.9rem; } .shop-coin img { width: 18px; height: 18px; } .modal-card .win-coin img { width: 32px; height: 32px; } .shop-item .price img { width: 14px; height: 14px; }
-.clue-item { padding: 8px 12px; min-width: 70px; }
-.clue-number, .clue-arrow, .clue-result { font-size: 1.1rem; }
-.option-btn { padding: 12px 8px; font-size: 0.85rem; min-height: 50px; }
-.question-text { font-size: 0.85rem; }
+.menu-title { font-size: 1.8rem; } .menu-character { width: 120px; height: 120px; } .levels-container h2 { font-size: 1.5rem; } .level-grid { gap: 6px; } .level-box { min-height: 40px; font-size: 1rem; } .level-box:hover .level-number { font-size: 1.4rem; } .game-card { padding: 12px 10px; } .game-header .game-title { font-size: 0.65rem; } .game-header .game-level { font-size: 0.6rem; padding: 2px 8px; } .game-header .target-box { font-size: 0.6rem; padding: 2px 8px; } .stop-btn { width: 34px; height: 34px; font-size: 1rem; } .modal-card { padding: 14px 12px 12px; max-width: 260px; } .modal-card h3 { font-size: 1.2rem; } .modal-card .result-char { width: 60px; height: 60px; margin-bottom: 8px; } .modal-card .win-coin { font-size: 1.3rem; margin: 4px 0 10px; } .modal-card .win-coin img { width: 24px; height: 24px; } .result-buttons .btn { min-height: 40px; padding: 8px 14px; font-size: 0.85rem; } .shop-item { min-height: 140px; padding: 10px 6px; } .shop-item .shop-preview { height: 70px; font-size: 2.5rem; } .countdown-number { font-size: 9rem; } .countdown-number.go-text { font-size: 5rem; } .toast { padding: 14px 20px; font-size: 0.9rem; } .toast .toast-emoji { font-size: 2rem; } .guide-container .guide-text { font-size: 0.95rem; padding: 12px 16px; min-height: 100px; } .guide-container .guide-char { width: 90px; height: 90px; } .celebration-box { padding: 30px 20px; } .celebration-box .celeb-char { width: 100px; height: 100px; } .celebration-box h2 { font-size: 1.6rem; } .back-btn { width: 38px; height: 38px; } .coin-display { padding: 4px 12px 4px 8px; } .coin-display img { width: 22px; height: 22px; } .coin-amount { font-size: 0.9rem; } .shop-coin img { width: 18px; height: 18px; } .modal-card .win-coin img { width: 32px; height: 32px; } .shop-item .price img { width: 14px; height: 14px; }
+.number-item { width: 44px; height: 44px; font-size: 1.05rem; }
+.river-section { height: 100px; }
 }
 </style>
 </head>
@@ -304,19 +366,18 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 </div>
 </div>
 
+<!-- ⭐ منوی برد — نسخه کوچک و تمیز -->
 <div id="winModal" class="modal">
 <div class="modal-card">
 <div class="result-char">
 <img src="icons/happy gamer.png" alt="تبریک" onerror="this.textContent='🏆'">
 </div>
 <h3 id="winTitle">🎉 آفرین!</h3>
-<div class="win-level" id="winLevel">مرحله رو بردی!</div>
 <div class="win-coin" id="winCoin">
 <span>+</span>
 <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="winCoinAmount">10</span>
 </div>
-<p id="winMsg">عالی بود! 😍</p>
 <div class="result-buttons">
 <button class="btn btn-primary" id="winNextBtn">➡️ مرحله بعد</button>
 <button class="btn btn-secondary" id="winRestartBtn">🔄 شروع دوباره</button>
@@ -325,13 +386,13 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 </div>
 </div>
 
+<!-- ⭐ منوی باخت — نسخه کوچک و تمیز -->
 <div id="resultModal" class="modal">
 <div class="modal-card fail">
 <div class="result-char" style="border-color:var(--danger);box-shadow:0 0 50px rgba(255,118,117,0.2);">
 <img src="icons/sad gamer.png" alt="ناراحت" onerror="this.textContent='😢'">
 </div>
-<h3 id="resultTitle">❌ اشتباه شد!</h3>
-<p id="resultMsg">دوباره تلاش کن، می‌تونی! 💪</p>
+<h3 id="resultTitle">😢 اشتباه زیاد شد!</h3>
 <div class="result-buttons">
 <button class="btn btn-primary" id="resultRetryBtn">🔄 تلاش دوباره</button>
 <button class="btn btn-secondary" id="resultHomeBtn" style="margin-top:8px;">🏠 خروج به منو</button>
@@ -358,10 +419,10 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <span class="coin-amount" id="menu-coin-amount">0</span>
 </div>
 <div class="menu-character">
-<img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='🔍'">
+<img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='🌉'">
 </div>
-<h1 class="menu-title">کارآگاه الگوها</h1>
-<p class="menu-subtitle">قانون مخفی بین اعداد رو کشف کن!</p>
+<h1 class="menu-title">پل‌سازی اعداد</h1>
+<p class="menu-subtitle">اعداد فارسی و انگلیسی رو به هم وصل کن!</p>
 <div class="menu-buttons">
 <button class="btn btn-start" id="startGameBtn">🚀 شروع بازی</button>
 <div class="row">
@@ -375,9 +436,9 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="guideScreen" class="screen">
 <div class="guide-container">
 <div class="guide-char">
-<img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🔍'">
+<img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🌉'">
 </div>
-<div class="guide-text" id="guideText">سلام کارآگاه کوچولو! 🔍</div>
+<div class="guide-text" id="guideText">سلام دوست من!</div>
 <div class="guide-progress">
 <div class="guide-progress-bar" id="guideProgressBar"></div>
 </div>
@@ -418,45 +479,59 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="gameScreen" class="screen">
 <div class="game-card">
 <div class="game-header">
-<span class="game-title">🔍 کارآگاه الگوها</span>
+<span class="game-title">🌉 پل‌سازی اعداد</span>
 <span class="game-level" id="gameLevelDisplay">مرحله ۱</span>
-<span class="target-box" id="targetDisplay">⏱ ۴۰</span>
+<span class="target-box" id="targetDisplay">🕒 ۰۰:۰۰</span>
 <button class="stop-btn" id="stopGameBtn">
 <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
 </button>
 </div>
 
-<div class="instruction-msg" id="gameFeedback">قانون بین اعداد رو کشف کن!</div>
+<div class="instruction-msg" id="gameFeedback">عدد انگلیسی رو بکش و روی معادل فارسیش رها کن!</div>
 
-<div class="timer-bar-container">
-<div class="timer-bar">
-<div class="timer-fill" id="timerFill"></div>
-</div>
-</div>
+<div class="game-area" id="gameArea">
 
-<div class="game-area">
-<div class="detective-card">
-<div class="card-header">
-<svg viewBox="0 0 24 24" width="26" height="26">
-<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" fill="none" stroke="currentColor" stroke-width="2"/>
+<div class="number-row english-row" id="english-row"></div>
+
+<div class="river-section">
+<svg class="river-svg" viewBox="0 0 600 120" preserveAspectRatio="none">
+<defs>
+<linearGradient id="waterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" style="stop-color:#00B4D8;stop-opacity:0.4"/>
+<stop offset="50%" style="stop-color:#0077BE;stop-opacity:0.7"/>
+<stop offset="100%" style="stop-color:#00B4D8;stop-opacity:0.4"/>
+</linearGradient>
+<linearGradient id="woodGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" style="stop-color:#A0522D"/>
+<stop offset="100%" style="stop-color:#654321"/>
+</linearGradient>
+</defs>
+<rect x="0" y="0" width="600" height="120" fill="url(#waterGrad)"/>
+<path class="water-wave-1" d="M0 30 Q150 20 300 30 T600 30" stroke="#00D2FF" stroke-width="2" fill="none" opacity="0.5"/>
+<path class="water-wave-2" d="M0 60 Q150 50 300 60 T600 60" stroke="#00D2FF" stroke-width="2" fill="none" opacity="0.4"/>
+<path class="water-wave-1" d="M0 90 Q150 80 300 90 T600 90" stroke="#00D2FF" stroke-width="2" fill="none" opacity="0.3"/>
+<g id="bridges-container"></g>
 </svg>
-<h2>سرنخ‌های کارآگاهی</h2>
 </div>
 
-<div class="clues-container" id="clues-container"></div>
+<div class="number-row persian-row" id="persian-row"></div>
 
-<div class="question-box">
-<p class="question-text">قانون بین این اعداد چیست؟</p>
+</div>
 </div>
 </div>
 
-<div class="options-container" id="options-container"></div>
-</div>
-</div>
-</div>
+<svg id="connection-line" class="connection-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+<defs>
+<linearGradient id="line-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+<stop offset="0%" style="stop-color:#6C5CE7"/>
+<stop offset="100%" style="stop-color:#00D2FF"/>
+</linearGradient>
+</defs>
+<line id="drag-line" x1="0" y1="0" x2="0" y2="0" stroke="url(#line-gradient)" stroke-width="5" stroke-linecap="round" stroke-dasharray="12,6"/>
+</svg>
 
 <audio id="bgMusic" loop></audio>
-<audio id="guideAudio" src="musics/pixel22.mp3" preload="auto"></audio>
+<audio id="guideAudio" src="musics/pixel25.mp3" preload="auto" style="display:none;"></audio>
 
 <script>
 var currentLevel = 1;
@@ -464,60 +539,22 @@ var totalLevels = 20;
 var isResultShowing = false;
 var levelUnlocked = {};
 var levelCompleted = {};
-var currentCorrect = 0;
-var timerInterval = null;
-var timeLeft = 40;
-var totalTimerDuration = 40;
+var soundEnabled = true;
 
-var PATTERNS = [
-{ id:'add_constant', name:'جمع با عدد ثابت', generate: function() {
-var c = Math.floor(Math.random() * 5) + 2;
-var s = Math.floor(Math.random() * 10) + 1;
-var clues = [
-{ input: s, output: s + c },
-{ input: s + c, output: s + c * 2 },
-{ input: s + c * 2, output: s + c * 3 }
-];
-var wrongs = shuffle([ '+' + (c+1), '+' + (c+2), '+' + (c+3) ]);
-return { clues: clues, correctAnswer: '+' + c, options: shuffle([ '+' + c ].concat(wrongs)) };
-}},
-{ id:'subtract_constant', name:'تفریق با عدد ثابت', generate: function() {
-var c = Math.floor(Math.random() * 5) + 2;
-var s = Math.floor(Math.random() * 10) + 15;
-var clues = [
-{ input: s, output: s - c },
-{ input: s - c, output: s - c * 2 },
-{ input: s - c * 2, output: s - c * 3 }
-];
-var wrongs = shuffle([ '-' + (c+1), '-' + (c+2), '-' + (c+3) ]);
-return { clues: clues, correctAnswer: '-' + c, options: shuffle([ '-' + c ].concat(wrongs)) };
-}},
-{ id:'multiply', name:'ضرب در عدد ثابت', generate: function() {
-var m = Math.floor(Math.random() * 4) + 2;
-var s = Math.floor(Math.random() * 5) + 2;
-var clues = [
-{ input: s, output: s * m },
-{ input: s + 1, output: (s + 1) * m },
-{ input: s + 2, output: (s + 2) * m }
-];
-var wrongs = shuffle([ '×' + (m+1), '×' + (m+2), '×' + (m+3) ]);
-return { clues: clues, correctAnswer: '×' + m, options: shuffle([ '×' + m ].concat(wrongs)) };
-}},
-{ id:'divide', name:'تقسیم بر عدد ثابت', generate: function() {
-var d = Math.floor(Math.random() * 4) + 2;
-var s = Math.floor(Math.random() * 5) + 2;
-var a = s * d;
-var b = (s + 1) * d;
-var c = (s + 2) * d;
-var clues = [
-{ input: a, output: a / d },
-{ input: b, output: b / d },
-{ input: c, output: c / d }
-];
-var wrongs = shuffle([ '÷' + (d+1), '÷' + (d+2), '÷' + (d+3) ]);
-return { clues: clues, correctAnswer: '÷' + d, options: shuffle([ '÷' + d ].concat(wrongs)) };
-}}
-];
+var matchedPairs = 0;
+var selectedNumber = null;
+var levelStartTime = 0;
+var timerInterval = null;
+var isDragging = false;
+var dragLine = null;
+var dragStartPos = { x: 0, y: 0 };
+var wrongAttempts = 0;
+var maxWrongAttempts = 3;
+var maxNumber = 5;
+var matchedBridges = [];
+
+var PERSIAN_NUMBERS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹', '۱۰', '۱۱', '۱۲', '۱۳', '۱۴', '۱۵', '۱۶', '۱۷', '۱۸', '۱۹', '۲۰'];
+var ENGLISH_NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
 
 var EFFECTS = [
 {id:'confetti', name:'کاغذ رنگی', price:0, emoji:'🎊', type:'confetti'},
@@ -568,6 +605,16 @@ shuffled[j] = temp;
 return shuffled;
 }
 
+function formatTime(seconds) {
+var mins = Math.floor(seconds / 60);
+var secs = seconds % 60;
+return toPersianNum(String(mins).padStart(2, '0')) + ':' + toPersianNum(String(secs).padStart(2, '0'));
+}
+
+function getMaxNumberForLevel(level) {
+return Math.min(4 + level, 20);
+}
+
 function createStars() {
 var container = document.getElementById('stars');
 for (var i = 0; i < 80; i++) {
@@ -589,7 +636,7 @@ document.getElementById(id).classList.add('active');
 
 function loadShopData() {
 try {
-var saved = localStorage.getItem('patternDetectiveThemes');
+var saved = localStorage.getItem('numberBridgeThemes');
 if (saved) {
 var data = JSON.parse(saved);
 ownedThemes = data.owned || ['default'];
@@ -599,12 +646,12 @@ activeTheme = data.active || 'default';
 }
 
 function saveThemeData() {
-try { localStorage.setItem('patternDetectiveThemes', JSON.stringify({owned:ownedThemes, active:activeTheme})); } catch(e) {}
+try { localStorage.setItem('numberBridgeThemes', JSON.stringify({owned:ownedThemes, active:activeTheme})); } catch(e) {}
 }
 
 function loadEffectData() {
 try {
-var saved = localStorage.getItem('patternDetectiveEffects');
+var saved = localStorage.getItem('numberBridgeEffects');
 if (saved) {
 var data = JSON.parse(saved);
 ownedEffects = data.owned || ['confetti'];
@@ -614,14 +661,14 @@ activeEffect = data.active || 'confetti';
 }
 
 function saveEffectData() {
-try { localStorage.setItem('patternDetectiveEffects', JSON.stringify({owned:ownedEffects, active:activeEffect})); } catch(e) {}
+try { localStorage.setItem('numberBridgeEffects', JSON.stringify({owned:ownedEffects, active:activeEffect})); } catch(e) {}
 }
 
 function loadLevelStatus() {
 levelUnlocked = {};
 levelCompleted = {};
 try {
-var saved = localStorage.getItem('patternDetectiveLevelStatus');
+var saved = localStorage.getItem('numberBridgeLevelStatus');
 if (saved) {
 var data = JSON.parse(saved);
 levelUnlocked = data.unlocked || {};
@@ -637,7 +684,7 @@ saveLevelStatus();
 }
 
 function saveLevelStatus() {
-try { localStorage.setItem('patternDetectiveLevelStatus', JSON.stringify({unlocked:levelUnlocked, completed:levelCompleted})); } catch(e) {}
+try { localStorage.setItem('numberBridgeLevelStatus', JSON.stringify({unlocked:levelUnlocked, completed:levelCompleted})); } catch(e) {}
 }
 
 function applyTheme(themeId, showToastMsg) {
@@ -669,7 +716,7 @@ if (showToastMsg) showToast('🎨 پوسته ' + theme.name + ' فعال شد!',
 function renderShop() {
 var grid = document.getElementById('shop-grid');
 grid.innerHTML = '';
-var coins = parseInt(localStorage.getItem('patternDetectiveCoins')) || 0;
+var coins = parseInt(localStorage.getItem('numberBridgeCoins')) || 0;
 document.getElementById('shop-coin-amount').textContent = coins;
 var activeTab = document.querySelector('.shop-tab.active');
 var tab = activeTab ? activeTab.dataset.tab : 'themes';
@@ -720,10 +767,10 @@ grid.appendChild(card);
 function buyTheme(themeId) {
 var theme = THEMES.find(function(t){ return t.id === themeId; });
 if (!theme) return;
-var coins = parseInt(localStorage.getItem('patternDetectiveCoins')) || 0;
+var coins = parseInt(localStorage.getItem('numberBridgeCoins')) || 0;
 if (coins < theme.price) { showToast('سکه کافی نداری! 😢', 'error'); return; }
 if (ownedThemes.indexOf(themeId) !== -1) { showToast('این پوسته رو قبلاً خریدی!', 'warning'); return; }
-localStorage.setItem('patternDetectiveCoins', (coins - theme.price).toString());
+localStorage.setItem('numberBridgeCoins', (coins - theme.price).toString());
 ownedThemes.push(themeId);
 saveThemeData(); renderShop(); updateCoinDisplay(); applyTheme(themeId, true);
 var overlay = document.getElementById('celebrationOverlay');
@@ -743,10 +790,10 @@ if (showToastMsg) showToast('✨ افکت ' + effect.name + ' فعال شد!', '
 function buyEffect(effectId) {
 var effect = EFFECTS.find(function(e){ return e.id === effectId; });
 if (!effect) return;
-var coins = parseInt(localStorage.getItem('patternDetectiveCoins')) || 0;
+var coins = parseInt(localStorage.getItem('numberBridgeCoins')) || 0;
 if (coins < effect.price) { showToast('سکه کافی نداری! 😢', 'error'); return; }
 if (ownedEffects.indexOf(effectId) !== -1) { showToast('این افکت رو قبلاً خریدی!', 'warning'); return; }
-localStorage.setItem('patternDetectiveCoins', (coins - effect.price).toString());
+localStorage.setItem('numberBridgeCoins', (coins - effect.price).toString());
 ownedEffects.push(effectId); saveEffectData(); renderShop(); updateCoinDisplay(); applyEffect(effectId, true);
 var overlay = document.getElementById('celebrationOverlay');
 document.getElementById('celebMessage').innerHTML = '<strong>' + effect.name + '</strong> خریداری شد!<br>حالا با افکت جدیدت جشن بگیر! 😍';
@@ -816,7 +863,7 @@ setTimeout(function(){ toast.classList.remove('show'); }, 4000);
 }
 
 function updateCoinDisplay() {
-var coins = parseInt(localStorage.getItem('patternDetectiveCoins')) || 0;
+var coins = parseInt(localStorage.getItem('numberBridgeCoins')) || 0;
 document.getElementById('menu-coin-amount').textContent = toPersianNum(coins);
 document.getElementById('shop-coin-amount').textContent = toPersianNum(coins);
 }
@@ -849,12 +896,12 @@ setTimeout(function(){ playBeep(250, 0.3); }, 350);
 // GUIDE SCRIPTS
 // ============================================================
 const GUIDE_SCRIPTS = [
-    { start: 0, end: 6.5, text: 'سلام کارآگاه کوچولو! 🔍<br>من پیکسل هستم. دوست خوب تو!<br>به بازی کارآگاه الگوها خوش اومدی!' },
-    { start: 6.5, end: 17.75, text: 'توی این بازی یه سری عدد بهت نشون داده می‌شه<br>که یه قانون مخفی بینشون هست.<br>تو باید بفهمی چه عملیاتی یا قانونی روی اعداد انجام شده.' },
-    { start: 17.75, end: 26, text: 'مثلاً: ۳ به ۶ تبدیل شده<br>(یعنی 3 + 3 شده یا 3 ضربدره 2 شده )' },
-    { start: 26, end: 33, text: 'قانون‌ها فقط از چهار عمل هستن:<br>جمع ➕ ، تفریق ➖ ، ضرب ✖️ ، تقسیم ➗' },
-    { start: 33, end: 38, text: 'از بین ۴ گزینه، اون که قانون درسته رو انتخاب کن!' },
-    { start: 38, end: 999, text: '۴۰ ثانیه وقت داری برای هر مرحله !<br>عجله کن کارآگاه! ⏱<br>موفق باشی!' }
+    { start: 0, end: 5, text: 'سلام دوست من! <br> به بازی پل‌سازی اعداد خوش اومدی! <br> من پیکسل هستم.' },
+    { start: 5, end: 13, text: 'یه رودخونه بزرگ هست و باید یه پل بسازیم! <br> بالای رودخونه اعداد انگلیسی و پایین اعداد فارسی هستن.' },
+    { start: 13, end: 18, text: 'باید هر عدد انگلیسی رو بگیری و بکشی <br> روی معادل فارسیش.' },
+    { start: 18, end: 21, text: 'هر بار که درست وصل کنی، <br> یه تیکه از پل ساخته می‌شه! 🌉' },
+    { start: 21, end: 26, text: 'آخرِ همه، یه پل قشنگ و کامل ساخته می‌شه!' },
+    { start: 26, end: 999, text: 'موفق باشی مهندس! 🚀' }
 ];
 
 let isGuidePlaying = false;
@@ -891,8 +938,7 @@ function startGuide(callback, fromMenu = false) {
     
     guideInterval = setInterval(() => {
         const elapsed = (Date.now() - guideStartTime) / 1000;
-        // Audio is roughly 42 seconds long
-        let progress = Math.min((elapsed / 44) * 100, 100);
+        let progress = Math.min((elapsed / 28) * 100, 100); 
         progressBar.style.width = progress + '%';
         
         let currentText = GUIDE_SCRIPTS[0].text, currentIndex = 0;
@@ -914,7 +960,7 @@ function startGuide(callback, fromMenu = false) {
         }
         
         const isAudioEnded = window.guideAudio && window.guideAudio.ended;
-        if (isAudioEnded || elapsed >= 44) {
+        if (isAudioEnded || elapsed >= 28) {
             endGuide();
         }
     }, 100);
@@ -994,137 +1040,352 @@ return;
 }
 currentLevel = level;
 isResultShowing = false;
+matchedPairs = 0;
+wrongAttempts = 0;
+matchedBridges = [];
+maxNumber = getMaxNumberForLevel(level);
 document.getElementById('gameLevelDisplay').textContent = 'مرحله ' + toPersianNum(level);
-document.getElementById('gameFeedback').textContent = 'قانون بین اعداد رو کشف کن!';
+document.getElementById('gameFeedback').textContent = 'عدد انگلیسی رو بکش و روی معادل فارسیش رها کن!';
 
 const setupGame = () => {
     showScreen('gameScreen');
     showCountdown(function() {
-        generateLevel();
+        startLevel();
     });
 };
 
-if (level === 1 && !localStorage.getItem('patternDetectiveGuideSeen')) {
-    localStorage.setItem('patternDetectiveGuideSeen', 'true');
+if (level === 1 && !localStorage.getItem('numberBridgeGuideSeen')) {
+    localStorage.setItem('numberBridgeGuideSeen', 'true');
     startGuide(setupGame, false);
 } else {
     setupGame();
 }
 }
 
-function generateLevel() {
-var availablePatterns;
-if (currentLevel <= 5) availablePatterns = PATTERNS.slice(0, 2);
-else if (currentLevel <= 10) availablePatterns = PATTERNS.slice(0, 3);
-else availablePatterns = PATTERNS;
-
-var pattern = availablePatterns[Math.floor(Math.random() * availablePatterns.length)];
-var data = pattern.generate();
-
-renderClues(data.clues);
-renderOptions(data.options, data.correctAnswer);
-currentCorrect = data.correctAnswer;
-
+function startLevel() {
+levelStartTime = Date.now();
 startTimer();
+initGame();
 }
 
-function renderClues(clues) {
-var container = document.getElementById('clues-container');
-container.innerHTML = '';
-clues.forEach(function(clue, index) {
-var item = document.createElement('div');
-item.className = 'clue-item';
-item.style.animationDelay = (index * 0.1) + 's';
-item.innerHTML = '<span class="clue-number">' + toPersianNum(clue.input) + '</span><span class="clue-arrow">→</span><span class="clue-result">' + toPersianNum(clue.output) + '</span>';
-container.appendChild(item);
+function startTimer() {
+var targetDisplay = document.getElementById('targetDisplay');
+if (timerInterval) clearInterval(timerInterval);
+timerInterval = setInterval(function() {
+var elapsed = Math.floor((Date.now() - levelStartTime) / 1000);
+targetDisplay.textContent = '🕒 ' + formatTime(elapsed);
+}, 1000);
+}
+
+function initGame() {
+matchedPairs = 0;
+wrongAttempts = 0;
+selectedNumber = null;
+isDragging = false;
+matchedBridges = [];
+
+var numbers = [];
+for (var i = 1; i <= maxNumber; i++) {
+numbers.push({ en: ENGLISH_NUMBERS[i], fa: PERSIAN_NUMBERS[i], value: i });
+}
+
+var shuffledEn = shuffle(numbers);
+var shuffledFa = shuffle(numbers);
+
+var englishRow = document.getElementById('english-row');
+var persianRow = document.getElementById('persian-row');
+
+englishRow.innerHTML = '';
+persianRow.innerHTML = '';
+
+shuffledEn.forEach(function(num) {
+var div = document.createElement('div');
+div.className = 'number-item';
+div.textContent = num.en;
+div.dataset.value = num.value;
+englishRow.appendChild(div);
 });
-}
 
-function renderOptions(options, correctAnswer) {
-var container = document.getElementById('options-container');
-container.innerHTML = '';
-options.forEach(function(option) {
-var btn = document.createElement('button');
-btn.className = 'option-btn';
-btn.textContent = option;
-btn.dataset.answer = option;
-btn.onclick = function() { checkAnswer(option, correctAnswer, btn); };
-container.appendChild(btn);
+shuffledFa.forEach(function(num) {
+var div = document.createElement('div');
+div.className = 'number-item';
+div.textContent = num.fa;
+div.dataset.value = num.value;
+persianRow.appendChild(div);
 });
+
+document.getElementById('bridges-container').innerHTML = '';
 }
 
-function checkAnswer(selected, correct, btnElement) {
+document.addEventListener('pointerdown', handlePointerDown);
+document.addEventListener('pointermove', handlePointerMove);
+document.addEventListener('pointerup', handlePointerUp);
+document.addEventListener('pointercancel', handlePointerUp);
+
+function handlePointerDown(e) {
+if (!document.getElementById('gameScreen').classList.contains('active')) return;
 if (isResultShowing) return;
-isResultShowing = true;
-clearInterval(timerInterval);
+var target = e.target.closest('.number-item');
+if (!target) return;
+var parentRow = target.closest('.english-row');
+if (!parentRow || target.classList.contains('matched')) return;
+e.preventDefault();
+isDragging = true;
+dragLine = document.getElementById('drag-line');
+selectedNumber = { element: target, value: parseInt(target.dataset.value) };
+target.classList.add('selected');
+var rect = target.getBoundingClientRect();
+dragStartPos = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+dragLine.classList.add('active');
+updateDragLine(dragStartPos.x, dragStartPos.y, dragStartPos.x, dragStartPos.y);
+}
 
-var buttons = document.querySelectorAll('.option-btn');
-buttons.forEach(function(btn) { btn.disabled = true; });
+function handlePointerMove(e) {
+if (!isDragging || !selectedNumber) return;
+e.preventDefault();
+updateDragLine(dragStartPos.x, dragStartPos.y, e.clientX, e.clientY);
+highlightTarget(e.clientX, e.clientY);
+}
 
-if (selected === correct) {
-btnElement.classList.add('correct');
+function handlePointerUp(e) {
+if (!isDragging || !selectedNumber) return;
+isDragging = false;
+dragLine.classList.remove('active');
+var elements = document.elementsFromPoint(e.clientX, e.clientY);
+var persianTarget = elements.find(function(el) {
+return el.classList.contains('number-item') && el.closest('.persian-row') && !el.classList.contains('matched');
+});
+if (persianTarget) {
+var targetValue = parseInt(persianTarget.dataset.value);
+checkMatch(selectedNumber.value, targetValue, selectedNumber.element, persianTarget);
+}
+selectedNumber.element.classList.remove('selected');
+clearHighlights();
+selectedNumber = null;
+}
+
+function highlightTarget(x, y) {
+clearHighlights();
+var elements = document.elementsFromPoint(x, y);
+var persianTarget = elements.find(function(el) {
+return el.classList.contains('number-item') && el.closest('.persian-row') && !el.classList.contains('matched');
+});
+if (persianTarget) persianTarget.classList.add('hover-target');
+}
+
+function clearHighlights() {
+document.querySelectorAll('.hover-target').forEach(function(el) { el.classList.remove('hover-target'); });
+}
+
+function updateDragLine(x1, y1, x2, y2) {
+var svg = document.getElementById('connection-line');
+var rect = svg.getBoundingClientRect();
+var relX1 = ((x1 - rect.left) / rect.width) * 100;
+var relY1 = ((y1 - rect.top) / rect.height) * 100;
+var relX2 = ((x2 - rect.left) / rect.width) * 100;
+var relY2 = ((y2 - rect.top) / rect.height) * 100;
+dragLine.setAttribute('x1', relX1 + '%');
+dragLine.setAttribute('y1', relY1 + '%');
+dragLine.setAttribute('x2', relX2 + '%');
+dragLine.setAttribute('y2', relY2 + '%');
+}
+
+function checkMatch(enValue, faValue, enElement, faElement) {
+if (enValue === faValue) {
+handleCorrectMatch(enElement, faElement);
+} else {
+handleWrongMatch(enElement, faElement, enValue, faValue);
+}
+}
+
+function handleCorrectMatch(enElement, faElement) {
+enElement.classList.add('matched');
+faElement.classList.add('matched');
+matchedBridges.push({ en: enElement, fa: faElement });
+createPlank(enElement, faElement);
+matchedPairs++;
 playWinSound();
+document.getElementById('gameFeedback').textContent = 'آفرین! درسته! 🎉';
+
+if (matchedPairs >= maxNumber) {
+setTimeout(handleGameComplete, 800);
+}
+}
+
+function handleWrongMatch(enElement, faElement, enValue, faValue) {
+wrongAttempts++;
+enElement.classList.add('wrong');
+faElement.classList.add('wrong');
+setTimeout(function() {
+enElement.classList.remove('wrong');
+faElement.classList.remove('wrong');
+}, 500);
+playLoseSound();
+
+var correctFa = PERSIAN_NUMBERS[enValue];
+document.getElementById('gameFeedback').textContent = '❌ اشتباه! ' + ENGLISH_NUMBERS[enValue] + ' با ' + correctFa + ' جور می‌شه!';
+highlightCorrectAnswer(enValue);
+
+var remaining = maxWrongAttempts - wrongAttempts;
+if (remaining > 0) {
+showToast('اشتباه! ' + toPersianNum(remaining) + ' تلاش دیگه داری', 'warning');
+} else {
+setTimeout(function() {
+isResultShowing = true;
+showResultModal();
+}, 800);
+}
+}
+
+function highlightCorrectAnswer(value) {
+document.querySelectorAll('.persian-row .number-item').forEach(function(item) {
+if (parseInt(item.dataset.value) === value && !item.classList.contains('matched')) {
+item.classList.add('hint');
+setTimeout(function() { item.classList.remove('hint'); }, 2000);
+}
+});
+}
+
+function createPlank(enElement, faElement) {
+var container = document.getElementById('bridges-container');
+var svg = document.querySelector('.river-svg');
+var svgRect = svg.getBoundingClientRect();
+var enRect = enElement.getBoundingClientRect();
+var faRect = faElement.getBoundingClientRect();
+
+var x1 = ((enRect.left + enRect.width / 2) - svgRect.left) / svgRect.width * 600;
+var x2 = ((faRect.left + faRect.width / 2) - svgRect.left) / svgRect.width * 600;
+
+var y1 = 20;
+var y2 = 100;
+
+var plank = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+plank.setAttribute('x1', x1);
+plank.setAttribute('y1', y1);
+plank.setAttribute('x2', x2);
+plank.setAttribute('y2', y2);
+plank.classList.add('plank');
+plank.style.strokeDasharray = '500';
+plank.style.strokeDashoffset = '500';
+container.appendChild(plank);
+
+setTimeout(function() {
+plank.style.animation = 'plankAppear 0.5s ease forwards';
+}, 50);
+}
+
+function drawFinalBridge() {
+var container = document.getElementById('bridges-container');
+container.innerHTML = '';
+
+var width = 600;
+var height = 120;
+
+var bridgeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+bridgeGroup.setAttribute('opacity', '0');
+bridgeGroup.style.transition = 'opacity 0.5s ease';
+container.appendChild(bridgeGroup);
+
+var mainDeck = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+mainDeck.setAttribute('x1', '20');
+mainDeck.setAttribute('y1', '60');
+mainDeck.setAttribute('x2', (width - 20));
+mainDeck.setAttribute('y2', '60');
+mainDeck.setAttribute('stroke', '#8B4513');
+mainDeck.setAttribute('stroke-width', '14');
+mainDeck.setAttribute('stroke-linecap', 'round');
+mainDeck.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.6))';
+bridgeGroup.appendChild(mainDeck);
+
+var topRail = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+topRail.setAttribute('x1', '20');
+topRail.setAttribute('y1', '40');
+topRail.setAttribute('x2', (width - 20));
+topRail.setAttribute('y2', '40');
+topRail.setAttribute('stroke', '#A0522D');
+topRail.setAttribute('stroke-width', '5');
+topRail.setAttribute('stroke-linecap', 'round');
+bridgeGroup.appendChild(topRail);
+
+var bottomRail = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+bottomRail.setAttribute('x1', '20');
+bottomRail.setAttribute('y1', '80');
+bottomRail.setAttribute('x2', (width - 20));
+bottomRail.setAttribute('y2', '80');
+bottomRail.setAttribute('stroke', '#A0522D');
+bottomRail.setAttribute('stroke-width', '5');
+bottomRail.setAttribute('stroke-linecap', 'round');
+bridgeGroup.appendChild(bottomRail);
+
+var pillarPositions = [100, 200, 300, 400, 500];
+pillarPositions.forEach(function(x) {
+var pillar = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+pillar.setAttribute('x1', x);
+pillar.setAttribute('y1', '40');
+pillar.setAttribute('x2', x);
+pillar.setAttribute('y2', '80');
+pillar.setAttribute('stroke', '#654321');
+pillar.setAttribute('stroke-width', '4');
+bridgeGroup.appendChild(pillar);
+});
+
+var arch = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+arch.setAttribute('d', 'M 20 60 Q ' + (width/2) + ' 10 ' + (width - 20) + ' 60');
+arch.setAttribute('stroke', '#8B4513');
+arch.setAttribute('stroke-width', '8');
+arch.setAttribute('fill', 'none');
+arch.setAttribute('stroke-linecap', 'round');
+arch.style.filter = 'drop-shadow(0 0 10px rgba(255, 201, 60, 0.5))';
+bridgeGroup.appendChild(arch);
+
+var archPillars = [100, 200, 300, 400, 500];
+archPillars.forEach(function(x) {
+var pillar = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+pillar.setAttribute('x1', x);
+pillar.setAttribute('y1', '60');
+var archY = 60 - (Math.sin((x / width) * Math.PI) * 50);
+pillar.setAttribute('x2', x);
+pillar.setAttribute('y2', archY);
+pillar.setAttribute('stroke', '#8B4513');
+pillar.setAttribute('stroke-width', '3');
+pillar.setAttribute('opacity', '0.7');
+bridgeGroup.appendChild(pillar);
+});
+
+setTimeout(function() {
+bridgeGroup.setAttribute('opacity', '1');
+}, 100);
+}
+
+function handleGameComplete() {
+if (timerInterval) clearInterval(timerInterval);
+var totalTime = Math.floor((Date.now() - levelStartTime) / 1000);
+isResultShowing = true;
+
+drawFinalBridge();
 
 if (!levelCompleted[currentLevel]) levelCompleted[currentLevel] = true;
 if (currentLevel < totalLevels && !levelUnlocked[currentLevel + 1]) levelUnlocked[currentLevel + 1] = true;
 saveLevelStatus();
 
-var coins = parseInt(localStorage.getItem('patternDetectiveCoins')) || 0;
+var coins = parseInt(localStorage.getItem('numberBridgeCoins')) || 0;
 var reward = (coins === 0) ? 10 : 1;
 coins += reward;
-localStorage.setItem('patternDetectiveCoins', coins.toString());
+localStorage.setItem('numberBridgeCoins', coins.toString());
 updateCoinDisplay();
 
 setTimeout(function() {
 fireEffect(activeEffect);
-showWinModal('🎉 آفرین!', 'مرحله ' + toPersianNum(currentLevel) + ' رو بردی!', reward);
-}, 800);
-} else {
-btnElement.classList.add('wrong');
-playLoseSound();
-buttons.forEach(function(btn) {
-if (btn.dataset.answer === correct) btn.classList.add('correct');
-});
-setTimeout(function() {
-showResultModal('❌ اشتباه شد!', 'دوباره تلاش کن، می‌تونی! 💪');
-}, 800);
-}
+showWinModal(totalTime, reward);
+}, 1200);
 }
 
-function startTimer() {
-timeLeft = totalTimerDuration;
-var timerFill = document.getElementById('timerFill');
-var targetDisplay = document.getElementById('targetDisplay');
-timerFill.style.width = '100%';
-targetDisplay.textContent = '⏱ ' + toPersianNum(timeLeft);
-
-clearInterval(timerInterval);
-var startTime = Date.now();
-
-timerInterval = setInterval(function() {
-var elapsed = Date.now() - startTime;
-var remaining = Math.max(0, totalTimerDuration - elapsed / 1000);
-timeLeft = Math.ceil(remaining);
-var percent = (remaining / totalTimerDuration) * 100;
-timerFill.style.width = percent + '%';
-targetDisplay.textContent = '⏱ ' + toPersianNum(timeLeft);
-
-if (remaining <= 0) {
-clearInterval(timerInterval);
-if (!isResultShowing) {
-isResultShowing = true;
-playLoseSound();
-showResultModal('⏰ زمان تموم شد!', 'زمانت کم اومد! دوباره تلاش کن 💪');
-}
-}
-}, 100);
-}
-
-function showWinModal(title, msg, coinReward) {
+// ⭐ منوی برد — نسخه تمیز
+function showWinModal(totalTime, coinReward) {
 var modal = document.getElementById('winModal');
-document.getElementById('winTitle').textContent = title;
-document.getElementById('winLevel').textContent = msg;
+document.getElementById('winTitle').textContent = '🎉 آفرین!';
 document.getElementById('winCoinAmount').textContent = '+' + toPersianNum(coinReward);
+
 var next = currentLevel + 1;
 var nextBtn = document.getElementById('winNextBtn');
 if (next <= totalLevels && levelUnlocked[next]) {
@@ -1161,10 +1422,10 @@ showScreen('homeScreen');
 modal.classList.add('open');
 }
 
-function showResultModal(title, msg) {
+// ⭐ منوی باخت — نسخه تمیز
+function showResultModal() {
+if (timerInterval) clearInterval(timerInterval);
 var modal = document.getElementById('resultModal');
-document.getElementById('resultTitle').textContent = title;
-document.getElementById('resultMsg').textContent = msg;
 modal.classList.add('open');
 }
 
@@ -1208,7 +1469,7 @@ loadEffectData();
 loadLevelStatus();
 createStars();
 
-if (!localStorage.getItem('patternDetectiveCoins')) localStorage.setItem('patternDetectiveCoins', '0');
+if (!localStorage.getItem('numberBridgeCoins')) localStorage.setItem('numberBridgeCoins', '0');
 updateCoinDisplay();
 applyTheme(activeTheme, false);
 applyEffect(activeEffect, false);
@@ -1258,6 +1519,17 @@ document.querySelectorAll('.shop-tab').forEach(function(t) { t.classList.remove(
 this.classList.add('active');
 renderShop();
 });
+});
+
+document.addEventListener('keydown', function(e) {
+if (e.key === 'Escape' && selectedNumber) {
+selectedNumber.element.classList.remove('selected');
+selectedNumber = null;
+isDragging = false;
+var line = document.getElementById('drag-line');
+if (line) line.classList.remove('active');
+clearHighlights();
+}
 });
 
 renderLevels();
