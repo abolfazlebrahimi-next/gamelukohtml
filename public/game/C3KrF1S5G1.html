@@ -79,78 +79,17 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(2
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
 /* ====== استایل جادویی جدید برای عنوان منو ====== */
-.menu-title-wrap{
-position:relative;
-display:inline-block;
-margin:0 auto 10px;
-padding:8px 20px;
-}
-.menu-title{
-font-size:3.2rem;
-font-weight:900;
-font-family:'Shoor Black','Shoor',Tahoma,sans-serif;
-letter-spacing:2px;
-line-height:1.2;
-margin:0;
-background:linear-gradient(90deg,#FFC93C 0%,#FF6B9D 25%,#00D2FF 50%,#9B59B6 75%,#FFC93C 100%);
-background-size:300% 100%;
--webkit-background-clip:text;
-background-clip:text;
--webkit-text-fill-color:transparent;
-color:transparent;
-animation:titleGradient 5s linear infinite,titleGlow 3s ease-in-out infinite;
-position:relative;
-z-index:2;
-text-shadow:0 0 30px rgba(255,201,60,.5);
-filter:drop-shadow(0 0 15px rgba(255,201,60,.6)) drop-shadow(0 0 30px rgba(0,210,255,.4));
-}
-.menu-title::after{
-content:'کاغذ جادویی';
-position:absolute;
-inset:0;
-background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%);
-background-size:200% 100%;
--webkit-background-clip:text;
-background-clip:text;
--webkit-text-fill-color:transparent;
-color:transparent;
-animation:titleShine 3.5s ease-in-out infinite;
-pointer-events:none;
-z-index:3;
-}
+.menu-title-wrap{position:relative;display:inline-block;margin:0 auto 10px;padding:8px 20px}
+.menu-title{font-size:3.2rem;font-weight:900;font-family:'Shoor Black','Shoor',Tahoma,sans-serif;letter-spacing:2px;line-height:1.2;margin:0;background:linear-gradient(90deg,#FFC93C 0%,#FF6B9D 25%,#00D2FF 50%,#9B59B6 75%,#FFC93C 100%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:titleGradient 5s linear infinite,titleGlow 3s ease-in-out infinite;position:relative;z-index:2;text-shadow:0 0 30px rgba(255,201,60,.5);filter:drop-shadow(0 0 15px rgba(255,201,60,.6)) drop-shadow(0 0 30px rgba(0,210,255,.4))}
+.menu-title::after{content:'کاغذ جادویی';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:titleShine 3.5s ease-in-out infinite;pointer-events:none;z-index:3}
 @keyframes titleGradient{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-@keyframes titleGlow{
-0%,100%{filter:drop-shadow(0 0 15px rgba(255,201,60,.6)) drop-shadow(0 0 30px rgba(0,210,255,.4));transform:scale(1)}
-50%{filter:drop-shadow(0 0 30px rgba(255,201,60,.9)) drop-shadow(0 0 60px rgba(0,210,255,.7)) drop-shadow(0 0 80px rgba(155,89,182,.5));transform:scale(1.04)}
-}
+@keyframes titleGlow{0%,100%{filter:drop-shadow(0 0 15px rgba(255,201,60,.6)) drop-shadow(0 0 30px rgba(0,210,255,.4));transform:scale(1)}50%{filter:drop-shadow(0 0 30px rgba(255,201,60,.9)) drop-shadow(0 0 60px rgba(0,210,255,.7)) drop-shadow(0 0 80px rgba(155,89,182,.5));transform:scale(1.04)}}
 @keyframes titleShine{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.menu-title-wrap::before,
-.menu-title-wrap::after{
-content:'✨';
-position:absolute;
-font-size:1.5rem;
-animation:starTwinkle 2s ease-in-out infinite;
-filter:drop-shadow(0 0 10px #FFC93C);
-}
+.menu-title-wrap::before,.menu-title-wrap::after{content:'✨';position:absolute;font-size:1.5rem;animation:starTwinkle 2s ease-in-out infinite;filter:drop-shadow(0 0 10px #FFC93C)}
 .menu-title-wrap::before{top:-5px;right:-10px;animation-delay:0s}
 .menu-title-wrap::after{bottom:-5px;left:-10px;animation-delay:1s}
 @keyframes starTwinkle{0%,100%{opacity:.4;transform:scale(.8) rotate(0)}50%{opacity:1;transform:scale(1.3) rotate(20deg)}}
-.menu-subtitle{
-color:var(--text-secondary);
-font-size:1.05rem;
-font-weight:700;
-margin-bottom:25px;
-letter-spacing:.5px;
-opacity:.95;
-text-shadow:0 0 15px rgba(0,210,255,.4);
-font-family:'Shoor Black','Shoor',Tahoma,sans-serif;
-background:linear-gradient(135deg,#FFF 0%,#FFC93C 50%,#00D2FF 100%);
--webkit-background-clip:text;
-background-clip:text;
--webkit-text-fill-color:transparent;
-color:transparent;
-animation:subtitlePulse 3s ease-in-out infinite;
-}
+.menu-subtitle{color:var(--text-secondary);font-size:1.05rem;font-weight:700;margin-bottom:25px;letter-spacing:.5px;opacity:.95;text-shadow:0 0 15px rgba(0,210,255,.4);font-family:'Shoor Black','Shoor',Tahoma,sans-serif;background:linear-gradient(135deg,#FFF 0%,#FFC93C 50%,#00D2FF 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:subtitlePulse 3s ease-in-out infinite}
 @keyframes subtitlePulse{0%,100%{opacity:.85;letter-spacing:.5px}50%{opacity:1;letter-spacing:1.5px}}
 /* ============================================== */
 
@@ -315,6 +254,72 @@ z-index:30;
 @keyframes handDragVertical{0%{top:20%;left:50%}50%{top:80%;left:50%;transform:translate(-50%,-50%) scale(1.2)}100%{top:20%;left:50%}}
 .paper-wrapper.folded .hand-guide{display:none}
 
+/* ====== کنتور معکوس بالای کاغذ ====== */
+.unfold-timer{
+position:absolute;
+top:12px;
+left:50%;
+transform:translateX(-50%);
+display:none;
+align-items:center;
+gap:10px;
+background:linear-gradient(135deg,rgba(0,184,148,.95),rgba(0,210,255,.85));
+padding:10px 22px;
+border-radius:50px;
+border:2px solid rgba(255,255,255,.4);
+box-shadow:0 0 40px rgba(0,184,148,.8),0 0 80px rgba(0,210,255,.4);
+z-index:50;
+animation:timerPop .5s cubic-bezier(.34,1.56,.64,1);
+}
+.unfold-timer.show{display:flex}
+@keyframes timerPop{
+0%{opacity:0;transform:translateX(-50%) translateY(-30px) scale(.5)}
+60%{opacity:1;transform:translateX(-50%) translateY(5px) scale(1.1)}
+100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+}
+.unfold-timer .timer-icon{
+font-size:1.3rem;
+animation:timerIconSpin 1s linear infinite;
+}
+@keyframes timerIconSpin{
+0%{transform:rotate(0) scale(1)}
+50%{transform:rotate(180deg) scale(1.2)}
+100%{transform:rotate(360deg) scale(1)}
+}
+.unfold-timer .timer-text{
+font-family:'Shoor Black','Shoor',Tahoma,sans-serif;
+font-size:1rem;
+font-weight:900;
+color:#fff;
+text-shadow:0 2px 6px rgba(0,0,0,.5);
+letter-spacing:1px;
+}
+.unfold-timer .timer-count{
+font-family:'Shoor Black','Shoor',Tahoma,sans-serif;
+font-size:1.5rem;
+font-weight:900;
+color:#FFC93C;
+text-shadow:0 0 15px #FFC93C,0 2px 4px rgba(0,0,0,.6);
+min-width:24px;
+text-align:center;
+animation:timerCountPulse .6s ease-in-out infinite;
+}
+@keyframes timerCountPulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.25)}
+}
+.unfold-timer.urgent{
+background:linear-gradient(135deg,rgba(255,118,117,.95),rgba(255,201,60,.9));
+box-shadow:0 0 40px rgba(255,118,117,.9),0 0 80px rgba(255,201,60,.5);
+animation:timerPop .5s cubic-bezier(.34,1.56,.64,1),urgentShake .5s ease-in-out infinite;
+}
+@keyframes urgentShake{
+0%,100%{transform:translateX(-50%) rotate(0)}
+25%{transform:translateX(-50%) rotate(-2deg)}
+75%{transform:translateX(-50%) rotate(2deg)}
+}
+/* ============================== */
+
 .tools-bar{display:flex;gap:8px;justify-content:center;align-items:center;padding:8px 12px;background:rgba(0,0,0,.3);backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:14px;flex-wrap:wrap;width:100%;flex-shrink:0}
 .tools-bar.hidden{display:none!important}
 .color-btn{width:32px;height:32px;border-radius:50%;border:3px solid rgba(255,255,255,.3);cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
@@ -395,6 +400,10 @@ z-index:30;
 .menu-title-wrap::before,
 .menu-title-wrap::after{font-size:1.1rem}
 .menu-character{width:140px;height:140px}.menu-container{padding:32px 18px 24px}.level-grid{gap:6px}.level-box{min-height:40px;font-size:1rem}.paper-wrapper{max-width:280px}.tools-bar{padding:6px 8px;gap:5px}.color-btn{width:28px;height:28px;border-width:2px}.tool-btn{padding:5px 8px;font-size:.7rem}.template-btn{width:36px;height:36px;font-size:1.1rem}.instruction-msg{font-size:.78rem;min-height:40px}.action-buttons .btn{min-height:40px;font-size:.8rem}.hand-guide{font-size:2.5rem}.countdown-number{font-size:9rem}.guide-container .guide-text{font-size:.9rem;padding:14px 16px}.guide-container .guide-char{width:85px;height:85px}.fold-button{font-size:.85rem;padding:10px 22px;bottom:-54px}
+.unfold-timer{padding:8px 16px;gap:6px;top:8px}
+.unfold-timer .timer-text{font-size:.8rem}
+.unfold-timer .timer-count{font-size:1.2rem}
+.unfold-timer .timer-icon{font-size:1rem}
 }
 </style>
 </head>
@@ -528,6 +537,15 @@ z-index:30;
 </div>
 <div class="hand-guide" id="handGuide">👆</div>
 <button class="fold-button" id="foldButton">📄 بزن تا بشه!</button>
+
+<!-- ====== کنتور معکوس ====== -->
+<div class="unfold-timer" id="unfoldTimer">
+<span class="timer-icon">📐</span>
+<span class="timer-text">تقارن رو ببین!</span>
+<span class="timer-count" id="timerCount">۲</span>
+</div>
+<!-- ======================== -->
+
 </div>
 <div class="game-area">
 <div class="tools-bar hidden" id="toolsBar">
@@ -569,7 +587,28 @@ var GUIDE_SCRIPTS=[
 {start:16,end:20,text:'می‌تونی خودت بکشی<br>یا از قالب‌های آماده استفاده کنی 🎨'},
 {start:20,end:999,text:'موفق باشی هنرمندِ زیبا! 🚀'}
 ];
-
+var LEVELS=[
+{goal:'کاغذ رو از وسط تا کن و یه خط ساده بکش!',template:null,tip:'دکمه‌ی زیر کاغذ رو بزن تا تا بشه'},
+{goal:'یه شکل دلخواه بکش و باز کن ببین چیه!',template:null,tip:'هر چی دوست داری بکش'},
+{goal:'نیمه‌ی قلب رو بکش تا قلب کامل شه!',template:'heart',tip:'رنگ رو انتخاب کن بعد روی قالب قلب بزن!'},
+{goal:'نیمه‌ی پروانه رو بکش!',template:'butterfly',tip:'رنگ رو انتخاب کن بعد روی قالب پروانه بزن!'},
+{goal:'یه شکل آزاد بکش!',template:null,tip:'هر چی می‌خوای'},
+{goal:'نیمه‌ی ستاره رو بکش تا ستاره کامل شه!',template:'star',tip:'رنگ رو انتخاب کن بعد روی قالب ستاره بزن!'},
+{goal:'یه درخت نصفه بکش!',template:'tree',tip:'رنگ رو انتخاب کن بعد روی قالب درخت بزن!'},
+{goal:'آدمک نصفه بساز!',template:'person',tip:'رنگ رو انتخاب کن بعد روی قالب آدم بزن!'},
+{goal:'گل قشنگ بساز!',template:'flower',tip:'رنگ رو انتخاب کن بعد روی قالب گل بزن!'},
+{goal:'یه خونه نصفه بکش!',template:'house',tip:'رنگ رو انتخاب کن بعد روی قالب خونه بزن!'},
+{goal:'گربه نصفه بساز!',template:'cat',tip:'رنگ رو انتخاب کن بعد روی قالب گربه بزن!'},
+{goal:'آزاد! هر چی دوست داری بکش!',template:null,tip:'خلاقیتت رو نشون بده'},
+{goal:'آزاد! اینبار هر چی می‌خوای!',template:null,tip:'خودت انتخاب کن'},
+{goal:'یه شکل هندسی بکش و تقارنش رو ببین!',template:null,tip:'مثلث، مربع، دایره'},
+{goal:'یه قلب قشنگ بکش!',template:'heart',tip:'از قالب استفاده کن'},
+{goal:'یه شکل تخیلی بساز!',template:null,tip:'هر چیزی که تو ذهنته'},
+{goal:'آزاد! اینبار هر چی می‌خوای!',template:null,tip:'خودت انتخاب کن'},
+{goal:'از قالب ستاره استفاده کن!',template:'star',tip:'رنگ رو انتخاب کن بعد قالب رو بزن'},
+{goal:'یه شکل خیلی قشنگ بساز!',template:null,tip:'بهترین خلاقیتت'},
+{goal:'جشن نهایی! یه شاهکار بساز! 🎉',template:null,tip:'هر چی دوست داری'}
+];
 var EFFECTS=[
 {id:'confetti',name:'کاغذ رنگی',price:0,emoji:'🎊',type:'confetti'},
 {id:'snow',name:'بارش برف',price:8,emoji:'❄️',type:'snow'},
@@ -796,6 +835,7 @@ document.getElementById('foldButton').classList.remove('hidden');
 document.getElementById('toolsBar').classList.add('hidden');
 document.getElementById('templatesBar').classList.add('hidden');
 document.getElementById('actionButtons').classList.add('hidden');
+document.getElementById('unfoldTimer').classList.remove('show','urgent');
 document.getElementById('gameFeedback').textContent=currentLevelData.tip;
 document.getElementById('targetDisplay').textContent='🎯 '+(currentLevelData.template?'قالب':'آزاد')
 }
@@ -816,16 +856,52 @@ document.getElementById('actionButtons').classList.remove('hidden');
 document.getElementById('gameFeedback').textContent=currentLevelData.template?'رنگ رو انتخاب کن بعد روی قالب بزن!':'با انگشتت روی نیمه‌ی کاغذ بکش!'
 },600)
 }
+
+/* ============================================
+   باز کردن کاغذ با کنتور معکوس
+   ============================================ */
 function unfoldPaper(){
-if(!hasDrawn){showToast('اول یه چیزی بکش!','warning');return}
-mirrorCanvas();
-playBeep(880,.3);
-var paper=document.getElementById('paper');
-paper.classList.remove('folded-vertical');
-paper.classList.add('unfolded');
-document.getElementById('gameFeedback').textContent='🎉 تقارن رو ببین!';
-setTimeout(function(){completeLevel()},3500)
+  if(!hasDrawn){showToast('اول یه چیزی بکش!','warning');return}
+  mirrorCanvas();
+  playBeep(880,.3);
+  var paper=document.getElementById('paper');
+  paper.classList.remove('folded-vertical');
+  paper.classList.add('unfolded');
+  document.getElementById('gameFeedback').textContent='🎉 تقارن رو ببین!';
+  document.getElementById('paperWrapper').classList.add('folded');
+
+  /* ====== کنتور معکوس ====== */
+  var timer=document.getElementById('unfoldTimer');
+  var countEl=document.getElementById('timerCount');
+  timer.classList.remove('urgent');
+  timer.classList.add('show');
+
+  var totalTime=1.8;
+  var startTime=Date.now();
+  var lastShown=null;
+
+  var timerInterval=setInterval(function(){
+    var elapsed=(Date.now()-startTime)/1000;
+    var remaining=Math.max(0,totalTime-elapsed);
+    var secondsLeft=Math.ceil(remaining);
+
+    if(secondsLeft!==lastShown){
+      countEl.textContent=toPersianNum(secondsLeft);
+      lastShown=secondsLeft;
+      playBeep(600+secondsLeft*100,.08);
+      if(secondsLeft<=1){
+        timer.classList.add('urgent');
+      }
+    }
+
+    if(elapsed>=totalTime){
+      clearInterval(timerInterval);
+      timer.classList.remove('show','urgent');
+      completeLevel();
+    }
+  },50);
 }
+
 function completeLevel(){
 if(isResultShowing)return;
 isResultShowing=true;
@@ -841,21 +917,56 @@ localStorage.setItem('magicPaperCoins',coins.toString());
 updateCoinDisplay();
 showWinModal(reward)
 }
+
+/* ============================================
+   نمایش مودال برد + رفتن به مرحله بعد با شمارش معکوس
+   ============================================ */
 function showWinModal(reward){
-var m=document.getElementById('winModal');
-document.getElementById('winLevel').textContent='مرحله '+toPersianNum(currentLevel)+' رو تموم کردی!';
-document.getElementById('winCoinAmount').textContent='+'+toPersianNum(reward);
-document.getElementById('winMsg').textContent='شکل قشنگی ساختی! 🎨';
-var next=currentLevel+1;
-var nb=document.getElementById('winNextBtn');
-if(next<=totalLevels&&levelUnlocked[next]){nb.textContent='➡️ مرحله بعد';nb.style.display='block'}
-else if(next>totalLevels){nb.textContent='🏆 همه مراحل کامل شد!';nb.style.display='block'}
-else nb.style.display='none';
-document.getElementById('winNextBtn').onclick=function(){m.classList.remove('open');isResultShowing=false;if(currentLevel<totalLevels&&levelUnlocked[currentLevel+1])startGameFromLevel(currentLevel+1);else if(currentLevel>=totalLevels){showToast('🏆 همه مراحل رو کامل کردی!','success');showScreen('homeScreen')}else startGameFromLevel(currentLevel)};
-document.getElementById('winRestartBtn').onclick=function(){m.classList.remove('open');isResultShowing=false;startGameFromLevel(currentLevel)};
-document.getElementById('winHomeBtn').onclick=function(){m.classList.remove('open');isResultShowing=false;showScreen('homeScreen')};
-m.classList.add('open')
+  var m=document.getElementById('winModal');
+  document.getElementById('winLevel').textContent='مرحله '+toPersianNum(currentLevel)+' رو تموم کردی!';
+  document.getElementById('winCoinAmount').textContent='+'+toPersianNum(reward);
+  document.getElementById('winMsg').textContent='شکل قشنگی ساختی! 🎨';
+  var next=currentLevel+1;
+  var nb=document.getElementById('winNextBtn');
+  if(next<=totalLevels&&levelUnlocked[next]){nb.textContent='➡️ مرحله بعد';nb.style.display='block'}
+  else if(next>totalLevels){nb.textContent='🏆 همه مراحل کامل شد!';nb.style.display='block'}
+  else nb.style.display='none';
+
+  document.getElementById('winNextBtn').onclick=function(){
+    m.classList.remove('open');
+    isResultShowing=false;
+    if(currentLevel<totalLevels&&levelUnlocked[currentLevel+1]){
+      goToNextLevelWithCountdown(currentLevel+1);
+    }else if(currentLevel>=totalLevels){
+      showToast('🏆 همه مراحل رو کامل کردی!','success');
+      showScreen('homeScreen');
+    }else{
+      goToNextLevelWithCountdown(currentLevel);
+    }
+  };
+  document.getElementById('winRestartBtn').onclick=function(){
+    m.classList.remove('open');
+    isResultShowing=false;
+    goToNextLevelWithCountdown(currentLevel);
+  };
+  document.getElementById('winHomeBtn').onclick=function(){
+    m.classList.remove('open');
+    isResultShowing=false;
+    showScreen('homeScreen');
+  };
+  m.classList.add('open');
 }
+
+/* ====== تابع جدید: رفتن به مرحله بعد با شمارش معکوس ====== */
+function goToNextLevelWithCountdown(level){
+  currentLevel=level;
+  isResultShowing=false;
+  document.getElementById('gameLevelDisplay').textContent='مرحله '+toPersianNum(level);
+  showScreen('gameScreen');
+  startLevel(level);      /* ریست کردن بازی */
+  showCountdown();        /* شمارش معکوس */
+}
+
 function startGameFromLevel(level){
 if(!levelUnlocked[level]){showToast('🔒 این مرحله قفل است!','error');return}
 currentLevel=level;
@@ -937,10 +1048,10 @@ document.getElementById('backHomeBtn').addEventListener('click',function(){showS
 document.getElementById('celebCloseBtn').addEventListener('click',function(){document.getElementById('celebrationOverlay').classList.remove('show')});
 document.getElementById('stopGameBtn').addEventListener('click',function(){if(!isResultShowing)document.getElementById('stopModal').classList.add('show')});
 document.getElementById('stopCancelBtn').addEventListener('click',function(){document.getElementById('stopModal').classList.remove('show')});
-document.getElementById('stopRestartBtn').addEventListener('click',function(){document.getElementById('stopModal').classList.remove('show');isResultShowing=false;startGameFromLevel(currentLevel)});
+document.getElementById('stopRestartBtn').addEventListener('click',function(){document.getElementById('stopModal').classList.remove('show');isResultShowing=false;goToNextLevelWithCountdown(currentLevel)});
 document.getElementById('stopExitBtn').addEventListener('click',function(){document.getElementById('stopModal').classList.remove('show');isResultShowing=false;showScreen('homeScreen')});
 document.getElementById('stopModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show')});
-document.getElementById('resultRetryBtn').addEventListener('click',function(){document.getElementById('resultModal').classList.remove('open');isResultShowing=false;startGameFromLevel(currentLevel)});
+document.getElementById('resultRetryBtn').addEventListener('click',function(){document.getElementById('resultModal').classList.remove('open');isResultShowing=false;goToNextLevelWithCountdown(currentLevel)});
 document.getElementById('resultHomeBtn').addEventListener('click',function(){document.getElementById('resultModal').classList.remove('open');isResultShowing=false;showScreen('homeScreen')});
 document.querySelectorAll('.shop-tab').forEach(function(t){t.addEventListener('click',function(){document.querySelectorAll('.shop-tab').forEach(function(x){x.classList.remove('active')});this.classList.add('active');renderShop()})});
 
