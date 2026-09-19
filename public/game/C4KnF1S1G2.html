@@ -818,8 +818,13 @@
             position: relative;
         }
         .word-box:focus-within {
+            border-color: var(--secondary);
+            box-shadow: 0 0 22px rgba(0, 210, 255, 0.25);
+        }
+        /* تنها بازخورد ثبت: تغییر رنگ کادر بعد از نوشتن کلمه */
+        .word-box.filled {
             border-color: var(--gold);
-            box-shadow: 0 0 30px var(--glow-gold);
+            box-shadow: 0 0 22px var(--glow-gold);
         }
         .word-box .box-label {
             font-size: 0.6rem;
@@ -843,71 +848,10 @@
             min-height: 40px;
             font-weight: 700;
         }
-        .word-box input:focus {
-            border-bottom-color: var(--gold);
-        }
         .word-box input::placeholder {
             color: rgba(255, 255, 255, 0.2);
             font-size: 0.8rem;
             font-weight: 400;
-        }
-        .word-status {
-            font-size: 0.6rem;
-            font-weight: 700;
-            margin-top: 4px;
-            min-height: 18px;
-        }
-        .word-status.valid {
-            color: #00B894;
-        }
-        .word-status.invalid {
-            color: var(--danger);
-        }
-
-        .writing-stats {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            padding: 8px 12px;
-            background: var(--game-glass-bg);
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            margin: 6px 0;
-        }
-        .writing-stats .stat-item {
-            text-align: center;
-        }
-        .writing-stats .stat-item .stat-num {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--gold);
-        }
-        .writing-stats .stat-item .stat-label {
-            font-size: 0.55rem;
-            color: var(--text-secondary);
-        }
-
-        /* ===== نتیجه ===== */
-        .result-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 8px;
-            margin: 12px 0;
-        }
-        .result-grid .r-item {
-            background: var(--glass-bg);
-            border-radius: 12px;
-            padding: 10px 6px;
-            border: 1px solid var(--glass-border);
-        }
-        .result-grid .r-item .r-label {
-            font-size: 0.55rem;
-            color: var(--text-secondary);
-        }
-        .result-grid .r-item .r-value {
-            font-size: 1.1rem;
-            font-weight: 900;
-            color: var(--gold);
         }
 
         /* ===== کانگرتز ===== */
@@ -1639,16 +1583,6 @@
                 padding: 4px 12px;
                 white-space: normal;
             }
-            .result-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .congrats-box .happy-gamer {
-                width: 90px;
-                height: 90px;
-            }
-            .congrats-box .congrats-title {
-                font-size: 1.5rem;
-            }
             .top-displays {
                 flex-wrap: wrap;
                 gap: 6px;
@@ -1766,38 +1700,22 @@
     <!-- ===== صفحه بازی ===== -->
     <section id="gameScreen" class="screen">
         <div class="glass-card" style="max-width:520px;padding:20px 16px;">
-            <!-- هدر با مرحله، سکه و انرژی -->
+            <!-- هدر: فقط مرحله و تایمر — هیچ نشونه‌ای از امتیاز -->
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px;">
                 <button class="stop-btn" id="stopBtn" aria-label="توقف بازی">
                     <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
                 </button>
                 <h2 id="gameLevelTitle" style="font-size:1rem;color:var(--gold);font-weight:800;">مرحله ۱</h2>
                 <div style="display:flex;gap:8px;font-size:0.7rem;font-weight:700;color:var(--text-secondary);align-items:center;">
-                    <span>⭐ <strong id="totalScoreDisplay" style="color:var(--gold);">0</strong></span>
                     <span>⏱️ <strong id="gameTimer" style="color:var(--gold);">۰۰:۰۰</strong></span>
                 </div>
             </div>
 
-            <div class="writing-stats">
-                <div class="stat-item">
-                    <div class="stat-num" id="wordCount">0</div>
-                    <div class="stat-label">کلمه درست</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-num" id="totalScoreStat" style="color:var(--gold);">0</div>
-                    <div class="stat-label">امتیاز کل</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-num" id="bonusCount">0</div>
-                    <div class="stat-label">📖 کتاب</div>
-                </div>
-            </div>
-
             <div class="writing-area" id="writingArea">
-                <div class="word-box"><span class="box-label">📝 کلمه ۱</span><input type="text" id="word1" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"><span class="word-status" id="status1"></span></div>
-                <div class="word-box"><span class="box-label">📝 کلمه ۲</span><input type="text" id="word2" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"><span class="word-status" id="status2"></span></div>
-                <div class="word-box"><span class="box-label">📝 کلمه ۳</span><input type="text" id="word3" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"><span class="word-status" id="status3"></span></div>
-                <div class="word-box"><span class="box-label">📝 کلمه ۴</span><input type="text" id="word4" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"><span class="word-status" id="status4"></span></div>
+                <div class="word-box"><span class="box-label">📝 کلمه ۱</span><input type="text" id="word1" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+                <div class="word-box"><span class="box-label">📝 کلمه ۲</span><input type="text" id="word2" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+                <div class="word-box"><span class="box-label">📝 کلمه ۳</span><input type="text" id="word3" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+                <div class="word-box"><span class="box-label">📝 کلمه ۴</span><input type="text" id="word4" placeholder="... بنویس" maxlength="20" autocomplete="off" autocorrect="off" spellcheck="false"></div>
             </div>
 
             <button id="submitWordsBtn" class="btn btn-gold" style="min-height:50px;">✍️ ثبت کلمات و دریافت جایزه</button>
@@ -1815,44 +1733,36 @@
         </div>
     </section>
 
-    <!-- ===== نتیجه ===== -->
+    <!-- ===== نتیجه (بدون هیچ توضیح امتیاز — فقط جایزه‌ی رمزآلود) ===== -->
     <div id="resultModal" class="modal-overlay" style="z-index:9999;">
-        <div class="modal-box" style="max-width:450px;">
+        <div class="modal-box" style="max-width:420px;">
             <div style="width:100px;height:100px;margin:0 auto 12px;border-radius:50%;border:4px solid var(--gold);overflow:hidden;box-shadow:0 0 60px var(--glow-gold);">
                 <img src="icons/happy gamer.png" id="resultIconImg" style="width:100%;height:100%;object-fit:contain;" onerror="this.textContent='🎉'">
             </div>
-            <h2 id="resultTitle" class="modal-title">🎉 ایول!</h2>
-            <div id="wordScoreDetails" style="margin:12px 0;text-align:right;background:var(--glass-bg);border-radius:12px;padding:12px;border:1px solid var(--glass-border);">
-                <div style="text-align:center;font-size:0.7rem;color:var(--text-secondary);margin-bottom:8px;">📊 امتیاز هر کلمه</div>
-                <div id="wordScoreList"></div>
-            </div>
-            <div class="result-grid">
-                <div class="r-item"><div class="r-label">📝 معتبر</div><div class="r-value" id="resultWords">0</div></div>
-                <div class="r-item"><div class="r-label">📖 کتاب</div><div class="r-value" id="resultBookWords">0</div></div>
-                <div class="r-item"><div class="r-label">⭐ امتیاز</div><div class="r-value" id="resultScore">0</div></div>
-                <div class="r-item"><div class="r-label">🌟 جایزه</div><div class="r-value" id="resultBonus">0</div></div>
-            </div>
-            <div style="background:var(--glass-bg);border-radius:12px;padding:12px;border:1px solid var(--glass-border);margin:10px 0;">
-                <div style="font-size:0.8rem;color:var(--text-secondary);">مجموع امتیاز این مرحله: <strong id="resultTotalScore" style="color:var(--gold);font-size:1.2rem;">0</strong></div>
-            </div>
-            
-            <!-- بخش انتخاب جایزه -->
+            <h2 id="resultTitle" class="modal-title">🎉</h2>
+            <p id="resultSub" style="color:var(--text-secondary);font-size:0.95rem;line-height:2;margin:4px 0 10px;"></p>
+
+            <!-- انتخاب جایزه -->
             <div id="rewardSelection" style="background:var(--glass-bg);border-radius:12px;padding:16px;border:1px solid var(--gold);margin:10px 0;display:none;">
-                <div style="font-size:0.9rem;color:var(--text-color);margin-bottom:10px;font-weight:700;">
-                    🎁 حالا می‌تونی یکی از اینا رو انتخاب کنی:
-                </div>
+                <div style="font-size:0.9rem;color:var(--text-color);margin-bottom:10px;font-weight:700;">🎁 یه جایزه انتخاب کن:</div>
                 <div class="reward-buttons" style="display:flex;gap:10px;">
-                    <button class="btn btn-gold" onclick="selectCoinReward()" style="flex:1;min-height:44px;font-size:0.85rem;margin:0;display:flex;align-items:center;gap:8px;">
+                    <button class="btn btn-gold" onclick="selectCoinReward()" style="flex:1;min-height:44px;font-size:0.85rem;margin:0;">
                         <img src="icons/coin.png" alt="سکه" style="width:22px;height:22px;object-fit:contain;" onerror="this.textContent='🪙'">
                         <span id="rewardCoinText">۱ سکه</span>
                     </button>
                     <button class="btn btn-secondary" onclick="selectEnergyReward()" style="flex:1;min-height:44px;font-size:0.85rem;border-color:var(--energy-color);margin:0;">
-                        ⚡ <span id="rewardEnergyText">۱۰ انرژی</span>
+                        ⚡ <span id="rewardEnergyText">۵ انرژی</span>
                     </button>
                 </div>
             </div>
-            
+
+            <!-- وقتی جایزه‌ای نبود -->
+            <div id="noRewardBox" style="display:none;background:var(--glass-bg);border-radius:12px;padding:14px;border:1px dashed var(--glass-border);margin:10px 0;font-size:0.85rem;line-height:2;color:var(--text-secondary);">
+                🤔 این دفعه جایزه‌ای نبود!<br>کلمات جدید و قشنگ‌تر بنویس — شاید جایزه‌ی بزرگ منتظرت باشه! 🍀
+            </div>
+
             <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+                <button class="btn btn-primary" id="resultRetryBtn" style="display:none;min-height:44px;">🔄 دوباره امتحان کن!</button>
                 <button class="btn btn-secondary" id="resultHomeBtn" style="min-height:40px;">🏠 خروج</button>
             </div>
         </div>
@@ -1926,18 +1836,18 @@
             'تخته', 'نوری', 'انگشت', 'لمسی', 'پیامک', 'نرمافزار', 'آزمایشگاه', 'اینترنت', 'کتابخانه', 'مجازی', 'فناوری', 'دانشآموز',
             'تکنولوژی', 'آینده', 'یادگیری', 'ارتباطات', 'خبر', 'داغ', 'سار', 'سبزه', 'بوی', 'لطیف', 'دلنشین', 'دلانگیز', 'نقش', 'نگار',
             'گلشن', 'بوستان', 'حافظ', 'مولوی', 'فردوسی', 'نظامی', 'جامی', 'صائب', 'شهریار', 'اخوان', 'نیما', 'یاد', 'نام', 'عنوان', 'لقب',
-            'آوازه', 'ندا', 'طبیعت', 'نوجوان', 'میانسال', 'سالمند', 'کهنسال', 'فرزند', 'دختر', 'نوه', 'عمو', 'عمه', 'دایی', 'خاله', 'شوهر',
-            'زن', 'همسر', 'ازدواج', 'طلاق', 'تولد', 'زایش', 'فوت', 'حیات', 'مرض', 'آتش', 'شعله', 'دود', 'خاکستر', 'گنج', 'دفینه', 'ارزش',
+            'آوازه', 'ندا', 'نوجوان', 'میانسال', 'سالمند', 'کهنسال', 'فرزند', 'دختر', 'نوه', 'عمو', 'عمه', 'دایی', 'خاله', 'شوهر',
+            'زن', 'همسر', 'ازدواج', 'طلاق', 'تولد', 'زایش', 'فوت', 'حیات', 'مرض', 'آتش', 'شعله', 'دود', 'خاکستر', 'گنج', 'دفینه',
             'بها', 'قیمت', 'تحمل', 'شکیبایی', 'استقامت', 'پایداری', 'تاریک', 'روشن', 'گرسنه', 'تشنه', 'سیر', 'خسته', 'شاد', 'ناراحت',
-            'ترقی', 'رشد', 'گسترش', 'شروع', 'پایان', 'آغاز', 'انتها', 'ابداع', 'اختراع', 'امنیت', 'آسایش', 'آرامش', 'پول', 'سرمایه',
-            'ثروت', 'سیستم', 'سامانه', 'سازوکار', 'مکانیزم', 'فرصت', 'موقعیت', 'جایگاه', 'هدف', 'مقصود', 'نیت', 'قوانین', 'مقررات',
-            'مدیریت', 'گردش', 'چرخه', 'دوره', 'بررسی', 'ارزیابی', 'سنجش', 'مشکل', 'معضل', 'گرفتاری', 'بلا', 'مسیر', 'طریق', 'مسافرت',
+            'ترقی', 'رشد', 'گسترش', 'شروع', 'پایان', 'آغاز', 'انتها', 'ابداع', 'امنیت', 'آسایش', 'آرامش', 'پول',
+            'ثروت', 'سیستم', 'سامانه', 'سازوکار', 'فرصت', 'موقعیت', 'جایگاه', 'هدف', 'مقصود', 'نیت', 'قوانین', 'مقررات',
+            'مدیریت', 'گردش', 'چرخه', 'دوره', 'بررسی', 'ارزیابی', 'سنجش', 'مشکل', 'معضل', 'مسیر', 'طریق', 'مسافرت',
             'گشت', 'آسمان', 'جالب', 'جذاب', 'خوشایند', 'دلپذیر', 'دوام', 'بقا', 'صنعت', 'کارخانه', 'کارگاه', 'انرژی', 'کارمایه', 'توان',
-            'فضا', 'پرسش', 'جواب', 'فرق', 'تفاوت', 'تمایز', 'درس', 'مشق', 'تکلیف', 'امتحان', 'آزمون', 'نمره', 'قبولی', 'مردودی', 'تحصیل',
-            'مطالعه', 'نگارش', 'نویسنده', 'کتاب', 'پروین', 'اعتصامی', 'قصر', 'امینپور', 'اصغر', 'میرخدیوی', 'مجید', 'ذاکری', 'شکوه',
-            'جلال', 'جمال', 'کمال', 'نقص', 'عیب', 'زشتی', 'فن', 'حیثیت', 'آبرو', 'شخصیت', 'هویت', 'هستی', 'موجود', 'معدوم', 'نظم',
+            'فضا', 'پرسش', 'جواب', 'فرق', 'تفاوت', 'تمایز', 'درس', 'مشق', 'تکلیف', 'امتحان', 'آزمون', 'نمره', 'قبولی', 'تحصیل',
+            'مطالعه', 'نگارش', 'نویسنده', 'کتاب', 'پروین', 'اعتصامی', 'قصر', 'امینپور', 'مجید', 'ذاکری', 'شکوه',
+            'جلال', 'جمال', 'کمال', 'نقص', 'عیب', 'فن', 'حیثیت', 'آبرو', 'شخصیت', 'هویت', 'هستی', 'موجود', 'نظم',
             'قانون', 'قاعده', 'اصل', 'ریشه', 'بیخ', 'اساس', 'پایه', 'ستون', 'سطح', 'حجم', 'وزن', 'اندازه', 'مقدار', 'عدد', 'صبح', 'ظهر',
-            'عصر', 'سحر', 'بامداد', 'سپیدهدم', 'شامگاه', 'نیمهشب', 'دیروز', 'امروز', 'فردا', 'هفته', 'سال', 'قرن', 'زمان', 'لحظه', 'ثانیه',
+            'عصر', 'سحر', 'بامداد', 'سپیدهدم', 'شامگاه', 'دیروز', 'امروز', 'فردا', 'هفته', 'سال', 'قرن', 'زمان', 'لحظه', 'ثانیه',
             'دقیقه', 'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند', 'نوروز',
             'یلدا', 'جمعه', 'شنبه'
         ]);
@@ -1946,52 +1856,36 @@
         const commonWords = new Set([
             'سلام', 'خوب', 'خوبی', 'مدرسه', 'کتاب', 'دوست', 'مادر', 'پدر', 'برادر', 'خواهر', 'خانه', 'حیاط', 'اتاق', 'آشپزخانه', 'ناهار',
             'صبحانه', 'شام', 'عصر', 'روز', 'شب', 'هفته', 'ماه', 'سال', 'خوش', 'زیبا', 'قشنگ', 'عزیز', 'جان', 'دل', 'قلب', 'فکر', 'کار',
-            'تلاش', 'کوشش', 'موفق', 'پیروز', 'شاد', 'خندان', 'مهربان', 'خوبان', 'خوشحال', 'ناراحت', 'دلگیر', 'خسته', 'تازه', 'نو',
+            'تلاش', 'کوشش', 'موفق', 'پیروز', 'شاد', 'خندان', 'مهربان', 'خوشحال', 'ناراحت', 'دلگیر', 'خسته', 'تازه', 'نو',
             'قدیم', 'بزرگ', 'کوچک', 'بلند', 'کوتاه', 'سریع', 'آهسته', 'گرم', 'سرد', 'تاریک', 'روشن', 'نزدیک', 'دور', 'بالا', 'پایین',
             'داخل', 'بیرون', 'قبل', 'بعد', 'امروز', 'دیروز', 'فردا', 'الان', 'ساعت', 'دقیقه', 'ثانیه', 'باشه', 'بله', 'خیر', 'آره', 'نه',
             'چشم', 'مرسی', 'متشکرم', 'ممنون', 'خواهش', 'ببخشید', 'معذرت', 'خدایا', 'اول', 'آخر', 'وسط', 'کنار', 'روی', 'زیر', 'پشت',
-            'جلو', 'عقب', 'سمت', 'طرف', 'نزد', 'دور', 'حوالی', 'اطراف', 'میان', 'بابا', 'مامان', 'خاله', 'عمو', 'دایی', 'عمه', 'ننه',
-            'دختر', 'پسر', 'نوه', 'بالشت', 'پتو', 'تشک', 'لحاف', 'ملحفه', 'روبالشی', 'متکا', 'پشتی', 'کوسن', 'زیرانداز', 'روتختی',
-            'چادرشب', 'آب', 'آتش', 'باد', 'خاک', 'انسان', 'ماه', 'ستاره', 'زمین', 'دریا', 'گل', 'میوه', 'نان', 'پنیر', 'شیر', 'گوشت',
-            'برنج', 'عسل', 'کره', 'ماست', 'دوغ', 'چای', 'قهوه', 'غذا', 'خانه', 'در', 'پنجره', 'دیوار', 'سقف', 'کف', 'باغ', 'حیاط', 'کوچه',
-            'میز', 'صندلی', 'مبل', 'یخچال', 'تلویزیون', 'رادیو', 'کامپیوتر', 'موبایل', 'تلفن', 'ساعت', 'قلم', 'مداد', 'خودکار', 'کتاب',
+            'جلو', 'عقب', 'سمت', 'طرف', 'نزد', 'حوالی', 'اطراف', 'میان', 'بابا', 'مامان', 'خاله', 'عمو', 'دایی', 'عمه', 'ننه',
+            'دختر', 'پسر', 'نوه', 'بالشت', 'پتو', 'تشک', 'لحاف', 'ملحفه', 'متکا', 'پشتی', 'کوسن', 'زیرانداز',
+            'آب', 'آتش', 'باد', 'خاک', 'انسان', 'ستاره', 'زمین', 'دریا', 'گل', 'میوه', 'نان', 'پنیر', 'شیر', 'گوشت',
+            'برنج', 'عسل', 'کره', 'ماست', 'دوغ', 'چای', 'قهوه', 'غذا', 'در', 'پنجره', 'دیوار', 'سقف', 'کف', 'باغ', 'کوچه',
+            'میز', 'صندلی', 'مبل', 'یخچال', 'تلویزیون', 'رادیو', 'کامپیوتر', 'موبایل', 'تلفن', 'قلم', 'مداد', 'خودکار',
             'دفتر', 'کاغذ', 'شیشه', 'آینه', 'لباس', 'پیراهن', 'شلوار', 'کفش', 'جوراب', 'کلاه', 'روسری', 'کت', 'پالتو', 'کمربند', 'کراوات',
             'چادر', 'جارو', 'صابون', 'تخت', 'گهواره', 'چمدان', 'نقشه', 'انگور', 'خرما', 'انجیر', 'زردآلو', 'آلو', 'انار', 'خیار',
-            'گوجهفرنگی', 'سیبزمینی', 'پیاز', 'سیر', 'نمک', 'روغن', 'سرکه', 'قند', 'شکر', 'حلوا', 'بستنی', 'کیک', 'آرد', 'خمیر', 'کباب',
-            'پلو', 'آبگوشت', 'خورش', 'هویج', 'اسفناج', 'کاهو', 'کرفس', 'لوبیا', 'نخود', 'عدس', 'گشنیز', 'نعناع', 'ریحان', 'آویشن',
-            'گربه', 'سگ', 'خرگوش', 'لاکپشت', 'افعی', 'مورچه', 'مگس', 'ملخ', 'کبوتر', 'کلاغ', 'جغد', 'خروس', 'مرغ', 'اردک', 'غاز', 'فیل',
-            'شیر', 'ببر', 'پلنگ', 'گرگ', 'روباه', 'خرس', 'آهو', 'شتر', 'اسب', 'خر', 'گاو', 'گوسفند', 'بز', 'مار', 'ماهی', 'نهنگ', 'دلفین',
-            'قورباغه', 'تمساح', 'کوسه', 'کفشدوزک', 'سنجاقک', 'عنکبوت', 'پروانه', 'زنبور', 'مورچه', 'سوسک', 'کرم', 'صدا', 'آواز', 'ترانه',
-            'آهنگ', 'نوا', 'لحن', 'سرود', 'موسیقی', 'خوانندگی', 'خواننده', 'نوازنده', 'شاعر', 'نقاش', 'مجسمهساز', 'معمار', 'مهندس',
-            'پزشک', 'پرستار', 'جراح', 'داروساز', 'آهنگر', 'نجار', 'کفاش', 'خیاط', 'آرایشگر', 'نانوا', 'آشپز', 'قصاب', 'کشاورز', 'دامدار',
-            'شکارچی', 'سرباز', 'پاسبان', 'آتشنشان', 'غواص', 'راننده', 'مکانیک', 'برقکار', 'لولهکش', 'بنا', 'کارگر', 'فروشنده', 'کارمند',
+            'پیاز', 'سیر', 'نمک', 'روغن', 'سرکه', 'قند', 'شکر', 'حلوا', 'بستنی', 'کیک', 'آرد', 'خمیر', 'کباب',
+            'پلو', 'خورش', 'هویج', 'اسفناج', 'کاهو', 'کرفس', 'لوبیا', 'نخود', 'عدس', 'گشنیز', 'نعناع', 'ریحان', 'آویشن',
+            'گربه', 'سگ', 'خرگوش', 'افعی', 'مورچه', 'مگس', 'ملخ', 'کبوتر', 'کلاغ', 'جغد', 'خروس', 'مرغ', 'اردک', 'غاز', 'فیل',
+            'ببر', 'پلنگ', 'گرگ', 'روباه', 'خرس', 'آهو', 'شتر', 'اسب', 'خر', 'گاو', 'گوسفند', 'بز', 'مار', 'ماهی', 'نهنگ', 'دلفین',
+            'قورباغه', 'تمساح', 'کوسه', 'کفشدوزک', 'سنجاقک', 'عنکبوت', 'پروانه', 'زنبور', 'سوسک', 'کرم', 'صدا', 'آواز', 'ترانه',
+            'آهنگ', 'نوا', 'لحن', 'سرود', 'موسیقی', 'خواننده', 'نوازنده', 'شاعر', 'نقاش', 'معمار', 'مهندس',
+            'پزشک', 'پرستار', 'جراح', 'داروساز', 'آهنگر', 'نجار', 'کفاش', 'خیاط', 'نانوا', 'آشپز', 'قصاب', 'کشاورز',
+            'شکارچی', 'سرباز', 'پاسبان', 'غواص', 'راننده', 'مکانیک', 'بنا', 'کارگر', 'فروشنده', 'کارمند',
             'مدیر', 'خبرنگار', 'عکاس', 'کارگردان', 'بازیگر', 'سفید', 'سیاه', 'سرخ', 'سبز', 'زرد', 'بنفش', 'نارنجی', 'صورتی', 'خاکستری',
-            'قهوهای', 'طلایی', 'نقرهای', 'فیروزهای', 'ارغوانی', 'کرم', 'دودی', 'مسی', 'برنزی', 'عسلی', 'زیتونی', 'نیلی', 'عنابی', 'کوچک',
-            'بزرگ', 'بلند', 'کوتاه', 'پهن', 'باریک', 'سنگین', 'سبک', 'نرم', 'سخت', 'سرد', 'گرم', 'شیرین', 'تلخ', 'شور', 'ترش', 'گس',
-            'تند', 'کند', 'سریع', 'آهسته', 'زیبا', 'زشت', 'خوب', 'بد', 'عالی', 'قوی', 'ضعیف', 'سالم', 'بیمار', 'ثروتمند', 'فقیر',
-            'خوشحال', 'غمگین', 'خندان', 'پرحرف', 'کم حرف', 'پررو', 'کمرو', 'باهوش', 'کمهوش', 'خلاق', 'موفق', 'ناموفق', 'صادق', 'کاذب',
-            'واقعی', 'خیالی', 'طبیعی', 'مصنوعی', 'محکم', 'سست', 'شفاف', 'کدر', 'ارزشمند', 'مفید', 'مضر', 'مناسب', 'نامناسب', 'آشکار',
-            'پنهان', 'نزدیک', 'دور', 'بالا', 'پایین', 'داخل', 'بیرون', 'جلو', 'عقب', 'درست', 'نادرست', 'پاک', 'مهربان', 'خشن', 'باادب',
-            'بیادب', 'صبور', 'بیصبر', 'وفادار', 'خیانتکار', 'دوستی', 'دشمنی', 'کینه', 'بخشش', 'گذشت', 'انتقام', 'شادمانی', 'خشم', 'ترس',
-            'امید', 'نومیدی', 'تشویش', 'خیال', 'اندیشه', 'فکر', 'یاد', 'نام', 'عنوان', 'لقب', 'آوازه', 'ندا', 'طبیعت', 'جنگل', 'کوه',
-            'دشت', 'بیابان', 'کویر', 'صحرا', 'دریاچه', 'رودخانه', 'آبشار', 'چشمه', 'چاه', 'قنات', 'خانواده', 'فرزند', 'دختر', 'پسر', 'نوه',
-            'عمو', 'عمه', 'دایی', 'خاله', 'شوهر', 'زن', 'همسر', 'ازدواج', 'طلاق', 'تولد', 'زایش', 'فوت', 'حیات', 'مرض', 'درد', 'درمان',
-            'دارو', 'قرص', 'شربت', 'پماد', 'مرهم', 'باند', 'آتش', 'شعله', 'دود', 'خاکستر', 'گنج', 'دفینه', 'ارزش', 'بها', 'قیمت', 'تحمل',
-            'شکیبایی', 'استقامت', 'پایداری', 'تاریک', 'روشن', 'گرسنه', 'تشنه', 'سیر', 'خسته', 'شاد', 'ناراحت', 'ترقی', 'رشد', 'گسترش',
-            'شروع', 'پایان', 'آغاز', 'انتها', 'ابداع', 'اختراع', 'امنیت', 'آسایش', 'آرامش', 'پول', 'سرمایه', 'ثروت', 'سیستم', 'سامانه',
-            'سازوکار', 'مکانیزم', 'فرصت', 'موقعیت', 'جایگاه', 'هدف', 'مقصود', 'نیت', 'قوانین', 'مقررات', 'مدیریت', 'گردش', 'چرخه', 'دوره',
-            'بررسی', 'ارزیابی', 'سنجش', 'مشکل', 'معضل', 'گرفتاری', 'بلا', 'مسیر', 'طریق', 'مسافرت', 'گشت', 'آسمان', 'جالب', 'جذاب',
-            'خوشایند', 'دلپذیر', 'دوام', 'بقا', 'صنعت', 'کارخانه', 'کارگاه', 'انرژی', 'کارمایه', 'توان', 'فضا', 'پرسش', 'جواب', 'فرق',
-            'تفاوت', 'تمایز', 'درس', 'مشق', 'تکلیف', 'امتحان', 'آزمون', 'نمره', 'قبولی', 'مردودی', 'تحصیل', 'مطالعه', 'نگارش', 'نویسنده',
-            'شعر', 'نثر', 'ادبیات', 'فرهنگ', 'تمدن', 'هنر', 'خلاقیت', 'نوآوری', 'پیشرفت', 'توسعه', 'جامعه', 'خدمت', 'مکتب', 'دفتر', 'مداد',
-            'دیوار', 'زغال', 'کرسی', 'آموزگار', 'معلم', 'دانشآموز', 'دانشجو', 'دانشگاه', 'دبیرستان', 'دبستان', 'مهدکودک', 'کتابخانه',
-            'کتابفروشی', 'نانوایی', 'قصابی', 'میوهفروشی', 'بقالی', 'لباسفروشی', 'کفشفروشی', 'طلافروشی', 'عکاسی', 'آرایشگاه', 'رستوران',
-            'هتل', 'مسافرخانه', 'بیمارستان', 'درمانگاه', 'داروخانه', 'زندان', 'دادگاه', 'شهرداری', 'اداره', 'باغوحش', 'موزه', 'مسجد',
-            'برج', 'قلعه', 'ویلا', 'کلبه', 'آلاچیق', 'ایوان', 'بالکن', 'انبار', 'زیرزمین', 'پشتبام'
+            'طلایی', 'نقرهای', 'فیروزهای', 'کرم', 'دودی', 'مسی', 'برنزی', 'عسلی', 'زیتونی', 'نیلی', 'پهن', 'باریک', 'سنگین', 'سبک', 'نرم', 'سخت',
+            'شیرین', 'تلخ', 'شور', 'ترش', 'تند', 'کند', 'عالی', 'قوی', 'ضعیف', 'سالم', 'بیمار', 'ثروتمند', 'فقیر',
+            'غمگین', 'پرحرف', 'باهوش', 'خلاق', 'صادق', 'واقعی', 'خیالی', 'طبیعی', 'مصنوعی', 'محکم', 'سست', 'شفاف', 'کدر', 'ارزشمند', 'مفید', 'مضر', 'مناسب',
+            'آشکار', 'پنهان', 'درست', 'نادرست', 'پاک', 'خشن', 'صبور', 'وفادار', 'دوستی', 'دشمنی', 'کینه', 'بخشش', 'گذشت', 'شادمانی', 'خشم', 'ترس',
+            'امید', 'نومیدی', 'خیال', 'اندیشه', 'یاد', 'بیابان', 'کویر', 'صحرا', 'آبشار', 'چشمه', 'چاه', 'قنات', 'درد', 'درمان',
+            'دارو', 'قرص', 'شربت', 'باند', 'باقلا', 'خیار', 'هویج', 'گل کلم', 'کدو', 'بادمجان', 'ترب', 'شلغم', 'کلم', 'سبزی', 'پirateر'
         ]);
 
         // ============================================================
-        // سیستم تشخیص کلمه
+        // سیستم تشخیص کلمه (کاملاً مخفی — بچه‌ها نباید معیار رو بفهمن)
         // ============================================================
 
         const meaninglessWords = ['بزک', 'فچل', 'رتپ', 'کچل', 'چفت', 'پخم', 'زبت', 'چلپ', 'فپل', 'تلخک', 'زشتک', 'چلنگ', 'ملچ', 'ملوچ'];
@@ -2013,9 +1907,7 @@
                 return true;
             }
 
-            const twoLetterWords = ['او', 'ام', 'ای', 'از', 'با', 'به', 'بی', 'تا', 'تو', 'در', 'را', 'زو', 'سر', 'هم', 'یا', 'نه', 'چو',
-                'که'
-            ];
+            const twoLetterWords = ['او', 'ام', 'ای', 'از', 'با', 'به', 'بی', 'تا', 'تو', 'در', 'را', 'زو', 'سر', 'هم', 'یا', 'نه', 'چو', 'که'];
             if (word.length === 2 && twoLetterWords.includes(word)) return true;
 
             if (word.length === 3) {
@@ -2077,6 +1969,7 @@
             return bookWords.has(word);
         }
 
+        // امتیازدهی فقط در همین‌جا (بک‌اند کد) اتفاق میفته و هیچ‌وقت نمایش داده نمیشه
         function getWordScore(word) {
             if (!isValidWord(word)) return 0;
             let score = 1;
@@ -2108,8 +2001,7 @@
             { id: 'barfi', name: 'برفی', price: 10, file: 'h barfi.jpg', themeClass: 'theme-barfi' },
             { id: 'jangal-sami', name: 'جنگل سمی', price: 15, file: 'h jangal sami.jpg', themeClass: 'theme-jangal-sami' },
             { id: 'kahkeshani', name: 'کهکشانی', price: 16, file: 'h kahkeshani.jpg', themeClass: 'theme-kahkeshani' },
-            { id: 'jangal-jadooy', name: 'جنگل جادویی', price: 18, file: 'h jangal jadooy.jpg',
-            themeClass: 'theme-jangal-jadooy' }
+            { id: 'jangal-jadooy', name: 'جنگل جادویی', price: 18, file: 'h jangal jadooy.jpg', themeClass: 'theme-jangal-jadooy' }
         ];
 
         const shopEffects = [
@@ -2125,13 +2017,14 @@
             ownedThemes = ['default'],
             activeTheme = 'default';
         let currentLevel = 1,
-            totalScore = 0,
+            totalScore = 0, // فقط داخلی — هیچ‌جا نمایش داده نمیشه
             timerInterval = null,
             timerSeconds = 0,
             isPaused = false,
             gameActive = false;
         let usedWords = new Set();
         let wrongWords = [];
+        let pendingReward = { coins: 0, energy: 0 };
 
         // ============================================================
         // توابع بارگذاری و ذخیره‌سازی
@@ -2409,7 +2302,7 @@
         }
 
         // ============================================================
-        // GUIDE - راهنما با صوت pixel17.mp3 و متن‌های جدید
+        // GUIDE - راهنما با صوت pixel17.mp3
         // ============================================================
         const GUIDE_SCRIPTS = [
             { start: 0, end: 5, text: 'سلام دوست خوب من! من پیکسلم، یه موجود از نژاد کلمه‌دوست! 👋' },
@@ -2554,7 +2447,6 @@
             isPaused = false;
             timerSeconds = 0;
             document.getElementById('gameLevelTitle').textContent = 'مرحله ' + currentLevel;
-            document.getElementById('totalScoreDisplay').textContent = totalScore;
             startTimer();
             initInputs();
             playClickSound();
@@ -2564,13 +2456,8 @@
             for (let i = 1; i <= 4; i++) {
                 const input = document.getElementById('word' + i);
                 input.value = '';
-                const status = document.getElementById('status' + i);
-                status.textContent = '';
-                status.className = 'word-status';
+                input.closest('.word-box').classList.remove('filled');
             }
-            document.getElementById('wordCount').textContent = '0';
-            document.getElementById('totalScoreStat').textContent = '0';
-            document.getElementById('bonusCount').textContent = '0';
             usedWords = new Set();
         }
 
@@ -2597,170 +2484,121 @@
         }
 
         // ============================================================
-        // تابع ثبت کلمات - اصلاح شده با انتخاب جایزه
+        // ثبت کلمات — امتیازدهی ۱۰۰٪ مخفی، بدون هیچ پیام وضعیت
         // ============================================================
         function submitWords() {
             if (!gameActive) return;
-            let totalWordScore = 0,
-                hasWord = false,
-                wordDetails = [],
-                invalidWords = [],
-                bookWordCount = 0,
-                validCount = 0;
-            let bestWord = '';
+
+            let totalWordScore = 0;
+            let hasWord = false;
+            let bookWordCount = 0;
 
             for (let i = 1; i <= 4; i++) {
                 const input = document.getElementById('word' + i);
                 const word = input.value.trim();
-                const status = document.getElementById('status' + i);
 
                 if (word.length >= 2) {
                     hasWord = true;
 
-                    if (usedWords.has(word)) {
-                        status.textContent = '⚠️ تکراری!';
-                        status.className = 'word-status invalid';
-                        wordDetails.push({ word, score: 0, valid: false, inBook: false, duplicate: true });
-                        continue;
-                    }
+                    // کلمه تکراری بی‌صدا بی‌تأثیره — بدون هیچ پیامی
+                    if (usedWords.has(word)) continue;
 
-                    const valid = isValidWord(word);
-                    const inBook = isBookWord(word);
-                    const score = valid ? getWordScore(word) : 0;
-
-                    if (valid) {
+                    if (isValidWord(word)) {
                         usedWords.add(word);
-                        totalWordScore += score;
-                        validCount++;
-                        if (inBook) bookWordCount++;
-                        if (word.length > bestWord.length) bestWord = word;
-                        wordDetails.push({ word, score, valid: true, inBook, duplicate: false });
-                        status.textContent = '✅ معتبر';
-                        status.className = 'word-status valid';
+                        totalWordScore += getWordScore(word);
+                        if (isBookWord(word)) bookWordCount++;
                     } else {
+                        // فقط برای چت‌بات ذخیره میشه — به بچه‌ها چیزی نمی‌گیم
                         if (!wrongWords.includes(word)) {
                             wrongWords.push(word);
                             saveWrongWords();
                         }
-                        wordDetails.push({ word, score: 0, valid: false, inBook: false, duplicate: false });
-                        status.textContent = '❌ نامعتبر';
-                        status.className = 'word-status invalid';
-                        invalidWords.push(word);
                     }
                 }
             }
 
             if (!hasWord) { showToast('حداقل یه کلمه بنویس! 😊'); return; }
-            if (invalidWords.length > 0) { showToast('❌ "' + invalidWords.join('، ') + '" معنی ندارند!');
-                playWrongSound(); }
 
-            let bonus = bookWordCount * 3;
-            let finalScore = totalWordScore + bonus;
-
+            // امتیاز نهایی فقط همین‌جا محاسبه میشه و هیچ‌وقت نشون داده نمیشه
+            const finalScore = totalWordScore + bookWordCount * 3;
             totalScore += finalScore;
-            // امتیاز به سکه و انرژی اضافه نمیشه، فقط برای نمایش هست
-            // سکه و انرژی جداگانه توی انتخاب جایزه داده میشه
-
-            document.getElementById('totalScoreDisplay').textContent = totalScore;
-            document.getElementById('totalScoreStat').textContent = totalScore;
-            document.getElementById('wordCount').textContent = validCount;
-            document.getElementById('bonusCount').textContent = bookWordCount;
 
             if (finalScore > 0) playScoreSound();
+            else playWrongSound();
+
             const rect = document.getElementById('submitWordsBtn').getBoundingClientRect();
             playEffect({ x: rect.left + rect.width / 2, y: rect.top });
 
-            showResult(wordDetails, finalScore, bonus, bookWordCount, validCount, bestWord);
+            showResult(finalScore);
 
-            setTimeout(() => { initInputs(); }, 2000);
+            setTimeout(() => { initInputs(); }, 800);
         }
 
         // ============================================================
-        // نمایش نتیجه با انتخاب جایزه
+        // نمایش نتیجه — فقط واکنش پیکسل و جایزه‌ی رمزآلود
         // ============================================================
-        function showResult(wordDetails, finalScore, bonus, bookWordCount, validCount, bestWord) {
-            const listEl = document.getElementById('wordScoreList');
-            let html = '';
-
-            wordDetails.forEach((item, idx) => {
-                if (item.duplicate) {
-                    html +=
-                        `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.85rem;opacity:0.5;"><span style="color:var(--danger);">${idx+1}. ${item.word} ⚠️</span><span style="color:var(--danger);font-weight:700;">تکراری!</span></div>`;
-                } else if (item.valid) {
-                    const bookMark = item.inBook ? ' 📖' : '';
-                    const bookExtra = item.inBook ? ' (+۵)' : '';
-                    html +=
-                        `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.85rem;"><span style="color:var(--text-color);">${idx+1}. ${item.word}${bookMark}</span><span style="color:var(--gold);font-weight:700;">+${item.score}${bookExtra} ⭐</span></div>`;
-                } else {
-                    html +=
-                        `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.85rem;opacity:0.5;"><span style="color:var(--danger);">${idx+1}. ${item.word} ❌</span><span style="color:var(--danger);font-weight:700;">۰</span></div>`;
-                }
-            });
-            listEl.innerHTML = html;
-
-            document.getElementById('resultWords').textContent = validCount;
-            document.getElementById('resultBookWords').textContent = bookWordCount;
-            document.getElementById('resultScore').textContent = finalScore;
-            document.getElementById('resultBonus').textContent = bonus;
-            document.getElementById('resultTotalScore').textContent = finalScore;
-
-            // عنوان نتیجه با نام بهترین کلمه
+        function showResult(finalScore) {
             const title = document.getElementById('resultTitle');
-            if (finalScore > 0 && bestWord) {
-                title.innerHTML = `🎉 ایول! کلمه "${bestWord}" رو به من دادی!`;
+            const sub = document.getElementById('resultSub');
+            const rewardSection = document.getElementById('rewardSelection');
+            const noRewardBox = document.getElementById('noRewardBox');
+            const retryBtn = document.getElementById('resultRetryBtn');
+
+            if (finalScore >= 40) {
+                title.textContent = '🤩 باورنکردنیه!';
+                sub.textContent = 'کلمه‌هات پیکسل رو از جا درآورد! یه جایزه‌ی فوق‌العاده منتظرته...';
+            } else if (finalScore >= 20) {
+                title.textContent = '🎉 عالی بود!';
+                sub.textContent = 'پیکسل حسابی ذوق کرد! ببین چی برات گذاشته...';
+            } else if (finalScore >= 8) {
+                title.textContent = '😊 آفرین!';
+                sub.textContent = 'کلمه‌هات قشنگ بودن! یه جایزه انتخاب کن:';
             } else if (finalScore > 0) {
-                title.innerHTML = '🎉 ایول! کلمات قشنگی نوشتی!';
+                title.textContent = '🙂 ممنون!';
+                sub.textContent = 'کلمه‌هات رو گرفتم! یه جایزه‌ی کوچولو انتخاب کن:';
             } else {
-                title.innerHTML = '😅 هیچ کلمه‌ای به من ندادی!';
+                title.textContent = '🤔 این دفعه نه!';
+                sub.textContent = 'این کلمات اونی نبودن که پیکسل انتظارش رو داشت... کلمات جدید امتحان کن!';
             }
 
-            // محاسبه انرژی تصادفی بین 5 تا 10
-            const randomEnergy = Math.floor(Math.random() * 6) + 5;
-
-            // بررسی وضعیت سکه
-            const currentCoins = parseInt(localStorage.getItem('starWriterCoins')) || 0;
-            const coinReward = currentCoins === 0 ? 10 : 1;
-
-            // نمایش بخش انتخاب جایزه
-            const rewardSection = document.getElementById('rewardSelection');
             if (finalScore > 0) {
+                // مقدار جایزه مخفیانه از امتیاز محاسبه میشه + یه کم شانش
+                // بچه‌ها فقط می‌بینن که کلمات مختلف → جایزه‌های متفاوت = کنجکاوی!
+                const broke = coinCount === 0;
+                pendingReward.coins = broke ? 10 : Math.max(1, 1 + Math.floor(finalScore / 7) + Math.floor(Math.random() * 2));
+                pendingReward.energy = Math.min(20, 5 + Math.floor(finalScore / 5) + Math.floor(Math.random() * 3));
+
+                document.getElementById('rewardCoinText').textContent = pendingReward.coins + ' سکه';
+                document.getElementById('rewardEnergyText').textContent = pendingReward.energy + ' انرژی';
                 rewardSection.style.display = 'block';
-                document.getElementById('rewardCoinText').textContent = `${coinReward} سکه`;
-                document.getElementById('rewardEnergyText').textContent = `${randomEnergy} انرژی`;
+                noRewardBox.style.display = 'none';
+                retryBtn.style.display = 'none';
+                playWinSound();
             } else {
                 rewardSection.style.display = 'none';
+                noRewardBox.style.display = 'block';
+                retryBtn.style.display = 'flex';
             }
 
-            // دکمه خروج
-            document.getElementById('resultHomeBtn').onclick = () => {
-                document.getElementById('resultModal').classList.remove('active');
-                showPage('landingScreen');
-            };
-
             document.getElementById('resultModal').classList.add('active');
-            if (finalScore > 0) playWinSound();
         }
 
         // ============================================================
-        // توابع انتخاب جایزه
+        // انتخاب جایزه
         // ============================================================
         function selectCoinReward() {
-            const currentCoins = parseInt(localStorage.getItem('starWriterCoins')) || 0;
-            const reward = currentCoins === 0 ? 10 : 1;
-
-            coinCount += reward;
+            coinCount += pendingReward.coins;
             saveCoins();
-            showToast(`<img src="icons/coin.png" style="width:20px;height:20px;display:inline-block;vertical-align:middle;margin-left:4px;"> ${reward} سکه دریافت کردی!`);
+            showToast('🪙 ' + pendingReward.coins + ' سکه دریافت کردی!');
             document.getElementById('resultModal').classList.remove('active');
             currentLevel++;
             startGame();
         }
 
         function selectEnergyReward() {
-            const randomEnergy = Math.floor(Math.random() * 6) + 5; // 5 تا 10
-            energyCount += randomEnergy;
+            energyCount += pendingReward.energy;
             saveEnergy();
-            showToast(`⚡ ${randomEnergy} انرژی دریافت کردی!`);
+            showToast('⚡ ' + pendingReward.energy + ' انرژی دریافت کردی!');
             document.getElementById('resultModal').classList.remove('active');
             currentLevel++;
             startGame();
@@ -2811,7 +2649,6 @@
 
             chatHistory.push({ role: 'user', content: message });
 
-            // پاسخ آفلاین
             setTimeout(() => {
                 loading.style.display = 'none';
                 const botReply = getOfflineReply(message, wrongWords);
@@ -2887,24 +2724,11 @@
                     else submitWords();
                 }
             });
+            // تنها بازخورد: تغییر رنگ کادر وقتی کلمه نوشته شد
             input.addEventListener('input', function() {
-                const status = document.getElementById('status' + (idx + 1));
-                const word = this.value.trim();
-                if (word.length >= 2) {
-                    if (usedWords.has(word)) {
-                        status.textContent = '⚠️ تکراری!';
-                        status.className = 'word-status invalid';
-                    } else if (isValidWord(word)) {
-                        status.textContent = '✅ معتبر';
-                        status.className = 'word-status valid';
-                    } else {
-                        status.textContent = '❌ نامعتبر';
-                        status.className = 'word-status invalid';
-                    }
-                } else {
-                    status.textContent = '';
-                    status.className = 'word-status';
-                }
+                const box = this.closest('.word-box');
+                if (this.value.trim().length > 0) box.classList.add('filled');
+                else box.classList.remove('filled');
             });
         });
 
@@ -2930,6 +2754,18 @@
             showPage('landingScreen');
         });
 
+        document.getElementById('resultRetryBtn').addEventListener('click', () => {
+            document.getElementById('resultModal').classList.remove('active');
+            startGame();
+        });
+
+        document.getElementById('resultHomeBtn').onclick = () => {
+            document.getElementById('resultModal').classList.remove('active');
+            gameActive = false;
+            stopTimer();
+            showPage('landingScreen');
+        };
+
         // ============================================================
         // INIT
         // ============================================================
@@ -2942,7 +2778,6 @@
         initChat();
 
         console.log('📝 کلمات اشتباه نوشته شده:', wrongWords);
-        console.log('📊 تعداد کلمات اشتباه:', wrongWords.length);
         console.log('💰 سکه:', coinCount);
         console.log('⚡ انرژی:', energyCount);
     </script>
