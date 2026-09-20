@@ -25,17 +25,17 @@
   --text:#F3F0FF; --dim:#9d97c9;
   --glass:rgba(255,255,255,.10); --glass-brd:rgba(255,255,255,.24);
   --font:'Shoor Rounded','Shoor',Tahoma,'Segoe UI',sans-serif;
-  /* پوستهٔ پیش‌فرض چوب‌کبریت */
   --wood:#eac79b; --wood-hi:#fbe6c0; --wood-lo:#c79a63;
   --head:#e0523f; --head-hi:#ff9a70; --head-lo:#9c2a1f;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+/* مهم: ویژگی hidden باید همیشه بر CSS غلبه کند (رفع باگ دکمه‌های خالی مودال) */
+[hidden]{display:none!important}
 html,body{height:100%}
 body{
   margin:0;color:var(--text);font-family:var(--font);overflow-x:hidden;
   background:linear-gradient(135deg,#0c0a14,#181225) fixed;touch-action:manipulation;
 }
-/* هاله‌های نورانی تم‌ها */
 body::before,body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;transition:opacity .6s}
 body::before{background:radial-gradient(62% 44% at 50% -6%,var(--glowA,rgba(108,92,231,.30)),transparent 70%)}
 body::after{background:radial-gradient(72% 48% at 50% 108%,var(--glowB,rgba(108,92,231,.14)),transparent 72%)}
@@ -46,7 +46,6 @@ body::after{background:radial-gradient(72% 48% at 50% 108%,var(--glowB,rgba(108,
   radial-gradient(1.4px 1.4px at 20% 34%,#fff5,transparent 55%),radial-gradient(1.5px 1.5px at 80% 42%,#00D2FF66,transparent 55%)}
 body[data-theme="stars"] .starfield{opacity:1}
 
-/* پوسته‌های چوب‌کبریت */
 body[data-skin="coal"]{--wood:#9aa0a8;--wood-hi:#cdd2da;--wood-lo:#6f757e;--head:#d7dae2;--head-hi:#f4f6fa;--head-lo:#8f95a1}
 body[data-skin="forest"]{--wood:#b9cb92;--wood-hi:#dce9bd;--wood-lo:#93a86b;--head:#55a860;--head-hi:#8fd698;--head-lo:#35703f}
 body[data-skin="fire"]{--wood:#f2b26e;--wood-hi:#fbd6a4;--wood-lo:#cf8a3e;--head:#ff7a2e;--head-hi:#ffb27a;--head-lo:#c2510e}
@@ -69,11 +68,8 @@ button{font-family:inherit}
 @keyframes popin{from{transform:scale(.55);opacity:0}}
 @keyframes starpop{from{transform:scale(0) rotate(-30deg)}}
 @keyframes stpop{from{opacity:0;transform:scale(0)}}
-@keyframes wave{40%{transform:translateY(-6px) scale(1.15)}}
 @keyframes fall{to{transform:translateY(108vh) rotate(720deg);opacity:.65}}
-@keyframes rise{to{transform:translate(-50%,calc(-50% - 46px));opacity:0}}
 
-/* ===== نمایش سکه (LOKO Coin) ===== */
 .coin-display{display:flex;align-items:center;gap:8px;padding:7px 13px 7px 11px;border-radius:999px;
   background:rgba(255,255,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,.28);box-shadow:0 4px 18px rgba(0,0,0,.35),0 0 16px rgba(255,201,60,.16)}
@@ -81,7 +77,6 @@ button{font-family:inherit}
 .coin-icon-img,.coin-icon-svg{width:22px;height:22px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))}
 .coin-amount{font-weight:900;font-size:16px;color:var(--accent);text-shadow:0 1px 3px rgba(0,0,0,.45)}
 
-/* ===== دکمه‌ها ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--glass-brd);
   border-radius:16px;font-weight:900;cursor:pointer;color:#fff;background:var(--glass);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -101,7 +96,6 @@ button{font-family:inherit}
   color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.3);flex:none;backdrop-filter:blur(10px)}
 .icon-btn:active{transform:translateY(2px)}
 
-/* ===== صفحهٔ اصلی ===== */
 .hud{position:absolute;top:12px;right:12px;left:12px;display:flex;justify-content:space-between;align-items:center;z-index:5}
 .home{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:13px;text-align:center;padding:86px 20px 34px}
@@ -119,7 +113,6 @@ button{font-family:inherit}
 .row2{display:flex;gap:12px;width:min(330px,100%)}
 .row2 .btn{flex:1;padding:13px;font-size:15px}
 
-/* ===== سربرگ صفحات ===== */
 .subhead,.ghead{display:flex;align-items:center;gap:10px;padding:11px 14px;
   background:rgba(30,30,47,.58);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(255,255,255,.12);position:sticky;top:0;z-index:5}
@@ -132,7 +125,6 @@ button{font-family:inherit}
 .dot.on{background:var(--gold);box-shadow:0 0 6px rgba(255,201,60,.7)}
 .wrap{padding:16px 16px 32px}
 
-/* ===== صفحهٔ بازی ===== */
 #scrGame{position:relative;max-width:480px;margin:0 auto;height:100vh;height:100dvh;display:none;flex-direction:column}
 #scrGame.on{display:flex}
 .gmain{flex:1;overflow-y:auto;padding:12px 14px 18px;display:flex;flex-direction:column;gap:10px}
@@ -145,12 +137,25 @@ button{font-family:inherit}
 .card{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border:1px solid var(--glass-brd);border-radius:20px;padding:11px 10px 12px;display:flex;flex-direction:column;
   gap:10px;box-shadow:0 10px 26px rgba(0,0,0,.35);user-select:none;-webkit-user-select:none}
-/* محفظهٔ چوب‌ها: بزرگ، پرکنتراست، ردیف‌های ۵تایی مرتب */
 .sticks{background:rgba(0,0,0,.30);border:1px solid rgba(255,255,255,.08);border-radius:14px;
-  padding:12px 6px;display:grid;place-items:center;min-height:118px}
-.stks{width:100%;height:auto;display:block;filter:drop-shadow(0 3px 4px rgba(0,0,0,.5))}
-.stks use{transform-box:fill-box;transform-origin:center;animation:stpop .45s cubic-bezier(.3,1.6,.5,1) backwards}
-.stks.wave use{animation:wave .6s ease}
+  padding:16px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;min-height:124px}
+.mrow{display:flex;gap:11px;justify-content:center}
+.m{--w:14px;--h:56px;--hd:18px;position:relative;width:var(--w);height:var(--h);flex:none;
+  animation:stpop .45s cubic-bezier(.3,1.6,.5,1) backwards}
+.m::before{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;
+  width:calc(var(--w) - 4px);height:calc(var(--h) - 13px);border-radius:5px;
+  background:linear-gradient(90deg,var(--wood-lo),var(--wood) 35%,var(--wood-hi) 62%,var(--wood));
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.28),0 2px 3px rgba(0,0,0,.4)}
+.m::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:0;
+  width:var(--hd);height:var(--hd);border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--head-hi),var(--head) 55%,var(--head-lo));
+  box-shadow:inset 0 -2px 3px rgba(0,0,0,.3),inset 0 0 0 1px rgba(0,0,0,.2),0 2px 3px rgba(0,0,0,.4)}
+.m.wave{animation:mwave .6s ease}
+@keyframes mwave{40%{transform:translateY(-8px) scale(1.12)}}
+.dcard .m{--w:10px;--h:40px;--hd:13px}
+.dcard .mrow{gap:8px}
+.dcard .sticks{min-height:96px;gap:10px;padding:10px 6px}
+@media (max-width:359px){.cards{grid-template-columns:1fr}}
 .slot{min-height:58px;border-radius:15px;border:2.5px dashed rgba(255,255,255,.32);background:rgba(0,0,0,.16);
   display:flex;align-items:center;justify-content:center;gap:8px;transition:.18s;cursor:pointer}
 .slot .q{font-size:24px;font-weight:900;color:rgba(255,255,255,.4)}
@@ -173,7 +178,6 @@ button{font-family:inherit}
   box-shadow:0 14px 28px rgba(0,0,0,.5)}
 #ghost.on{display:grid}
 
-/* ===== روکش توقف/پایان ===== */
 .ovl{position:absolute;inset:0;display:grid;place-items:center;background:rgba(12,10,20,.68);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:.28s;z-index:20;overflow:hidden}
 .ovl.on{opacity:1;pointer-events:auto}
@@ -199,7 +203,6 @@ button{font-family:inherit}
 .confetti{position:absolute;inset:0;pointer-events:none}
 .confetti i{position:absolute;top:-16px;border-radius:3px;animation:fall linear forwards}
 
-/* ===== راهنما ===== */
 .hi-row{display:flex;gap:13px;align-items:flex-start;margin-bottom:16px}
 .hi-hero{width:106px;flex:none;filter:drop-shadow(0 0 16px rgba(108,92,231,.4))}
 .hi-hero img,.hi-hero svg{width:100%;display:block}
@@ -229,7 +232,6 @@ button{font-family:inherit}
 .dcard .num{font-size:19px;font-weight:900;color:#d9fff0}
 .cap{text-align:center;color:var(--gold);font-weight:800;font-size:13px;margin:5px 0 0}
 
-/* ===== فروشگاه ===== */
 .tabs{display:flex;background:rgba(0,0,0,.32);border:1px solid var(--glass-brd);border-radius:15px;padding:4px;gap:4px;margin-bottom:15px}
 .tab{flex:1;padding:10px;border-radius:11px;border:none;background:transparent;color:var(--dim);
   font-weight:800;font-size:14px;display:flex;gap:8px;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
@@ -252,7 +254,6 @@ button{font-family:inherit}
 .btn-cur{background:rgba(0,184,148,.16);color:#b8ffe9;border:1px solid rgba(0,255,157,.4);cursor:default}
 .btn-cur .ic{width:15px;height:15px}
 
-/* ===== توست ===== */
 #toast{position:fixed;bottom:26px;right:50%;transform:translateX(50%) translateY(18px);
   background:rgba(30,30,47,.94);border:1px solid var(--glass-brd);backdrop-filter:blur(10px);
   padding:11px 20px;border-radius:14px;font-weight:700;font-size:13.5px;opacity:0;pointer-events:none;
@@ -264,7 +265,6 @@ button{font-family:inherit}
 <div class="starfield"></div>
 <div id="app">
 
-<!-- ===== آیکون‌های SVG داخلی ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.4v13.2L19 12z" fill="currentColor"/></symbol>
   <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7.4 5h3.2v14H7.4zM13.4 5h3.2v14h-3.2z" fill="currentColor"/></symbol>
@@ -287,7 +287,7 @@ button{font-family:inherit}
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z" fill="currentColor"/></symbol>
 </defs></svg>
 
-<!-- ===== نماد چوب‌کبریت (با خط دور برای تفکیک واضح) ===== -->
+<!-- نماد چوب‌کبریت (فقط پیش‌نمایش فروشگاه) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="match" viewBox="0 0 100 26">
     <rect x="16" y="6.5" width="82" height="13" rx="6.5" fill="var(--wood)" stroke="rgba(0,0,0,.32)" stroke-width="1.4"/>
@@ -299,7 +299,7 @@ button{font-family:inherit}
   </symbol>
 </defs></svg>
 
-<!-- ===== صفحهٔ اصلی (ساختار LOKO) ===== -->
+<!-- ===== صفحهٔ اصلی ===== -->
 <section id="scrHome" class="screen on">
   <div class="hud">
     <button class="icon-btn" id="btnMute" aria-label="صدا"><svg class="ic"><use id="muteUse" href="#i-vol"/></svg></button>
@@ -407,7 +407,12 @@ const store={
   del(k){try{localStorage.removeItem('mk_'+k)}catch(e){}}
 };
 
-/* ================= صدا (Web Audio — کاملاً داخلی) ================= */
+/* نشانهٔ نسخه — برای اطمینان از به‌روز بودن فایل، کنسول را چک کنید (F12) */
+console.log('%c✔ ماجرای چوب‌کبریت — Build v3','background:#00B894;color:#fff;padding:3px 10px;border-radius:5px;font-weight:bold;font-size:13px');
+/* نمایش هر خطای جاوااسکریپت به‌جای شکستن بی‌صدا */
+window.addEventListener('error',e=>{try{toast('⚠ خطا: '+e.message)}catch(_){}});
+
+/* ================= صدا ================= */
 let AC=null, muted=store.get('muted',false);
 function ac(){ if(!AC) AC=new (window.AudioContext||window.webkitAudioContext)(); if(AC.state==='suspended')AC.resume(); return AC; }
 function tone(f,t0,dur,type,vol){
@@ -423,7 +428,6 @@ function tone(f,t0,dur,type,vol){
 const sfx={
   click(){tone(740,0,.06,'triangle',.11);tone(1050,0,.04,'sine',.05)},
   pop(){tone(520,0,.05,'square',.05)},
-  good(){[660,880,1175].forEach((f,i)=>tone(f,i*.075,.17,'triangle',.13))},
   bad(){tone(215,0,.15,'sawtooth',.09);tone(150,.09,.2,'sawtooth',.08)},
   coin(){tone(1320,0,.09,'sine',.11);tone(1760,.07,.15,'sine',.1)},
   win(){[523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.24,'triangle',.12))},
@@ -434,7 +438,7 @@ document.addEventListener('pointerdown',e=>{
   if(e.target.closest('.btn,.tab,.icon-btn'))sfx.click();
 },{capture:true});
 
-/* ================= کاراکتر پیکسلی (جایگزین تصویر لوکال) ================= */
+/* ================= کاراکتر پیکسلی ================= */
 const PIXC={F:'#FF8B3D',Y:'#FFD66B',B:'#EAC79B',E:'#3A2418',K:'#FF8F7A',M:'#8A4A2B',A:'#D8AB74',S:'#6B4A2C'};
 const PIX={
  idle:[
@@ -467,7 +471,6 @@ function mountCoinImg(img){
 }
 
 /* ================= ناوبری، توست، سکه ================= */
-function go(id){ $$('.screen').forEach(s=>s.classList.remove('on')); $(id).classList.add('on'); window.scrollTo(0,0); }
 let toastT;
 function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),2300); }
 let coins=store.get('coins',0);
@@ -478,44 +481,33 @@ function updateCoins(anim=true){
 function addCoins(n){ coins+=n; store.set('coins',coins); updateCoins(); sfx.coin(); }
 function applyLook(){
   document.body.dataset.skin=store.get('skin','classic');
-  let th=store.get('theme','loko');
+  const th=store.get('theme','loko');
   const T=THEMES.find(x=>x.id===th)||THEMES[0];
   document.body.dataset.theme=T.id; store.set('theme',T.id);
   document.body.style.setProperty('--glowA',T.glowA);
   document.body.style.setProperty('--glowB',T.glowB||'transparent');
 }
 
-/* ================= معیارهای سنجش داخلی (پنهان از کاربر) ================= */
+/* ================= سنجش داخلی ================= */
 function track(ev,data){
   const rec=Object.assign({t:Date.now(),ev},data);
   const log=store.get('alog',[]); log.push(rec); if(log.length>600)log.shift(); store.set('alog',log);
   console.log('%c[سنجش داخلی]','background:#6C5CE7;color:#fff;padding:1px 7px;border-radius:4px;font-weight:bold',rec);
 }
 
-/* ================= چیدمان واضح چوب‌کبریت‌ها =================
-   ردیف‌های ۵تاییِ کاملاً صاف (بدون چرخش)، فاصلهٔ زیاد،
-   نوار پس‌زمینهٔ هر ردیف برای گروه‌بندی، اندازهٔ بزرگ */
-function sticksSVG(n){
-  const per=n<=5?n:5, rows=Math.ceil(n/per);
-  const GX=46, GY=40, M=8;
-  const W=per*100+(per-1)*GX+M*2, H=rows*26+(rows-1)*GY+M*2;
-  let bands='',s='',rem=n,k=0;
-  for(let r=0;r<rows;r++){
-    const cnt=Math.min(per,rem); rem-=cnt;
-    const y=M+r*(26+GY);
-    if(rows>1){
-      const rw=cnt*100+(cnt-1)*GX;
-      bands+=`<rect x="${M-7}" y="${y-6}" width="${rw+14}" height="38" rx="19" fill="rgba(255,255,255,.055)"/>`;
-    }
-    for(let i=0;i<cnt;i++){
-      s+=`<g transform="translate(${M+i*(100+GX)} ${y})"><use href="#match" style="animation-delay:${(k++)*45}ms"/></g>`;
-    }
+/* ================= چوب‌کبریت‌های ایستاده (HTML خالص، ردیف‌های ۵تایی) ================= */
+function sticksHTML(n){
+  let out='',k=0;
+  for(let r=0;r<n;r+=5){
+    const cnt=Math.min(5,n-r);
+    let row='';
+    for(let i=0;i<cnt;i++) row+=`<i class="m" style="animation-delay:${(k++)*40}ms"></i>`;
+    out+=`<div class="mrow">${row}</div>`;
   }
-  const maxW=rows===1?210:rows===2?200:rows===3?185:172;
-  return `<svg class="stks" viewBox="0 0 ${W} ${H}" style="max-width:${maxW}px">${bands}${s}</svg>`;
+  return `<div class="sticks">${out}</div>`;
 }
 
-/* ================= داده‌های بازی (بدون تغییر) ================= */
+/* ================= داده‌های بازی ================= */
 const LEVELS=8, TOTAL=64;
 const POOL=[
   {name:'یکی‌یکی',s:1,d:1},
@@ -547,6 +539,11 @@ function startGame(){
      m:{correct:0,wrong:0,times:[]},lc:0,lw:0};
   setupLevel(); saveGame(); go('#scrGame'); renderPattern();
 }
+/* شروع مجدد واقعی: ذخیره پاک و بازی از مرحلهٔ ۱ */
+function restartGame(){
+  store.del('save');
+  startGame();
+}
 function setupLevel(){
   const [a,b]=pickTwo(G.level), P=[POOL[a],POOL[b]];
   G.names=P.map(p=>p.name);
@@ -560,14 +557,14 @@ function saveGame(){ store.set('save',G); }
 const fillCount=()=>G.filled.flat().filter(Boolean).length;
 
 function renderPattern(){
-  selChip=null;
+  cancelDrag();
   const seq=G.seqs[G.pi];
   $('#gLevel').textContent=`مرحله ${fa(G.level)} از ${fa(LEVELS)}`;
   $('#gsub').innerHTML=`<i class="dot${G.pi===0?' on':''}"></i><i class="dot${G.pi===1?' on':''}"></i>الگو ${fa(G.pi+1)} از ۲`;
   $('#patName').textContent=`الگوی «${G.names[G.pi]}»`;
   $('#cards').innerHTML=seq.map((v,j)=>`
     <div class="card">
-      <div class="sticks">${sticksSVG(v)}</div>
+      ${sticksHTML(v)}
       <div class="slot${G.filled[G.pi][j]?' done':''}" data-v="${v}" data-i="${j}">
         ${G.filled[G.pi][j]?`<b class="num">${fa(v)}</b><svg class="ic ok"><use href="#i-check"/></svg>`:`<span class="q">؟</span>`}
       </div>
@@ -578,11 +575,22 @@ function renderPattern(){
   $('#dragHint').hidden=!!store.get('hint',false);
 }
 
-/* ================= درگ‌اند‌دراپ لمسی + تپ (منطق دست‌نخورده) ================= */
+/* ================= درگ‌اند‌دراپ لمسی + تپ ================= */
 const ghost=$('#ghost');
 let drag=null, selChip=null, justDropped=false;
 function slotAt(x,y){ const el=document.elementFromPoint(x,y); const s=el&&el.closest('.slot'); return (s&&!s.classList.contains('done'))?s:null; }
 function moveGhost(x,y){ ghost.style.left=x+'px'; ghost.style.top=(y-42)+'px'; }
+function cancelDrag(){
+  if(drag){
+    ghost.classList.remove('on'); drag.chip.classList.remove('lift');
+    drag.over&&drag.over.classList.remove('over');
+    window.removeEventListener('pointermove',onMove);
+    window.removeEventListener('pointerup',onUp);
+    window.removeEventListener('pointercancel',onUp);
+    drag=null;
+  }
+  if(selChip){ selChip.classList.remove('sel'); selChip=null; }
+}
  $('#numbar').addEventListener('contextmenu',e=>e.preventDefault());
  $('#numbar').addEventListener('pointerdown',e=>{
   const chip=e.target.closest('.chip'); if(!chip||chip.classList.contains('used'))return;
@@ -626,12 +634,12 @@ function onUp(e){
   else{ sl.classList.add('no'); setTimeout(()=>sl.classList.remove('no'),450); }
 });
 function tryPlace(chip,slot){
-  if(selChip){selChip.classList.remove('sel');selChip=null;}
+  cancelDrag();
   const v=+chip.dataset.v, need=+slot.dataset.v, idx=+slot.dataset.i, pi=G.pi, M=G.m;
   if(v===need){
     slot.classList.add('done');
     slot.innerHTML=`<b class="num">${fa(v)}</b><svg class="ic ok"><use href="#i-check"/></svg>`;
-    chip.classList.add('used'); chip.classList.remove('lift','sel');
+    chip.classList.add('used');
     G.filled[pi][idx]=true; G.lc++; M.correct++;
     const dt=Math.round(performance.now()-(G.shown[pi][idx]||performance.now()));
     M.times.push(dt);
@@ -644,12 +652,20 @@ function tryPlace(chip,slot){
     track('answer',{ok:false,need,v,level:G.level,pattern:G.names[pi],slot:idx});
     sfx.bad();
     slot.classList.add('no'); setTimeout(()=>slot.classList.remove('no'),500);
-    chip.classList.remove('lift','sel');
   }
 }
 
-/* ================= روکش (با ستاره، کاراکتر و ۳ دکمه) ================= */
-let ovA=null,ovB=null,ovC=null;
+/* ================= ناوبری ================= */
+function go(id){
+  cancelDrag();
+  $('#ovl').classList.remove('on');
+  $$('.screen').forEach(s=>s.classList.remove('on'));
+  $(id).classList.add('on');
+  window.scrollTo(0,0);
+}
+function goHome(){ renderHome(); go('#scrHome'); }
+
+/* ================= روکش (اتصال مستقیم دکمه‌ها) ================= */
 function showOverlay(o){
   const ch=$('#ovlChar'); ch.hidden=!o.char; if(o.char)ch.innerHTML=pixelHero(false);
   const ic=$('#ovlIcon'); ic.hidden=!o.icon;
@@ -661,14 +677,13 @@ function showOverlay(o){
   $('#ovlBtn').textContent=o.btn||'باشه';
   const b2=$('#ovlBtn2'); b2.hidden=!o.btn2; if(o.btn2)b2.textContent=o.btn2;
   const b3=$('#ovlBtn3'); b3.hidden=!o.btn3; if(o.btn3)b3.textContent=o.btn3;
-  ovA=o.action||null; ovB=o.action2||null; ovC=o.action3||null;
+  $('#ovlBtn').onclick =()=>{ hideOverlay(); o.action &&o.action(); };
+  $('#ovlBtn2').onclick=()=>{ hideOverlay(); o.action2&&o.action2(); };
+  $('#ovlBtn3').onclick=()=>{ hideOverlay(); o.action3&&o.action3(); };
   $('#ovl').classList.add('on');
   if(o.party)confetti();
 }
 function hideOverlay(){ $('#ovl').classList.remove('on'); }
- $('#ovlBtn').addEventListener('click',()=>{ hideOverlay(); const a=ovA; ovA=null; a&&a(); });
- $('#ovlBtn2').addEventListener('click',()=>{ hideOverlay(); const a=ovB; ovB=null; a&&a(); });
- $('#ovlBtn3').addEventListener('click',()=>{ hideOverlay(); const a=ovC; ovC=null; a&&a(); });
 function confetti(){
   const c=$('#confetti'); c.innerHTML='';
   const cols=['#FFC93C','#6C5CE7','#00D2FF','#FF00A0','#00FF9D','#FFEAA7'];
@@ -684,19 +699,22 @@ function confetti(){
   setTimeout(()=>{c.innerHTML=''},3700);
 }
 
-/* ================= جریان مراحل ================= */
+/* ================= جریان مراحل =================
+   پایان هر الگو: انیمیشن + صدا، بدون مودال؛ الگوی دوم خودکار می‌آید.
+   پایان هر دو الگو: مودال پایان مرحله با «مرحلهٔ بعد» و «منوی اصلی». */
 function patternDone(){
+  const gr=G;                       // نشانه برای لغو در صورت «شروع مجدد»
   sfx.win();
-  $$('#cards .stks').forEach(s=>s.classList.add('wave'));
-  setTimeout(function tryO(){
-    if($('#ovl').classList.contains('on')){ setTimeout(tryO,300); return; }
-    showOverlay({icon:'i-spark',title:'آفرین!',
-      text:`الگوی «${G.names[G.pi]}» را کامل کردی.`,btn:'ادامه',action:nextPattern});
-  },800);
-}
-function nextPattern(){
-  if(G.pi===0){ G.pi=1; saveGame(); renderPattern(); }
-  else levelDone();
+  $$('#cards .m').forEach((m,i)=>{m.style.animationDelay=(i*35)+'ms';m.classList.add('wave');});
+  const first=G.pi===0;
+  if(first){ G.pi=1; saveGame(); }  // پیشروی وضعیت بلافاصله — ذخیرهٔ مرده نمی‌ماند
+  setTimeout(function adv(n){
+    n=n||0;
+    if(G!==gr)return;               // بازی ریست/خارج شده — بی‌خیال
+    if($('#ovl').classList.contains('on')&&n<120){ setTimeout(()=>adv(n+1),400); return; }
+    if(G!==gr)return;
+    first?renderPattern():levelDone();
+  },900);
 }
 function levelDone(){
   track('level_end',{
@@ -709,7 +727,6 @@ function levelDone(){
   const stars=starCount(G.lc,G.lw);
   if(G.level>=LEVELS){
     store.del('save');
-    /* قانون LOKO: پاداش فقط پس از پایان «همهٔ» مراحل — ۱۰ اگر سکهٔ اولیه صفر بود، وگرنه ۱ */
     const reward=(G.startCoins===0)?10:1;
     addCoins(reward);
     track('game_end',{correct:G.m.correct,wrong:G.m.wrong,progressPct:100,
@@ -717,30 +734,28 @@ function levelDone(){
     showOverlay({char:true,stars,title:'همهٔ مراحل تمام شد!',
       text:'تو قهرمان الگوهای چوب‌کبریتی شدی!',gain:reward,
       btn:'بازی از اول',btn2:'منوی اصلی',
-      action:startGame,action2:()=>{renderHome();go('#scrHome');},party:true});
+      action:restartGame,action2:goHome,party:true});
   }else{
     saveGame();
     showOverlay({icon:'i-trophy',stars,title:`مرحلهٔ ${fa(G.level)} تمام شد!`,
-      text:'چه شمارندگی حرفه‌ای!',btn:'مرحلهٔ بعد',party:true,
-      action:()=>{ G.level++; G.pi=0; setupLevel(); saveGame(); renderPattern(); }});
+      text:'چه شمارندگی حرفه‌ای!',btn:'مرحلهٔ بعد',btn2:'منوی اصلی',party:true,
+      action:()=>{ G.level++; G.pi=0; setupLevel(); saveGame(); renderPattern(); },
+      action2:goHome});
   }
 }
 
-/* ================= توقف داخل بازی (نه در صفحهٔ اصلی) ================= */
+/* ================= توقف داخل بازی ================= */
  $('#btnPause').addEventListener('click',()=>{
-  try{ if(drag){ ghost.classList.remove('on'); drag.chip.classList.remove('lift'); drag.over&&drag.over.classList.remove('over');
-    window.removeEventListener('pointermove',onMove); window.removeEventListener('pointerup',onUp);
-    window.removeEventListener('pointercancel',onUp); drag=null; } }catch(e){}
-  if(selChip){selChip.classList.remove('sel');selChip=null;}
+  if(!G)return;
+  cancelDrag();
   saveGame(); track('pause',{level:G.level,solved:fillCount()});
   showOverlay({icon:'i-pause',title:'بازی متوقف شد',
-    text:`مرحلهٔ ${fa(G.level)} — هر وقت آماده بودی از همین‌جا ادامه بده!`,
+    text:`مرحلهٔ ${fa(G.level)} — از همین‌جا ادامه بده یا از اول شروع کن.`,
     btn:'ادامهٔ بازی',btn2:'شروع مجدد',btn3:'منوی اصلی',
-    action:null,action2:startGame,
-    action3:()=>{ renderHome(); go('#scrHome'); }});
+    action:null,action2:restartGame,action3:goHome});
 });
 
-/* ================= صفحهٔ اصلی (فقط یک دکمهٔ شروع/ادامه) ================= */
+/* ================= صفحهٔ اصلی ================= */
 function renderHome(){
   updateCoins(false);
   const sv=store.get('save',null);
@@ -748,8 +763,12 @@ function renderHome(){
 }
 function resumeGame(){
   G=store.get('save',null);
-  if(!G||!G.seqs){ startGame(); return; }
-  go('#scrGame'); renderPattern();
+  if(!G||!G.seqs||!G.filled||!G.opts||!G.names||!G.m){ startGame(); return; }
+  /* اگر الگو(ها) در ذخیره کامل شده‌اند، از آن‌ها رد شو */
+  while(G.pi<2 && G.filled[G.pi] && G.filled[G.pi].length===4 && G.filled[G.pi].every(Boolean)) G.pi++;
+  go('#scrGame');
+  if(G.pi>=2){ levelDone(); return; }
+  renderPattern();
 }
  $('#btnStart').addEventListener('click',()=>{
   const sv=store.get('save',null);
@@ -757,7 +776,7 @@ function resumeGame(){
 });
  $('#btnShop').addEventListener('click',()=>{ renderShop(); go('#scrShop'); });
  $('#btnHelp').addEventListener('click',()=>go('#scrHelp'));
- $$('[data-back]').forEach(b=>b.addEventListener('click',()=>{ renderHome(); go('#scrHome'); }));
+ $$('[data-back]').forEach(b=>b.addEventListener('click',goHome));
  $('#btnMute').addEventListener('click',()=>{
   muted=!muted; store.set('muted',muted);
   $('#muteUse').setAttribute('href',muted?'#i-vol-off':'#i-vol');
@@ -779,7 +798,7 @@ function buildHelp(){
       <span class="s-ic"><svg class="ic"><use href="#${s.ic}"/></svg></span>
       <div><b>${s.t}</b><p>${s.d}</p></div></div>`).join('');
   $('#demoRow').innerHTML=[2,4,6].map(v=>`
-    <div class="dcard"><div>${sticksSVG(v)}</div>
+    <div class="dcard">${sticksHTML(v)}
       <div class="slot"><b class="num">${fa(v)}</b></div></div>`).join('');
 }
 
@@ -795,61 +814,80 @@ const SKINS=[
   {id:'gold',   name:'طلایی',        price:15,wood:'#e8c35d',woodHi:'#f8e49b',woodLo:'#c39a33',head:'#cf8b2a',headHi:'#f2c377',headLo:'#966012'},
 ];
 const THEMES=[
-  {id:'loko',  name:'شب لوکو',      price:0, glowA:'rgba(108,92,231,.30)',glowB:'rgba(108,92,231,.14)'},
-  {id:'forest',name:'جنگل نئون',    price:8, glowA:'rgba(0,255,157,.15)', glowB:'rgba(0,180,120,.10)'},
-  {id:'stars', name:'شب پرستاره',   price:8, glowA:'rgba(0,210,255,.22)', glowB:'rgba(108,92,231,.16)'},
-  {id:'neon',  name:'شهر نئون',     price:10,glowA:'rgba(255,0,160,.20)', glowB:'rgba(0,210,255,.18)'},
-  {id:'sea',   name:'اعماق دریا',   price:12,glowA:'rgba(0,210,255,.16)', glowB:'rgba(0,120,220,.14)'},
-  {id:'ember', name:'غروب طلایی',   price:15,glowA:'rgba(255,201,60,.18)',glowB:'rgba(255,120,60,.16)'},
+  {id:'loko',  name:'شب لوکو',       price:0,  glowA:'rgba(108,92,231,.30)',glowB:'rgba(108,92,231,.14)'},
+  {id:'forest',name:'جنگل نئون',     price:8,  glowA:'rgba(0,255,157,.22)', glowB:'rgba(0,210,255,.10)'},
+  {id:'stars', name:'آسمان پرستاره', price:10, glowA:'rgba(0,210,255,.22)', glowB:'rgba(255,255,255,.12)'},
+  {id:'sunset',name:'غروب نئون',     price:12, glowA:'rgba(255,0,160,.26)', glowB:'rgba(255,170,60,.16)'},
 ];
+let ownedSkins=store.get('ownedSkins',['classic']);
+let ownedThemes=store.get('ownedThemes',['loko']);
 let shopTab='skins';
-const skinPrev=it=>`<svg class="pstick" viewBox="0 0 100 26" style="--wood:${it.wood};--wood-hi:${it.woodHi};--wood-lo:${it.woodLo};--head:${it.head};--head-hi:${it.headHi};--head-lo:${it.headLo}"><use href="#match"/></svg>`;
-const themePrev=t=>`<span class="tsw" style="background:radial-gradient(120% 90% at 50% 0%, ${t.glowA}, transparent 62%), radial-gradient(120% 90% at 50% 100%, ${t.glowB||'transparent'}, transparent 62%), linear-gradient(135deg,#0c0a14,#181225)">${t.id==='stars'?'<svg class="ic"><use href="#i-star"/></svg>':''}</span>`;
+
+ $$('.tab').forEach(t=>t.addEventListener('click',()=>{
+  $$('.tab').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on'); shopTab=t.dataset.tab; renderShop();
+}));
+
+function shopBtn(cur,own,type,id,price){
+  if(cur) return `<button class="btn btn-cur"><svg class="ic"><use href="#i-check"/></svg>فعال</button>`;
+  if(own) return `<button class="btn btn-purple" data-equip="${type}:${id}">انتخاب</button>`;
+  return `<button class="btn btn-buy" data-buy="${type}:${id}"><svg class="ic"><use href="#i-coin"/></svg>${fa(price)}</button>`;
+}
 function renderShop(){
-  updateCoins(false);
-  $$('.tab').forEach(t=>t.classList.toggle('on',t.dataset.tab===shopTab));
-  const owned=store.get('owned',['classic','loko']);
-  const cur=shopTab==='skins'?store.get('skin','classic'):store.get('theme','loko');
-  const list=shopTab==='skins'?SKINS:THEMES;
-  $('#shopGrid').innerHTML=list.map(it=>{
-    const has=owned.includes(it.id), isCur=cur===it.id;
-    let btn;
-    if(isCur)    btn=`<button class="btn btn-cur" disabled><svg class="ic"><use href="#i-check"/></svg>روی همین است</button>`;
-    else if(has) btn=`<button class="btn btn-purple" data-act="equip" data-id="${it.id}">انتخاب</button>`;
-    else         btn=`<button class="btn btn-buy" data-act="buy" data-id="${it.id}"><svg class="ic"><use href="#i-coin"/></svg>${fa(it.price)}</button>`;
-    return `<div class="item"><div class="prev">${shopTab==='skins'?skinPrev(it):themePrev(it)}</div><h4>${it.name}</h4>${btn}</div>`;
-  }).join('');
+  const g=$('#shopGrid');
+  if(shopTab==='skins'){
+    const cur=store.get('skin','classic');
+    g.innerHTML=SKINS.map(s=>`
+      <div class="item">
+        <div class="prev"><svg class="pstick" style="--wood:${s.wood};--wood-hi:${s.woodHi};--wood-lo:${s.woodLo};--head:${s.head};--head-hi:${s.headHi};--head-lo:${s.headLo}"><use href="#match"/></svg></div>
+        <h4>${s.name}</h4>
+        ${shopBtn(cur===s.id,ownedSkins.includes(s.id),'skin',s.id,s.price)}
+      </div>`).join('');
+  }else{
+    const cur=store.get('theme','loko');
+    g.innerHTML=THEMES.map(t=>`
+      <div class="item">
+        <div class="prev"><div class="tsw" style="background:linear-gradient(135deg,${t.glowA},${t.glowB||'rgba(255,255,255,.06)'}),#181225"><svg class="ic"><use href="#i-brush"/></svg></div></div>
+        <h4>${t.name}</h4>
+        ${shopBtn(cur===t.id,ownedThemes.includes(t.id),'theme',t.id,t.price)}
+      </div>`).join('');
+  }
 }
  $('#shopGrid').addEventListener('click',e=>{
-  const b=e.target.closest('[data-act]'); if(!b)return;
-  const list=shopTab==='skins'?SKINS:THEMES;
-  const it=list.find(x=>x.id===b.dataset.id); if(!it)return;
-  const key=shopTab==='skins'?'skin':'theme';
-  if(b.dataset.act==='equip'){ store.set(key,it.id); applyLook(); toast('انجام شد!'); renderShop(); return; }
-  if(coins<it.price){
-    sfx.bad(); b.classList.add('no'); setTimeout(()=>b.classList.remove('no'),460);
-    toast('سکه کافی نداری! بازی را تا آخر برسان تا سکهٔ لوکو بگیری.'); return;
+  const buy=e.target.closest('[data-buy]'), eq=e.target.closest('[data-equip]');
+  if(buy){
+    const [type,id]=buy.dataset.buy.split(':');
+    const item=type==='skin'?SKINS.find(x=>x.id===id):THEMES.find(x=>x.id===id);
+    if(!item)return;
+    if(coins<item.price){
+      sfx.bad(); buy.classList.add('no'); setTimeout(()=>buy.classList.remove('no'),500);
+      toast('سکه کافی نداری! بازی کن و سکه جمع کن'); return;
+    }
+    coins-=item.price; store.set('coins',coins); updateCoins();
+    if(type==='skin'){ ownedSkins.push(id); store.set('ownedSkins',ownedSkins); store.set('skin',id); }
+    else{ ownedThemes.push(id); store.set('ownedThemes',ownedThemes); store.set('theme',id); }
+    applyLook(); renderShop(); sfx.buy();
+    toast(`«${item.name}» خریداری و فعال شد!`);
+  }else if(eq){
+    const [type,id]=eq.dataset.equip.split(':');
+    if(type==='skin')store.set('skin',id); else store.set('theme',id);
+    applyLook(); renderShop(); sfx.click();
   }
-  coins-=it.price; store.set('coins',coins);
-  const owned=store.get('owned',['classic','loko']); owned.push(it.id); store.set('owned',owned);
-  store.set(key,it.id); applyLook();
-  sfx.buy(); toast('خریداری شد! چه انتخاب قشنگی!');
-  renderShop(); updateCoins();
 });
- $$('.tab').forEach(t=>t.addEventListener('click',()=>{ shopTab=t.dataset.tab; renderShop(); }));
 
-/* ================= راه‌اندازی ================= */
-applyLook(); buildHelp(); renderShop(); renderHome();
+/* ================= اجرای اولیه ================= */
+ $$('[data-hero]').forEach(img=>{
+  if(img.complete&&img.naturalWidth===0)mountHero(img);
+  else img.addEventListener('error',()=>mountHero(img),{once:true});
+});
+ $$('.coin-icon-img').forEach(img=>{
+  if(img.complete&&img.naturalWidth===0)mountCoinImg(img);
+  else img.addEventListener('error',()=>mountCoinImg(img),{once:true});
+});
+buildHelp();
+applyLook();
+renderHome();
 if(muted)$('#muteUse').setAttribute('href','#i-vol-off');
- $$('img[data-hero]').forEach(im=>{
-  const chk=()=>{ if(im.complete&&im.naturalWidth===0) mountHero(im); };
-  if(im.complete)chk(); else im.addEventListener('error',()=>mountHero(im),{once:true});
-});
- $$('.coin-icon-img').forEach(im=>{
-  const chk=()=>{ if(im.complete&&im.naturalWidth===0) mountCoinImg(im); };
-  if(im.complete)chk(); else im.addEventListener('error',()=>mountCoinImg(im),{once:true});
-});
-track('session_start',{coins});
 </script>
 </body>
 </html>
