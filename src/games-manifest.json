@@ -1,0 +1,1496 @@
+{
+  "generatedAt": "2026-09-28T20:49:18.985Z",
+  "total": 94,
+  "archived": 3,
+  "games": [
+    {
+      "file": "C1KfF2S2g2.html",
+      "title": "پیدا کردن اشیا تو خونه‌ی لوکو! | فارسی اول",
+      "code": "C1KFF2S2M2",
+      "archive": false,
+      "class": 1,
+      "book": "f",
+      "chapter": {
+        "code": "F2",
+        "num": 2
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KnF1S1g1.html",
+      "title": "کارخانه خط‌های صاف - LOKO",
+      "code": "C1KNF1S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KnF1S1g2.html",
+      "title": "نقاش کوچولو - LuKO",
+      "code": "C1KNF1S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KnF1S1g3.html",
+      "title": "ماجراجویی خط خمیده - LOKO Game",
+      "code": "C1KNF1S1M3",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C1KnF1S1g4.html",
+      "title": "قطار نگارش - LOKO Edition",
+      "code": "C1KNF1S1M4",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 4
+    },
+    {
+      "file": "C1KnF1S2g5.html",
+      "title": "نقطه‌یاب | LOKO System",
+      "code": "C1KNF1S2M5",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 5
+    },
+    {
+      "file": "C1KnF1S2g6.html",
+      "title": "معمای نگارش | مهارت‌های نوشتاری پایه اول",
+      "code": "C1KNF1S2M6",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 6
+    },
+    {
+      "file": "C1KnF1S2g7.html",
+      "title": "نقاش کوچولو - LOKO",
+      "code": "C1KNF1S2M7",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 7
+    },
+    {
+      "file": "C1KnF2S1g1.html",
+      "title": "ماجراجویی کلمات | LOKO System",
+      "code": "C1KNF2S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F2",
+        "num": 2
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KnF2S1g2.html",
+      "title": "ماجراهای حروف",
+      "code": "C1KNF2S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F2",
+        "num": 2
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KnF2S1g3.html",
+      "title": "صداهای جادویی حروف | نگارش پایه اول",
+      "code": "C1KNF2S1M3",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F2",
+        "num": 2
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C1KnF2S3G1.html",
+      "title": "شکارچی نشانه س | بازی تقویت توجه و تشخیص الگو",
+      "code": "C1KNF2S3M1",
+      "archive": false,
+      "class": 1,
+      "book": "n",
+      "chapter": {
+        "code": "F2",
+        "num": 2
+      },
+      "season": {
+        "num": 3
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KoF1S1g1.html",
+      "title": "یادگیری سایه - حیاط مدرسه",
+      "code": "C1KOF1S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "o",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KoF1S1g2.html",
+      "title": "آزمایشگاه میوه‌ها - علوم کلاس اول",
+      "code": "C1KOF1S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "o",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KoF1S1g3.html",
+      "title": "کارخانه خوراکی‌ها -",
+      "code": "C1KOF1S1M3",
+      "archive": false,
+      "class": 1,
+      "book": "o",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C1KoF1S2g4.html",
+      "title": "آزمایشگاه میوه‌ها - علوم کلاس اول",
+      "code": "C1KOF1S2M4",
+      "archive": false,
+      "class": 1,
+      "book": "o",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 4
+    },
+    {
+      "file": "C1KoF2S1g2.html",
+      "title": "شکارچی تصاویر",
+      "code": "C1KOF2S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "o",
+      "chapter": {
+        "code": "F2",
+        "num": 2
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KoF3S1g1.html",
+      "title": "کارخانه خوراکی‌ها",
+      "code": "C1KOF3S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "o",
+      "chapter": {
+        "code": "F3",
+        "num": 3
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KqF1S1g1.html",
+      "title": "نعمت‌یاب",
+      "code": "C1KQF1S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "q",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KqF1S1g2.html",
+      "title": "تابش نور",
+      "code": "C1KQF1S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "q",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KqF1S1g3.html",
+      "title": "سلام کنیم",
+      "code": "C1KQF1S1M3",
+      "archive": false,
+      "class": 1,
+      "book": "q",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C1KqF1S1g4.html",
+      "title": "بازی نقاشی نور - LOKO System",
+      "code": "C1KQF1S1M4",
+      "archive": false,
+      "class": 1,
+      "book": "q",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 4
+    },
+    {
+      "file": "C1KrF11Sg1.html",
+      "title": "ماجراجویی ماهی کوچک",
+      "code": "C1KRF11SM1",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F11",
+        "num": 11
+      },
+      "season": {
+        "num": null
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KrF15S1g1.html",
+      "title": "تقسیم‌بندی قشنگ | ماجراجویی ریاضی",
+      "code": "C1KRF15S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F15",
+        "num": 15
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KrF1S1g1.html",
+      "title": "جزیره جادویی - ماجراجویی پیکسل",
+      "code": "C1KRF1S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KrF1S1g2.html",
+      "title": "قطار اعداد فضایی",
+      "code": "C1KRF1S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KrF1S1g3.html",
+      "title": "جزیره جادویی - ماجراجویی با پیکسل",
+      "code": "C1KRF1S1M3",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C1KrF1S1g4.html",
+      "title": "بازی هیولاهای گرسنه",
+      "code": "C1KRF1S1M4",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 4
+    },
+    {
+      "file": "C1KrF1S1G5.html",
+      "title": "نجات قبیله از خیلی",
+      "code": "C1KRF1S1M5",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 5
+    },
+    {
+      "file": "C1KrF1S1G6.html",
+      "title": "نجات قبیله از خیلی",
+      "code": "C1KRF1S1M6",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 6
+    },
+    {
+      "file": "C1KrF1S2g10.html",
+      "title": "سفر ماجراجویانه  -",
+      "code": "C1KRF1S2M10",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 10
+    },
+    {
+      "file": "C1KrF1S2g6.html",
+      "title": "سفر ریتم - LOKO UI",
+      "code": "C1KRF1S2M6",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 6
+    },
+    {
+      "file": "C1KrF1S2g7.html",
+      "title": "خرگوش مهربان - LOKO UI",
+      "code": "C1KRF1S2M7",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 7
+    },
+    {
+      "file": "C1KrF1S2g8.html",
+      "title": "آموزش اعداد فارسی 🌟",
+      "code": "C1KRF1S2M8",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 8
+    },
+    {
+      "file": "C1KrF1S2g9.html",
+      "title": "🎮 بازی اعداد لوکو",
+      "code": "C1KRF1S2M9",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 9
+    },
+    {
+      "file": "C1KrF3S1g1.html",
+      "title": "مزرعه زیبایی",
+      "code": "C1KRF3S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F3",
+        "num": 3
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KrF4S1G1.html",
+      "title": "گوشه‌یاب — ماجرای چوب کبریت",
+      "code": "C1KRF4S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F4",
+        "num": 4
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KrF4S1G2.html",
+      "title": "سیب‌ستانِ الگوها | بازی سوم ریاضی پایه اول",
+      "code": "C1KRF4S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F4",
+        "num": 4
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KrF4S1g4.html",
+      "title": "چوب‌کبریت‌های پیکسل | شمارش اضلاع",
+      "code": "C1KRF4S1M4",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F4",
+        "num": 4
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 4
+    },
+    {
+      "file": "C1KrF6S1g1.html",
+      "title": "ماجراجویی تفریق - LOKO",
+      "code": "C1KRF6S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F6",
+        "num": 6
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KrF6S1g2.html",
+      "title": "بالون‌های پروازی | لوکو",
+      "code": "C1KRF6S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F6",
+        "num": 6
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KrF8S1g1.html",
+      "title": "جنگل دوستی - LOKO Edition",
+      "code": "C1KRF8S1M1",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "F8",
+        "num": 8
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C1KrK2S1g2.html",
+      "title": "چوب‌کبریت‌های آشپزخانه",
+      "code": "C1KRK2S1M2",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "K2",
+        "num": null
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C1KrK2S1g4.html",
+      "title": "جدول شگفت‌انگیز | بازی ایموجی",
+      "code": "C1KRK2S1M4",
+      "archive": false,
+      "class": 1,
+      "book": "r",
+      "chapter": {
+        "code": "K2",
+        "num": null
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 4
+    },
+    {
+      "file": "C2KfF1S1G1.html",
+      "title": "بمب واژه‌ها",
+      "code": "C2KFF1S1M1",
+      "archive": false,
+      "class": 2,
+      "book": "f",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C2KhF1S1G1.html",
+      "title": "گنج آسمانی — کویز هدیه‌های آسمانی پایه دوم",
+      "code": "C2KHF1S1M1",
+      "archive": false,
+      "class": 2,
+      "book": "h",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C2KnF6S1g1.html",
+      "title": "شکارچی نشانه س | بازی تقویت توجه و تشخیص الگو",
+      "code": "C2KNF6S1M1",
+      "archive": false,
+      "class": 2,
+      "book": "n",
+      "chapter": {
+        "code": "F6",
+        "num": 6
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C2KrF1S1G1.html",
+      "title": "گل‌شمار — بازی ریاضی پایهٔ دوم",
+      "code": "C2KRF1S1M1",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C2KrF1S1G10.html",
+      "title": "نجات قبیله از خیلی",
+      "code": "C2KRF1S1M10",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 10
+    },
+    {
+      "file": "C2KrF1S1G11.html",
+      "title": "",
+      "code": "C2KRF1S1M11",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 11
+    },
+    {
+      "file": "C2KrF1S1G2.html",
+      "title": "ساعت‌های گمشده در شهر",
+      "code": "C2KRF1S1M2",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C2KrF1S1G3.html",
+      "title": "خط‌کش قبیله",
+      "code": "C2KRF1S1M3",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C2KrF1S1G4.html",
+      "title": "سودوکوی قبیله‌ای",
+      "code": "C2KRF1S1M4",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 4
+    },
+    {
+      "file": "C2KrF1S1G5.html",
+      "title": "پُلِ اعداد",
+      "code": "C2KRF1S1M5",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 5
+    },
+    {
+      "file": "C2KrF1S1G6.html",
+      "title": "پل‌سازی اعداد",
+      "code": "C2KRF1S1M6",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 6
+    },
+    {
+      "file": "C2KrF1S1G7.html",
+      "title": "کارخانه اعداد",
+      "code": "C2KRF1S1M7",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 7
+    },
+    {
+      "file": "C2KrF1S1G8.html",
+      "title": "برج‌های لوکی — بازی شمارش | ریاضی دوم دبستان",
+      "code": "C2KRF1S1M8",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 8
+    },
+    {
+      "file": "C2KrF1S1G9.html",
+      "title": "میوه‌شمار | LOKO",
+      "code": "C2KRF1S1M9",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 9
+    },
+    {
+      "file": "C2KrF1S2G8.html",
+      "title": "حدس بزن کدوم گل بیشتره! | فارسی اول",
+      "code": "C2KRF1S2M8",
+      "archive": false,
+      "class": 2,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 8
+    },
+    {
+      "file": "C3KfF2S1G1.html",
+      "title": "جاده‌ی واژه‌ها | مترادف یا متضاد؟",
+      "code": "C3KFF2S1M1",
+      "archive": false,
+      "class": 3,
+      "book": "f",
+      "chapter": {
+        "code": "F2",
+        "num": 2
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KhF1S2G1.html",
+      "title": "قصّه‌خانه — مولا و مرد بی‌دست",
+      "code": "C3KHF1S2M1",
+      "archive": false,
+      "class": 3,
+      "book": "h",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KoF12S1G1.html",
+      "title": "مسابقه برج‌سازی تخم",
+      "code": "C3KOF12S1M1",
+      "archive": false,
+      "class": 3,
+      "book": "o",
+      "chapter": {
+        "code": "F12",
+        "num": 12
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KoF12S1G2.html",
+      "title": "کاوشگر دنیای حشرات",
+      "code": "C3KOF12S1M2",
+      "archive": false,
+      "class": 3,
+      "book": "o",
+      "chapter": {
+        "code": "F12",
+        "num": 12
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C3KoF12S1G3.html",
+      "title": "تخم‌های پر سروصدا | تصمیم با نمودار",
+      "code": "C3KOF12S1M3",
+      "archive": false,
+      "class": 3,
+      "book": "o",
+      "chapter": {
+        "code": "F12",
+        "num": 12
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C3KoF1Sg5.html",
+      "title": "آزمایشگاه غذا - ماجراجویی با پیکسل",
+      "code": "C3KOF1SM5",
+      "archive": false,
+      "class": 3,
+      "book": "o",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": null
+      },
+      "stage": 5
+    },
+    {
+      "file": "C3KqF1S1G1.html",
+      "title": "کلمه‌های آسمانی",
+      "code": "C3KQF1S1M1",
+      "archive": false,
+      "class": 3,
+      "book": "q",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KqF3S11G1.html",
+      "title": "پیام‌های آسمانی",
+      "code": "C3KQF3S11M1",
+      "archive": false,
+      "class": 3,
+      "book": "q",
+      "chapter": {
+        "code": "F3",
+        "num": 3
+      },
+      "season": {
+        "num": 11
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KqF3S2G1.html",
+      "title": "پیام‌های آسمانی",
+      "code": "C3KQF3S2M1",
+      "archive": false,
+      "class": 3,
+      "book": "q",
+      "chapter": {
+        "code": "F3",
+        "num": 3
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KqF3S2G2.html",
+      "title": "پیام‌های آسمانی",
+      "code": "C3KQF3S2M2",
+      "archive": false,
+      "class": 3,
+      "book": "q",
+      "chapter": {
+        "code": "F3",
+        "num": 3
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 2
+    },
+    {
+      "file": "C3KqF3S5G1.html",
+      "title": "پیام‌های آسمانی",
+      "code": "C3KQF3S5M1",
+      "archive": false,
+      "class": 3,
+      "book": "q",
+      "chapter": {
+        "code": "F3",
+        "num": 3
+      },
+      "season": {
+        "num": 5
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KrF1S14g1.html",
+      "title": "دسته‌دسته | بازی دسته‌بندی اشکال",
+      "code": "C3KRF1S14M1",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 14
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KrF1S1G1.html",
+      "title": "ماشین آینده",
+      "code": "C3KRF1S1M1",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KrF1S1G10.html",
+      "title": "راز الگوها — بازی الگوهای عددی",
+      "code": "C3KRF1S1M10",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 10
+    },
+    {
+      "file": "C3KrF1S1G11.html",
+      "title": "شکارچی الگوها — بازی",
+      "code": "C3KRF1S1M11",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 11
+    },
+    {
+      "file": "C3KrF1S1G2.html",
+      "title": "بازی ویروس الگو | کشف قانون سیستم",
+      "code": "C3KRF1S1M2",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C3KrF1S1G3.html",
+      "title": "شهر زنده: معماری الگوها",
+      "code": "C3KRF1S1M3",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 3
+    },
+    {
+      "file": "C3KrF1S1G4.html",
+      "title": "طراح الگو: معلم کوچک",
+      "code": "C3KRF1S1M4",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 4
+    },
+    {
+      "file": "C3KrF1S1G5.html",
+      "title": "مغازه‌دار باهوش",
+      "code": "C3KRF1S1M5",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 5
+    },
+    {
+      "file": "C3KrF1S1G6.html",
+      "title": "ماشین پول‌سازی",
+      "code": "C3KRF1S1M6",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 6
+    },
+    {
+      "file": "C3KrF1S1G7.html",
+      "title": "الگوی ساختمان",
+      "code": "C3KRF1S1M7",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 7
+    },
+    {
+      "file": "C3KrF1S1G8.html",
+      "title": "مه‌تاب | بازی الگوی چرخهٔ ماه",
+      "code": "C3KRF1S1M8",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 8
+    },
+    {
+      "file": "C3KrF1S1G9.html",
+      "title": "ماجرای چوب‌کبریت | بازی الگوهای ریاضی",
+      "code": "C3KRF1S1M9",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 9
+    },
+    {
+      "file": "C3KrF1S2G6.html",
+      "title": "ماشین‌حساب جادویی",
+      "code": "C3KRF1S2M6",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 6
+    },
+    {
+      "file": "C3KrF1S2G8.html",
+      "title": "کارآگاه الگوها",
+      "code": "C3KRF1S2M8",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 8
+    },
+    {
+      "file": "C3KrF1S3G13.html",
+      "title": "ماجرای تقارن | بازی آموزش تقارن",
+      "code": "C3KRF1S3M13",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 3
+      },
+      "stage": 13
+    },
+    {
+      "file": "C3KrF1S3G14.html",
+      "title": "دنیای تقارن | بازی رنگ‌آمیزی قرینه",
+      "code": "C3KRF1S3M14",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 3
+      },
+      "stage": 14
+    },
+    {
+      "file": "C3KrF1S5G1.html",
+      "title": "کاغذ جادویی - تقارن",
+      "code": "C3KRF1S5M1",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 5
+      },
+      "stage": 1
+    },
+    {
+      "file": "C3KrF1S5G2.html",
+      "title": "تقارن - آینه جادویی",
+      "code": "C3KRF1S5M2",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 5
+      },
+      "stage": 2
+    },
+    {
+      "file": "C4KfF1S2G1.html",
+      "title": "کارخانه‌ی صداها — درس دوم: بی‌آموز",
+      "code": "C4KFF1S2M1",
+      "archive": false,
+      "class": 4,
+      "book": "f",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 1
+    },
+    {
+      "file": "C4KnF1S1G2.html",
+      "title": "🏝️ جزیره کلمات",
+      "code": "C4KNF1S1M2",
+      "archive": false,
+      "class": 4,
+      "book": "n",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 2
+    },
+    {
+      "file": "C4KrF1S1G1.html",
+      "title": "شهر بامبوهای زنده",
+      "code": "C4KRF1S1M1",
+      "archive": false,
+      "class": 4,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 1
+      },
+      "stage": 1
+    },
+    {
+      "file": "g2.html",
+      "title": "باغِ یار مهربان",
+      "code": "G2",
+      "archive": true,
+      "class": null,
+      "book": null,
+      "chapter": null,
+      "season": null,
+      "stage": null
+    },
+    {
+      "file": "g3.html",
+      "title": "هیولای مسجد — درس دوم",
+      "code": "G3",
+      "archive": true,
+      "class": null,
+      "book": null,
+      "chapter": null,
+      "season": null,
+      "stage": null
+    },
+    {
+      "file": "g4.html",
+      "title": "ماجرای هیولا — مسیر مسجد",
+      "code": "G4",
+      "archive": true,
+      "class": null,
+      "book": null,
+      "chapter": null,
+      "season": null,
+      "stage": null
+    }
+  ]
+}

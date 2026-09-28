@@ -14,6 +14,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "scan": "node scripts/generate-manifest.mjs",
+    "prestart": "npm run scan",
+    "prebuild": "npm run scan",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
