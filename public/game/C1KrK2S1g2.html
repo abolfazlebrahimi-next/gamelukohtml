@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+    <script src="./game-audio.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="description" content="بازی آموزشی چوب‌کبریت‌های آشپزخانه - آموزش شمارش و چوب‌خط برای پایه اول">
@@ -1161,6 +1162,7 @@ var Music = {
   running: false,
   started: false,
   start: function(){
+    if (window.__lokoUseExternalBackgroundMusic) return;
     if (!bgAudio || this.running) return;
     this.running = true;
     this.started = true;
