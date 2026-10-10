@@ -292,7 +292,7 @@
     // The game pages use several different guide/tutor implementations. A
     // small shared layer keeps the user-facing skip action consistent without
     // replacing any of the guides or their audio files.
-    const GUIDE_TOKEN_PATTERN = /(?:guide|tutorial|help|narrat|intro|voice|speech)/i;
+    const GUIDE_TOKEN_PATTERN = /(?:guide|tutorial|help|narrat|intro|voice)/i;
     const GUIDE_LEAF_PATTERN = /(?:text|char|avatar|bubble|step|header|title|progress|bar|audio|skip|button|nav|dots|icon|img|hint|message|line|description|list)/i;
     const trackedAudio = new Set();
     let guideScanQueued = false;
@@ -377,6 +377,16 @@
         return GUIDE_LEAF_PATTERN.test(guideElementToken(element));
     }
 
+    function isMenuLikeElement(element) {
+        let current = element;
+        while (current && current !== document.body) {
+            const token = guideElementToken(current);
+            if (/(?:^|[\s_-])(?:menu|landing|home|main)(?:[\s_-]|$)/.test(token)) return true;
+            current = current.parentElement;
+        }
+        return false;
+    }
+
     function isElementVisible(element) {
         if (!element || element.nodeType !== 1) return false;
         let current = element;
@@ -389,13 +399,35 @@
                 classList.contains('is-hidden') ||
                 classList.contains('invisible')
             )) return false;
+            const stateClasses = classList && (
+                classList.contains('active') ||
+                classList.contains('show') ||
+                classList.contains('open') ||
+                classList.contains('visible')
+            );
+            const token = guideElementToken(current);
+            if (
+                classList &&
+                (classList.contains('screen') || classList.contains('page')) &&
+                !stateClasses &&
+                !current.style.display
+            ) return false;
+            if (
+                /(?:overlay|modal)/.test(token) &&
+                !stateClasses &&
+                !current.style.display
+            ) return false;
             let style = null;
             try {
                 style = window.getComputedStyle(current);
             } catch (error) {
                 // A malformed page stylesheet should not disable guide controls.
             }
-            if (style && (style.display === 'none' || style.visibility === 'hidden')) return false;
+            if (style && (
+                style.display === 'none' ||
+                style.visibility === 'hidden' ||
+                Number(style.opacity) === 0
+            )) return false;
             current = current.parentElement;
         }
         return true;
@@ -630,7 +662,9 @@
     function guideContainersInDocument() {
         const candidates = [...document.querySelectorAll('body *')].filter(element => {
             if (!isGuideLikeElement(element) || isGuideLeafElement(element)) return false;
-            if (/^(button|a|input|audio|video)$/i.test(element.tagName)) return false;
+            if (/^(button|a|input|audio|video|svg|use|symbol|path|g|circle|line|polyline|polygon)$/i.test(element.tagName)) return false;
+            if (element.namespaceURI === 'http://www.w3.org/2000/svg') return false;
+            if (isMenuLikeElement(element)) return false;
             return isElementVisible(element);
         });
 
