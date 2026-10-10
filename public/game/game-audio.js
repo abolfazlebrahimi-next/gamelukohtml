@@ -122,6 +122,7 @@
 
     function stopSpeakingMedia(media) {
         speakingMedia.delete(media);
+        trackedAudio.delete(media);
         updateBackgroundVolume();
     }
 
@@ -285,6 +286,407 @@
         }
     }
 
+    // ---------------------------------------------------------------------
+    // Shared guide controls
+    // ---------------------------------------------------------------------
+    // The game pages use several different guide/tutor implementations. A
+    // small shared layer keeps the user-facing skip action consistent without
+    // replacing any of the guides or their audio files.
+    const GUIDE_TOKEN_PATTERN = /(?:guide|tutorial|help|narrat|intro|voice|speech)/i;
+    const GUIDE_LEAF_PATTERN = /(?:text|char|avatar|bubble|step|header|title|progress|bar|audio|skip|button|nav|dots|icon|img|hint|message|line|description|list)/i;
+    const trackedAudio = new Set();
+    let guideScanQueued = false;
+
+    function isMediaElement(value) {
+        return Boolean(
+            value &&
+            window.HTMLMediaElement &&
+            value instanceof window.HTMLMediaElement
+        );
+    }
+
+    function patchAudioConstructor() {
+        const nativeAudio = window.Audio;
+        if (typeof nativeAudio !== 'function' || nativeAudio.__lokoGuideAudioPatched) return;
+
+        const trackedAudioConstructor = function () {
+            const media = new nativeAudio(...arguments);
+            trackedAudio.add(media);
+            registerMedia(media);
+            return media;
+        };
+        trackedAudioConstructor.prototype = nativeAudio.prototype;
+        trackedAudioConstructor.__lokoGuideAudioPatched = true;
+        try {
+            window.Audio = trackedAudioConstructor;
+        } catch (error) {
+            // Audio can be read-only in a few embedded browsers.
+        }
+    }
+
+    function stopGuidanceMedia() {
+        const candidates = new Set(trackedAudio);
+        speakingMedia.forEach(media => candidates.add(media));
+        document.querySelectorAll('audio, video').forEach(media => candidates.add(media));
+
+        // A few games keep a dynamically-created guide clip in a named
+        // variable rather than in the DOM. Include those conventional names.
+        [
+            'guideAudio', 'tutorialAudio', 'helpAudio', 'introAudio',
+            'voiceAudio', 'activeAudio', 'narratorAudio'
+        ].forEach(name => {
+            const media = window[name];
+            if (isMediaElement(media)) candidates.add(media);
+        });
+
+        candidates.forEach(media => {
+            if (!isMediaElement(media) || media === backgroundMusic || isBackgroundMedia(media)) return;
+            try {
+                media.pause();
+                media.currentTime = 0;
+            } catch (error) {}
+            speakingMedia.delete(media);
+        });
+
+        const synth = window.speechSynthesis;
+        if (synth && typeof synth.cancel === 'function') {
+            try { synth.cancel(); } catch (error) {}
+        }
+        speakingUtterances.clear();
+        updateBackgroundVolume();
+    }
+
+    function guideElementToken(element) {
+        if (!element || element.nodeType !== 1) return '';
+        return String(
+            (element.id || '') + ' ' +
+            (typeof element.className === 'string' ? element.className : '') + ' ' +
+            (element.getAttribute('data-role') || '')
+        ).toLowerCase();
+    }
+
+    function isGuideLikeElement(element) {
+        return Boolean(
+            element &&
+            element.nodeType === 1 &&
+            GUIDE_TOKEN_PATTERN.test(guideElementToken(element))
+        );
+    }
+
+    function isGuideLeafElement(element) {
+        return GUIDE_LEAF_PATTERN.test(guideElementToken(element));
+    }
+
+    function isElementVisible(element) {
+        if (!element || element.nodeType !== 1) return false;
+        let current = element;
+        while (current && current.nodeType === 1) {
+            if (current.hidden) return false;
+            const classList = current.classList;
+            if (classList && (
+                classList.contains('hidden') ||
+                classList.contains('d-none') ||
+                classList.contains('is-hidden') ||
+                classList.contains('invisible')
+            )) return false;
+            let style = null;
+            try {
+                style = window.getComputedStyle(current);
+            } catch (error) {
+                // A malformed page stylesheet should not disable guide controls.
+            }
+            if (style && (style.display === 'none' || style.visibility === 'hidden')) return false;
+            current = current.parentElement;
+        }
+        return true;
+    }
+
+    function guideContainerScore(element) {
+        const token = guideElementToken(element);
+        let score = 0;
+        if (/container|content|card|panel|wrapper|wrap|box/.test(token)) score += 5;
+        if (/modal|overlay/.test(token)) score += 4;
+        if (/screen|page|section/.test(token)) score += 1;
+        if (isGuideLeafElement(element)) score -= 4;
+        return score;
+    }
+
+    function isSkipControl(element) {
+        if (!element || element.nodeType !== 1) return false;
+        const identity = String(
+            (element.id || '') + ' ' +
+            (typeof element.className === 'string' ? element.className : '') + ' ' +
+            (element.getAttribute('aria-label') || '')
+        );
+        const label = String(element.textContent || '');
+        // Completion buttons often say «بزن بریم» too; only treat that
+        // wording as a skip control when the control is explicitly named as
+        // one. The visible Persian "رد کردن" label is unambiguous.
+        return /(?:skip|guide-skip|tutorial-skip)/i.test(identity) || /رد\s*کردن/i.test(label);
+    }
+
+    function addGuideButtonStyles() {
+        if (document.getElementById('loko-guide-skip-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'loko-guide-skip-styles';
+        style.textContent = `
+            .loko-guide-skip {
+                position: static !important;
+                inset: auto !important;
+                display: block !important;
+                visibility: visible !important;
+                width: auto !important;
+                min-width: 150px !important;
+                min-height: 44px !important;
+                height: auto !important;
+                margin: 14px auto 0 !important;
+                padding: 10px 24px !important;
+                border-radius: 12px !important;
+                cursor: pointer !important;
+                z-index: 20 !important;
+                font-size: .95rem !important;
+                line-height: 1.4 !important;
+                opacity: 1 !important;
+            }
+        `;
+        (document.head || document.documentElement).appendChild(style);
+    }
+
+    function guideActionScope(container) {
+        let current = container;
+        while (current && current !== document.body) {
+            const token = guideElementToken(current);
+            if (current !== container && /screen|page|modal|overlay/.test(token)) return current;
+            current = current.parentElement;
+        }
+        return container;
+    }
+
+    function getGuideExitFunction(container) {
+        const tokens = [];
+        let current = container;
+        while (current && current !== document.body) {
+            tokens.push(guideElementToken(current));
+            current = current.parentElement;
+        }
+        const token = tokens.join(' ');
+        const names = [];
+        if (/voice/.test(token)) names.push('skipVoiceGuide', 'finishVoiceGuide');
+        if (/tutorial/.test(token)) {
+            names.push('skipTutorial', 'tutorialSkip', 'finishTutorial', 'endTutorial', 'hideTutorialScreen');
+        }
+        if (/help/.test(token)) names.push('skipHelp', 'finishHelp', 'closeHelp', 'hideHelp');
+        if (/intro/.test(token)) names.push('skipIntro', 'finishIntro', 'closeIntro');
+        names.push('skipGuide', 'finishGuide', 'endGuide', 'closeGuide');
+
+        const uniqueNames = [...new Set(names)];
+        for (const name of uniqueNames) {
+            if (typeof window[name] === 'function') return window[name];
+        }
+        return null;
+    }
+
+    function findGuideFallbackControl(container, skipButton) {
+        const scope = guideActionScope(container);
+        const controls = [...scope.querySelectorAll(
+            'button, [role="button"], a, input[type="button"], input[type="submit"]'
+        )].filter(control => control !== skipButton && isElementVisible(control));
+        return controls.find(control => {
+            const token = String(
+                (control.id || '') + ' ' +
+                (typeof control.className === 'string' ? control.className : '') + ' ' +
+                (control.getAttribute('aria-label') || '') + ' ' +
+                (control.getAttribute('data-go') || '') + ' ' +
+                (control.getAttribute('data-back') || '') + ' ' +
+                (control.getAttribute('onclick') || '') + ' ' +
+                (control.textContent || '')
+            );
+            return /(?:close|back|home|بازگشت|بستن|فهمیدم|بزن\s*بریم|شروع|ورود)/i.test(token);
+        }) || null;
+    }
+
+    function hideGuideAsLastResort(container) {
+        if (!container) return;
+        const scope = guideActionScope(container);
+        scope.classList.remove('active', 'show', 'open', 'visible');
+        if (/screen|overlay|modal/.test(guideElementToken(scope))) {
+            scope.style.setProperty('display', 'none', 'important');
+        }
+    }
+
+    function invokeGuideExit(button, container, event) {
+        const exitFunction = getGuideExitFunction(container);
+        if (exitFunction) {
+            try {
+                exitFunction(event);
+                return true;
+            } catch (error) {
+                console.warn('Guide skip handler failed:', error);
+            }
+        }
+
+        // Inline handlers can reference lexical variables or page-specific
+        // objects (for example oceanGame), so retain them as a fallback.
+        if (typeof button.onclick === 'function') {
+            try {
+                button.onclick.call(button, event);
+                return true;
+            } catch (error) {}
+        }
+
+        const fallback = findGuideFallbackControl(container, button);
+        if (fallback) {
+            try {
+                if (!isElementVisible(fallback)) {
+                    fallback.classList.remove('hidden');
+                    fallback.style.removeProperty('display');
+                }
+                fallback.click();
+                return true;
+            } catch (error) {}
+        }
+
+        hideGuideAsLastResort(container);
+        return false;
+    }
+
+    function bindGuideSkipButton(button, container, injected) {
+        if (button.dataset.lokoGuideSkipBound === 'true') {
+            if (button.dataset.lokoGuideContainer !== (container.id || '')) {
+                button.dataset.lokoGuideContainer = container.id || '';
+            }
+            return;
+        }
+        button.dataset.lokoGuideSkipBound = 'true';
+        button.dataset.lokoGuideInjected = injected ? 'true' : 'false';
+        button.dataset.lokoGuideContainer = container.id || '';
+        button.addEventListener('click', function (event) {
+            stopGuidanceMedia();
+
+            // Existing controls keep their page's listener when no shared
+            // handler is available. Injected controls always need a route.
+            const hasRoute = Boolean(getGuideExitFunction(container));
+            if (!injected && !hasRoute) return;
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            invokeGuideExit(button, container, event);
+        }, true);
+    }
+
+    function setImportantStyleIfNeeded(element, property, value) {
+        if (
+            element.style.getPropertyValue(property) !== value ||
+            element.style.getPropertyPriority(property) !== 'important'
+        ) {
+            element.style.setProperty(property, value, 'important');
+        }
+    }
+
+    function prepareGuideSkipButton(button, container, injected) {
+        if (!button || !container) return;
+        if (button.parentElement !== container) container.appendChild(button);
+
+        if (!button.classList.contains('loko-guide-skip')) {
+            button.classList.add('loko-guide-skip');
+        }
+        if (button.hasAttribute('hidden')) button.removeAttribute('hidden');
+        ['hidden', 'd-none', 'is-hidden', 'invisible'].forEach(className => {
+            if (button.classList.contains(className)) button.classList.remove(className);
+        });
+        if (button.textContent !== '⏭️ رد کردن') button.textContent = '⏭️ رد کردن';
+        if (button.getAttribute('aria-label') !== 'رد کردن راهنما') {
+            button.setAttribute('aria-label', 'رد کردن راهنما');
+        }
+        if (button.tagName === 'BUTTON' && !button.getAttribute('type')) {
+            button.setAttribute('type', 'button');
+        }
+        setImportantStyleIfNeeded(button, 'display', 'block');
+        setImportantStyleIfNeeded(button, 'position', 'static');
+        setImportantStyleIfNeeded(button, 'inset', 'auto');
+        bindGuideSkipButton(button, container, injected);
+    }
+
+    function elementDepth(element) {
+        let depth = 0;
+        let current = element;
+        while (current && current.parentElement) {
+            depth += 1;
+            current = current.parentElement;
+        }
+        return depth;
+    }
+
+    function guideGroupingElement(element) {
+        let current = element.parentElement;
+        while (current && current !== document.body) {
+            const token = guideElementToken(current);
+            if (isGuideLikeElement(current) && /screen|page|modal/.test(token)) return current;
+            current = current.parentElement;
+        }
+        return null;
+    }
+
+    function guideContainersInDocument() {
+        const candidates = [...document.querySelectorAll('body *')].filter(element => {
+            if (!isGuideLikeElement(element) || isGuideLeafElement(element)) return false;
+            if (/^(button|a|input|audio|video)$/i.test(element.tagName)) return false;
+            return isElementVisible(element);
+        });
+
+        // Prefer the semantic guide card/content element over its screen
+        // wrapper, then skip descendants once a container has been selected.
+        candidates.sort((a, b) => {
+            const scoreDifference = guideContainerScore(b) - guideContainerScore(a);
+            if (scoreDifference) return scoreDifference;
+            return elementDepth(b) - elementDepth(a);
+        });
+        const selected = [];
+        const grouped = new Set();
+        candidates.forEach(candidate => {
+            if (selected.some(selectedElement => selectedElement.contains(candidate))) return;
+            if (selected.some(selectedElement => candidate.contains(selectedElement))) return;
+            const group = guideGroupingElement(candidate);
+            if (group && grouped.has(group)) return;
+            if (group) grouped.add(group);
+            selected.push(candidate);
+        });
+        return selected;
+    }
+
+    function scanGuideControls() {
+        guideScanQueued = false;
+        if (!document.body) return;
+        addGuideButtonStyles();
+
+        const containers = guideContainersInDocument();
+        containers.forEach(container => {
+            let skipButton = [...container.querySelectorAll(
+                'button, [role="button"], input[type="button"], input[type="submit"]'
+            )].find(isSkipControl);
+
+            if (!skipButton) {
+                skipButton = document.createElement('button');
+                skipButton.type = 'button';
+                skipButton.className = 'loko-guide-skip';
+                skipButton.textContent = '⏭️ رد کردن';
+                container.appendChild(skipButton);
+                prepareGuideSkipButton(skipButton, container, true);
+            } else {
+                prepareGuideSkipButton(skipButton, container, false);
+            }
+        });
+    }
+
+    function scheduleGuideScan() {
+        if (guideScanQueued) return;
+        guideScanQueued = true;
+        const schedule = window.requestAnimationFrame || function (callback) {
+            return window.setTimeout(callback, 0);
+        };
+        schedule(scanGuideControls);
+    }
+
     function nextTrack() {
         if (!backgroundMusic) return;
         trackIndex = (trackIndex + 1) % TRACKS.length;
@@ -354,20 +756,25 @@
 
     function init() {
         patchMediaPlayback();
+        patchAudioConstructor();
         attachSpeechSynthesisHooks();
         scanMediaElements(document);
+        scheduleGuideScan();
 
         const observer = new MutationObserver(function (mutations) {
             mutations.forEach(function (mutation) {
-                mutation.addedNodes.forEach(scanMediaElements);
+                mutation.addedNodes.forEach(function (node) {
+                    scanMediaElements(node);
+                });
                 if (mutation.type === 'attributes') registerMedia(mutation.target);
             });
+            scheduleGuideScan();
         });
         observer.observe(document.documentElement, {
             childList: true,
             subtree: true,
             attributes: true,
-            attributeFilter: ['id', 'name', 'src', 'loop']
+            attributeFilter: ['id', 'name', 'src', 'loop', 'class', 'style', 'hidden']
         });
 
         installUnlockListeners();

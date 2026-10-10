@@ -632,6 +632,7 @@ const MAX_LEVEL = 3;
 function getLevelConfig(lvl) { if (lvl === 1) return { animalsCount: 2, extraFoods: 1 }; if (lvl === 2) return { animalsCount: 3, extraFoods: 1 }; if (lvl === 3) return { animalsCount: 4, extraFoods: 2 }; return { animalsCount: 2, extraFoods: 1 }; }
 
 let state = { coins: 0, currentLevel: 1, currentErrors: 0, correctMoves: 0, totalCorrectMoves: 0, totalWrongMoves: 0, timerSeconds: 0, timerInterval: null, animalTimers: {}, hungerInterval: null, shopOwned: ['default'], equippedTheme: 'default', currentAnimals: [], animalFedCount: {}, dragItem: null, gameRunning: false, isGameOver: false };
+let introGuideState = { checkTime: null, timeoutIds: [], guideOnly: false, active: false };
 
 function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById('screen-' + id).classList.add('active'); }
 function updateCoinDisplays() { document.getElementById('menu-coin-amount').textContent = toPersian(state.coins); const shopEl = document.getElementById('shop-coin-amount'); if (shopEl) shopEl.textContent = toPersian(state.coins); }
@@ -676,27 +677,59 @@ async function startGame(isGuideButton = false) {
   }
   
   if (playIntro) {
+    introGuideState.timeoutIds.forEach(clearTimeout);
+    introGuideState.timeoutIds = [];
+    if (introGuideState.checkTime) clearInterval(introGuideState.checkTime);
+    introGuideState.checkTime = null;
+    introGuideState.guideOnly = guideOnly;
+    introGuideState.active = true;
     overlay.classList.remove('hidden'); pixelImg.classList.remove('active', 'exit'); bubble.classList.remove('show'); bubble.textContent = '';
     const timeline = [ { time: 0, text: "سلام من پیکسل هستم دوست جدید تو در این بازی" }, { time: 4, text: "در این بازی باید به حیوان‌های گرسنه جنگل غذا بدی" }, { time: 8, text: "هر حیوانی که اومد پیشت و ازت غذا خواست باید بهش یک غذا بدی" }, { time: 13, text: "حواست باشه اگه بیشتر یا کمتر از یه دونه بهشون غذا بدی" }, { time: 18, text: "ممکنه از دستت ناراحت بشن" }, { time: 20, text: "موفق باشی دوست من" } ];
     try {
       audio.currentTime = 0; await audio.play();
-      setTimeout(() => { pixelImg.classList.add('active'); bubble.classList.add('show'); bubble.textContent = timeline[0].text; }, 500);
-      const checkTime = setInterval(() => { const t = audio.currentTime; let currentText = ""; if (t >= 20) currentText = timeline[5].text; else if (t >= 18) currentText = timeline[4].text; else if (t >= 13) currentText = timeline[3].text; else if (t >= 8) currentText = timeline[2].text; else if (t >= 4) currentText = timeline[1].text; else currentText = timeline[0].text; if (bubble.textContent !== currentText && currentText !== "") { bubble.classList.remove('show'); setTimeout(() => { bubble.textContent = currentText; bubble.classList.add('show'); }, 300); } }, 200);
+      if (!introGuideState.active) return;
+      introGuideState.timeoutIds.push(setTimeout(() => { pixelImg.classList.add('active'); bubble.classList.add('show'); bubble.textContent = timeline[0].text; }, 500));
+      introGuideState.checkTime = setInterval(() => { const t = audio.currentTime; let currentText = ""; if (t >= 20) currentText = timeline[5].text; else if (t >= 18) currentText = timeline[4].text; else if (t >= 13) currentText = timeline[3].text; else if (t >= 8) currentText = timeline[2].text; else if (t >= 4) currentText = timeline[1].text; else currentText = timeline[0].text; if (bubble.textContent !== currentText && currentText !== "") { bubble.classList.remove('show'); introGuideState.timeoutIds.push(setTimeout(() => { bubble.textContent = currentText; bubble.classList.add('show'); }, 300)); } }, 200);
       audio.onended = () => {
-        clearInterval(checkTime); bubble.classList.remove('show'); pixelImg.classList.remove('active'); pixelImg.classList.add('exit');
-        setTimeout(() => {
+        if (introGuideState.checkTime) clearInterval(introGuideState.checkTime);
+        introGuideState.checkTime = null;
+        introGuideState.active = false;
+        bubble.classList.remove('show'); pixelImg.classList.remove('active'); pixelImg.classList.add('exit');
+        introGuideState.timeoutIds.push(setTimeout(() => {
           overlay.classList.add('hidden');
-          if (guideOnly) { goToMenu(); } else { proceedToGame(); }
-        }, 1000);
+          if (introGuideState.guideOnly) { goToMenu(); } else { proceedToGame(); }
+        }, 1000));
       };
     } catch(e) {
       showToast("پخش صدا ناموفق بود.");
-      setTimeout(() => { overlay.classList.add('hidden'); if (guideOnly) { goToMenu(); } else { proceedToGame(); } }, 2000);
+      introGuideState.active = false;
+      introGuideState.timeoutIds.push(setTimeout(() => {
+        overlay.classList.add('hidden');
+        if (introGuideState.guideOnly) { goToMenu(); } else { proceedToGame(); }
+      }, 2000));
     }
   } else { 
     overlay.classList.add('hidden'); 
     proceedToGame(); 
   }
+}
+
+function skipIntro() {
+  if (introGuideState.checkTime) clearInterval(introGuideState.checkTime);
+  introGuideState.checkTime = null;
+  introGuideState.timeoutIds.forEach(clearTimeout);
+  introGuideState.timeoutIds = [];
+  introGuideState.active = false;
+  const audio = document.getElementById('intro-audio');
+  if (audio) {
+    audio.onended = null;
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  const overlay = document.getElementById('intro-overlay');
+  if (overlay) overlay.classList.add('hidden');
+  if (introGuideState.guideOnly) goToMenu();
+  else proceedToGame();
 }
 
 async function proceedToGame() { updateErrorDisplay(); document.getElementById('level-badge').textContent = 'مرحله ' + toPersian(state.currentLevel); document.getElementById('btn-next').textContent = state.currentLevel >= MAX_LEVEL ? 'پایان بازی' : 'مرحله بعد'; await showCountdown(); startTimer(); startHungerTimers(); state.gameRunning = true; }

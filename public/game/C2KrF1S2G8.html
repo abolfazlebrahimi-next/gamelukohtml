@@ -939,7 +939,7 @@
             
             showScreen('gameScreen');
             
-            // بار اولی که روی مرحله ۱ می‌زند: راهنما بدون دکمه رد کردن و سپس شمارش معکوس
+            // بار اولی که روی مرحله ۱ می‌زند: راهنما و سپس شمارش معکوس
             if (level === 1 && !localStorage.getItem('flowerGameGuideSeen')) {
                 localStorage.setItem('flowerGameGuideSeen', 'true');
                 startGuide(() => {
@@ -1302,7 +1302,7 @@
                 skipBtn.style.display = 'block';
                 guideCallbackForFirstLevel = null;
             } else {
-                skipBtn.style.display = 'none';
+                skipBtn.style.display = 'block';
                 guideCallbackForFirstLevel = callback;
             }
             
@@ -1369,18 +1369,7 @@
             }
         }
 
-        function skipGuide() {
-            if (guideInterval) {
-                clearInterval(guideInterval);
-                guideInterval = null;
-            }
-            if (window.guideAudio) {
-                window.guideAudio.pause();
-                window.guideAudio.currentTime = 0;
-            }
-            isGuidePlaying = false;
-            showScreen('homeScreen');
-        }
+        function skipGuide() { endGuide(); }
 
         document.getElementById('guideSkipBtn').addEventListener('click', skipGuide);
 

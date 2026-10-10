@@ -2323,7 +2323,7 @@
         function showGuide(isFirstTime) {
             guideIsFirstTime = isFirstTime;
             document.getElementById('guideOverlay').classList.add('active');
-            document.getElementById('guideSkipBtn').style.display = isFirstTime ? 'none' : 'block';
+            document.getElementById('guideSkipBtn').style.display = 'block';
 
             if (audioElement && !audioElement.paused) audioElement.pause();
 

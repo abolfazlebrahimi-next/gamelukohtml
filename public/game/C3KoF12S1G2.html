@@ -882,7 +882,7 @@
         function showGuide(isFirstTime) {
             isFirstTimeGuide = isFirstTime;
             document.getElementById('guideOverlay').classList.add('active');
-            document.getElementById('guideSkipBtn').style.display = isFirstTime ? 'none' : 'block';
+            document.getElementById('guideSkipBtn').style.display = 'block';
             if (audioElement) audioElement.pause();
             guideAudio.src = 'musics/pixel6.mp3';
             guideAudio.currentTime = 0;

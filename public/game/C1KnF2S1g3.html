@@ -988,7 +988,7 @@
                 document.getElementById('gameGuideOverlay').classList.add('active');
             };
 
-            // بار اولی که روی مرحله ۱ می‌زند: راهنما بدون دکمه رد کردن و سپس شمارش معکوس
+            // بار اولی که روی مرحله ۱ می‌زند: راهنما و سپس شمارش معکوس
             if (level === 1 && !guideShownForLevel1) {
                 guideShownForLevel1 = true;
                 saveLevelStatus();
@@ -1200,7 +1200,7 @@
                 skipBtn.style.display = 'block';
                 guideCallbackForFirstLevel = null;
             } else {
-                skipBtn.style.display = 'none'; // در بار اول مرحله ۱ دکمه رد کردن مخفی است
+                skipBtn.style.display = 'block'; // دکمه رد کردن در همه حالت‌ها فعال است
                 guideCallbackForFirstLevel = callback;
             }
 
@@ -1260,18 +1260,7 @@
             }
         }
 
-        function skipGuide() {
-            if (guideInterval) {
-                clearInterval(guideInterval);
-                guideInterval = null;
-            }
-            isGuidePlaying = false;
-            if (window.guideAudio) {
-                window.guideAudio.pause();
-                window.guideAudio.currentTime = 0;
-            }
-            showScreen('homeScreen'); // مستقیم به منوی اصلی
-        }
+        function skipGuide() { endGuide(); }
 
         document.getElementById('guideSkipBtn').addEventListener('click', skipGuide);
 

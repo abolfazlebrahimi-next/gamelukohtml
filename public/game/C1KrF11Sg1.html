@@ -1164,6 +1164,8 @@ function exitToMenu() {
 
 // ============ INTERACTIVE TUTORIAL ============
 function startTutorial() {
+  state.tutorialRunId = (state.tutorialRunId || 0) + 1;
+  const tutorialRunId = state.tutorialRunId;
   state.tutorialActive = true;
   state.tutorialStep = 0;
   const overlay = $('tutorialOverlay');
@@ -1177,6 +1179,7 @@ function startTutorial() {
   document.querySelectorAll('.answer-btn').forEach(b => b.disabled = true);
   
   setTimeout(() => {
+    if (state.tutorialRunId !== tutorialRunId) return;
     text.textContent = "بیا خوراکی‌های سمت چپ را بشماریم!";
     const leftFood = $('foodLeft');
     const rect = leftFood.getBoundingClientRect();
@@ -1188,14 +1191,18 @@ function startTutorial() {
     const items = leftFood.querySelectorAll('.food-item');
     items.forEach((item, i) => {
       setTimeout(() => {
+        if (state.tutorialRunId !== tutorialRunId) return;
         item.classList.add('highlighted');
         playSound('click');
-        setTimeout(() => item.classList.remove('highlighted'), 400);
+        setTimeout(() => {
+          if (state.tutorialRunId === tutorialRunId) item.classList.remove('highlighted');
+        }, 400);
       }, 1000 + (i * 600));
     });
     
     // Move to right side
     setTimeout(() => {
+      if (state.tutorialRunId !== tutorialRunId) return;
       text.textContent = "حالا خوراکی‌های سمت راست را بشمار...";
       const rightFood = $('foodRight');
       const rRect = rightFood.getBoundingClientRect();
@@ -1205,15 +1212,19 @@ function startTutorial() {
       const rItems = rightFood.querySelectorAll('.food-item');
       rItems.forEach((item, i) => {
         setTimeout(() => {
+          if (state.tutorialRunId !== tutorialRunId) return;
           item.classList.add('highlighted');
           playSound('click');
-          setTimeout(() => item.classList.remove('highlighted'), 400);
+          setTimeout(() => {
+            if (state.tutorialRunId === tutorialRunId) item.classList.remove('highlighted');
+          }, 400);
         }, i * 600);
       });
     }, 1000 + (state.leftCount * 600) + 500);
     
     // Move to correct button
     setTimeout(() => {
+      if (state.tutorialRunId !== tutorialRunId) return;
       const correct = getCorrectAnswer();
       let label = correct === '>' ? 'بزرگتر' : (correct === '<' ? 'کوچکتر' : 'مساوی');
       
@@ -1234,6 +1245,7 @@ function startTutorial() {
 }
 
 function endTutorial() {
+  state.tutorialRunId = (state.tutorialRunId || 0) + 1;
   state.tutorialActive = false;
   $('tutorialOverlay').style.display = 'none';
   document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('tutorial-target'));

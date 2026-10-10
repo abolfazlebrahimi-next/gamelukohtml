@@ -427,6 +427,11 @@ function nextTutorialStep() {
     } else { showTutorialStep(); }
 }
 
+function skipTutorial() {
+    document.getElementById('tutorialOverlay').classList.remove('active');
+    showScreen('level');
+}
+
 function updateCoins() {
     document.getElementById('coinCount').textContent = coins;
     const c = document.getElementById('coinCounter');

@@ -1244,7 +1244,7 @@ function startGuide(callback, fromMenu) {
         skipBtn.style.display = 'block';
         guideCallbackAfterFinish = null;
     } else {
-        skipBtn.style.display = 'none';
+        skipBtn.style.display = 'block';
         guideCallbackAfterFinish = callback;
     }
 
@@ -1317,19 +1317,7 @@ function endGuide() {
     }
 }
 
-function skipGuide() {
-    if (guideInterval) {
-        clearInterval(guideInterval);
-        guideInterval = null;
-    }
-    var guideAudio = document.getElementById('guideAudio');
-    if (guideAudio) {
-        guideAudio.pause();
-        guideAudio.currentTime = 0;
-    }
-    isGuidePlaying = false;
-    showScreen('homeScreen');
-}
+function skipGuide() { endGuide(); }
 
 // ============================================================
 // HELPERS

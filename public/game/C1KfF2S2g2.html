@@ -1006,7 +1006,7 @@
             const progressBar = document.getElementById('guideProgressBar');
             const skipBtn = document.getElementById('guideSkipBtn');
             if (fromMenu) { skipBtn.style.display = 'block'; guideCallbackForFirstLevel = null; }
-            else { skipBtn.style.display = 'none'; guideCallbackForFirstLevel = callback; }
+            else { skipBtn.style.display = 'block'; guideCallbackForFirstLevel = callback; }
             showScreen('guideScreen');
             try { window.guideAudio = new Audio('musics/pixel13.mp3'); window.guideAudio.play().catch(e => {}); } catch(e) {}
             guideStartTime = Date.now(); let lastIndex = -1;
@@ -1056,18 +1056,7 @@
             }
         }
 
-        function skipGuide() {
-            if (guideInterval) {
-                clearInterval(guideInterval);
-                guideInterval = null;
-            }
-            isGuidePlaying = false;
-            if (window.guideAudio) {
-                window.guideAudio.pause();
-                window.guideAudio.currentTime = 0;
-            }
-            showScreen('homeScreen');
-        }
+        function skipGuide() { endGuide(); }
 
         document.getElementById('guideSkipBtn').addEventListener('click', skipGuide);
 

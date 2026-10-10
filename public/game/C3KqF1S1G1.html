@@ -707,7 +707,7 @@ function startGuide(callback,fromMenu){
     sb.style.display='block';
     guideCallbackAfterFinish=null;
   }else{
-    sb.style.display='none';
+    sb.style.display='block';
     guideCallbackAfterFinish=callback;
   }
 
@@ -771,18 +771,7 @@ function endGuide(){
   }
 }
 
-function skipGuide(){
-  if(!isGuidePlaying)return;
-  isGuidePlaying=false;
-  guideTimeouts.forEach(function(t){
-    clearTimeout(t);
-    clearInterval(t);
-  });
-  guideTimeouts=[];
-  var ga=document.getElementById('guideAudio');
-  if(ga){ga.pause();ga.currentTime=0}
-  showScreen('homeScreen');
-}
+function skipGuide() { endGuide(); }
 
 /* ============================================
    🎮 منطق بازی: مرتب‌سازی کلمات
