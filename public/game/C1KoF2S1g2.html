@@ -2279,6 +2279,7 @@
             helpAudio: null,
             helpTimeout: null,
             helpTimeout2: null,
+            helpCallback: null,
             cardsReady: false
         };
 
@@ -2421,6 +2422,7 @@
         }
 
         function showHelp() {
+            GameState.helpCallback = null;
             showScreen('help-screen');
             playSound('click');
             playHelpSound();
@@ -2428,13 +2430,31 @@
         }
 
         function showAutoHelp(callback) {
+            GameState.helpCallback = callback || null;
             showScreen('help-auto-screen');
             playHelpSound();
             startHelpAnimation('help-auto-text-wrapper', 'help-auto-progress-bar', () => {
                 stopHelpSound();
                 document.getElementById('help-auto-screen').classList.remove('active');
-                if (callback) callback();
+                const next = GameState.helpCallback;
+                GameState.helpCallback = null;
+                if (next) next();
             });
+        }
+
+        function skipHelp() {
+            if (GameState.helpInterval) clearInterval(GameState.helpInterval);
+            if (GameState.helpTimeout) clearTimeout(GameState.helpTimeout);
+            if (GameState.helpTimeout2) clearTimeout(GameState.helpTimeout2);
+            GameState.helpInterval = null;
+            GameState.helpTimeout = null;
+            GameState.helpTimeout2 = null;
+            stopHelpSound();
+            document.getElementById('help-auto-screen').classList.remove('active');
+            const next = GameState.helpCallback;
+            GameState.helpCallback = null;
+            if (next) next();
+            else showScreen('menu-screen');
         }
 
         function startHelpAnimation(wrapperId, progressId, onComplete) {

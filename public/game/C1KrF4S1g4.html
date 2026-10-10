@@ -1297,7 +1297,7 @@
                 skipBtn.style.display = 'block';
                 guideCallbackForFirstLevel = null;
             } else {
-                skipBtn.style.display = 'none';
+                skipBtn.style.display = 'block';
                 guideCallbackForFirstLevel = callback;
             }
             
@@ -1362,20 +1362,7 @@
             }
         }
 
-        function skipGuide() {
-            if (guideInterval) {
-                clearInterval(guideInterval);
-                guideInterval = null;
-            }
-            isGuidePlaying = false;
-            
-            if (window.guideAudio) {
-                window.guideAudio.pause();
-                window.guideAudio.currentTime = 0;
-            }
-            
-            showScreen('homeScreen');
-        }
+        function skipGuide() { endGuide(); }
 
         document.getElementById('guideSkipBtn').addEventListener('click', skipGuide);
 

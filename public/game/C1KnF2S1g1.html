@@ -1494,6 +1494,8 @@ function gameOver() {
 }
 
 function runTutorial() {
+  state.tutorialRunId = (state.tutorialRunId || 0) + 1;
+  const tutorialRunId = state.tutorialRunId;
   const overlay = document.getElementById('tutorial-overlay');
   overlay.classList.remove('hidden');
   overlay.innerHTML = `<div class="tutorial-text">ببین! اینطوری انگشتت رو بکش...</div>`;
@@ -1540,12 +1542,14 @@ function runTutorial() {
   finger.style.transition = 'left 1.5s ease-in-out, top 1.5s ease-in-out';
   
   setTimeout(() => {
+    if (state.tutorialRunId !== tutorialRunId) return;
     finger.style.left = (endRect.left - gridRect.left + endRect.width/2 - 20) + 'px';
     finger.style.top = (endRect.top - gridRect.top + endRect.height/2 - 20) + 'px';
     
     selectedCells = [firstCell];
     firstCell.element.classList.add('selected');
     setTimeout(() => {
+      if (state.tutorialRunId !== tutorialRunId) return;
       selectedCells.push(lastCell);
       lastCell.element.classList.add('selected');
     }, 800);
@@ -1553,18 +1557,31 @@ function runTutorial() {
   }, 800);
   
   setTimeout(() => {
+    if (state.tutorialRunId !== tutorialRunId) return;
     firstCell.element.classList.remove('selected');
     lastCell.element.classList.remove('selected');
     selectedCells = [];
     overlay.innerHTML = `<div class="tutorial-text">حالا خودت امتحان کن!</div>`;
     finger.remove();
     setTimeout(() => {
+      if (state.tutorialRunId !== tutorialRunId) return;
       overlay.classList.add('hidden');
       state.isFirstTime = false;
       saveState();
       startTimer();
     }, 1500);
   }, 3000);
+}
+
+function skipTutorial() {
+  state.tutorialRunId = (state.tutorialRunId || 0) + 1;
+  state.isFirstTime = false;
+  saveState();
+  const overlay = document.getElementById('tutorial-overlay');
+  const finger = document.querySelector('.tutorial-finger');
+  if (finger) finger.remove();
+  overlay.classList.add('hidden');
+  startTimer();
 }
 
 function showScreen(id) {

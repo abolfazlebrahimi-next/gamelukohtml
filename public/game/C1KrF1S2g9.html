@@ -893,6 +893,7 @@
       let audioContext = null;
       let tutorialAudio = null;
       let tutorialTimeouts = [];
+      let tutorialIsFirstTime = false;
 
       function initAudio() {
           if (!audioContext) {
@@ -1343,12 +1344,13 @@
       // Tutorial System
       // ============================================
       function showTutorial(isFirstTime) {
+          tutorialIsFirstTime = isFirstTime;
           playSound('click');
           document.getElementById('tutorial-modal').classList.add('show');
           
           const skipBtn = document.getElementById('skip-tutorial-btn');
           if (isFirstTime) {
-              skipBtn.style.display = 'none';
+              skipBtn.style.display = 'block';
           } else {
               skipBtn.style.display = 'flex';
           }
@@ -1399,9 +1401,14 @@
 
       function skipTutorial() {
           playSound('click');
-          if (tutorialAudio) tutorialAudio.pause();
+          if (tutorialAudio) {
+              tutorialAudio.pause();
+              tutorialAudio.currentTime = 0;
+          }
           tutorialTimeouts.forEach(t => clearTimeout(t));
+          tutorialTimeouts = [];
           document.getElementById('tutorial-modal').classList.remove('show');
+          if (tutorialIsFirstTime) startGameLogic();
       }
 
       // ============================================

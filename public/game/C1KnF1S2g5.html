@@ -604,6 +604,7 @@ const state = {
 };
 
 let currentTutorialLetter = null;
+let tutorialDemoTimeouts = [];
 let ambientMusicState = null;
 
 function loadState() {
@@ -909,7 +910,11 @@ function renderLetterExamples(containerId, examples) {
 function setTutorialSpeech(text) {
   const speech = document.getElementById('tutorialSpeech');
   speech.classList.add('changing');
-  setTimeout(() => { speech.textContent = text; speech.classList.remove('changing'); }, 200);
+  setTimeout(() => {
+    if (!state.tutorialActive) return;
+    speech.textContent = text;
+    speech.classList.remove('changing');
+  }, 200);
 }
 
 function spawnTutorialLetter(letter, hasDot, stopAt = 40) {
@@ -966,7 +971,7 @@ function showTutorialHand(targetEl, willClick, callback) {
 }
 
 function autoClickTutorialLetter(el, isCorrect) {
-  if (!el) return;
+  if (!state.tutorialActive || !el) return;
   if (isCorrect) {
     el.classList.add('correct-pop');
     playSound('success');
@@ -989,7 +994,7 @@ function autoClickTutorialLetter(el, isCorrect) {
 }
 
 function markTutorialLetterWrong(el) {
-  if (!el) return;
+  if (!state.tutorialActive || !el) return;
   const xMark = document.createElement('div');
   xMark.className = 'tutorial-wrong-mark'; xMark.textContent = '✗';
   el.appendChild(xMark); playSound('error');
@@ -1005,6 +1010,8 @@ function markTutorialLetterWrong(el) {
 }
 
 function startTutorialDemo() {
+  tutorialDemoTimeouts.forEach(clearTimeout);
+  tutorialDemoTimeouts = [];
   showTutorialScreen();
   state.tutorialActive = true;
   startBgMusic();
@@ -1035,7 +1042,22 @@ function startTutorialDemo() {
       playSound('levelup');
     }},
   ];
-  steps.forEach(step => setTimeout(step.action, step.delay));
+  steps.forEach(step => {
+    tutorialDemoTimeouts.push(setTimeout(step.action, step.delay));
+  });
+}
+
+function skipTutorial() {
+  tutorialDemoTimeouts.forEach(clearTimeout);
+  tutorialDemoTimeouts = [];
+  state.tutorialActive = false;
+  if (currentTutorialLetter) {
+    currentTutorialLetter.remove();
+    currentTutorialLetter = null;
+  }
+  hideTutorialScreen();
+  showScreen('levelSelectScreen');
+  renderLevelSelect();
 }
 
 // BALANCED LEVEL CONFIGS FOR MOBILE

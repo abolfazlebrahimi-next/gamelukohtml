@@ -415,7 +415,7 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(2
 <audio id="guideAudio" src="musics/pixel30 .mp3" preload="auto"></audio>
 <script>
 var currentLevel=1,totalLevels=10,totalSummerLevels=6,isResultShowing=false,levelUnlocked={},levelCompleted={},currentMessage=null,isSummerMode=false,currentQuizQuestions=[],currentQuestionIndex=0,currentScore=0,quizTimerInterval=null,quizTimeLeft=20,isQuizActive=false,quizFailed=false;
-var isGuidePlaying=false,guideInterval=null,guideStartTime=0,guideCallbackAfterFinish=null,MUSIC_VOLUME=0.1;
+var isGuidePlaying=false,guideInterval=null,guideStartTime=0,guideCallbackAfterFinish=null,MUSIC_VOLUME=0.1,guideRunId=0;
 var guideFromMenu = false;
 var firstLevelGuideShown = false;
 
@@ -497,6 +497,7 @@ function showCountdown(callback){var ov=document.getElementById('countdownOverla
 
 function startGuide(callback,fromMenu){
   if(isGuidePlaying)return;
+  var currentGuideRunId=++guideRunId;
   isGuidePlaying=true;
   guideFromMenu = fromMenu || false;
   var gt=document.getElementById('guideText');
@@ -506,7 +507,7 @@ function startGuide(callback,fromMenu){
     sb.style.display='block';
     guideCallbackAfterFinish=null;
   } else {
-    sb.style.display='none';
+    sb.style.display='block';
     guideCallbackAfterFinish=callback;
   }
   showScreen('guideScreen');
@@ -527,6 +528,7 @@ function startGuide(callback,fromMenu){
       gt.classList.remove('guide-text-enter');
       gt.classList.add('guide-text-exit');
       setTimeout(function(){
+        if(guideRunId!==currentGuideRunId||!isGuidePlaying)return;
         gt.innerHTML=currentText;
         gt.classList.remove('guide-text-exit');
         void gt.offsetWidth;
@@ -539,6 +541,7 @@ function startGuide(callback,fromMenu){
   },100)
 }
 function endGuide(){
+  guideRunId++;
   if(guideInterval){clearInterval(guideInterval);guideInterval=null}
   var ga=document.getElementById('guideAudio');
   if(ga){ga.pause();ga.currentTime=0}
@@ -553,13 +556,7 @@ function endGuide(){
     showScreen('homeScreen')
   }
 }
-function skipGuide(){
-  if(guideInterval){clearInterval(guideInterval);guideInterval=null}
-  var ga=document.getElementById('guideAudio');
-  if(ga){ga.pause();ga.currentTime=0}
-  isGuidePlaying=false;
-  showScreen('homeScreen')
-}
+function skipGuide() { endGuide(); }
 
 function shuffleArray(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 

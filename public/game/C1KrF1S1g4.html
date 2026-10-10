@@ -1928,7 +1928,12 @@
 
             skipGuide() {
                 this.stopGuide();
-                this.showScreen('start');
+                if (this.guideFromHelp) {
+                    this.showScreen('start');
+                } else {
+                    this.showScreen('levelSelect');
+                    this.renderLevels();
+                }
             }
 
             loadStats() {
@@ -2001,7 +2006,7 @@
                     if (!this.state.guideShown) {
                         this.state.guideShown = true;
                         localStorage.setItem('guideShown', 'true');
-                        this.elements.guideSkip.style.display = 'none';
+                        this.elements.guideSkip.style.display = 'block';
                         this.showScreen('guide');
                         setTimeout(() => this.startGuide(false), 300);
                     } else {

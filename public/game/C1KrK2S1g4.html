@@ -769,7 +769,7 @@
                 guideState.startTime = Date.now(); 
             }
 
-            document.getElementById('skipBtn').style.display = isFirstTime ? 'none' : 'block';
+            document.getElementById('skipBtn').style.display = 'block';
             
             guideState.rafId = requestAnimationFrame(guideLoop);
         }
@@ -831,11 +831,7 @@
         }
         
         document.getElementById('skipBtn').onclick = () => {
-            guideState.isPlaying = false;
-            if (guideState.rafId) cancelAnimationFrame(guideState.rafId);
-            if (guideState.audio) guideState.audio.pause();
-            document.getElementById('screen-guide').classList.remove('active');
-            showPage('homePage');
+            finishGuide();
         };
 
         // ===== GAME LOGIC =====

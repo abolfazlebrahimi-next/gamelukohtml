@@ -900,7 +900,7 @@ function startGuide(callback, fromMenu = false) {
         skipBtn.style.display = 'block';
         guideCallbackForFirstLevel = null;
     } else {
-        skipBtn.style.display = 'none';
+        skipBtn.style.display = 'block';
         guideCallbackForFirstLevel = callback;
     }
     
@@ -965,18 +965,7 @@ function endGuide() {
     }
 }
 
-function skipGuide() {
-    if (guideInterval) {
-        clearInterval(guideInterval);
-        guideInterval = null;
-    }
-    if (window.guideAudio) {
-        window.guideAudio.pause();
-        window.guideAudio.currentTime = 0;
-    }
-    isGuidePlaying = false;
-    showScreen('homeScreen');
-}
+function skipGuide() { endGuide(); }
 
 function showCountdown(callback) {
 var overlay = document.getElementById('countdownOverlay');

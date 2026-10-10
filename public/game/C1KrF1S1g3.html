@@ -1802,7 +1802,7 @@
             if (isGuide) {
                 skipBtn.classList.remove('hidden');
             } else {
-                skipBtn.classList.add('hidden');
+                skipBtn.classList.remove('hidden');
             }
 
             const voice = document.getElementById('tutorialVoice');
@@ -1861,7 +1861,8 @@
             clearInterval(subtitleInterval);
             document.getElementById('tutorialVoice').pause();
             document.getElementById('tutorialVoice').currentTime = 0;
-            finishTutorial();
+            tutorialCompleted = true;
+            enterGame();
         }
 
         function enterGame() {

@@ -1894,7 +1894,7 @@
             showGuideForFirstTime() {
                 this.startMusicOnInteraction();
                 showScreen('guideScreen');
-                document.getElementById('guideSkipBtn').style.display = 'none';
+                document.getElementById('guideSkipBtn').style.display = 'block';
                 this.startGuide(false);
                 this.playGuideAudio('pixel2.mp3');
             },
@@ -1959,19 +1959,16 @@
                 const progressBar = document.getElementById('guideProgressBar');
                 const skipBtn = document.getElementById('guideSkipBtn');
                 
-                if (fromMenu) {
-                    skipBtn.style.display = 'block';
-                    skipBtn.onclick = () => {
-                        if (this.guideInterval) {
-                            clearInterval(this.guideInterval);
-                            this.guideInterval = null;
-                        }
-                        this.stopGuideAudio();
-                        this.closeGuide();
-                    };
-                } else {
-                    skipBtn.style.display = 'none';
-                }
+                skipBtn.style.display = 'block';
+                skipBtn.onclick = () => {
+                    if (this.guideInterval) {
+                        clearInterval(this.guideInterval);
+                        this.guideInterval = null;
+                    }
+                    this.stopGuideAudio();
+                    this.closeGuide();
+                    if (!fromMenu) this.startCountdown(1);
+                };
                 
                 this.guideStartTime = Date.now();
                 let lastIndex = -1;

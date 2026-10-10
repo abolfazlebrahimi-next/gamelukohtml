@@ -2356,7 +2356,7 @@
                 // callback برای زمانی که راهنما تمام شد یا رد شد
                 guideCallbackForFirstLevel = null;
             } else {
-                skipBtn.style.display = 'none';
+                skipBtn.style.display = 'block';
                 guideCallbackForFirstLevel = callback;
             }
             
@@ -2431,25 +2431,7 @@
             }
         }
 
-        function skipGuide() {
-            // فقط اگر از منو باشه، رد کردن فعال است
-            if (!isGuideFromMenu) {
-                // اگر از مرحله ۱ باشه، نباید رد کنه
-                return;
-            }
-            
-            if (guideInterval) {
-                clearInterval(guideInterval);
-                guideInterval = null;
-            }
-            if (guideAudio) {
-                guideAudio.pause();
-                guideAudio.currentTime = 0;
-                guideAudio = null;
-            }
-            isGuidePlaying = false;
-            showScreen('homeScreen');
-        }
+        function skipGuide() { endGuide(); }
 
         // ===== دکمه رد کردن راهنما =====
         document.getElementById('guideSkipBtn').addEventListener('click', function() {
