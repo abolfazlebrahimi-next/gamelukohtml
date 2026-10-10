@@ -2,6 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <script>
+
 (function () {
     'use strict';
 
@@ -461,20 +462,9 @@
         return /(?:skip|guide-skip|tutorial-skip)/i.test(identity) || /رد\s*کردن/i.test(label);
     }
 
-    function addGuideButtonStyles() {
-        if (document.getElementById('loko-guide-skip-styles')) return;
-        const style = document.createElement('style');
-        style.id = 'loko-guide-skip-styles';
-        style.textContent = `
-            .loko-guide-skip {
-                position: static !important;
-                inset: auto !important;
-                display: block !important;
-                margin: 14px auto 0 !important;
-            }
-        `;
-        (document.head || document.documentElement).appendChild(style);
-    }
+    // Button appearance belongs to each game. The shared controller only
+    // moves the control below the guide and never injects a global skin.
+    function addGuideButtonStyles() {}
 
     function guideActionScope(container) {
         let current = container;
@@ -598,19 +588,50 @@
         }, true);
     }
 
-    function setImportantStyleIfNeeded(element, property, value) {
-        if (
-            element.style.getPropertyValue(property) !== value ||
-            element.style.getPropertyPriority(property) !== 'important'
-        ) {
-            element.style.setProperty(property, value, 'important');
+    function guideButtonStyleReference(container, skipButton) {
+        const scope = guideActionScope(container);
+        const controls = [...scope.querySelectorAll(
+            'button, [role="button"], input[type="button"], input[type="submit"]'
+        )].filter(control => control !== skipButton && !isSkipControl(control));
+        const tokenFor = control => String(
+            (control.id || '') + ' ' +
+            (typeof control.className === 'string' ? control.className : '') + ' ' +
+            (control.textContent || '')
+        );
+        const hasStyledAction = controls.some(control => /(?:next|start|continue|begin|action|cta|primary|secondary|gold|شروع|بعدی|ادامه|بزن\s*بریم|فهمیدم)/i.test(tokenFor(control)));
+        const pool = hasStyledAction
+            ? controls
+            : controls.filter(control => !/(?:close|back|cancel|بستن|بازگشت|لغو)/i.test(tokenFor(control)));
+        const score = control => {
+            const token = tokenFor(control);
+            let value = 0;
+            if (/(?:next|start|continue|begin|action|cta|primary|secondary|gold|شروع|بعدی|ادامه|بزن\s*بریم|فهمیدم)/i.test(token)) value += 10;
+            if (/(?:btn|button)/i.test(token)) value += 1;
+            if (/(?:close|back|cancel|بستن|بازگشت|لغو)/i.test(token)) value -= 5;
+            if (isElementVisible(control)) value += 2;
+            return value;
+        };
+        pool.sort((a, b) => score(b) - score(a));
+        return pool[0] || null;
+    }
+
+    function inheritGuideButtonClasses(button, container) {
+        if (button.dataset.lokoGuideClassesCopied === 'true') return;
+        const reference = guideButtonStyleReference(container, button);
+        if (reference && typeof reference.className === 'string' && reference.className.trim()) {
+            button.className = reference.className;
         }
+        button.classList.add('loko-guide-skip');
+        button.dataset.lokoGuideClassesCopied = 'true';
     }
 
     function prepareGuideSkipButton(button, container, injected) {
         if (!button || !container) return;
-        if (button.parentElement !== container) container.appendChild(button);
+        const wasMoved = button.parentElement !== container;
+        if (wasMoved) container.appendChild(button);
 
+        const isInjected = injected || button.dataset.lokoGuideInjected === 'true';
+        if (isInjected) inheritGuideButtonClasses(button, container);
         if (!button.classList.contains('loko-guide-skip')) {
             button.classList.add('loko-guide-skip');
         }
@@ -625,10 +646,19 @@
         if (button.tagName === 'BUTTON' && !button.getAttribute('type')) {
             button.setAttribute('type', 'button');
         }
-        setImportantStyleIfNeeded(button, 'display', 'block');
-        setImportantStyleIfNeeded(button, 'position', 'static');
-        setImportantStyleIfNeeded(button, 'inset', 'auto');
-        bindGuideSkipButton(button, container, injected);
+
+        // Remove only inline visibility/position declarations that would keep
+        // the control floating over the guide. Backgrounds, borders, fonts,
+        // dimensions, and every class-defined style remain untouched.
+        if (button.style.getPropertyValue('display') === 'none') {
+            button.style.removeProperty('display');
+        }
+        if (isInjected || wasMoved) {
+            ['position', 'inset', 'top', 'right', 'bottom', 'left', 'transform'].forEach(property => {
+                if (button.style.getPropertyValue(property)) button.style.removeProperty(property);
+            });
+        }
+        bindGuideSkipButton(button, container, isInjected);
     }
 
     function elementDepth(element) {
@@ -834,6 +864,7 @@
         init();
     }
 }());
+
 
 </script>
     <meta charset="UTF-8" />
