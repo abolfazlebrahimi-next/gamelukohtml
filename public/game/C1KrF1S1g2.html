@@ -1263,6 +1263,10 @@
             HelpManager.startHelp(false);
         };
 
+        function skipHelp() {
+            HelpManager.closeHelp();
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('helpCloseBtn').addEventListener('click', function () {
                 HelpManager.closeHelp();

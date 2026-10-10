@@ -381,7 +381,7 @@
         let current = element;
         while (current && current !== document.body) {
             const token = guideElementToken(current);
-            if (/(?:^|[\s_-])(?:menu|landing|home|main)(?:[\s_-]|$)/.test(token)) return true;
+            if (/(?:^|[\s_-])(?:menu|landing|home|main)(?:[\s_-]|screen|page|content|area|character|wrapper|view|$)/.test(token)) return true;
             current = current.parentElement;
         }
         return false;
@@ -425,8 +425,7 @@
             }
             if (style && (
                 style.display === 'none' ||
-                style.visibility === 'hidden' ||
-                Number(style.opacity) === 0
+                style.visibility === 'hidden'
             )) return false;
             current = current.parentElement;
         }
@@ -436,7 +435,8 @@
     function guideContainerScore(element) {
         const token = guideElementToken(element);
         let score = 0;
-        if (/container|content|card|panel|wrapper|wrap|box/.test(token)) score += 5;
+        if (/container|content|card|panel/.test(token)) score += 6;
+        if (/wrapper|wrap|box/.test(token)) score += 4;
         if (/modal|overlay/.test(token)) score += 4;
         if (/screen|page|section/.test(token)) score += 1;
         if (isGuideLeafElement(element)) score -= 4;
@@ -466,19 +466,7 @@
                 position: static !important;
                 inset: auto !important;
                 display: block !important;
-                visibility: visible !important;
-                width: auto !important;
-                min-width: 150px !important;
-                min-height: 44px !important;
-                height: auto !important;
                 margin: 14px auto 0 !important;
-                padding: 10px 24px !important;
-                border-radius: 12px !important;
-                cursor: pointer !important;
-                z-index: 20 !important;
-                font-size: .95rem !important;
-                line-height: 1.4 !important;
-                opacity: 1 !important;
             }
         `;
         (document.head || document.documentElement).appendChild(style);
@@ -653,7 +641,7 @@
         let current = element.parentElement;
         while (current && current !== document.body) {
             const token = guideElementToken(current);
-            if (isGuideLikeElement(current) && /screen|page|modal/.test(token)) return current;
+            if (isGuideLikeElement(current) && /screen|page|modal|overlay/.test(token)) return current;
             current = current.parentElement;
         }
         return null;
@@ -688,6 +676,13 @@
         return selected;
     }
 
+    function guideSkipControlsInScope(container) {
+        const scope = guideActionScope(container);
+        return [...scope.querySelectorAll(
+            'button, [role="button"], input[type="button"], input[type="submit"]'
+        )].filter(control => isSkipControl(control) || control.classList.contains('loko-guide-skip'));
+    }
+
     function scanGuideControls() {
         guideScanQueued = false;
         if (!document.body) return;
@@ -695,9 +690,7 @@
 
         const containers = guideContainersInDocument();
         containers.forEach(container => {
-            let skipButton = [...container.querySelectorAll(
-                'button, [role="button"], input[type="button"], input[type="submit"]'
-            )].find(isSkipControl);
+            let skipButton = guideSkipControlsInScope(container)[0];
 
             if (!skipButton) {
                 skipButton = document.createElement('button');
@@ -709,6 +702,17 @@
             } else {
                 prepareGuideSkipButton(skipButton, container, false);
             }
+
+            // A previous scan may have created a button in a nested helper
+            // wrapper before the semantic guide container became visible.
+            // Keep one shared control per active guide scope and remove only
+            // buttons created by this controller, never page-owned controls.
+            guideSkipControlsInScope(container).forEach(control => {
+                if (
+                    control !== skipButton &&
+                    control.dataset.lokoGuideInjected === 'true'
+                ) control.remove();
+            });
         });
     }
 
