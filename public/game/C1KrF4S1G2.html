@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+    <script src="./game-audio.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>سیب‌ستانِ الگوها | بازی سوم ریاضی پایه اول</title>
@@ -537,6 +538,7 @@ let musicTimer=null,birdTimer=null,mi=0;
 const MSCALE=[261.63,293.66,329.63,392,440,523.25,587.33,659.25];
 const MPAT=[0,2,4,7,4,2,5,7,0,2,4,5,7,5,4,2];
 function startMusic(){
+  if(window.__lokoUseExternalBackgroundMusic) return;
   if(musicTimer)return;
   musicTimer=setInterval(()=>{
     if(save.muted||document.hidden)return;

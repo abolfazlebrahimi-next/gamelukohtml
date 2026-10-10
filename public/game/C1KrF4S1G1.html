@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+    <script src="./game-audio.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#0b1120">
@@ -516,6 +517,7 @@ const sfx = {
 const MELODY = [523,659,784,659, 880,784,659,587, 523,659,784,1047, 988,784,659,523];
 let mTimer = null, mStep = 0;
 function startMusic(){
+  if(window.__lokoUseExternalBackgroundMusic) return;
   if(mTimer || !S.sound) return;
   mTimer = setInterval(() => {
     tone(MELODY[mStep % MELODY.length], .2, 'triangle', .032);
