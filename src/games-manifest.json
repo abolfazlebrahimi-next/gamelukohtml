@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-28T21:01:53.074Z",
-  "total": 94,
+  "generatedAt": "2026-10-22T21:22:02.902Z",
+  "total": 96,
   "archived": 3,
   "games": [
     {
@@ -1316,6 +1316,22 @@
       "stage": 9
     },
     {
+      "file": "C3KrF1S2G10.html",
+      "title": "برنامه‌ریز کوچولو",
+      "code": "C3KRF1S2M10",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 10
+    },
+    {
       "file": "C3KrF1S2G6.html",
       "title": "ماشین‌حساب جادویی",
       "code": "C3KRF1S2M6",
@@ -1346,6 +1362,22 @@
         "num": 2
       },
       "stage": 8
+    },
+    {
+      "file": "C3KrF1S2G9.html",
+      "title": "امدادگر ماشین",
+      "code": "C3KRF1S2M9",
+      "archive": false,
+      "class": 3,
+      "book": "r",
+      "chapter": {
+        "code": "F1",
+        "num": 1
+      },
+      "season": {
+        "num": 2
+      },
+      "stage": 9
     },
     {
       "file": "C3KrF1S3G13.html",
