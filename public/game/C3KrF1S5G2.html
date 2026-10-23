@@ -795,7 +795,7 @@ body.theme-kahkeshani .options-title {
 <div class="win-level" id="winLevel">نیمه گمشده رو پیدا کردی!</div>
 <div class="win-coin" id="winCoin">
 <span>+</span>
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="winCoinAmount">10</span>
 </div>
 <p id="winMsg">عالی بود! 😍</p>
@@ -836,11 +836,11 @@ body.theme-kahkeshani .options-title {
 <div id="homeScreen" class="screen active">
 <div class="menu-container glass-card">
 <div class="coin-display">
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span class="coin-amount" id="menu-coin-amount">0</span>
 </div>
 <div class="menu-character">
-<img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='🦋'">
+<img src="./icons/gamer.png" alt="گیمر" onerror="this.textContent='🦋'">
 </div>
 <h1 class="menu-title">آینه جادویی</h1>
 <p class="menu-subtitle">✨ نیمه گمشده شکل رو پیدا کن ✨</p>
@@ -857,7 +857,7 @@ body.theme-kahkeshani .options-title {
 <div id="guideScreen" class="screen">
 <div class="guide-container">
 <div class="guide-char">
-<img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🦋'">
+<img src="./icons/gamerhi.png" alt="راهنما" onerror="this.textContent='🦋'">
 </div>
 <div class="guide-text" id="guideText">سلام دوست من!</div>
 <div class="guide-progress">
@@ -875,7 +875,7 @@ body.theme-kahkeshani .options-title {
 </button>
 <h2>🛍️ فروشگاه</h2>
 <div class="shop-coin">
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="shop-coin-amount">0</span>
 </div>
 </div>
@@ -1428,7 +1428,7 @@ function renderShop() {
             var previewHtml;
             if (theme.file) previewHtml = '<img src="icons/' + theme.file + '" alt="' + theme.name + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent=\'🎨\'">';
             else previewHtml = '<span style="font-size:3rem;background:linear-gradient(135deg,#6C5CE7,#00D2FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">🌙</span>';
-            card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + toPersianNum(theme.price) : '🎁 رایگان') + '</div>' + btnHtml;
+            card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + toPersianNum(theme.price) : '🎁 رایگان') + '</div>' + btnHtml;
             grid.appendChild(card);
         });
     } else {
@@ -1445,7 +1445,7 @@ function renderShop() {
                 if (effect.id === 'confetti') btnHtml = '<button class="shop-btn-sm select" onclick="applyEffect(\'confetti\')">✨ انتخاب</button>';
                 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyEffect(\'' + effect.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
             }
-            card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + toPersianNum(effect.price) : '🎁 رایگان') + '</div>' + btnHtml;
+            card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + toPersianNum(effect.price) : '🎁 رایگان') + '</div>' + btnHtml;
             grid.appendChild(card);
         });
     }

@@ -534,7 +534,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div class="win-level" id="winLevel">مرحله رو بردی!</div>
 <div class="win-coin" id="winCoin">
 <span>+</span>
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="winCoinAmount">10</span>
 </div>
 <p id="winMsg">عالی بود! 😍</p>
@@ -575,11 +575,11 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="homeScreen" class="screen active">
 <div class="menu-container glass-card">
 <div class="coin-display">
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span class="coin-amount" id="menu-coin-amount">0</span>
 </div>
 <div class="menu-character">
-<img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='🏪'">
+<img src="./icons/gamer.png" alt="گیمر" onerror="this.textContent='🏪'">
 </div>
 <h1 class="menu-title">مغازه‌دار باهوش</h1>
 <p class="menu-subtitle">شکلات‌ها رو بکش و به مشتری بده!</p>
@@ -596,7 +596,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="guideScreen" class="screen">
 <div class="guide-container">
 <div class="guide-char">
-<img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🏪'">
+<img src="./icons/gamerhi.png" alt="راهنما" onerror="this.textContent='🏪'">
 </div>
 <div class="guide-text" id="guideText">سلام مغازه‌دار باهوش! 🏪</div>
 <div class="guide-progress">
@@ -614,7 +614,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 </button>
 <h2>🛍️ فروشگاه</h2>
 <div class="shop-coin">
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="shop-coin-amount">0</span>
 </div>
 </div>
@@ -659,7 +659,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 
         <div class="customer-area" id="customer-area">
             <div class="customer-avatar" id="customer-avatar-box">
-                <img id="customer-avatar-img" src="icons/ashpaz.png" alt="مشتری" onerror="this.src='icons/gamerhi.png'">
+                <img id="customer-avatar-img" src="icons/ashpaz.png" alt="مشتری" onerror="this.src='./icons/gamerhi.png'">
             </div>
             <div class="speech-bubble">
                 <p>سلام! می‌خوام <strong id="wanted-count">۳</strong> تا شکلات بخرم.</p>
@@ -1082,7 +1082,7 @@ if (theme.id === 'default') btnHtml = '<button class="shop-btn-sm select" onclic
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyTheme(\'' + theme.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
 var previewHtml = '<img src="icons/' + theme.file + '" alt="' + theme.name + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent=\'🎨\'">';
-card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + theme.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + theme.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 } else if (tab === 'effects') {
@@ -1099,7 +1099,7 @@ var canAfford = coins >= effect.price;
 if (effect.id === 'confetti') btnHtml = '<button class="shop-btn-sm select" onclick="applyEffect(\'confetti\')">✨ انتخاب</button>';
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyEffect(\'' + effect.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
-card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + effect.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + effect.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 } else if (tab === 'houses') {
@@ -1117,7 +1117,7 @@ if (house.id === 'khoone_sade') btnHtml = '<button class="shop-btn-sm select" on
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyHouse(\'' + house.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
 var previewHtml = '<img src="icons/' + house.file + '" alt="' + house.name + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentElement.textContent=\'🏪\'">';
-card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + house.name + '</div><div class="price">' + (house.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + house.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + house.name + '</div><div class="price">' + (house.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + house.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 } else if (tab === 'chocolates') {
@@ -1135,7 +1135,7 @@ if (choc.id === 'mamooli') btnHtml = '<button class="shop-btn-sm select" onclick
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyChocolate(\'' + choc.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
 var previewHtml = '<img src="icons/' + choc.file + '" alt="' + choc.name + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentElement.textContent=\'' + choc.emoji + '\'">';
-card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + choc.name + '</div><div class="price">' + (choc.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + choc.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + choc.name + '</div><div class="price">' + (choc.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + choc.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 }
@@ -1487,7 +1487,7 @@ function generateCustomer() {
     var avatarImg = document.getElementById('customer-avatar-img');
     avatarImg.src = 'icons/' + iconFile;
     avatarImg.alt = 'مشتری';
-    avatarImg.onerror = function() { this.src = 'icons/gamerhi.png'; };
+    avatarImg.onerror = function() { this.src = './icons/gamerhi.png'; };
 
     buildChocolateTray();
 

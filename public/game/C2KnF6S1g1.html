@@ -1497,11 +1497,11 @@
     <div id="homeScreen" class="screen active">
         <div class="menu-container glass-card">
             <div class="coin-display">
-                <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
                 <span class="coin-amount" id="menu-coin-amount">0</span>
             </div>
             <div class="menu-character">
-                <img src="icons/gamerhi.png" alt="Pixel" onerror="this.textContent='🧑‍🌾'">
+                <img src="./icons/gamer.png" alt="Pixel" onerror="this.textContent='🧑‍🌾'">
             </div>
             <h1 class="menu-title">شکارچی نشانه‌ی «س»</h1>
             <p class="menu-subtitle">موج‌هایی که شکل «س» هستن رو پیدا کن و آروم روشون دست بزن.</p>
@@ -1519,7 +1519,7 @@
     <div id="guideScreen" class="screen">
         <div class="guide-container">
             <div class="guide-char">
-                <img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🧜‍♀️'">
+                <img src="./icons/gamerhi.png" alt="راهنما" onerror="this.textContent='🧜‍♀️'">
             </div>
             <div class="guide-text" id="guideText">سلام! من پری دریایی هستم. بیا بهت یاد بدم چطور شکارچی نشانه س باشی! 🌊</div>
             <div class="guide-progress"><div class="guide-progress-bar" id="guideProgressBar"></div></div>
@@ -1538,7 +1538,7 @@
                 </button>
                 <h2>🛍️ فروشگاه</h2>
                 <div class="shop-coin">
-                    <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                    <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
                     <span id="shop-coin-amount">0</span>
                 </div>
             </div>
@@ -2128,7 +2128,7 @@
                     card.innerHTML = `
                         ${previewHtml}
                         <div class="name">${item.name}</div>
-                        <div class="price">${item.price > 0 ? `<img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${item.price}` : '🎁 رایگان'}</div>
+                        <div class="price">${item.price > 0 ? `<img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${item.price}` : '🎁 رایگان'}</div>
                         ${btnHtml}
                     `;
                     grid.appendChild(card);
@@ -2366,7 +2366,7 @@
                         <span>
                             <small>سکه</small>
                             <span class="coin-stats">
-                                <img src="icons/coin.png" alt="سکه"> +1
+                                <img src="./icons/coin.png" alt="سکه"> +1
                             </span>
                         </span>
                     `;

@@ -1744,7 +1744,7 @@
             <div class="win-level" id="winLevel">مرحله ۱ رو بردی!</div>
             <div class="win-coin" id="winCoin">
                 <span>+</span>
-                <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+                <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
                 <span id="winCoinAmount">10</span>
             </div>
             <p id="winMsg">صبحانه حیوانات آماده شد! 😍</p>
@@ -1760,11 +1760,11 @@
     <div id="homeScreen" class="screen active">
         <div class="menu-container glass-card">
             <div class="coin-display">
-                <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
                 <span class="coin-amount" id="menu-coin-amount">0</span>
             </div>
             <div class="menu-character">
-                <img src="icons/gamerhi.png" alt="Pixel" onerror="this.textContent='🤖'">
+                <img src="./icons/gamer.png" alt="Pixel" onerror="this.textContent='🤖'">
             </div>
             <h1 class="menu-title">تخم‌های پر سروصدا</h1>
             <p class="menu-subtitle">به آشپز مزرعه کمک کن بهترین پرنده رو انتخاب کنه!</p>
@@ -1782,7 +1782,7 @@
     <div id="guideScreen" class="screen">
         <div class="guide-container">
             <div class="guide-char">
-                <img src="icons/gamer.png" alt="پیکسل" onerror="this.textContent='🧑‍🌾'">
+                <img src="./icons/gamerhi.png" alt="پیکسل" onerror="this.textContent='🧑‍🌾'">
             </div>
             <div class="guide-text" id="guideText">سلام من پیکسل هستم! به آشپزخانه مزرعه خوش اومدی!</div>
             <div class="guide-progress">
@@ -1803,7 +1803,7 @@
                 </button>
                 <h2>🛍️ فروشگاه</h2>
                 <div class="shop-coin">
-                    <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                    <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
                     <span id="shop-coin-amount">0</span>
                 </div>
             </div>
@@ -2168,7 +2168,7 @@
                     card.innerHTML = `
                         ${previewHtml}
                         <div class="name">${theme.name}</div>
-                        <div class="price">${theme.price > 0 ? `<img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${theme.price}` : '🎁 رایگان'}</div>
+                        <div class="price">${theme.price > 0 ? `<img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${theme.price}` : '🎁 رایگان'}</div>
                         ${btnHtml}
                     `;
                     grid.appendChild(card);
@@ -2193,7 +2193,7 @@
                     card.innerHTML = `
                         <img src="icons/${farmer.file}" class="shop-theme-preview" alt="${farmer.name}" onerror="this.style.display='none'">
                         <div class="name">${farmer.name}</div>
-                        <div class="price">${farmer.price > 0 ? `<img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${farmer.price}` : '🎁 رایگان'}</div>
+                        <div class="price">${farmer.price > 0 ? `<img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${farmer.price}` : '🎁 رایگان'}</div>
                         ${btnHtml}
                     `;
                     grid.appendChild(card);

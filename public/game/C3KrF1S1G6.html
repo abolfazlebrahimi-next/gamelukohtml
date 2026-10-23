@@ -611,7 +611,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
         <div class="win-level" id="winLevel">مرحله رو بردی!</div>
         <div class="win-coin">
             <span>+</span>
-            <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+            <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
             <span id="winCoinAmount">10</span>
         </div>
         <p id="winMsg">عالی بود! 😍</p>
@@ -650,11 +650,11 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="homeScreen" class="screen active">
     <div class="menu-container glass-card">
         <div class="coin-display">
-            <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+            <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
             <span class="coin-amount" id="menu-coin-amount">0</span>
         </div>
         <div class="menu-character">
-            <img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='💰'">
+            <img src="./icons/gamer.png" alt="گیمر" onerror="this.textContent='💰'">
         </div>
         <h1 class="menu-title">ماشین پول‌سازی</h1>
         <p class="menu-subtitle">قانون مخفی ماشین رو پیدا کن!</p>
@@ -670,7 +670,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 
 <div id="guideScreen" class="screen">
     <div class="guide-container">
-        <div class="guide-char"><img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='💰'"></div>
+        <div class="guide-char"><img src="./icons/gamerhi.png" alt="راهنما" onerror="this.textContent='💰'"></div>
         <div class="guide-text" id="guideText">سلام دوست من!</div>
         <div class="guide-progress"><div class="guide-progress-bar" id="guideProgressBar"></div></div>
         <button class="guide-skip" id="guideSkipBtn">⏭️ رد کردن</button>
@@ -685,7 +685,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
             </button>
             <h2>🛍️ فروشگاه</h2>
             <div class="shop-coin">
-                <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+                <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
                 <span id="shop-coin-amount">0</span>
             </div>
         </div>
@@ -1017,7 +1017,7 @@ previewHtml = '<img src="icons/' + theme.file + '" alt="' + theme.name + '" styl
 } else {
 previewHtml = '<span style="font-size:2.5rem;">🌙</span>';
 }
-card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + theme.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + theme.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 } else if (tab === 'effects') {
@@ -1034,7 +1034,7 @@ var canAfford = coins >= effect.price;
 if (effect.id === 'confetti') btnHtml = '<button class="shop-btn-sm select" onclick="applyEffect(\'confetti\')">✨ انتخاب</button>';
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyEffect(\'' + effect.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
-card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + effect.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + effect.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 } else if (tab === 'chocolates') {
@@ -1052,7 +1052,7 @@ if (skin.id === 'mamooli') btnHtml = '<button class="shop-btn-sm select" onclick
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyChocolateSkin(\'' + skin.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
 var previewHtml = '<img src="icons/' + skin.file + '" alt="' + skin.name + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentElement.textContent=\'' + skin.emoji + '\'">';
-card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + skin.name + '</div><div class="price">' + (skin.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + skin.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + skin.name + '</div><div class="price">' + (skin.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + skin.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 }

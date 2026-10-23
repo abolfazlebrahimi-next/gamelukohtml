@@ -2083,11 +2083,11 @@
     <div class="screen active" id="screen-landing">
         <div class="menu-container glass-card" style="max-width:400px;">
             <div class="coin-display">
-                <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
                 <span class="coin-amount" id="menu-coin-amount">0</span>
             </div>
             <div class="menu-character">
-                <img src="icons/gamerhi.png" alt="Pixel" onerror="this.textContent='🧑‍🌾'">
+                <img src="./icons/gamer.png" alt="Pixel" onerror="this.textContent='🧑‍🌾'">
             </div>
             <p class="menu-subtitle">تو معمار برج‌هایی! تخم‌ها رو بگیر و بلندترین برج رو بساز!</p>
 
@@ -2112,7 +2112,7 @@
                 </button>
                 <h2>🛍️ فروشگاه</h2>
                 <div class="shop-coin">
-                    <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'" style="width:18px;height:18px;">
+                    <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'" style="width:18px;height:18px;">
                     <span id="shop-coin-amount">0</span>
                 </div>
             </div>
@@ -2214,7 +2214,7 @@
     <div id="screen-guide">
         <div class="guide-container">
             <div class="pixel-wrap idle" id="pixelWrap">
-                <img src="icons/gamer.png" alt="پیکسل" id="pixelImg" onerror="this.textContent='🧑‍🌾'">
+                <img src="./icons/gamerhi.png" alt="پیکسل" id="pixelImg" onerror="this.textContent='🧑‍🌾'">
             </div>
             <div class="speech-bubble">
                 <div class="speech-text" id="speechText"></div>
@@ -2491,7 +2491,7 @@
             if (message.includes('سکه')) {
                 displayMessage = message.replace('سکه', '');
                 toast.innerHTML = `
-                    <img src="icons/coin.png" alt="سکه" class="toast-coin">
+                    <img src="./icons/coin.png" alt="سکه" class="toast-coin">
                     <span>${displayMessage}</span>
                 `;
             } else {
@@ -2888,7 +2888,7 @@
                     <div class="shop-item-icon">${item.icon}</div>
                     <div class="name">${item.name}</div>
                     <div class="desc">${item.desc}</div>
-                    <div class="price">${item.price > 0 ? `<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'"> ${item.price}` : '🎁 رایگان'}</div>
+                    <div class="price">${item.price > 0 ? `<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'"> ${item.price}` : '🎁 رایگان'}</div>
                     ${btnHtml}
                 `;
                 grid.appendChild(card);
@@ -3827,7 +3827,7 @@
                     </div>
 
                     <div class="result-coin-display">
-                        <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+                        <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
                         <span>+ ${toPersianNum(coinsEarned)} سکه</span>
                     </div>
 

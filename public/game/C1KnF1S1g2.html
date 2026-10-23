@@ -1481,14 +1481,14 @@
         <div class="menu-container glass-card">
             <div class="coin-display">
                 <span class="coin-amount" id="menu-coin-amount">0</span>
-                <img src="icons/coin.png" alt="Coin">
+                <img src="./icons/coin.png" alt="Coin">
             </div>
             <h1 class="menu-title">نقاش کوچولو</h1>
             <p class="menu-subtitle">✨ با خط‌های صاف نقاشی کن!</p>
             <div class="character-wrapper">
                 <div class="character-frame">
                     <div class="speech-bubble">سلام! آماده‌ای بریم؟</div>
-                    <img src="icons/gamerhi.png" alt="Gamer">
+                    <img src="./icons/gamer.png" alt="Gamer">
                 </div>
             </div>
             <div class="menu-buttons">
@@ -1533,7 +1533,7 @@
                 <div style="width:44px;"></div>
             </div>
             <div class="help-character">
-                <img src="icons/gamerhi.png" alt="Gamer Hi">
+                <img src="./icons/gamerhi.png" alt="Gamer Hi">
             </div>
             <div class="help-text">
                 <strong>سلام! من پیکسلم! 🎨</strong><br>
@@ -1552,7 +1552,7 @@
                 <h2>🛍️ فروشگاه</h2>
                 <div class="coin-display" style="position:relative;top:0;right:0;padding:4px 12px 4px 8px;">
                     <span class="coin-amount" id="shop-coin-amount">0</span>
-                    <img src="icons/coin.png" alt="Coin">
+                    <img src="./icons/coin.png" alt="Coin">
                 </div>
             </div>
             <div class="shop-tabs">
@@ -1682,7 +1682,7 @@
             <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:20px;background:rgba(255,215,0,0.1);padding:8px 16px;border-radius:30px;border:1px solid var(--gold);">
                 <span style="font-weight:700;color:var(--text-secondary);">سکه دریافت کردی:</span>
                 <span style="font-weight:900;font-size:1.4rem;color:var(--gold);" id="complete-coin-reward">0</span>
-                <img src="icons/coin.png" alt="Coin" style="width:28px;height:28px;object-fit:contain;">
+                <img src="./icons/coin.png" alt="Coin" style="width:28px;height:28px;object-fit:contain;">
             </div>
             <div class="modal-buttons">
                 <button class="btn btn-gold" onclick="nextLevel()">🌟 مرحله بعد</button>
@@ -1708,7 +1708,7 @@
          ============================================================ -->
     <div class="modal-overlay" id="buy-success-modal">
         <div class="modal-content glass-card">
-            <img src="icons/gamer.png" alt="Gamer" class="buy-success-gamer">
+            <img src="./icons/gamer.png" alt="Gamer" class="buy-success-gamer">
             <div class="buy-success-title">🎉 آفرین!</div>
             <div class="buy-success-text">تو <span id="buy-success-item-name">آیتم</span> رو خرید کردی!<br>حالا حسابی شیک شدی! 🥳</div>
             <button class="buy-success-btn" onclick="closeBuySuccess()">🚀 عالیه! بریم بازی</button>
@@ -2290,7 +2290,7 @@
                         </div>
                         <div class="name">${theme.emoji || ''} ${theme.name}</div>
                         <div class="price">
-                            ${theme.price > 0 ? `<img src="icons/coin.png" alt="Coin"> ${theme.price}` : 'رایگان'}
+                            ${theme.price > 0 ? `<img src="./icons/coin.png" alt="Coin"> ${theme.price}` : 'رایگان'}
                         </div>
                         ${btnHtml}
                     `;
@@ -2335,7 +2335,7 @@
                         ${previewHtml}
                         <div class="name">${item.name}</div>
                         <div class="price">
-                            ${item.price > 0 ? `<img src="icons/coin.png" alt="Coin"> ${item.price}` : 'رایگان'}
+                            ${item.price > 0 ? `<img src="./icons/coin.png" alt="Coin"> ${item.price}` : 'رایگان'}
                         </div>
                         ${btnHtml}
                     `;

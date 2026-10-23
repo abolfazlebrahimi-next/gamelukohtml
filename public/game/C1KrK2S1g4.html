@@ -492,11 +492,11 @@
     <div id="homePage" class="page active">
         <div class="menu-container glass-card">
             <div class="coin-display">
-                <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+                <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
                 <span class="coin-amount" id="menuCoinAmount">0</span>
             </div>
             <div class="menu-character">
-                <img src="icons/gamerhi.png" alt="Pixel" onerror="this.textContent='🧒'">
+                <img src="./icons/gamer.png" alt="Pixel" onerror="this.textContent='🧒'">
             </div>
             <div class="welcome-box">
                 <span class="gamer-icon"></span>
@@ -532,7 +532,7 @@
                 </button>
                 <h2>🛍️ فروشگاه</h2>
                 <div class="shop-coin">
-                    <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'" style="width:18px;height:18px;">
+                    <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'" style="width:18px;height:18px;">
                     <span id="shopCoinAmount">0</span>
                 </div>
             </div>
@@ -574,7 +574,7 @@
                     <span class="stat-item">❌ غلط: <span class="highlight" id="winWrong">0</span></span>
                 </div>
                 <div class="stat-row">
-                    <span class="stat-item"><img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'"> سکه: <span class="highlight" id="winCoins">0</span></span>
+                    <span class="stat-item"><img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'"> سکه: <span class="highlight" id="winCoins">0</span></span>
                 </div>
                 <div style="margin-top:8px;" id="winLevelText">مرحله ۱ کامل شد!</div>
             </div>
@@ -599,7 +599,7 @@
 
     <div id="screen-guide">
         <div class="guide-container">
-            <div class="pixel-wrap idle" id="pixelWrap"><img src="icons/gamer.png" alt="پیکسل" onerror="this.textContent='🧒'"></div>
+            <div class="pixel-wrap idle" id="pixelWrap"><img src="./icons/gamerhi.png" alt="پیکسل" onerror="this.textContent='🧒'"></div>
             <div class="speech-bubble"><div class="speech-text" id="speechText"></div></div>
             <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
             <div class="time-indicator" id="timeIndicator">⏱️ ۰:۰۰</div>
@@ -1048,7 +1048,7 @@
                 if (isActive) btnHtml = `<button class="shop-btn-sm active">✓ فعال</button>`;
                 else if (isOwned) btnHtml = `<button class="shop-btn-sm select" onclick="selectTheme('${item.id}')">✨ انتخاب</button>`;
                 else { const canAfford = coinCount >= item.price; btnHtml = `<button class="shop-btn-sm ${canAfford ? 'buy' : 'locked'}" ${canAfford ? `onclick="buyTheme('${item.id}')"` : 'disabled'}>${canAfford ? '🛒 خرید' : '🔒 قفل'}</button>`; }
-                card.innerHTML = `${previewHtml}<div class="shop-item-name">${item.name}</div><div class="shop-item-price">${item.price > 0 ? `<img src="icons/coin.png" alt="سکه" onerror="this.textContent='coin.png'"> ${item.price}` : '🎁 رایگان'}</div>${btnHtml}`;
+                card.innerHTML = `${previewHtml}<div class="shop-item-name">${item.name}</div><div class="shop-item-price">${item.price > 0 ? `<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='coin.png'"> ${item.price}` : '🎁 رایگان'}</div>${btnHtml}`;
                 grid.appendChild(card);
             });
         }

@@ -18,7 +18,7 @@ function monFallback(img){
   if(ph) ph.style.display = 'block';
 }
 function coinFallback(img){
-  if(!img.dataset.f1){ img.dataset.f1 = '1'; img.src = './icon/coin.png'; return; }
+  if(!img.dataset.f1){ img.dataset.f1 = '1'; img.src = './icons/coin.png'; return; }
   img.style.display = 'none';
   var s = img.nextElementSibling;
   if(s) s.style.display = 'block';
@@ -526,7 +526,7 @@ b,strong{font-weight:800}
 
     <!-- کاراکتر هیولا: h1.png -->
     <div class="hero cf-zone" id="menuHero">
-      <img class="mon-img" src="./icons/h1.png" data-start="h1" alt="کاراکتر اصلی بازی" onerror="monFallback(this)">
+      <img class="mon-img" src="./icons/gamer.png" data-start="h1" alt="کاراکتر اصلی بازی" onerror="monFallback(this)">
       <div class="img-ph" style="display:none" data-monster></div>
       <div id="menuAcc"></div>
     </div>
@@ -560,7 +560,7 @@ b,strong{font-weight:800}
     <div class="help-hero">
       <div class="h-img">
         <!-- هیولای راهنما: h2.png -->
-        <img class="mon-img" src="./icons/h2.png" data-start="h2" alt="هیولای راهنما" onerror="monFallback(this)">
+        <img class="mon-img" src="./icons/gamerhi.png" data-start="h2" alt="هیولای راهنما" onerror="monFallback(this)">
         <div class="img-ph" style="display:none" data-monster></div>
       </div>
       <div class="bubble">سلام! من هیولای کارخانه‌ام. با هم همه‌ی دستگاه‌ها رو تعمیر می‌کنیم!</div>
@@ -836,7 +836,7 @@ const STAR_SVG = '<svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4
 
 function fillIcons(scope){
   $$('[data-icon]', scope).forEach(el => { const n = el.dataset.icon; if(ICONS[n]) el.innerHTML = ICONS[n]; });
-  /* سکه لوکو: ./icons/coin.png → ./icon/coin.png → SVG داخلی */
+  /* سکه لوکو: ./icons/coin.png → ./icons/coin.png → SVG داخلی */
   $$('[data-coin]', scope).forEach(el => {
     el.classList.add('coin-ic');
     el.innerHTML = '<img class="coin-icon-img" src="./icons/coin.png" alt="" onerror="coinFallback(this)">'

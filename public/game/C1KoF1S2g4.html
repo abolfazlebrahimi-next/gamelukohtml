@@ -1282,13 +1282,13 @@
     <div id="menu-scene" class="screen active">
         <div class="menu-container glass-card">
             <div class="coin-display">
-                <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
                 <span class="coin-amount" id="menu-coin-amount">0</span>
             </div>
             <h1 class="menu-title">آزمایشگاه میوه‌ها</h1>
             <p class="menu-subtitle">🍓 با میوه‌ها آشنا بشو!</p>
             <div class="menu-character">
-                <img src="icons/gamerhi.png" alt="Pixel" onerror="this.textContent='🧒'">
+                <img src="./icons/gamer.png" alt="Pixel" onerror="this.textContent='🧒'">
             </div>
             <div class="menu-buttons">
                 <button class="btn btn-start" id="start-game-btn">
@@ -1509,7 +1509,7 @@
                 <div style="width:40px;"></div>
             </div>
             <div class="help-character">
-                <img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🧒'">
+                <img src="./icons/gamerhi.png" alt="راهنما" onerror="this.textContent='🧒'">
             </div>
             <div class="help-steps">
                 <div class="step"><span class="num">۱</span><span class="text">میوه رو ببر به سینک 🚿</span></div>
@@ -1533,7 +1533,7 @@
                 </button>
                 <h2>🛍️ فروشگاه</h2>
                 <div class="shop-coin">
-                    <img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
+                    <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'">
                     <span id="shop-coin-amount">0</span>
                 </div>
             </div>
@@ -1555,7 +1555,7 @@
         </header>
 
         <div style="position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:50;text-align:center;">
-            <img src="icons/gamerhi.png" alt="" style="width:60px;animation:wave 2s ease-in-out infinite;" onerror="this.textContent='🧒'">
+            <img src="./icons/gamerhi.png" alt="" style="width:60px;animation:wave 2s ease-in-out infinite;" onerror="this.textContent='🧒'">
             <div class="game-speech" id="game-speech" style="background:rgba(0,0,0,0.5);backdrop-filter:blur(12px);border:1px solid var(--glass-border);border-radius:15px;padding:8px 14px;margin-top:5px;max-width:180px;box-shadow:var(--shadow);position:relative;animation:popIn 0.4s ease;color:var(--text-color);">
                 <p style="font-size:0.85rem;line-height:1.6;">سلام! بیا با میوه آشنا بشیم!</p>
             </div>
@@ -1635,7 +1635,7 @@
     <div id="question-scene" class="screen">
         <div class="question-wrapper">
             <div class="q-character">
-                <img src="icons/gamerhi.png" alt="" onerror="this.textContent='🧒'">
+                <img src="./icons/gamerhi.png" alt="" onerror="this.textContent='🧒'">
             </div>
             <div class="question-card" id="question-card">
                 <div class="q-number" id="q-number">سوال ۱ از ۶</div>
@@ -2012,7 +2012,7 @@
                     </div>
                     <div class="name">${item.type === 'theme' ? item.emoji : ''} ${item.name}</div>
                     <div class="price">
-                        ${item.price > 0 ? `<img src="icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${item.price}` : '🎁 رایگان'}
+                        ${item.price > 0 ? `<img src="./icons/coin.png" alt="Coin" onerror="this.textContent='🪙'"> ${item.price}` : '🎁 رایگان'}
                     </div>
                     ${btnHtml}
                 `;

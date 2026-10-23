@@ -420,7 +420,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <h3 id="winTitle">🎉 آفرین!</h3>
 <div class="win-coin" id="winCoin">
 <span>+</span>
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="winCoinAmount">10</span>
 </div>
 <div class="result-buttons">
@@ -459,11 +459,11 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="homeScreen" class="screen active">
 <div class="menu-container glass-card">
 <div class="coin-display">
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span class="coin-amount" id="menu-coin-amount">0</span>
 </div>
 <div class="menu-character">
-<img src="icons/gamerhi.png" alt="گیمر" onerror="this.textContent='🏢'">
+<img src="./icons/gamer.png" alt="گیمر" onerror="this.textContent='🏢'">
 </div>
 <h1 class="menu-title">الگوی ساختمان</h1>
 <p class="menu-subtitle">الگوها رو کشف کن، بدون شمردن!</p>
@@ -480,7 +480,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 <div id="guideScreen" class="screen">
 <div class="guide-container">
 <div class="guide-char">
-<img src="icons/gamer.png" alt="راهنما" onerror="this.textContent='🏢'">
+<img src="./icons/gamerhi.png" alt="راهنما" onerror="this.textContent='🏢'">
 </div>
 <div class="guide-text" id="guideText">سلام کارآگاه الگوها! 🏢</div>
 <div class="guide-progress">
@@ -498,7 +498,7 @@ body { color: var(--text-color); position: relative; background-image: var(--bod
 </button>
 <h2>🛍️ فروشگاه</h2>
 <div class="shop-coin">
-<img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+<img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
 <span id="shop-coin-amount">0</span>
 </div>
 </div>
@@ -765,7 +765,7 @@ previewHtml = '<img src="icons/' + theme.file + '" alt="' + theme.name + '" styl
 } else {
 previewHtml = '<span style="font-size:3rem;background:linear-gradient(135deg,#6C5CE7,#00D2FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">🌙</span>';
 }
-card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + theme.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + previewHtml + '</div><div class="name">' + theme.name + '</div><div class="price">' + (theme.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + theme.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 } else {
@@ -782,7 +782,7 @@ var canAfford = coins >= effect.price;
 if (effect.id === 'confetti') btnHtml = '<button class="shop-btn-sm select" onclick="applyEffect(\'confetti\')">✨ انتخاب</button>';
 else btnHtml = '<button class="shop-btn-sm ' + (canAfford ? 'buy' : 'locked') + '" ' + (canAfford ? 'onclick="buyEffect(\'' + effect.id + '\')"' : 'disabled') + '>' + (canAfford ? '🛒 خرید' : '🔒 قفل') + '</button>';
 }
-card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + effect.price : '🎁 رایگان') + '</div>' + btnHtml;
+card.innerHTML = '<div class="shop-preview">' + effect.emoji + '</div><div class="name">' + effect.name + '</div><div class="price">' + (effect.price > 0 ? '<img src="./icons/coin.png" alt="سکه" onerror="this.textContent=\'🪙\'"> ' + effect.price : '🎁 رایگان') + '</div>' + btnHtml;
 grid.appendChild(card);
 });
 }

@@ -490,7 +490,7 @@
     </div>
 
     <div id="guideOverlay" class="guide-overlay">
-        <img src="icons/gamer.png" id="guidePixel" class="guide-pixel-img" alt="گیمر" onerror="this.style.display='none'">
+        <img src="./icons/gamerhi.png" id="guidePixel" class="guide-pixel-img" alt="گیمر" onerror="this.style.display='none'">
         <div class="guide-bubble">
             <div id="guideText" class="guide-text"></div>
         </div>
@@ -514,11 +514,11 @@
     <section id="landingScreen" class="screen active">
         <div class="glass-card menu-container">
             <div class="coin-display">
-                <img src="icons/coin.png" alt="سکه" onerror="this.textContent='coin.png'">
+                <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='coin.png'">
                 <span class="coin-amount" id="menuCoinAmount">0</span>
             </div>
             <div class="menu-character">
-                <img src="icons/gamerhi.png" alt="Pixel" onerror="this.textContent='🧒'">
+                <img src="./icons/gamer.png" alt="Pixel" onerror="this.textContent='🧒'">
             </div>
             <h1 class="menu-title">کاوشگر دنیای حشرات</h1>
             <p class="menu-subtitle">با دستگاه کوچک‌کننده وارد دنیای حشرات شو و معماها رو حل کن!</p>
@@ -548,7 +548,7 @@
                 </button>
                 <h2>🛍️ فروشگاه</h2>
                 <div class="shop-coin">
-                    <img src="icons/coin.png" alt="Coin" onerror="this.textContent='coin.png'" style="width:18px;height:18px;">
+                    <img src="./icons/coin.png" alt="Coin" onerror="this.textContent='coin.png'" style="width:18px;height:18px;">
                     <span id="shopCoinAmount">0</span>
                 </div>
             </div>
@@ -997,7 +997,7 @@
                     if (item.file) { previewHtml = `<div class="shop-item-preview" style="background-image:url('icons/${item.file}'); background-size:cover; background-position:center;"></div>`; }
                     else { previewHtml = `<div class="shop-item-preview" style="background: radial-gradient(circle, #0b1f0e 0%, #050a10 100%); display:flex; align-items:center; justify-content:center; font-size:2rem; color:#fff;">🌌</div>`; }
                 } else { previewHtml = `<div class="shop-item-preview" style="font-size:3rem;">${item.icon}</div>`; }
-                card.innerHTML = `${previewHtml}<div class="shop-item-name">${item.name}</div><div class="shop-item-price">${item.price > 0 ? `<img src="icons/coin.png" style="width:14px;height:14px;display:inline-block;vertical-align:middle;"> ${item.price}` : '🎁 رایگان'}</div>${btnHtml}`;
+                card.innerHTML = `${previewHtml}<div class="shop-item-name">${item.name}</div><div class="shop-item-price">${item.price > 0 ? `<img src="./icons/coin.png" style="width:14px;height:14px;display:inline-block;vertical-align:middle;"> ${item.price}` : '🎁 رایگان'}</div>${btnHtml}`;
                 grid.appendChild(card);
             });
         }

@@ -1821,7 +1821,7 @@
         <div class="menu-container glass-card">
             <div class="coin-display">
                 <span class="coin-amount" id="menu-coin-amount">1000</span>
-                <img src="icons/coin.png" alt="Coin" class="coin-icon-img">
+                <img src="./icons/coin.png" alt="Coin" class="coin-icon-img">
             </div>
 
             <div class="menu-title-banner">
@@ -1832,7 +1832,7 @@
             <div class="character-wrapper">
                 <div class="character-frame">
                     <div class="speech-bubble-inside">سلام! آماده‌ای بریم؟</div>
-                    <img src="icons/gamerhi.png" alt="Game Character" class="gamer-img">
+                    <img src="./icons/gamer.png" alt="Game Character" class="gamer-img">
                 </div>
             </div>
             
@@ -1867,7 +1867,7 @@
                 <h2>🛍️ فروشگاه</h2>
                 <div class="coin-display" style="position: relative; top: 0; right: 0; padding: 6px 12px; box-shadow: none; background: transparent; border: none;">
                     <span class="coin-amount" id="shop-coin-amount">1000</span>
-                    <img src="icons/coin.png" alt="Coin" class="coin-icon-img">
+                    <img src="./icons/coin.png" alt="Coin" class="coin-icon-img">
                 </div>
             </div>
             <div class="shop-tabs">
@@ -1974,7 +1974,7 @@
             <div class="result-stats">
                 <div class="result-stat">
                     <div class="value coin-reward" id="result-reward">
-                        <img src="icons/coin.png" alt="Coin">
+                        <img src="./icons/coin.png" alt="Coin">
                         +0
                     </div>
                     <div class="label">سکه برداشتید</div>
@@ -2486,7 +2486,7 @@
                 card.innerHTML = `
                     <div class="theme-preview-card" style="background: repeating-linear-gradient(90deg, ${item.colors[0]} 0px, ${item.colors[0]} 12px, ${item.colors[1]} 12px, ${item.colors[1]} 24px); border-color: ${item.border};"></div>
                     <div class="shop-item-name">${item.name}</div>
-                    <div class="shop-item-price"><img src="icons/coin.png" alt="coin"><span>${item.price == 0 ? 'رایگان' : item.price}</span></div>
+                    <div class="shop-item-price"><img src="./icons/coin.png" alt="coin"><span>${item.price == 0 ? 'رایگان' : item.price}</span></div>
                     ${btnHtml}
                 `;
                 gridBelts.appendChild(card);
@@ -2509,7 +2509,7 @@
                 card.innerHTML = `
                     <div class="theme-preview-card" style="background: var(--cbg); border-color: ${item.color}; display:flex; align-items:center; justify-content:center;"><svg viewBox="0 0 22 62" style="width:28px;height:56px;"><line x1="11" y1="6" x2="11" y2="56" stroke="${item.color}" stroke-width="4" stroke-linecap="round"/></svg></div>
                     <div class="shop-item-name">${item.name}</div>
-                    <div class="shop-item-price"><img src="icons/coin.png" alt="coin"><span>${item.price == 0 ? 'رایگان' : item.price}</span></div>
+                    <div class="shop-item-price"><img src="./icons/coin.png" alt="coin"><span>${item.price == 0 ? 'رایگان' : item.price}</span></div>
                     ${btnHtml}
                 `;
                 gridLines.appendChild(card);
@@ -2532,7 +2532,7 @@
                 card.innerHTML = `
                     <div class="theme-preview-card" style="background: var(--cbg); display:flex; align-items:center; justify-content:center; padding:0;"><img src="${item.img}" alt="${item.name}" style="width:100%;height:100%;object-fit:contain;border-radius:12px;" onerror="this.style.display='none'"></div>
                     <div class="shop-item-name">🗑️ ${item.name}</div>
-                    <div class="shop-item-price"><img src="icons/coin.png" alt="coin"><span>${item.price == 0 ? 'رایگان' : item.price}</span></div>
+                    <div class="shop-item-price"><img src="./icons/coin.png" alt="coin"><span>${item.price == 0 ? 'رایگان' : item.price}</span></div>
                     ${btnHtml}
                 `;
                 gridTrash.appendChild(card);
@@ -2555,7 +2555,7 @@
                 card.innerHTML = `
                     <div class="theme-preview-card" style="background: url('${theme.img}') no-repeat center center; background-size: cover;"></div>
                     <div class="shop-item-name">🌅 ${theme.name}</div>
-                    <div class="shop-item-price"><img src="icons/coin.png" alt="coin"><span>${theme.price == 0 ? 'رایگان' : theme.price}</span></div>
+                    <div class="shop-item-price"><img src="./icons/coin.png" alt="coin"><span>${theme.price == 0 ? 'رایگان' : theme.price}</span></div>
                     ${btnHtml}
                 `;
                 gridThemes.appendChild(card);
@@ -3289,7 +3289,7 @@
             document.getElementById('result-missed').textContent = 0;
             
             rewardDisplay.innerHTML = `
-                <img src="icons/coin.png" alt="Coin" style="width: 28px; height: 28px; object-fit: contain; animation: coinRewardPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; filter: drop-shadow(0 0 10px var(--gold));">
+                <img src="./icons/coin.png" alt="Coin" style="width: 28px; height: 28px; object-fit: contain; animation: coinRewardPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; filter: drop-shadow(0 0 10px var(--gold));">
                 +${rewardCoins}
             `;
             

@@ -1628,7 +1628,7 @@
     </div>
 
     <div id="guideOverlay" class="guide-overlay">
-        <img src="icons/gamer.png" id="guidePixel" class="guide-pixel-img" alt="گیمر" onerror="this.style.display='none'">
+        <img src="./icons/gamerhi.png" id="guidePixel" class="guide-pixel-img" alt="گیمر" onerror="this.style.display='none'">
         <div class="guide-bubble">
             <div id="guideText" class="guide-text"></div>
         </div>
@@ -1641,7 +1641,7 @@
             <div class="congrats-title" id="congratsTitle">🎉 خرید موفق!</div>
             <div class="congrats-sub" id="congratsSub">آیتم جدید</div>
             <div class="congrats-msg" id="congratsMsg">با موفقیت خریداری شد!</div>
-            <div class="congrats-coin" id="congratsCoin"><img src="icons/coin.png" alt="سکه"> ۰ سکه</div>
+            <div class="congrats-coin" id="congratsCoin"><img src="./icons/coin.png" alt="سکه"> ۰ سکه</div>
             <button class="btn btn-gold" onclick="closeCongrats()" style="margin-top:4px;min-height:48px;">🎉 عالی!</button>
         </div>
     </div>
@@ -1651,7 +1651,7 @@
         <div class="glass-card menu-container">
             <div class="top-displays">
                 <div class="coin-display">
-                    <img src="icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+                    <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
                     <span class="coin-amount" id="menuCoinAmount">0</span>
                 </div>
                 <div class="energy-display">
@@ -1660,7 +1660,7 @@
                 </div>
             </div>
             <div class="menu-character">
-                <img src="icons/gamerhi.png" alt="پیکسل" onerror="this.textContent='🧒'">
+                <img src="./icons/gamer.png" alt="پیکسل" onerror="this.textContent='🧒'">
                 <span class="pixel-speech">💬 سلام! به جزیره کلمات خوش اومدی!</span>
             </div>
             <h1 class="menu-title">🏝️ جزیره کلمات</h1>
@@ -1685,7 +1685,7 @@
                 </button>
                 <h2 style="font-size:1.3rem;">🛍️ فروشگاه</h2>
                 <div class="shop-coin">
-                    <img src="icons/coin.png" alt="سکه">
+                    <img src="./icons/coin.png" alt="سکه">
                     <span id="shopCoinAmount" style="color:var(--gold);font-weight:800;">0</span>
                 </div>
             </div>
@@ -1747,7 +1747,7 @@
                 <div style="font-size:0.9rem;color:var(--text-color);margin-bottom:10px;font-weight:700;">🎁 یه جایزه انتخاب کن:</div>
                 <div class="reward-buttons" style="display:flex;gap:10px;">
                     <button class="btn btn-gold" onclick="selectCoinReward()" style="flex:1;min-height:44px;font-size:0.85rem;margin:0;">
-                        <img src="icons/coin.png" alt="سکه" style="width:22px;height:22px;object-fit:contain;" onerror="this.textContent='🪙'">
+                        <img src="./icons/coin.png" alt="سکه" style="width:22px;height:22px;object-fit:contain;" onerror="this.textContent='🪙'">
                         <span id="rewardCoinText">۱ سکه</span>
                     </button>
                     <button class="btn btn-secondary" onclick="selectEnergyReward()" style="flex:1;min-height:44px;font-size:0.85rem;border-color:var(--energy-color);margin:0;">
@@ -2136,7 +2136,7 @@
                 } else {
                     previewHtml = `<div class="shop-item-preview" style="font-size:2.5rem;">${item.icon}</div>`;
                 }
-                const priceHtml = item.price > 0 ? `<img src="icons/coin.png" alt="سکه"> ${item.price}` : '🎁 رایگان';
+                const priceHtml = item.price > 0 ? `<img src="./icons/coin.png" alt="سکه"> ${item.price}` : '🎁 رایگان';
                 card.innerHTML =
                     `${previewHtml}<div class="shop-item-name">${item.name}</div><div class="shop-item-price">${priceHtml}</div>${btnHtml}`;
                 grid.appendChild(card);
@@ -2188,7 +2188,7 @@
             document.getElementById('congratsTitle').innerHTML = '🎉 خرید موفق!';
             document.getElementById('congratsSub').innerHTML = `${itemName}`;
             document.getElementById('congratsMsg').innerHTML = `با موفقیت خریداری شد! 🎊`;
-            document.getElementById('congratsCoin').innerHTML = `<img src="icons/coin.png" alt="سکه"> ${coinCount} سکه`;
+            document.getElementById('congratsCoin').innerHTML = `<img src="./icons/coin.png" alt="سکه"> ${coinCount} سکه`;
             document.getElementById('congratsOverlay').classList.add('active');
             playWinSound();
             setTimeout(() => { if (document.getElementById('congratsOverlay').classList.contains('active')) closeCongrats(); },
