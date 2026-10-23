@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <linearGradient id="c7body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="c7head" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#facc15"/>
+    </linearGradient>
+    <linearGradient id="energyCan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#84cc16"/>
+      <stop offset="100%" stop-color="#3f6212"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="220" rx="68" ry="10" fill="#000" opacity="0.3"/>
+  <!-- Energy drink can -->
+  <rect x="135" y="155" width="22" height="35" rx="3" fill="url(#energyCan)" stroke="#1a2e05" stroke-width="1.5"/>
+  <ellipse cx="146" cy="155" rx="11" ry="3" fill="#3f6212"/>
+  <path d="M 140 165 L 152 165 L 152 178 L 146 184 L 140 178 Z" fill="#fbbf24"/>
+  <text x="146" y="174" font-family="Tahoma, sans-serif" font-size="6" font-weight="bold" fill="#1a2e05" text-anchor="middle">ENERGY</text>
+  <!-- Body slouched -->
+  <path d="M 58 150 Q 50 135 100 128 Q 150 135 142 150 L 148 205 Q 148 212 140 212 L 60 212 Q 52 212 52 205 Z" fill="url(#c7body)"/>
+  <!-- Stain on shirt -->
+  <ellipse cx="115" cy="170" rx="10" ry="6" fill="#84cc16" opacity="0.4"/>
+  <!-- Head (pale, slightly greenish) -->
+  <ellipse cx="100" cy="88" rx="34" ry="36" fill="url(#c7head)"/>
+  <!-- Unkempt hair -->
+  <path d="M 65 72 Q 60 45 85 48 Q 100 38 115 48 Q 140 45 135 72 Q 125 58 100 58 Q 75 58 65 72 Z" fill="#27272a"/>
+  <path d="M 75 60 L 70 48 M 90 50 L 88 38 M 110 50 L 112 38 M 125 60 L 130 48" stroke="#27272a" stroke-width="4" stroke-linecap="round"/>
+  <!-- Twitchy / wide eyes (caffeine) -->
+  <ellipse cx="88" cy="88" rx="6" ry="7" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
+  <ellipse cx="112" cy="88" rx="6" ry="7" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="88" cy="88" r="3" fill="#1e293b"/>
+  <circle cx="112" cy="88" r="3" fill="#1e293b"/>
+  <!-- Red lines (strained) -->
+  <line x1="82" y1="84" x2="80" y2="80" stroke="#ef4444" stroke-width="1"/>
+  <line x1="94" y1="84" x2="96" y2="80" stroke="#ef4444" stroke-width="1"/>
+  <line x1="106" y1="84" x2="104" y2="80" stroke="#ef4444" stroke-width="1"/>
+  <line x1="118" y1="84" x2="120" y2="80" stroke="#ef4444" stroke-width="1"/>
+  <!-- Tight mouth -->
+  <path d="M 88 108 L 112 108" stroke="#7c2d12" stroke-width="3" stroke-linecap="round"/>
+  <!-- Shaky lines around -->
+  <path d="M 35 100 L 45 95 L 40 105 L 50 100" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <path d="M 150 100 L 160 95 L 155 105 L 165 100" stroke="#94a3b8" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <!-- Holding can (shaky arm) -->
+  <path d="M 140 145 Q 145 155 142 170" stroke="url(#c7head)" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <!-- Other arm hanging -->
+  <path d="M 60 150 Q 50 180 60 200" stroke="url(#c7head)" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <!-- Legs -->
+  <rect x="68" y="200" width="28" height="18" fill="#0f172a"/>
+  <rect x="104" y="200" width="28" height="18" fill="#0f172a"/>
+  <!-- Worn-out sneakers -->
+  <ellipse cx="82" cy="222" rx="14" ry="5" fill="#27272a" stroke="#0f172a" stroke-width="1"/>
+  <ellipse cx="118" cy="222" rx="14" ry="5" fill="#27272a" stroke="#0f172a" stroke-width="1"/>
+  <line x1="76" y1="222" x2="70" y2="218" stroke="#0f172a" stroke-width="1"/>
+  <!-- Lightning (over-caffeinated) -->
+  <path d="M 165 130 L 160 145 L 170 145 L 162 165" stroke="#fbbf24" stroke-width="2" fill="none"/>
+</svg>

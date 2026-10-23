@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <linearGradient id="c9body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    <linearGradient id="c9head" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#cbd5e1"/>
+    </linearGradient>
+    <linearGradient id="couchG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="220" rx="75" ry="10" fill="#000" opacity="0.3"/>
+  <!-- Couch back -->
+  <rect x="30" y="155" width="140" height="35" rx="8" fill="url(#couchG)" stroke="#312e81" stroke-width="2"/>
+  <rect x="30" y="190" width="140" height="20" rx="4" fill="#5b21b6" stroke="#312e81" stroke-width="1.5"/>
+  <!-- Body slumped on couch -->
+  <path d="M 60 165 Q 58 145 100 142 Q 142 145 140 165 L 145 200 Q 145 208 138 208 L 62 208 Q 55 208 55 200 Z" fill="url(#c9body)"/>
+  <!-- Wrinkled shirt lines -->
+  <path d="M 70 165 Q 100 168 130 165" stroke="#1e293b" stroke-width="1" fill="none" opacity="0.4"/>
+  <path d="M 75 180 Q 100 183 125 180" stroke="#1e293b" stroke-width="1" fill="none" opacity="0.4"/>
+  <!-- Head (pale, slightly blue-grey) -->
+  <ellipse cx="100" cy="100" rx="34" ry="36" fill="url(#c9head)"/>
+  <!-- Greasy hair -->
+  <path d="M 65 85 Q 60 60 85 62 Q 100 50 115 62 Q 140 60 135 85 Q 125 70 100 70 Q 75 70 65 85 Z" fill="#52525b"/>
+  <path d="M 70 70 L 65 60 M 130 70 L 135 60" stroke="#52525b" stroke-width="4" stroke-linecap="round"/>
+  <!-- Heavy dark circles under eyes -->
+  <ellipse cx="88" cy="105" rx="10" ry="7" fill="#7c3aed" opacity="0.4"/>
+  <ellipse cx="112" cy="105" rx="10" ry="7" fill="#7c3aed" opacity="0.4"/>
+  <!-- Half-closed sleepy eyes -->
+  <path d="M 80 100 Q 88 96 96 100" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 104 100 Q 112 96 120 100" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <ellipse cx="88" cy="100" rx="2" ry="1.5" fill="#1e293b"/>
+  <ellipse cx="112" cy="100" rx="2" ry="1.5" fill="#1e293b"/>
+  <!-- Eyebrows (worried / tired) -->
+  <path d="M 78 90 L 95 88" stroke="#52525b" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M 105 88 L 122 90" stroke="#52525b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Yawn -->
+  <ellipse cx="100" cy="118" rx="8" ry="10" fill="#1e293b"/>
+  <ellipse cx="100" cy="122" rx="4" ry="5" fill="#7c2d12"/>
+  <!-- Remote in lap -->
+  <rect x="55" y="180" width="30" height="14" rx="3" fill="#1e293b" stroke="#0f172a" stroke-width="1"/>
+  <circle cx="63" cy="186" r="2" fill="#ef4444"/>
+  <circle cx="70" cy="186" r="2" fill="#10b981"/>
+  <circle cx="77" cy="186" r="2" fill="#fbbf24"/>
+  <rect x="60" y="190" width="20" height="3" rx="1" fill="#475569"/>
+  <!-- Bag of chips next to -->
+  <path d="M 145 185 L 150 175 L 175 175 L 180 185 L 178 205 L 147 205 Z" fill="#dc2626" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="162" y="195" font-family="Tahoma, sans-serif" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">چیپس</text>
+  <!-- Arms drooping -->
+  <path d="M 55 165 Q 45 185 55 200" stroke="url(#c9head)" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <path d="M 145 165 Q 155 180 152 195" stroke="url(#c9head)" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <!-- Legs (sprawled) -->
+  <rect x="68" y="200" width="28" height="18" fill="#1e293b"/>
+  <rect x="104" y="200" width="28" height="18" fill="#1e293b"/>
+  <!-- Worn slippers -->
+  <ellipse cx="82" cy="220" rx="16" ry="6" fill="#a78bfa" stroke="#5b21b6" stroke-width="1"/>
+  <ellipse cx="118" cy="220" rx="16" ry="6" fill="#a78bfa" stroke="#5b21b6" stroke-width="1"/>
+  <!-- Zzz -->
+  <text x="155" y="60" font-family="Tahoma, sans-serif" font-size="14" font-weight="bold" fill="#94a3b8" opacity="0.6">z</text>
+  <text x="167" y="48" font-family="Tahoma, sans-serif" font-size="20" font-weight="bold" fill="#94a3b8" opacity="0.5">Z</text>
+  <text x="180" y="32" font-family="Tahoma, sans-serif" font-size="26" font-weight="bold" fill="#94a3b8" opacity="0.4">Z</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <linearGradient id="c2body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="c2head" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="yogaMat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="220" rx="65" ry="10" fill="#000" opacity="0.25"/>
+  <!-- Yoga mat rolled under arm -->
+  <rect x="30" y="155" width="40" height="20" rx="10" fill="url(#yogaMat)" stroke="#831843" stroke-width="1.5"/>
+  <ellipse cx="32" cy="165" rx="6" ry="10" fill="#ec4899" stroke="#831843" stroke-width="1"/>
+  <!-- Body / loose yoga top -->
+  <path d="M 65 135 Q 65 120 100 120 Q 135 120 135 135 L 140 200 Q 140 210 130 210 L 70 210 Q 60 210 60 200 Z" fill="url(#c2body)"/>
+  <!-- Lotus symbol on chest -->
+  <path d="M 100 145 Q 92 155 95 165 Q 100 168 105 165 Q 108 155 100 145 Z" fill="#fff"/>
+  <path d="M 100 150 Q 95 158 100 162 Q 105 158 100 150 Z" fill="#fbbf24"/>
+  <!-- Head -->
+  <circle cx="100" cy="85" r="35" fill="url(#c2head)"/>
+  <!-- Hair bun -->
+  <ellipse cx="100" cy="55" rx="14" ry="10" fill="#3f2a1d"/>
+  <circle cx="100" cy="50" r="8" fill="#3f2a1d"/>
+  <path d="M 68 78 Q 75 60 100 58 Q 125 60 132 78" fill="#3f2a1d"/>
+  <!-- Calm eyes (closed, peaceful) -->
+  <path d="M 82 88 Q 88 92 94 88" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 106 88 Q 112 92 118 88" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Serene smile -->
+  <path d="M 90 102 Q 100 110 110 102" stroke="#7c2d12" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Peace hand sign -->
+  <circle cx="150" cy="160" r="14" fill="url(#c2head)" stroke="#92400e" stroke-width="1.5"/>
+  <line x1="148" y1="155" x2="148" y2="142" stroke="#92400e" stroke-width="3" stroke-linecap="round"/>
+  <line x1="155" y1="155" x2="155" y2="145" stroke="#92400e" stroke-width="3" stroke-linecap="round"/>
+  <!-- Legs -->
+  <rect x="70" y="205" width="25" height="15" fill="#1e293b"/>
+  <rect x="105" y="205" width="25" height="15" fill="#1e293b"/>
+  <!-- Barefoot / sandal -->
+  <ellipse cx="82" cy="222" rx="13" ry="5" fill="url(#c2head)" stroke="#92400e" stroke-width="1"/>
+  <ellipse cx="118" cy="222" rx="13" ry="5" fill="url(#c2head)" stroke="#92400e" stroke-width="1"/>
+  <!-- Meditation sparkles -->
+  <circle cx="45" cy="80" r="2" fill="#fbbf24"/>
+  <circle cx="155" cy="60" r="2.5" fill="#fbbf24"/>
+  <circle cx="40" cy="110" r="1.5" fill="#fbbf24"/>
+</svg>

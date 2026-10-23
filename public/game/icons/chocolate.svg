@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="chocoG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#451a03"/>
+    </linearGradient>
+    <linearGradient id="wrapG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#7f1d1d"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="60" cy="108" rx="38" ry="6" fill="#000" opacity="0.2"/>
+  <rect x="25" y="40" width="70" height="40" rx="4" fill="url(#chocoG)" stroke="#1c0a02" stroke-width="2"/>
+  <path d="M 25 40 L 18 35 L 18 85 L 25 80 Z" fill="url(#wrapG)" stroke="#7f1d1d" stroke-width="1.5"/>
+  <path d="M 95 40 L 102 35 L 102 85 L 95 80 Z" fill="url(#wrapG)" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="20" y1="40" x2="20" y2="80" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="100" y1="40" x2="100" y2="80" stroke="#7f1d1d" stroke-width="1.5"/>
+  <rect x="30" y="45" width="60" height="6" fill="#fbbf24" opacity="0.8"/>
+  <text x="60" y="51" font-family="Tahoma, sans-serif" font-size="8" font-weight="bold" fill="#451a03" text-anchor="middle">شکلات</text>
+  <rect x="30" y="55" width="60" height="2" fill="#1c0a02"/>
+  <rect x="30" y="65" width="60" height="2" fill="#1c0a02"/>
+  <rect x="30" y="73" width="60" height="2" fill="#1c0a02"/>
+  <rect x="50" y="45" width="2" height="30" fill="#1c0a02"/>
+  <rect x="70" y="45" width="2" height="30" fill="#1c0a02"/>
+</svg>

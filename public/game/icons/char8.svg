@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <linearGradient id="c8body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+    <linearGradient id="c8head" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="donutBig" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="100%" stop-color="#ca8a04"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="220" rx="68" ry="10" fill="#000" opacity="0.3"/>
+  <!-- Big donut in hand -->
+  <circle cx="148" cy="165" r="20" fill="url(#donutBig)" stroke="#78350f" stroke-width="2"/>
+  <circle cx="148" cy="165" r="7" fill="#1e293b"/>
+  <path d="M 148 145 A 20 20 0 0 1 168 165 L 161 165 A 13 13 0 0 0 148 152 Z" fill="#f472b6" opacity="0.85"/>
+  <circle cx="138" cy="155" r="2" fill="#ef4444"/>
+  <circle cx="158" cy="158" r="2" fill="#3b82f6"/>
+  <circle cx="155" cy="175" r="2" fill="#10b981"/>
+  <!-- Round body -->
+  <path d="M 60 145 Q 58 128 100 125 Q 142 128 140 145 L 148 205 Q 148 212 140 212 L 60 212 Q 52 212 52 205 Z" fill="url(#c8body)"/>
+  <!-- Sticky stain -->
+  <ellipse cx="105" cy="170" rx="14" ry="8" fill="#fbbf24" opacity="0.5"/>
+  <ellipse cx="95" cy="175" rx="6" ry="4" fill="#dc2626" opacity="0.4"/>
+  <!-- Head -->
+  <ellipse cx="100" cy="88" rx="34" ry="36" fill="url(#c8head)"/>
+  <!-- Messy hair with candy stuck -->
+  <path d="M 65 72 Q 60 48 85 50 Q 100 38 115 50 Q 140 48 135 72 Q 125 58 100 58 Q 75 58 65 72 Z" fill="#7c2d12"/>
+  <!-- Candy wrapper stuck in hair -->
+  <path d="M 115 50 L 130 38 L 138 42 L 125 55 Z" fill="#ef4444" stroke="#7f1d1d" stroke-width="1"/>
+  <line x1="118" y1="48" x2="135" y2="40" stroke="#7f1d1d" stroke-width="1"/>
+  <!-- Sticky cheeks -->
+  <circle cx="78" cy="100" r="7" fill="#f87171" opacity="0.5"/>
+  <circle cx="122" cy="100" r="7" fill="#f87171" opacity="0.5"/>
+  <!-- Sugary eyes (glazed) -->
+  <ellipse cx="88" cy="92" rx="5" ry="5" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
+  <ellipse cx="112" cy="92" rx="5" ry="5" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="88" cy="92" r="2.5" fill="#1e293b"/>
+  <circle cx="112" cy="92" r="2.5" fill="#1e293b"/>
+  <!-- Sweet smile (sugar rush) -->
+  <path d="M 85 105 Q 100 115 115 105" stroke="#7c2d12" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Tongue licking lips -->
+  <path d="M 95 113 Q 100 116 105 113" stroke="#ef4444" stroke-width="2" fill="none"/>
+  <!-- Missing tooth (sugar damage) -->
+  <rect x="98" y="108" width="4" height="6" fill="#1e293b"/>
+  <!-- Arms (chubby) -->
+  <ellipse cx="55" cy="170" rx="13" ry="20" fill="url(#c8body)" transform="rotate(-15 55 170)"/>
+  <path d="M 140 145 Q 145 155 145 165" stroke="url(#c8head)" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <!-- Legs -->
+  <rect x="70" y="200" width="26" height="18" fill="#9d174d"/>
+  <rect x="104" y="200" width="26" height="18" fill="#9d174d"/>
+  <!-- Slip-on shoes (loose) -->
+  <ellipse cx="82" cy="222" rx="14" ry="5" fill="#831843" stroke="#500724" stroke-width="1"/>
+  <ellipse cx="118" cy="222" rx="14" ry="5" fill="#831843" stroke="#500724" stroke-width="1"/>
+  <!-- Sugar sparkles -->
+  <circle cx="40" cy="120" r="2" fill="#fbbf24"/>
+  <circle cx="35" cy="140" r="1.5" fill="#fbbf24"/>
+  <circle cx="170" cy="140" r="2" fill="#fbbf24"/>
+  <circle cx="175" cy="115" r="1.5" fill="#fbbf24"/>
+</svg>

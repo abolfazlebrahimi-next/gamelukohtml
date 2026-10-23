@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <linearGradient id="gamerBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="gamerHead" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <radialGradient id="gamerGlow" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="100" cy="220" rx="80" ry="14" fill="#000" opacity="0.25"/>
+  <circle cx="100" cy="120" r="100" fill="url(#gamerGlow)"/>
+  <!-- Body -->
+  <path d="M 70 150 Q 70 130 100 130 Q 130 130 130 150 L 135 210 Q 135 220 125 220 L 75 220 Q 65 220 65 210 Z" fill="url(#gamerBody)"/>
+  <!-- Headphones band -->
+  <path d="M 55 95 Q 100 50 145 95" stroke="#1e293b" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <!-- Earcups -->
+  <ellipse cx="55" cy="100" rx="14" ry="18" fill="#1e293b"/>
+  <ellipse cx="55" cy="100" rx="9" ry="12" fill="#475569"/>
+  <circle cx="55" cy="100" r="4" fill="#10b981"/>
+  <ellipse cx="145" cy="100" rx="14" ry="18" fill="#1e293b"/>
+  <ellipse cx="145" cy="100" rx="9" ry="12" fill="#475569"/>
+  <circle cx="145" cy="100" r="4" fill="#10b981"/>
+  <!-- Head -->
+  <circle cx="100" cy="95" r="38" fill="url(#gamerHead)"/>
+  <!-- Hair -->
+  <path d="M 65 80 Q 70 60 100 58 Q 130 60 135 80 Q 130 70 100 70 Q 75 70 65 80 Z" fill="#3f2a1d"/>
+  <!-- Eyes -->
+  <ellipse cx="86" cy="95" rx="5" ry="6" fill="#1e293b"/>
+  <ellipse cx="114" cy="95" rx="5" ry="6" fill="#1e293b"/>
+  <circle cx="87" cy="93" r="1.8" fill="#fff"/>
+  <circle cx="115" cy="93" r="1.8" fill="#fff"/>
+  <!-- Smile -->
+  <path d="M 88 110 Q 100 120 112 110" stroke="#7c2d12" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Controller in hand -->
+  <rect x="60" y="170" width="30" height="14" rx="7" fill="#1e293b"/>
+  <circle cx="68" cy="177" r="3" fill="#ef4444"/>
+  <circle cx="82" cy="177" r="3" fill="#10b981"/>
+  <rect x="110" y="170" width="30" height="14" rx="7" fill="#1e293b"/>
+  <circle cx="118" cy="177" r="3" fill="#f59e0b"/>
+  <circle cx="132" cy="177" r="3" fill="#3b82f6"/>
+</svg>

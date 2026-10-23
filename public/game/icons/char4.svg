@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <linearGradient id="c4body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+    <linearGradient id="c4head" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="ballG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="220" rx="65" ry="10" fill="#000" opacity="0.25"/>
+  <!-- Basketball -->
+  <circle cx="50" cy="170" r="22" fill="url(#ballG)" stroke="#7f1d1d" stroke-width="2"/>
+  <line x1="50" y1="148" x2="50" y2="192" stroke="#7f1d1d" stroke-width="1.5"/>
+  <path d="M 28 170 Q 50 160 72 170" stroke="#7f1d1d" stroke-width="1.5" fill="none"/>
+  <path d="M 28 170 Q 50 180 72 170" stroke="#7f1d1d" stroke-width="1.5" fill="none"/>
+  <!-- Body / basketball jersey -->
+  <path d="M 65 130 Q 65 120 100 120 Q 135 120 135 130 L 140 200 Q 140 210 130 210 L 70 210 Q 60 210 60 200 Z" fill="url(#c4body)"/>
+  <!-- Jersey number -->
+  <text x="100" y="170" font-family="Tahoma, sans-serif" font-size="32" font-weight="bold" fill="#fff" text-anchor="middle">7</text>
+  <!-- Tank top straps -->
+  <path d="M 75 120 L 85 130 M 125 120 L 115 130" stroke="#7c2d12" stroke-width="3" fill="none"/>
+  <!-- Head -->
+  <circle cx="100" cy="85" r="35" fill="url(#c4head)"/>
+  <!-- Short hair -->
+  <path d="M 70 65 Q 80 50 100 50 Q 120 50 130 65 Q 125 60 100 60 Q 75 60 70 65 Z" fill="#1f2937"/>
+  <!-- Sweatband -->
+  <rect x="65" y="68" width="70" height="6" fill="#dc2626"/>
+  <!-- Eyes (determined, focused) -->
+  <ellipse cx="88" cy="86" rx="4" ry="5" fill="#1e293b"/>
+  <ellipse cx="112" cy="86" rx="4" ry="5" fill="#1e293b"/>
+  <circle cx="89" cy="84" r="1.5" fill="#fff"/>
+  <circle cx="113" cy="84" r="1.5" fill="#fff"/>
+  <!-- Eyebrows -->
+  <line x1="82" y1="78" x2="94" y2="76" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="106" y1="76" x2="118" y2="78" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Excited smile -->
+  <path d="M 82 102 Q 100 116 118 102" stroke="#7c2d12" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Muscular arm holding ball -->
+  <path d="M 60 145 Q 45 165 50 185 L 65 180 Q 70 165 70 145 Z" fill="url(#c4head)" stroke="#92400e" stroke-width="1.5"/>
+  <!-- Strong arm lines -->
+  <path d="M 58 160 Q 62 165 58 170" stroke="#92400e" stroke-width="1" fill="none"/>
+  <!-- Legs / shorts -->
+  <rect x="68" y="200" width="28" height="18" fill="#1e293b"/>
+  <rect x="104" y="200" width="28" height="18" fill="#1e293b"/>
+  <!-- Sporty shoes -->
+  <path d="M 65 218 L 95 218 L 95 228 L 70 228 Q 65 228 65 224 Z" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
+  <path d="M 105 218 L 135 218 L 135 224 Q 135 228 130 228 L 105 228 Z" fill="#fff" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="72" y1="223" x2="92" y2="223" stroke="#dc2626" stroke-width="1.5"/>
+  <line x1="108" y1="223" x2="128" y2="223" stroke="#dc2626" stroke-width="1.5"/>
+</svg>

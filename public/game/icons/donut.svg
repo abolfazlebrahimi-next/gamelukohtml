@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="donutG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f472b6"/>
+      <stop offset="100%" stop-color="#be185d"/>
+    </linearGradient>
+    <linearGradient id="donutBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="100%" stop-color="#a16207"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="60" cy="108" rx="45" ry="6" fill="#000" opacity="0.2"/>
+  <circle cx="60" cy="60" r="42" fill="url(#donutBase)" stroke="#78350f" stroke-width="2"/>
+  <circle cx="60" cy="60" r="16" fill="#1e293b"/>
+  <path d="M 60 18 A 42 42 0 0 1 102 60 L 90 60 A 30 30 0 0 0 60 30 Z" fill="url(#donutG)" opacity="0.85"/>
+  <path d="M 102 60 A 42 42 0 0 1 60 102 L 60 90 A 30 30 0 0 0 90 60 Z" fill="url(#donutG)" opacity="0.85"/>
+  <path d="M 60 102 A 42 42 0 0 1 18 60 L 30 60 A 30 30 0 0 0 60 90 Z" fill="url(#donutG)" opacity="0.85"/>
+  <path d="M 18 60 A 42 42 0 0 1 60 18 L 60 30 A 30 30 0 0 0 30 60 Z" fill="url(#donutG)" opacity="0.85"/>
+  <circle cx="40" cy="35" r="3" fill="#ef4444"/>
+  <circle cx="80" cy="35" r="3" fill="#3b82f6"/>
+  <circle cx="90" cy="60" r="3" fill="#10b981"/>
+  <circle cx="80" cy="85" r="3" fill="#fbbf24"/>
+  <circle cx="40" cy="85" r="3" fill="#a855f7"/>
+  <circle cx="25" cy="60" r="3" fill="#ef4444"/>
+  <circle cx="60" cy="25" r="3" fill="#10b981"/>
+  <rect x="58" y="40" width="4" height="6" fill="#fff" opacity="0.7"/>
+  <rect x="62" y="75" width="4" height="6" fill="#fff" opacity="0.7"/>
+</svg>

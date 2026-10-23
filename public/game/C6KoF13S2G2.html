@@ -1,0 +1,2616 @@
+<!DOCTYPE html>
+<!--
+  ماجراجویی سلامت — نسخه تک‌فایلی آفلاین (v2)
+  توجه: فایل‌های ./icons/gamer.png و ./icons/coin.png را کنار این فایل HTML قرار دهید.
+  سایر آیکون‌ها داخل HTML جاسازی شده‌اند.
+
+  Health Adventure — Offline single-file (v2)
+  Note: Place ./icons/gamer.png and ./icons/coin.png next to this HTML file.
+  All other icons are inlined. Only PNG assets are external.
+-->
+
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f172a">
+  <title>ماجراجویی سلامت</title>
+  <style>
+/* ============================================
+   ماجراجویی سلامت - استایل اصلی
+   تم: دارک‌مُد، گرادیانت، سایه‌های نرم
+   رویکرد: Mobile-First
+   ============================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  /* Palette */
+  --bg-deep: #0b1020;
+  --bg-mid: #111933;
+  --bg-soft: #1a2347;
+  --surface: rgba(30, 41, 99, 0.55);
+  --surface-strong: rgba(30, 41, 99, 0.85);
+  --border: rgba(148, 163, 220, 0.18);
+  --text: #f1f5ff;
+  --text-soft: #b8c2e6;
+  --text-muted: #7a86b8;
+  --primary: #6366f1;
+  --primary-2: #8b5cf6;
+  --primary-glow: rgba(139, 92, 246, 0.45);
+  --accent: #34d399;
+  --accent-2: #10b981;
+  --warn: #fbbf24;
+  --warn-2: #f59e0b;
+  --danger: #f87171;
+  --danger-2: #ef4444;
+  --gold: #fbbf24;
+  --gold-2: #d97706;
+
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --grad-accent: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  --grad-warn: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  --grad-danger: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  --grad-gold: linear-gradient(135deg, #fde68a 0%, #d97706 100%);
+  --grad-bg: radial-gradient(circle at 20% 10%, rgba(99,102,241,0.15) 0%, transparent 40%),
+             radial-gradient(circle at 80% 90%, rgba(16,185,129,0.12) 0%, transparent 45%),
+             linear-gradient(180deg, #0b1020 0%, #0e1530 100%);
+
+  /* Shadows */
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 24px var(--primary-glow);
+  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border) inset;
+  --shadow-btn: 0 6px 20px rgba(99, 102, 241, 0.35);
+
+  /* Typography */
+  --font: 'Vazirmatn', 'Tahoma', 'Segoe UI', 'Noto Sans Arabic', 'Arial', sans-serif;
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-full: 999px;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  background: var(--grad-bg);
+  overflow: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+@media (min-width: 541px) {
+  body {
+    background: var(--bg-deep);
+  }
+  #app {
+    height: 100vh;
+    height: 100dvh;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    box-shadow: 0 0 60px rgba(0,0,0,0.5);
+  }
+}
+
+/* ---------- Screen System ---------- */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  padding-top: 70px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.screen.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ---------- Top Bar ---------- */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 540px;
+  margin: 0 auto;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 50;
+  background: linear-gradient(180deg, rgba(11,16,32,0.95) 0%, rgba(11,16,32,0.7) 80%, transparent 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.screen-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  text-shadow: 0 2px 8px rgba(99,102,241,0.4);
+}
+
+.coin-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: var(--r-full);
+  font-weight: 800;
+  color: var(--gold);
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-soft);
+}
+.coin-icon {
+  width: 22px;
+  height: 22px;
+  filter: drop-shadow(0 0 6px rgba(251,191,36,0.5));
+}
+
+.icon-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  width: 42px;
+  height: 42px;
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: var(--shadow-soft);
+}
+.icon-btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+.ui-icon {
+  width: 26px;
+  height: 26px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--r-md);
+  padding: 12px 20px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.btn:active {
+  transform: translateY(2px) scale(0.98);
+}
+.btn-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.btn-primary {
+  background: var(--grad-primary);
+  box-shadow: var(--shadow-btn);
+  color: #fff;
+}
+.btn-primary:active {
+  box-shadow: 0 2px 10px rgba(99,102,241,0.3);
+}
+.btn-secondary {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  color: var(--text);
+}
+.btn-secondary:active {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+}
+.btn-large {
+  width: 100%;
+  padding: 16px 20px;
+  font-size: 1.1rem;
+  border-radius: var(--r-lg);
+}
+.btn-confirm {
+  margin-top: 16px;
+}
+.btn:disabled {
+  opacity: 0.45;
+  filter: grayscale(0.5);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---------- Main Menu ---------- */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 12px 0 24px;
+}
+.game-title {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-top: 8px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f472b6 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 20px rgba(139,92,246,0.4));
+}
+.title-line-1, .title-line-2 {
+  display: block;
+}
+.title-line-2 {
+  font-size: 2.8rem;
+  margin-top: -4px;
+}
+
+.main-character {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0;
+  position: relative;
+}
+.main-character::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+.gamer-img {
+  width: 180px;
+  height: 220px;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 10px 30px rgba(99,102,241,0.5));
+}
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.menu-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.btn-row {
+  display: flex;
+  gap: 12px;
+}
+.btn-row .btn {
+  flex: 1;
+}
+
+/* ---------- Help Screen ---------- */
+.help-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.guide-character {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.guide-character::before {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.guide-img {
+  width: 160px;
+  height: 192px;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 8px 24px rgba(16,185,129,0.4));
+}
+.help-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 22px 20px;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.help-card h3 {
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.help-card > p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.help-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: rgba(99,102,241,0.08);
+  border-radius: var(--r-md);
+  border-right: 3px solid var(--primary);
+}
+.step-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--grad-primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+}
+.help-step p {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  flex: 1;
+}
+.help-tip {
+  margin-top: 14px;
+  padding: 12px;
+  background: rgba(251,191,36,0.1);
+  border: 1px solid rgba(251,191,36,0.3);
+  border-radius: var(--r-md);
+  color: var(--warn);
+  font-size: 0.9rem;
+  text-align: center;
+}
+.help-tip strong {
+  color: var(--gold);
+}
+
+/* ---------- Shop Screen ---------- */
+.shop-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 20px;
+}
+.shop-tabs {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 4px;
+  gap: 4px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-soft);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tab-btn.active {
+  background: var(--grad-primary);
+  color: #fff;
+  box-shadow: var(--shadow-btn);
+}
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.shop-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+.shop-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(180deg, rgba(99,102,241,0.12) 0%, transparent 100%);
+  pointer-events: none;
+}
+.shop-item.owned {
+  border-color: var(--accent-2);
+}
+.shop-item.owned::after {
+  content: 'خریداری شده';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--grad-accent);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--r-full);
+  z-index: 2;
+}
+.shop-item-preview {
+  width: 80px;
+  height: 96px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+.shop-item-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.shop-item-price {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+.shop-item-price .coin-icon {
+  width: 18px;
+  height: 18px;
+}
+.buy-btn {
+  background: var(--grad-primary);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--r-sm);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: 100%;
+  transition: transform 0.15s ease;
+}
+.buy-btn:active { transform: scale(0.95); }
+.buy-btn:disabled {
+  background: rgba(100,116,139,0.4);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+.buy-btn.equipped {
+  background: var(--grad-accent);
+}
+
+/* ---------- Game Screen ---------- */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  padding: 8px 0 24px;
+}
+.round-info {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 16px;
+  border-radius: var(--r-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+.progress-bar-container {
+  flex: 1;
+  max-width: 180px;
+  height: 8px;
+  background: rgba(99,102,241,0.15);
+  border-radius: var(--r-full);
+  overflow: hidden;
+  margin: 0 12px;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--grad-accent);
+  border-radius: var(--r-full);
+  transition: width 0.4s ease;
+  box-shadow: 0 0 12px rgba(16,185,129,0.6);
+}
+.question-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(99,102,241,0.3);
+}
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 360px;
+}
+.choice-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+.choice-card:active {
+  transform: scale(0.97);
+}
+.choice-card:hover {
+  border-color: var(--primary);
+}
+.choice-card.selected {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 20px rgba(16,185,129,0.4);
+}
+.choice-card.picked {
+  border-color: var(--gold);
+  background: rgba(251,191,36,0.12);
+  box-shadow: 0 0 16px rgba(251,191,36,0.3);
+  animation: pickPulse 0.6s ease;
+}
+@keyframes pickPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 rgba(251,191,36,0); }
+  50% { transform: scale(1.04); box-shadow: 0 0 24px rgba(251,191,36,0.6); }
+  100% { transform: scale(1); box-shadow: 0 0 16px rgba(251,191,36,0.3); }
+}
+.choice-img {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+}
+.choice-text {
+  flex: 1;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+}
+/* Neutral: no checkmark/cross */
+.choice-card.picked .choice-text::after {
+  content: '';
+}
+
+.feedback {
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: var(--r-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  min-height: 44px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.feedback.show {
+  opacity: 1;
+}
+/* Neutral feedback */
+.feedback {
+  background: var(--surface);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+}
+
+/* ---------- Character Select ---------- */
+.charselect-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 0;
+}
+.charselect-scroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 90px;
+}
+.charselect-confirm-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px 20px;
+  background: linear-gradient(180deg, transparent 0%, rgba(11,16,32,0.95) 30%, rgba(11,16,32,1) 100%);
+  z-index: 30;
+}
+.charselect-hint {
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  background: rgba(99,102,241,0.1);
+  padding: 10px 16px;
+  border-radius: var(--r-md);
+  border-right: 3px solid var(--primary);
+}
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.char-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 5/6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.char-card:active { transform: scale(0.96); }
+.char-card.selected {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(251,191,36,0.5);
+  transform: scale(1.02);
+}
+.char-card.selected::before {
+  content: 'انتخاب شد';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--grad-gold);
+  color: #451a03;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--r-full);
+  z-index: 2;
+}
+.char-card img {
+  width: 100%;
+  height: 100%;
+  max-width: 130px;
+  max-height: 130px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4));
+}
+.char-card .char-name {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-align: center;
+  margin-top: 4px;
+  padding: 0 4px;
+  line-height: 1.2;
+  min-height: 1.4em;
+}
+.char-card.selected .char-name {
+  color: var(--gold);
+}
+
+/* ---------- Loading Screen ---------- */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 24px;
+}
+.loader-ring {
+  width: 90px;
+  height: 90px;
+  position: relative;
+}
+.loader-ring::before,
+.loader-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 4px solid transparent;
+}
+.loader-ring::before {
+  border-top-color: var(--primary);
+  border-right-color: var(--primary-2);
+  animation: spin 1s linear infinite;
+}
+.loader-ring::after {
+  border-bottom-color: var(--accent);
+  border-left-color: var(--accent-2);
+  animation: spin 1.4s linear infinite reverse;
+  inset: 8px;
+}
+.loader-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: var(--grad-primary);
+  border-radius: 50%;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.6; }
+}
+.loading-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(99,102,241,0.4);
+}
+.loading-dots {
+  display: flex;
+  gap: 8px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  background: var(--grad-primary);
+  border-radius: 50%;
+  animation: bounce 1.4s ease-in-out infinite;
+}
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-12px); opacity: 1; }
+}
+
+/* ---------- Result Screen ---------- */
+.result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 24px;
+  padding: 0 8px;
+}
+.result-banner {
+  text-align: center;
+  animation: resultIn 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@keyframes resultIn {
+  0% { opacity: 0; transform: scale(0.5) rotate(-5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+.result-banner h2 {
+  font-size: 2.4rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+.result-banner.win h2 {
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 16px rgba(251,191,36,0.5));
+}
+.result-banner.lose h2 {
+  background: linear-gradient(135deg, #f87171 0%, #991b1b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 16px rgba(239,68,68,0.5));
+}
+.result-character {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+}
+.result-character img {
+  width: 150px;
+  height: 180px;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+}
+.result-character.win img {
+  animation: victoryBounce 1.5s ease-in-out infinite;
+}
+@keyframes victoryBounce {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  25% { transform: translateY(-15px) rotate(-3deg); }
+  75% { transform: translateY(-15px) rotate(3deg); }
+}
+.result-character.lose img {
+  animation: sadShake 2s ease-in-out infinite;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5)) grayscale(0.3);
+}
+@keyframes sadShake {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-2deg) translateY(2px); }
+  75% { transform: rotate(2deg) translateY(2px); }
+}
+.result-score {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+.result-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 16px 24px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: var(--shadow-card);
+}
+.vs-side {
+  flex: 1;
+  text-align: center;
+}
+.vs-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.vs-score {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--text);
+}
+.vs-divider {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--primary);
+  background: rgba(99,102,241,0.2);
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
+}
+
+/* ---------- Reflection Screen ---------- */
+.reflection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 18px;
+  padding: 8px 0 24px;
+}
+.reflection-character {
+  display: flex;
+  justify-content: center;
+}
+.guide-img-small {
+  width: 110px;
+  height: 132px;
+  filter: drop-shadow(0 6px 18px rgba(16,185,129,0.4));
+}
+.reflection-question {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+  text-align: center;
+  padding: 0 8px;
+  text-shadow: 0 2px 8px rgba(99,102,241,0.3);
+}
+.reflection-options {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.reflection-option {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s ease;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+  font-family: inherit;
+  box-shadow: var(--shadow-soft);
+}
+.reflection-option:active { transform: scale(0.97); }
+.reflection-option.selected {
+  border-color: var(--gold);
+  background: rgba(251,191,36,0.12);
+}
+
+/* ---------- Explanation Screen ---------- */
+.explanation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+  padding: 16px 0 24px;
+}
+.guide-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.guide-img-medium {
+  width: 130px;
+  height: 156px;
+  filter: drop-shadow(0 8px 24px rgba(16,185,129,0.5));
+  animation: float 3s ease-in-out infinite;
+}
+.speech-bubble {
+  background: var(--surface-strong);
+  border: 2px solid var(--accent-2);
+  border-radius: var(--r-xl);
+  padding: 20px;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text);
+  box-shadow: 0 0 30px rgba(16,185,129,0.2), var(--shadow-card);
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  animation: bubbleIn 0.5s ease;
+}
+@keyframes bubbleIn {
+  0% { opacity: 0; transform: scale(0.85) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
+  background: var(--surface-strong);
+  border-left: 2px solid var(--accent-2);
+  border-top: 2px solid var(--accent-2);
+}
+.speech-bubble strong {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+/* ---------- Pause Overlay ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,16,32,0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: opacity 0.3s ease;
+}
+.overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+.pause-modal {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 28px 24px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  animation: modalIn 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+@keyframes modalIn {
+  0% { opacity: 0; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.pause-modal h2 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.pause-modal p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+.pause-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  width: 100%;
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px 20px;
+  border-radius: var(--r-md);
+  font-weight: 700;
+  font-size: 0.92rem;
+  box-shadow: var(--shadow-card);
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  max-width: 90%;
+  text-align: center;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast.success {
+  border-color: var(--accent-2);
+  background: rgba(16,185,129,0.2);
+}
+.toast.error {
+  border-color: var(--danger-2);
+  background: rgba(239,68,68,0.2);
+}
+.toast.info {
+  border-color: var(--primary);
+  background: rgba(99,102,241,0.2);
+}
+
+/* ---------- Utility ---------- */
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 360px) {
+  html { font-size: 14px; }
+  .game-title { font-size: 2rem; }
+  .title-line-2 { font-size: 2.4rem; }
+  .gamer-img { width: 150px; height: 180px; }
+  .choice-img { width: 60px; height: 60px; }
+}
+
+@media (min-height: 720px) {
+  .game-title { font-size: 2.8rem; }
+  .title-line-2 { font-size: 3.2rem; }
+  .gamer-img { width: 200px; height: 240px; }
+}
+
+/* Disable text selection on game UI */
+.screen, .pause-modal, .toast {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Accessibility focus */
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Confetti container */
+.confetti {
+  position: fixed;
+  pointer-events: none;
+  z-index: 150;
+  inset: 0;
+  overflow: hidden;
+}
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  top: -20px;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* Sleep question icon */
+.icon-bubble {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--grad-primary);
+  margin-left: 6px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.8rem;
+}
+
+
+/* v2 additions */
+.coin-icon-png {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(251,191,36,0.5));
+}
+.gamer-img-png {
+  width: 180px;
+  height: 220px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 10px 30px rgba(99,102,241,0.5));
+}
+.sound-icon-wrap {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sound-icon-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+</style>
+  <link rel="icon" type="image/png" href="./icons/gamer.png">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ========== Main Menu Screen ========== -->
+    <section class="screen" id="screen-main" data-screen="main">
+      <header class="top-bar">
+        <div class="coin-display" id="coinDisplay">
+          <img src="./icons/coin.png" alt="سکه" class="coin-icon">
+          <span id="coinCount">0</span>
+        </div>
+        <button class="icon-btn" id="soundToggleBtn" aria-label="صدا">
+          <span class="sound-icon-wrap" id="soundIconWrap">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="sOnGInit" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#c4b5fd"/>
+                  <stop offset="100%" stop-color="#8b5cf6"/>
+                </linearGradient>
+              </defs>
+              <path d="M 8 18 L 8 30 L 18 30 L 28 38 L 28 10 L 18 18 Z" fill="url(#sOnGInit)"/>
+              <path d="M 32 16 Q 38 24 32 32" stroke="url(#sOnGInit)" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M 36 12 Q 44 24 36 36" stroke="url(#sOnGInit)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </button>
+      </header>
+
+      <div class="menu-container">
+        <h1 class="game-title">
+          <span class="title-line-1">ماجراجویی</span>
+          <span class="title-line-2">سلامت</span>
+        </h1>
+        <div class="main-character">
+          <img src="./icons/gamer.png" alt="گیمر" class="gamer-img floating">
+        </div>
+        <div class="menu-buttons">
+          <button class="btn btn-primary btn-large" id="startBtn" data-action="play">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icGxheUciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM0ZDM5OSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI3BsYXlHKSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwNDc4NTciIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0gMTkgMTQgTCAzNiAyNCBMIDE5IDM0IFoiIGZpbGw9IiNmZmYiLz4KPC9zdmc+Cg==" alt="" class="btn-icon">
+            <span>شروع بازی</span>
+          </button>
+          <div class="btn-row">
+            <button class="btn btn-secondary" id="shopBtn" data-action="shop">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic2hvcEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZiYmYyNCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkOTc3MDYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxwYXRoIGQ9Ik0gOCAxOCBMIDEwIDEwIEwgMzggMTAgTCA0MCAxOCBaIiBmaWxsPSJ1cmwoI3Nob3BHKSIvPgogIDxwYXRoIGQ9Ik0gOCAxOCBMIDQwIDE4IEwgMzggMjIgTCAxMCAyMiBaIiBmaWxsPSIjOTI0MDBlIi8+CiAgPHJlY3QgeD0iMTIiIHk9IjIyIiB3aWR0aD0iMjQiIGhlaWdodD0iMTgiIHJ4PSIyIiBmaWxsPSIjZmRlNjhhIi8+CiAgPHJlY3QgeD0iMTQiIHk9IjI0IiB3aWR0aD0iMjAiIGhlaWdodD0iMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSIyMCIgeT0iMjgiIHdpZHRoPSI4IiBoZWlnaHQ9IjEyIiBmaWxsPSIjOTI0MDBlIiBvcGFjaXR5PSIwLjQiLz4KICA8Y2lyY2xlIGN4PSIyNiIgY3k9IjM0IiByPSIxLjUiIGZpbGw9IiNmYmJmMjQiLz4KPC9zdmc+Cg==" alt="" class="btn-icon">
+              <span>فروشگاه</span>
+            </button>
+            <button class="btn btn-secondary" id="helpBtn" data-action="help">
+              <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iaGVscEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM0ZDM5OSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwNTk2NjkiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIwIiBmaWxsPSJ1cmwoI2hlbHBHKSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwNDc4NTciIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0gMTcgMTkgUSAxNyAxMyAyNCAxMyBRIDMxIDEzIDMxIDE5IFEgMzEgMjQgMjQgMjUgTCAyNCAzMCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjMuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iMjQiIGN5PSIzNiIgcj0iMi44IiBmaWxsPSIjZmZmIi8+Cjwvc3ZnPgo=" alt="" class="btn-icon">
+              <span>راهنما</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Help Screen ========== -->
+    <section class="screen hidden" id="screen-help" data-screen="help">
+      <header class="top-bar">
+        <button class="icon-btn back-btn" id="helpBackBtn" data-action="back">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmFja0ciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzgxOGNmOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2MzY2ZjEiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI2JhY2tHKSIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjYmFja0cpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDMwIDE0IEwgMTggMjQgTCAzMCAzNCIgc3Ryb2tlPSJ1cmwoI2JhY2tHKSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==" alt="بازگشت" class="ui-icon">
+        </button>
+        <h2 class="screen-title">راهنما</h2>
+        <div class="coin-display">
+          <img src="./icons/coin.png" alt="سکه" class="coin-icon">
+          <span id="coinCountHelp">0</span>
+        </div>
+      </header>
+      <div class="help-container">
+        <div class="guide-character">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdhbWVySGlCb2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDU5NjY5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJnYW1lckhpSGVhZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlNjhhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZiYmYyNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2FtZXJIaUdsb3ciIGN4PSIwLjUiIGN5PSIwLjUiIHI9IjAuNiI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMC40NSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjgwIiByeT0iMTQiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMjUiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMjAiIHI9IjEwMCIgZmlsbD0idXJsKCNnYW1lckhpR2xvdykiLz4KICA8IS0tIEJvZHkgLyByb2JlIC0tPgogIDxwYXRoIGQ9Ik0gNjUgMTUwIFEgNjAgMTMwIDEwMCAxMzAgUSAxNDAgMTMwIDEzNSAxNTAgTCAxNDUgMjE1IFEgMTQ1IDIyMiAxMzggMjIyIEwgNjIgMjIyIFEgNTUgMjIyIDU1IDIxNSBaIiBmaWxsPSJ1cmwoI2dhbWVySGlCb2R5KSIvPgogIDwhLS0gQ2FwZSBjb2xsYXIgLS0+CiAgPHBhdGggZD0iTSA3NSAxNDUgUSAxMDAgMTU1IDEyNSAxNDUgTCAxMjIgMTY1IFEgMTAwIDE3MiA3OCAxNjUgWiIgZmlsbD0iIzA0Nzg1NyIvPgogIDwhLS0gU3RhciBiYWRnZSAtLT4KICA8cGF0aCBkPSJNIDEwMCAxNDUgbCA0IDggOSAxIC03IDYgMiA5IC04IC01IC04IDUgMiAtOSAtNyAtNiA5IC0xIHoiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk1IiByPSIzOCIgZmlsbD0idXJsKCNnYW1lckhpSGVhZCkiLz4KICA8IS0tIEhhaXIgLS0+CiAgPHBhdGggZD0iTSA2NSA4MiBRIDcyIDU2IDEwMCA1NiBRIDEyOCA1NiAxMzUgODIgUSAxMjggNjggMTAwIDY4IFEgNzUgNjggNjUgODIgWiIgZmlsbD0iIzFmMjkzNyIvPgogIDwhLS0gR3JhZHVhdGlvbi1saWtlIGNhcCAtLT4KICA8cGF0aCBkPSJNIDcwIDY1IEwgMTAwIDUwIEwgMTMwIDY1IEwgMTAwIDc1IFoiIGZpbGw9IiMxZTI5M2IiLz4KICA8bGluZSB4MT0iMTAwIiB5MT0iNTAiIHgyPSIxMDAiIHkyPSI3NSIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjEyNSIgY3k9IjYzIiByPSIzIiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGxpbmUgeDE9IjEyNSIgeTE9IjYzIiB4Mj0iMTMyIiB5Mj0iNTUiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBFeWVzIChmcmllbmRseSwgd2l0aCBnbGFzc2VzKSAtLT4KICA8Y2lyY2xlIGN4PSI4NiIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxjaXJjbGUgY3g9IjExNCIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSI5NSIgeTE9Ijk2IiB4Mj0iMTA1IiB5Mj0iOTYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGVsbGlwc2UgY3g9Ijg2IiBjeT0iOTYiIHJ4PSIzIiByeT0iNCIgZmlsbD0iIzFlMjkzYiIvPgogIDxlbGxpcHNlIGN4PSIxMTQiIGN5PSI5NiIgcng9IjMiIHJ5PSI0IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGNpcmNsZSBjeD0iODciIGN5PSI5NCIgcj0iMSIgZmlsbD0iI2ZmZiIvPgogIDxjaXJjbGUgY3g9IjExNSIgY3k9Ijk0IiByPSIxIiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBTbWlsZSAtLT4KICA8cGF0aCBkPSJNIDg2IDExMiBRIDEwMCAxMjIgMTE0IDExMiIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU3BlZWNoIGJ1YmJsZSAtLT4KICA8cGF0aCBkPSJNIDE1MCA1MCBRIDE0NSAzMCAxNjUgMjUgUSAxOTAgMjIgMTk1IDQ1IFEgMTk4IDY1IDE3OCA3MCBMIDE2OCA3OCBMIDE3MCA2NSBRIDE1OCA2MiAxNTAgNTAgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSIxNjciIHk9IjQ4IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzEwYjk4MSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PzwvdGV4dD4KPC9zdmc+Cg==" alt="راهنما" class="guide-img">
+        </div>
+        <div class="help-card">
+          <h3>سلام! من راهنمای تو هستم</h3>
+          <p>در این بازی یاد می‌گیری چطور با انتخاب‌های سالم، بدنت قوی‌تر و انرژی‌ات بیشتر بشه.</p>
+          <div class="help-step">
+            <span class="step-num">۱</span>
+            <p>اول بین دو خوراکی یکی رو انتخاب کن. دقت کن که بعضی غذاها به بدنت انرژی میدن و بعضی‌ها خسته‌ت می‌کنن.</p>
+          </div>
+          <div class="help-step">
+            <span class="step-num">۲</span>
+            <p>بعد درباره خواب، استراحت و فعالیت بدن سوالاتی پاسخ می‌دی.</p>
+          </div>
+          <div class="help-step">
+            <span class="step-num">۳</span>
+            <p>از بین ۱۰ شخصیت، یکی رو برای مسابقه انتخاب کن. از ظاهرش حدس بزن کدوم سالم‌تره!</p>
+          </div>
+          <div class="help-step">
+            <span class="step-num">۴</span>
+            <p>نتیجه مسابقه بستگی به انتخاب‌های تو داره. در آخر هم دلیل برد یا باخت رو یاد می‌گیری.</p>
+          </div>
+          <div class="help-tip">
+            <strong>نکته:</strong> برای هر پاسخ درست سکه می‌گیری و می‌تونی تو فروشگاه پوسته و شخصی‌سازی بخری!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Shop Screen ========== -->
+    <section class="screen hidden" id="screen-shop" data-screen="shop">
+      <header class="top-bar">
+        <button class="icon-btn back-btn" id="shopBackBtn" data-action="back">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYmFja0ciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzgxOGNmOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2MzY2ZjEiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI2JhY2tHKSIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjYmFja0cpIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDMwIDE0IEwgMTggMjQgTCAzMCAzNCIgc3Ryb2tlPSJ1cmwoI2JhY2tHKSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==" alt="بازگشت" class="ui-icon">
+        </button>
+        <h2 class="screen-title">فروشگاه</h2>
+        <div class="coin-display">
+          <img src="./icons/coin.png" alt="سکه" class="coin-icon">
+          <span id="coinCountShop">0</span>
+        </div>
+      </header>
+      <div class="shop-container">
+        <div class="shop-tabs">
+          <button class="tab-btn active" data-tab="skins">پوسته‌ها</button>
+          <button class="tab-btn" data-tab="custom">شخصی‌سازی</button>
+        </div>
+        <div class="shop-grid" id="shopGrid">
+          <!-- Items injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Game: Choice Stage ========== -->
+    <section class="screen hidden" id="screen-game" data-screen="game">
+      <header class="top-bar">
+        <button class="icon-btn stop-btn" id="stopBtn" data-action="stop" aria-label="توقف">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic3RvcEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4NzE3MSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkYzI2MjYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI3N0b3BHKSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiM3ZjFkMWQiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxyZWN0IHg9IjE1IiB5PSIxNSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMyIgZmlsbD0iI2ZmZiIvPgo8L3N2Zz4K" alt="توقف" class="ui-icon">
+        </button>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="gameProgress"></div>
+        </div>
+        <div class="coin-display">
+          <img src="./icons/coin.png" alt="سکه" class="coin-icon">
+          <span id="coinCountGame">0</span>
+        </div>
+      </header>
+
+      <div class="game-container">
+        <div class="round-info">
+          <span id="roundLabel">سوال ۱ از ۸</span>
+        </div>
+        <div class="question-text" id="questionText">کدوم خوراکی رو انتخاب می‌کنی؟</div>
+        <div class="choices" id="choicesContainer">
+          <!-- choices injected by JS -->
+        </div>
+        <div class="feedback" id="feedback"></div>
+      </div>
+    </section>
+
+    <!-- ========== Character Select Stage ========== -->
+    <section class="screen hidden" id="screen-charselect" data-screen="charselect">
+      <header class="top-bar">
+        <button class="icon-btn stop-btn" id="charStopBtn" data-action="stop" aria-label="توقف">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic3RvcEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4NzE3MSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkYzI2MjYiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI3N0b3BHKSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiM3ZjFkMWQiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxyZWN0IHg9IjE1IiB5PSIxNSIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMyIgZmlsbD0iI2ZmZiIvPgo8L3N2Zz4K" alt="توقف" class="ui-icon">
+        </button>
+        <h2 class="screen-title">یک مسابقه‌دهنده انتخاب کن</h2>
+        <div class="coin-display">
+          <img src="./icons/coin.png" alt="سکه" class="coin-icon">
+          <span id="coinCountChar">0</span>
+        </div>
+      </header>
+      <div class="charselect-container">
+        <p class="charselect-hint">با دقت نگاه کن و کسی که فکر می‌کنی سالم‌تره رو انتخاب کن!</p>
+        <div class="charselect-scroll">
+          <div class="characters-grid" id="charactersGrid">
+            <!-- characters injected by JS -->
+          </div>
+        </div>
+        <div class="charselect-confirm-bar">
+          <button class="btn btn-primary hidden" id="confirmCharBtn" disabled>تأیید انتخاب</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Loading Stage ========== -->
+    <section class="screen hidden" id="screen-loading" data-screen="loading">
+      <div class="loading-container">
+        <div class="loader-ring">
+          <div class="loader-inner"></div>
+        </div>
+        <p class="loading-text">در حال آماده‌سازی مسابقه، چند لحظه صبر کن...</p>
+        <div class="loading-dots">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Result Stage ========== -->
+    <section class="screen hidden" id="screen-result" data-screen="result">
+      <div class="result-container">
+        <div class="result-banner" id="resultBanner">
+          <h2 id="resultTitle"></h2>
+          <div class="result-character" id="resultCharImg"></div>
+          <div class="result-score" id="resultScore"></div>
+        </div>
+        <div class="result-vs">
+          <div class="vs-side">
+            <div class="vs-label">تو</div>
+            <div class="vs-score" id="myScoreDisplay">0</div>
+          </div>
+          <div class="vs-divider">VS</div>
+          <div class="vs-side">
+            <div class="vs-label">حریف</div>
+            <div class="vs-score" id="oppScoreDisplay">0</div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-large" id="reflectBtn">چرا این نتیجه شد؟</button>
+      </div>
+    </section>
+
+    <!-- ========== Reflection Question Stage ========== -->
+    <section class="screen hidden" id="screen-reflection" data-screen="reflection">
+      <header class="top-bar">
+        <h2 class="screen-title">یک گزینه انتخاب کن</h2>
+      </header>
+      <div class="reflection-container">
+        <div class="reflection-character">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdhbWVySGlCb2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDU5NjY5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJnYW1lckhpSGVhZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlNjhhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZiYmYyNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2FtZXJIaUdsb3ciIGN4PSIwLjUiIGN5PSIwLjUiIHI9IjAuNiI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMC40NSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjgwIiByeT0iMTQiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMjUiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMjAiIHI9IjEwMCIgZmlsbD0idXJsKCNnYW1lckhpR2xvdykiLz4KICA8IS0tIEJvZHkgLyByb2JlIC0tPgogIDxwYXRoIGQ9Ik0gNjUgMTUwIFEgNjAgMTMwIDEwMCAxMzAgUSAxNDAgMTMwIDEzNSAxNTAgTCAxNDUgMjE1IFEgMTQ1IDIyMiAxMzggMjIyIEwgNjIgMjIyIFEgNTUgMjIyIDU1IDIxNSBaIiBmaWxsPSJ1cmwoI2dhbWVySGlCb2R5KSIvPgogIDwhLS0gQ2FwZSBjb2xsYXIgLS0+CiAgPHBhdGggZD0iTSA3NSAxNDUgUSAxMDAgMTU1IDEyNSAxNDUgTCAxMjIgMTY1IFEgMTAwIDE3MiA3OCAxNjUgWiIgZmlsbD0iIzA0Nzg1NyIvPgogIDwhLS0gU3RhciBiYWRnZSAtLT4KICA8cGF0aCBkPSJNIDEwMCAxNDUgbCA0IDggOSAxIC03IDYgMiA5IC04IC01IC04IDUgMiAtOSAtNyAtNiA5IC0xIHoiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk1IiByPSIzOCIgZmlsbD0idXJsKCNnYW1lckhpSGVhZCkiLz4KICA8IS0tIEhhaXIgLS0+CiAgPHBhdGggZD0iTSA2NSA4MiBRIDcyIDU2IDEwMCA1NiBRIDEyOCA1NiAxMzUgODIgUSAxMjggNjggMTAwIDY4IFEgNzUgNjggNjUgODIgWiIgZmlsbD0iIzFmMjkzNyIvPgogIDwhLS0gR3JhZHVhdGlvbi1saWtlIGNhcCAtLT4KICA8cGF0aCBkPSJNIDcwIDY1IEwgMTAwIDUwIEwgMTMwIDY1IEwgMTAwIDc1IFoiIGZpbGw9IiMxZTI5M2IiLz4KICA8bGluZSB4MT0iMTAwIiB5MT0iNTAiIHgyPSIxMDAiIHkyPSI3NSIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjEyNSIgY3k9IjYzIiByPSIzIiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGxpbmUgeDE9IjEyNSIgeTE9IjYzIiB4Mj0iMTMyIiB5Mj0iNTUiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBFeWVzIChmcmllbmRseSwgd2l0aCBnbGFzc2VzKSAtLT4KICA8Y2lyY2xlIGN4PSI4NiIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxjaXJjbGUgY3g9IjExNCIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSI5NSIgeTE9Ijk2IiB4Mj0iMTA1IiB5Mj0iOTYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGVsbGlwc2UgY3g9Ijg2IiBjeT0iOTYiIHJ4PSIzIiByeT0iNCIgZmlsbD0iIzFlMjkzYiIvPgogIDxlbGxpcHNlIGN4PSIxMTQiIGN5PSI5NiIgcng9IjMiIHJ5PSI0IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGNpcmNsZSBjeD0iODciIGN5PSI5NCIgcj0iMSIgZmlsbD0iI2ZmZiIvPgogIDxjaXJjbGUgY3g9IjExNSIgY3k9Ijk0IiByPSIxIiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBTbWlsZSAtLT4KICA8cGF0aCBkPSJNIDg2IDExMiBRIDEwMCAxMjIgMTE0IDExMiIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU3BlZWNoIGJ1YmJsZSAtLT4KICA8cGF0aCBkPSJNIDE1MCA1MCBRIDE0NSAzMCAxNjUgMjUgUSAxOTAgMjIgMTk1IDQ1IFEgMTk4IDY1IDE3OCA3MCBMIDE2OCA3OCBMIDE3MCA2NSBRIDE1OCA2MiAxNTAgNTAgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSIxNjciIHk9IjQ4IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzEwYjk4MSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PzwvdGV4dD4KPC9zdmc+Cg==" alt="راهنما" class="guide-img-small">
+        </div>
+        <h3 class="reflection-question" id="reflectionQuestion"></h3>
+        <div class="reflection-options" id="reflectionOptions">
+          <!-- options injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Explanation Stage ========== -->
+    <section class="screen hidden" id="screen-explanation" data-screen="explanation">
+      <div class="explanation-container">
+        <div class="guide-bubble">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdhbWVySGlCb2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDU5NjY5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJnYW1lckhpSGVhZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlNjhhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZiYmYyNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2FtZXJIaUdsb3ciIGN4PSIwLjUiIGN5PSIwLjUiIHI9IjAuNiI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMC40NSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjgwIiByeT0iMTQiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMjUiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMjAiIHI9IjEwMCIgZmlsbD0idXJsKCNnYW1lckhpR2xvdykiLz4KICA8IS0tIEJvZHkgLyByb2JlIC0tPgogIDxwYXRoIGQ9Ik0gNjUgMTUwIFEgNjAgMTMwIDEwMCAxMzAgUSAxNDAgMTMwIDEzNSAxNTAgTCAxNDUgMjE1IFEgMTQ1IDIyMiAxMzggMjIyIEwgNjIgMjIyIFEgNTUgMjIyIDU1IDIxNSBaIiBmaWxsPSJ1cmwoI2dhbWVySGlCb2R5KSIvPgogIDwhLS0gQ2FwZSBjb2xsYXIgLS0+CiAgPHBhdGggZD0iTSA3NSAxNDUgUSAxMDAgMTU1IDEyNSAxNDUgTCAxMjIgMTY1IFEgMTAwIDE3MiA3OCAxNjUgWiIgZmlsbD0iIzA0Nzg1NyIvPgogIDwhLS0gU3RhciBiYWRnZSAtLT4KICA8cGF0aCBkPSJNIDEwMCAxNDUgbCA0IDggOSAxIC03IDYgMiA5IC04IC01IC04IDUgMiAtOSAtNyAtNiA5IC0xIHoiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk1IiByPSIzOCIgZmlsbD0idXJsKCNnYW1lckhpSGVhZCkiLz4KICA8IS0tIEhhaXIgLS0+CiAgPHBhdGggZD0iTSA2NSA4MiBRIDcyIDU2IDEwMCA1NiBRIDEyOCA1NiAxMzUgODIgUSAxMjggNjggMTAwIDY4IFEgNzUgNjggNjUgODIgWiIgZmlsbD0iIzFmMjkzNyIvPgogIDwhLS0gR3JhZHVhdGlvbi1saWtlIGNhcCAtLT4KICA8cGF0aCBkPSJNIDcwIDY1IEwgMTAwIDUwIEwgMTMwIDY1IEwgMTAwIDc1IFoiIGZpbGw9IiMxZTI5M2IiLz4KICA8bGluZSB4MT0iMTAwIiB5MT0iNTAiIHgyPSIxMDAiIHkyPSI3NSIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjEyNSIgY3k9IjYzIiByPSIzIiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGxpbmUgeDE9IjEyNSIgeTE9IjYzIiB4Mj0iMTMyIiB5Mj0iNTUiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBFeWVzIChmcmllbmRseSwgd2l0aCBnbGFzc2VzKSAtLT4KICA8Y2lyY2xlIGN4PSI4NiIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxjaXJjbGUgY3g9IjExNCIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSI5NSIgeTE9Ijk2IiB4Mj0iMTA1IiB5Mj0iOTYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGVsbGlwc2UgY3g9Ijg2IiBjeT0iOTYiIHJ4PSIzIiByeT0iNCIgZmlsbD0iIzFlMjkzYiIvPgogIDxlbGxpcHNlIGN4PSIxMTQiIGN5PSI5NiIgcng9IjMiIHJ5PSI0IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGNpcmNsZSBjeD0iODciIGN5PSI5NCIgcj0iMSIgZmlsbD0iI2ZmZiIvPgogIDxjaXJjbGUgY3g9IjExNSIgY3k9Ijk0IiByPSIxIiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBTbWlsZSAtLT4KICA8cGF0aCBkPSJNIDg2IDExMiBRIDEwMCAxMjIgMTE0IDExMiIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU3BlZWNoIGJ1YmJsZSAtLT4KICA8cGF0aCBkPSJNIDE1MCA1MCBRIDE0NSAzMCAxNjUgMjUgUSAxOTAgMjIgMTk1IDQ1IFEgMTk4IDY1IDE3OCA3MCBMIDE2OCA3OCBMIDE3MCA2NSBRIDE1OCA2MiAxNTAgNTAgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSIxNjciIHk9IjQ4IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzEwYjk4MSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PzwvdGV4dD4KPC9zdmc+Cg==" alt="راهنما" class="guide-img-medium">
+          <div class="speech-bubble" id="explanationText"></div>
+        </div>
+        <button class="btn btn-primary btn-large" id="finishBtn">پایان و دریافت سکه</button>
+      </div>
+    </section>
+
+    <!-- ========== Pause Menu ========== -->
+    <div class="overlay hidden" id="pauseOverlay">
+      <div class="pause-modal">
+        <h2>بازی متوقف شد</h2>
+        <p>می‌خوای ادامه بدی یا از اول شروع کنی؟</p>
+        <div class="pause-buttons">
+          <button class="btn btn-primary" id="continueBtn" data-action="continue">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iY29udEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2E3OGJmYSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3YzNhZWQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI2NvbnRHKSIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjY29udEcpIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogIDxwYXRoIGQ9Ik0gMTQgMTggTCAxNCAzMCBMIDIyIDI0IFoiIGZpbGw9InVybCgjY29udEcpIi8+CiAgPHBhdGggZD0iTSAyNCAxOCBMIDI0IDMwIEwgMzIgMjQgWiIgZmlsbD0idXJsKCNjb250RykiLz4KPC9zdmc+Cg==" alt="" class="btn-icon">
+            <span>ادامه بازی</span>
+          </button>
+          <button class="btn btn-secondary" id="restartBtn" data-action="restart">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icmVzdGFydEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzYwYTVmYSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyNTYzZWIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI3Jlc3RhcnRHKSIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIwIiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjcmVzdGFydEcpIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogIDxwYXRoIGQ9Ik0gMzIgMTYgTCAzMiAyNCBMIDI0IDI0IiBzdHJva2U9InVybCgjcmVzdGFydEcpIiBzdHJva2Utd2lkdGg9IjMuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPHBhdGggZD0iTSAzMiAyNCBBIDEyIDEyIDAgMSAxIDIwIDEyIiBzdHJva2U9InVybCgjcmVzdGFydEcpIiBzdHJva2Utd2lkdGg9IjMuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTSAyOCAxNCBMIDMyIDE2IEwgMzAgMjAiIHN0cm9rZT0idXJsKCNyZXN0YXJ0RykiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="" class="btn-icon">
+            <span>شروع مجدد</span>
+          </button>
+        </div>
+        <button class="btn btn-ghost" id="pauseHomeBtn">بازگشت به منوی اصلی</button>
+      </div>
+    </div>
+
+    <!-- ========== Toast Notification ========== -->
+    <div class="toast hidden" id="toast"></div>
+
+  </div>
+  <script>
+/* ============================================
+   ماجراجویی سلامت - منطق بازی
+   ============================================ */
+
+(function() {
+'use strict';
+
+/* ---------- Data: Foods ---------- */
+const FOODS = {
+  healthy: [
+    { id: 'apple', name: 'سیب', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9ImFwcGxlRyIgY3g9IjAuMzUiIGN5PSIwLjMiIHI9IjAuNyI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmY2E1YTUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1NSUiIHN0b3AtY29sb3I9IiNlZjQ0NDQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOTkxYjFiIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDUiIHJ4PSIzNSIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxwYXRoIGQ9Ik0gNjAgMzAgUSAzNSAyOCAzMCA1NSBRIDI1IDg1IDQ1IDk1IFEgNjAgMTAyIDc1IDk1IFEgOTUgODUgOTAgNTUgUSA4NSAyOCA2MCAzMCBaIiBmaWxsPSJ1cmwoI2FwcGxlRykiLz4KICA8cGF0aCBkPSJNIDYwIDMwIFEgNTAgMzIgNDggMzgiIHN0cm9rZT0iIzdmMWQxZCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0iTSA2MCAyOCBRIDYyIDE2IDcwIDEyIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTSA3MCAxNCBRIDgyIDggODggMTYgUSA4MCAyMCA3MiAxOCBaIiBmaWxsPSIjMTZhMzRhIi8+CiAgPHBhdGggZD0iTSA3NiAxNCBRIDgyIDEyIDg0IDE2IiBzdHJva2U9IiMxNTgwM2QiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSI0OCIgY3k9IjUwIiByeD0iOCIgcnk9IjE0IiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+Cg==' },
+    { id: 'banana', name: 'موز', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJhbmFuYUciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZjA4YSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjYThhMDQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjEwNSIgcng9IjM1IiByeT0iNiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yIi8+CiAgPHBhdGggZD0iTSAyMCAzMCBRIDUwIDI1IDkwIDQ1IFEgMTAwIDY1IDg1IDkwIFEgNjUgMTAwIDQ1IDg4IFEgMzAgNzAgMzUgNTAgWiIgZmlsbD0idXJsKCNiYW5hbmFHKSIgc3Ryb2tlPSIjYTE2MjA3IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDIyIDMwIEwgMTggMjQiIHN0cm9rZT0iIzQ1MWEwMyIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDg4IDkwIEwgOTIgOTYiIHN0cm9rZT0iIzQ1MWEwMyIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDI4IDQwIFEgNjAgMzUgODUgNTAiIHN0cm9rZT0iI2ZlZjljMyIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjciLz4KICA8cGF0aCBkPSJNIDM1IDYwIFEgNjAgNTUgODAgNzAiIHN0cm9rZT0iI2ZlZjljMyIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuNSIvPgo8L3N2Zz4K' },
+    { id: 'carrot', name: 'هویج', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNhcnJvdEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZiOTIzYyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjMjQxMGMiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjEwNSIgcng9IjMwIiByeT0iNiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yIi8+CiAgPHBhdGggZD0iTSA1MCA0MCBMIDcwIDQwIEwgNjUgMTAwIFEgNjAgMTA4IDU1IDEwMCBaIiBmaWxsPSJ1cmwoI2NhcnJvdEcpIiBzdHJva2U9IiM3YzJkMTIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHBhdGggZD0iTSA1NSA1MCBMIDU3IDU1IiBzdHJva2U9IiM3YzJkMTIiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxwYXRoIGQ9Ik0gNjMgNjAgTCA2MCA2NSIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8cGF0aCBkPSJNIDU4IDc1IEwgNjIgODAiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHBhdGggZD0iTSA1NSAzNSBRIDUwIDIwIDQ1IDMwIFEgNTAgMTggNTUgMjggUSA2MCAxOCA2NSAyOCBRIDcwIDE4IDc1IDMwIFEgNzAgMjAgNjUgMzUgWiIgZmlsbD0iIzE2YTM0YSIgc3Ryb2tlPSIjMTU4MDNkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0gNTUgMzUgTCA1MiAyMiIgc3Ryb2tlPSIjMTU4MDNkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDYwIDM1IEwgNjAgMjIiIHN0cm9rZT0iIzE1ODAzZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTSA2NSAzNSBMIDY4IDIyIiBzdHJva2U9IiMxNTgwM2QiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4K' },
+    { id: 'salad', name: 'سالاد', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJvd2xHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWY5YzMiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYTE2MjA3Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDUiIHJ4PSI0MCIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjYwIiByeD0iNDUiIHJ5PSIxNCIgZmlsbD0idXJsKCNib3dsRykiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTSAxOCA2MCBRIDI1IDk1IDYwIDk1IFEgOTUgOTUgMTAyIDYwIFoiIGZpbGw9InVybCgjYm93bEcpIiBzdHJva2U9IiM3YzJkMTIiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjU4IiByeD0iNDAiIHJ5PSIxMSIgZmlsbD0iIzg0Y2MxNiIvPgogIDxjaXJjbGUgY3g9IjQyIiBjeT0iNTUiIHI9IjYiIGZpbGw9IiNlZjQ0NDQiLz4KICA8Y2lyY2xlIGN4PSI1OCIgY3k9IjUyIiByPSI1IiBmaWxsPSIjZjU5ZTBiIi8+CiAgPGNpcmNsZSBjeD0iNzIiIGN5PSI1NSIgcj0iNiIgZmlsbD0iI2VmNDQ0NCIvPgogIDxjaXJjbGUgY3g9IjUwIiBjeT0iNjAiIHI9IjQiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSI2OCIgY3k9IjYwIiByPSI0IiBmaWxsPSIjZGMyNjI2Ii8+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iNTYiIHJ4PSIzIiByeT0iNSIgZmlsbD0iIzE2YTM0YSIvPgogIDxlbGxpcHNlIGN4PSI0OCIgY3k9IjU4IiByeD0iMiIgcnk9IjMiIGZpbGw9IiMxNmEzNGEiLz4KICA8ZWxsaXBzZSBjeD0iNzUiIGN5PSI1OCIgcng9IjIiIHJ5PSIzIiBmaWxsPSIjMTZhMzRhIi8+Cjwvc3ZnPgo=' },
+    { id: 'milk', name: 'شیر', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9Im1pbGtHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmMWY1ZjkiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjY2JkNWUxIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDgiIHJ4PSIzMCIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxwYXRoIGQ9Ik0gNDggMzUgTCA0OCAyOCBMIDcyIDI4IEwgNzIgMzUgTCA3NSA0NSBMIDc1IDEwMCBRIDc1IDEwNSA3MCAxMDUgTCA1MCAxMDUgUSA0NSAxMDUgNDUgMTAwIEwgNDUgNDUgWiIgZmlsbD0idXJsKCNtaWxrRykiIHN0cm9rZT0iIzQ3NTU2OSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHJlY3QgeD0iNDgiIHk9IjU1IiB3aWR0aD0iMjQiIGhlaWdodD0iMzUiIGZpbGw9IiMzYjgyZjYiIHJ4PSIyIi8+CiAgPHRleHQgeD0iNjAiIHk9Ijc4IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+2LTbjNixPC90ZXh0PgogIDxyZWN0IHg9IjUwIiB5PSIyMiIgd2lkdGg9IjIwIiBoZWlnaHQ9IjgiIHJ4PSIyIiBmaWxsPSIjMWU0MGFmIi8+CiAgPHJlY3QgeD0iNTIiIHk9IjI0IiB3aWR0aD0iMTYiIGhlaWdodD0iNCIgZmlsbD0iIzYwYTVmYSIvPgo8L3N2Zz4K' },
+    { id: 'water', name: 'آب', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9IndhdGVyRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYmFlNmZkIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBlYTVlOSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA4IiByeD0iMjgiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8cGF0aCBkPSJNIDQ4IDMyIEwgNDggMjYgTCA3MiAyNiBMIDcyIDMyIEwgNzQgNDUgTCA3NCAxMDAgUSA3NCAxMDUgNjggMTA1IEwgNTIgMTA1IFEgNDYgMTA1IDQ2IDEwMCBMIDQ2IDQ1IFoiIGZpbGw9InVybCgjd2F0ZXJHKSIgc3Ryb2tlPSIjMDM2OWExIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDQ4IDMyIEwgNzIgMzIiIHN0cm9rZT0iIzAzNjlhMSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iNTUiIHJ4PSIxNCIgcnk9IjQiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNiIvPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9Ijc4IiByeD0iMTIiIHJ5PSIzIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjQiLz4KICA8cGF0aCBkPSJNIDUwIDI4IEwgNTAgMjIgTCA3MCAyMiBMIDcwIDI4IFoiIGZpbGw9IiMwYzRhNmUiLz4KICA8cmVjdCB4PSI1MiIgeT0iMjIiIHdpZHRoPSIxNiIgaGVpZ2h0PSI2IiBmaWxsPSIjN2RkM2ZjIi8+CiAgPHRleHQgeD0iNjAiIHk9Ijg2IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+2KLYqDwvdGV4dD4KPC9zdmc+Cg==' },
+    { id: 'bread', name: 'نان کامل', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJyZWFkRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlNjhhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ExNjIwNyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA1IiByeD0iNDAiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSI2MCIgcng9IjQyIiByeT0iMjgiIGZpbGw9InVybCgjYnJlYWRHKSIgc3Ryb2tlPSIjNzgzNTBmIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDMwIDYwIFEgNDAgNDUgNjAgNDIgUSA4MCA0NSA5MCA2MCIgc3Ryb2tlPSIjNzgzNTBmIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHgxPSI0NSIgeTE9IjUwIiB4Mj0iNDgiIHkyPSI3MCIgc3Ryb2tlPSIjNzgzNTBmIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iMC42Ii8+CiAgPGxpbmUgeDE9IjYwIiB5MT0iNDgiIHgyPSI2MCIgeTI9IjcyIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMS41IiBvcGFjaXR5PSIwLjYiLz4KICA8bGluZSB4MT0iNzUiIHkxPSI1MCIgeDI9IjcyIiB5Mj0iNzAiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9IjAuNiIvPgogIDxlbGxpcHNlIGN4PSI1MCIgY3k9IjUyIiByeD0iMyIgcnk9IjIiIGZpbGw9IiNmZWY5YzMiIG9wYWNpdHk9IjAuNyIvPgogIDxlbGxpcHNlIGN4PSI3MCIgY3k9IjU0IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNmZWY5YzMiIG9wYWNpdHk9IjAuNyIvPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjU4IiByeD0iMyIgcnk9IjIiIGZpbGw9IiNmZWY5YzMiIG9wYWNpdHk9IjAuNyIvPgo8L3N2Zz4K' },
+    { id: 'fish', name: 'ماهی', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZpc2hHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM2N2U4ZjkiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDg5MWIyIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDUiIHJ4PSI0MCIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjY1IiByeD0iNDAiIHJ5PSIyMiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjNDc1NTY5IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSI2MCIgcng9IjQyIiByeT0iMjIiIGZpbGw9InVybCgjZmlzaEcpIiBzdHJva2U9IiMwZTc0OTAiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0gMjggNTUgUSAzNSA0NSA1MCA0NSBMIDkwIDQ1IFEgOTUgNjAgOTAgNzUgTCA1MCA3NSBRIDM1IDc1IDI4IDY1IFoiIGZpbGw9InVybCgjZmlzaEcpIi8+CiAgPGNpcmNsZSBjeD0iNDAiIGN5PSI2MCIgcj0iNCIgZmlsbD0iIzFlMjkzYiIvPgogIDxjaXJjbGUgY3g9IjQxIiBjeT0iNTgiIHI9IjEuNSIgZmlsbD0iI2ZmZiIvPgogIDxwYXRoIGQ9Ik0gOTUgNTAgTCAxMTAgMzUgTCAxMDUgNjAgTCAxMTAgODUgTCA5NSA3MCBaIiBmaWxsPSJ1cmwoI2Zpc2hHKSIgc3Ryb2tlPSIjMGU3NDkwIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDYwIDQ1IEwgNjAgNzUiIHN0cm9rZT0iIzBlNzQ5MCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjUiLz4KICA8cGF0aCBkPSJNIDc1IDQ1IEwgNzUgNzUiIHN0cm9rZT0iIzBlNzQ5MCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjUiLz4KICA8cGF0aCBkPSJNIDg4IDUwIEwgODggNzAiIHN0cm9rZT0iIzBlNzQ5MCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjUiLz4KPC9zdmc+Cg==' },
+    { id: 'egg', name: 'تخم‌مرغ', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImVnZ1doaXRlIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWYzYzciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmRlNjhhIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJlZ2dZb2xrIiBjeD0iMC40IiBjeT0iMC40IiByPSIwLjYiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlMDQ3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2NhOGEwNCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA1IiByeD0iNDAiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSI2NSIgcng9IjQyIiByeT0iMjUiIGZpbGw9InVybCgjZWdnV2hpdGUpIiBzdHJva2U9IiNhMTYyMDciIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjYwIiByeD0iMjIiIHJ5PSIxOCIgZmlsbD0idXJsKCNlZ2dZb2xrKSIgc3Ryb2tlPSIjYTE2MjA3IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxlbGxpcHNlIGN4PSI1NSIgY3k9IjU1IiByeD0iNiIgcnk9IjQiIGZpbGw9IiNmZWY5YzMiIG9wYWNpdHk9IjAuOCIvPgo8L3N2Zz4K' },
+    { id: 'broccoli', name: 'کلم بروکلی', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJyb2NHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM0YWRlODAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTU4MDNkIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJicm9jU3RlbSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYmJmN2QwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzY1YTMwZCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA4IiByeD0iMzUiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8cGF0aCBkPSJNIDQ1IDgwIEwgNDggMTA1IEwgNzIgMTA1IEwgNzUgODAgWiIgZmlsbD0idXJsKCNicm9jU3RlbSkiIHN0cm9rZT0iIzM2NTMxNCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8Y2lyY2xlIGN4PSI0NSIgY3k9IjU1IiByPSIxOCIgZmlsbD0idXJsKCNicm9jRykiIHN0cm9rZT0iIzE2NjUzNCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8Y2lyY2xlIGN4PSI3NSIgY3k9IjU1IiByPSIxOCIgZmlsbD0idXJsKCNicm9jRykiIHN0cm9rZT0iIzE2NjUzNCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjQyIiByPSIyMCIgZmlsbD0idXJsKCNicm9jRykiIHN0cm9rZT0iIzE2NjUzNCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjQ1IiByPSI4IiBmaWxsPSIjMjJjNTVlIiBvcGFjaXR5PSIwLjYiLz4KICA8Y2lyY2xlIGN4PSI2OCIgY3k9IjQ4IiByPSI3IiBmaWxsPSIjMjJjNTVlIiBvcGFjaXR5PSIwLjYiLz4KICA8Y2lyY2xlIGN4PSI1OCIgY3k9IjM4IiByPSI3IiBmaWxsPSIjODZlZmFjIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSI0MiIgY3k9IjUyIiByPSI1IiBmaWxsPSIjODZlZmFjIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSI3OCIgY3k9IjUyIiByPSI1IiBmaWxsPSIjODZlZmFjIiBvcGFjaXR5PSIwLjUiLz4KPC9zdmc+Cg==' }
+  ],
+  unhealthy: [
+    { id: 'chips', name: 'چیپس', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJhZ0ciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VmNDQ0NCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM5OTFiMWIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNoaXBHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGUwNDciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjY2E4YTA0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDgiIHJ4PSIzNSIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxwYXRoIGQ9Ik0gMzUgMzAgTCAzOCAxMDAgUSAzOCAxMDUgNDUgMTA1IEwgNzUgMTA1IFEgODIgMTA1IDgyIDEwMCBMIDg1IDMwIFoiIGZpbGw9InVybCgjYmFnRykiIHN0cm9rZT0iIzdmMWQxZCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTSAzNSAzMCBMIDQwIDIyIEwgODAgMjIgTCA4NSAzMCBaIiBmaWxsPSIjZGMyNjI2Ii8+CiAgPHBhdGggZD0iTSAzOCAyMiBMIDM2IDMwIE0gNTAgMjIgTCA1MCAzMCBNIDYwIDIyIEwgNjAgMzAgTSA3MCAyMiBMIDcwIDMwIE0gODAgMjIgTCA4MiAzMCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0gNDUgMzUgUSA2MCAzMCA3NSAzNSBMIDc1IDk1IFEgNjAgMTAwIDQ1IDk1IFoiIGZpbGw9IiNmYmJmMjQiIG9wYWNpdHk9IjAuOSIvPgogIDx0ZXh0IHg9IjYwIiB5PSI3MCIgZm9udC1mYW1pbHk9IlRhaG9tYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiM3YzJkMTIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPtqG24zZvtizPC90ZXh0PgogIDxlbGxpcHNlIGN4PSI1MCIgY3k9IjUwIiByeD0iNCIgcnk9IjYiIGZpbGw9InVybCgjY2hpcEcpIiBzdHJva2U9IiNhMTYyMDciIHN0cm9rZS13aWR0aD0iMSIvPgogIDxlbGxpcHNlIGN4PSI3MCIgY3k9Ijg1IiByeD0iNCIgcnk9IjYiIGZpbGw9InVybCgjY2hpcEcpIiBzdHJva2U9IiNhMTYyMDciIHN0cm9rZS13aWR0aD0iMSIgdHJhbnNmb3JtPSJyb3RhdGUoMzAgNzAgODUpIi8+Cjwvc3ZnPgo=' },
+    { id: 'candy', name: 'آب‌نبات', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNhbmR5RyIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjQ3MmI2Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2JlMTg1ZCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA4IiByeD0iMzUiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSI2MCIgcng9IjE2IiByeT0iMzUiIGZpbGw9InVybCgjY2FuZHlHKSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDQ1IDU1IEwgNDUgNjUgTCAyMCA3NSBMIDIwIDQ1IFoiIGZpbGw9InVybCgjY2FuZHlHKSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDc1IDU1IEwgNzUgNjUgTCAxMDAgNzUgTCAxMDAgNDUgWiIgZmlsbD0idXJsKCNjYW5keUcpIiBzdHJva2U9IiM4MzE4NDMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0gNDUgNTUgTCAyNSA1MCBMIDI1IDcwIEwgNDUgNjUgWiIgZmlsbD0iI2VjNDg5OSIgb3BhY2l0eT0iMC42Ii8+CiAgPHBhdGggZD0iTSA3NSA1NSBMIDk1IDUwIEwgOTUgNzAgTCA3NSA2NSBaIiBmaWxsPSIjZWM0ODk5IiBvcGFjaXR5PSIwLjYiLz4KICA8bGluZSB4MT0iMzAiIHkxPSI1MCIgeDI9IjM1IiB5Mj0iNzAiIHN0cm9rZT0iIzgzMTg0MyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGxpbmUgeDE9IjQwIiB5MT0iNDgiIHgyPSI0MiIgeTI9IjcyIiBzdHJva2U9IiM4MzE4NDMiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxsaW5lIHgxPSI4NSIgeTE9IjUwIiB4Mj0iODAiIHkyPSI3MCIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8bGluZSB4MT0iOTAiIHkxPSI0OCIgeDI9Ijg4IiB5Mj0iNzIiIHN0cm9rZT0iIzgzMTg0MyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGVsbGlwc2UgY3g9IjU1IiBjeT0iMzUiIHJ4PSI2IiByeT0iNCIgZmlsbD0iI2ZiY2ZlOCIgb3BhY2l0eT0iMC43Ii8+CiAgPGxpbmUgeDE9IjYwIiB5MT0iMzUiIHgyPSI2MCIgeTI9Ijg1IiBzdHJva2U9IiNmYmNmZTgiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC40Ii8+Cjwvc3ZnPgo=' },
+    { id: 'soda', name: 'نوشابه', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InNvZGFHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM3YzNhZWQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNGMxZDk1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJzb2RhTGlxdWlkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNhODU1ZjciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNmIyMWE4Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDgiIHJ4PSIyOCIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxwYXRoIGQ9Ik0gNDQgMjUgTCA3NiAyNSBMIDc2IDMwIEwgNzggNDUgTCA3OCAxMDAgUSA3OCAxMDUgNzIgMTA1IEwgNDggMTA1IFEgNDIgMTA1IDQyIDEwMCBMIDQyIDQ1IEwgNDQgMzAgWiIgZmlsbD0idXJsKCNzb2RhRykiIHN0cm9rZT0iIzJlMTA2NSIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHJlY3QgeD0iNDYiIHk9IjUwIiB3aWR0aD0iMjgiIGhlaWdodD0iNTAiIGZpbGw9InVybCgjc29kYUxpcXVpZCkiLz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSI1MCIgcng9IjE0IiByeT0iMyIgZmlsbD0iI2MwODRmYyIvPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjY1IiByeD0iMiIgcnk9IjIiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNyIvPgogIDxlbGxpcHNlIGN4PSI2NSIgY3k9Ijc1IiByeD0iMi41IiByeT0iMi41IiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjYiLz4KICA8ZWxsaXBzZSBjeD0iNTUiIGN5PSI4NSIgcng9IjIiIHJ5PSIyIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjciLz4KICA8ZWxsaXBzZSBjeD0iNjgiIGN5PSI5MiIgcng9IjIuNSIgcnk9IjIuNSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC42Ii8+CiAgPHJlY3QgeD0iNDIiIHk9IjIyIiB3aWR0aD0iMzYiIGhlaWdodD0iOCIgcng9IjIiIGZpbGw9IiMyZTEwNjUiLz4KICA8cGF0aCBkPSJNIDc2IDMyIFEgODUgMzIgODUgNDAgTCA4NSA1MCIgc3Ryb2tlPSIjMmUxMDY1IiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz4KICA8dGV4dCB4PSI2MCIgeT0iNzgiIGZvbnQtZmFtaWx5PSJUYWhvbWEsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7ZhtmI2LTYp9io2Yc8L3RleHQ+Cjwvc3ZnPgo=' },
+    { id: 'burger', name: 'برگر', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJ1cmdlckJ1biIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2I0NTMwOSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYnVyZ2VyTWVhdCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2MyZDEyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzQ1MGEwYSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA4IiByeD0iNDUiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8cGF0aCBkPSJNIDIwIDQ1IFEgMjAgMjAgNjAgMjAgUSAxMDAgMjAgMTAwIDQ1IEwgMTAwIDUwIEwgMjAgNTAgWiIgZmlsbD0idXJsKCNidXJnZXJCdW4pIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxjaXJjbGUgY3g9IjQwIiBjeT0iMzIiIHI9IjIiIGZpbGw9IiNmZWY5YzMiLz4KICA8Y2lyY2xlIGN4PSI1NSIgY3k9IjI4IiByPSIyIiBmaWxsPSIjZmVmOWMzIi8+CiAgPGNpcmNsZSBjeD0iNzAiIGN5PSIzMCIgcj0iMiIgZmlsbD0iI2ZlZjljMyIvPgogIDxjaXJjbGUgY3g9Ijg1IiBjeT0iMzIiIHI9IjIiIGZpbGw9IiNmZWY5YzMiLz4KICA8cmVjdCB4PSIyMCIgeT0iNTAiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4IiBmaWxsPSIjODRjYzE2IiBzdHJva2U9IiMzNjUzMTQiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9IjIwIiB5PSI1OCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjYiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iI2ExNjIwNyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iNzMiIHJ4PSI0MiIgcnk9IjEwIiBmaWxsPSJ1cmwoI2J1cmdlck1lYXQpIiBzdHJva2U9IiM0NTBhMGEiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iODMiIHJ4PSI0MiIgcnk9IjYiIGZpbGw9IiNlZjQ0NDQiIHN0cm9rZT0iIzdmMWQxZCIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHBhdGggZD0iTSAyMCA5MCBMIDEwMCA5MCBMIDEwMCA5NSBRIDEwMCAxMDAgOTUgMTAwIEwgMjUgMTAwIFEgMjAgMTAwIDIwIDk1IFoiIGZpbGw9InVybCgjYnVyZ2VyQnVuKSIgc3Ryb2tlPSIjNzgzNTBmIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIzNSIgY3k9IjkzIiByPSIyIiBmaWxsPSIjZmVmOWMzIiBvcGFjaXR5PSIwLjYiLz4KICA8Y2lyY2xlIGN4PSI4MCIgY3k9IjkzIiByPSIyIiBmaWxsPSIjZmVmOWMzIiBvcGFjaXR5PSIwLjYiLz4KPC9zdmc+Cg==' },
+    { id: 'donut', name: 'دونات', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImRvbnV0RyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjQ3MmI2Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2JlMTg1ZCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZG9udXRCYXNlIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYTE2MjA3Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDgiIHJ4PSI0NSIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxjaXJjbGUgY3g9IjYwIiBjeT0iNjAiIHI9IjQyIiBmaWxsPSJ1cmwoI2RvbnV0QmFzZSkiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGNpcmNsZSBjeD0iNjAiIGN5PSI2MCIgcj0iMTYiIGZpbGw9IiMxZTI5M2IiLz4KICA8cGF0aCBkPSJNIDYwIDE4IEEgNDIgNDIgMCAwIDEgMTAyIDYwIEwgOTAgNjAgQSAzMCAzMCAwIDAgMCA2MCAzMCBaIiBmaWxsPSJ1cmwoI2RvbnV0RykiIG9wYWNpdHk9IjAuODUiLz4KICA8cGF0aCBkPSJNIDEwMiA2MCBBIDQyIDQyIDAgMCAxIDYwIDEwMiBMIDYwIDkwIEEgMzAgMzAgMCAwIDAgOTAgNjAgWiIgZmlsbD0idXJsKCNkb251dEcpIiBvcGFjaXR5PSIwLjg1Ii8+CiAgPHBhdGggZD0iTSA2MCAxMDIgQSA0MiA0MiAwIDAgMSAxOCA2MCBMIDMwIDYwIEEgMzAgMzAgMCAwIDAgNjAgOTAgWiIgZmlsbD0idXJsKCNkb251dEcpIiBvcGFjaXR5PSIwLjg1Ii8+CiAgPHBhdGggZD0iTSAxOCA2MCBBIDQyIDQyIDAgMCAxIDYwIDE4IEwgNjAgMzAgQSAzMCAzMCAwIDAgMCAzMCA2MCBaIiBmaWxsPSJ1cmwoI2RvbnV0RykiIG9wYWNpdHk9IjAuODUiLz4KICA8Y2lyY2xlIGN4PSI0MCIgY3k9IjM1IiByPSIzIiBmaWxsPSIjZWY0NDQ0Ii8+CiAgPGNpcmNsZSBjeD0iODAiIGN5PSIzNSIgcj0iMyIgZmlsbD0iIzNiODJmNiIvPgogIDxjaXJjbGUgY3g9IjkwIiBjeT0iNjAiIHI9IjMiIGZpbGw9IiMxMGI5ODEiLz4KICA8Y2lyY2xlIGN4PSI4MCIgY3k9Ijg1IiByPSIzIiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGNpcmNsZSBjeD0iNDAiIGN5PSI4NSIgcj0iMyIgZmlsbD0iI2E4NTVmNyIvPgogIDxjaXJjbGUgY3g9IjI1IiBjeT0iNjAiIHI9IjMiIGZpbGw9IiNlZjQ0NDQiLz4KICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjI1IiByPSIzIiBmaWxsPSIjMTBiOTgxIi8+CiAgPHJlY3QgeD0iNTgiIHk9IjQwIiB3aWR0aD0iNCIgaGVpZ2h0PSI2IiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjciLz4KICA8cmVjdCB4PSI2MiIgeT0iNzUiIHdpZHRoPSI0IiBoZWlnaHQ9IjYiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNyIvPgo8L3N2Zz4K' },
+    { id: 'cake', name: 'کیک', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNha2VHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmYmNmZTgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYmUxODVkIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjYWtlTGF5ZXIiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZjNjNyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNhMTYyMDciLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjEwOCIgcng9IjQyIiByeT0iNiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yIi8+CiAgPHJlY3QgeD0iMjUiIHk9IjY1IiB3aWR0aD0iNzAiIGhlaWdodD0iMzUiIHJ4PSIzIiBmaWxsPSJ1cmwoI2Nha2VMYXllcikiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHJlY3QgeD0iMjIiIHk9IjU1IiB3aWR0aD0iNzYiIGhlaWdodD0iMTUiIHJ4PSIzIiBmaWxsPSJ1cmwoI2Nha2VHKSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cmVjdCB4PSIyMCIgeT0iNDIiIHdpZHRoPSI4MCIgaGVpZ2h0PSIxOCIgcng9IjMiIGZpbGw9InVybCgjY2FrZUxheWVyKSIgc3Ryb2tlPSIjNzgzNTBmIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cmVjdCB4PSIxOCIgeT0iMzIiIHdpZHRoPSI4NCIgaGVpZ2h0PSIxNSIgcng9IjMiIGZpbGw9InVybCgjY2FrZUcpIiBzdHJva2U9IiM4MzE4NDMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSIzNSIgY3k9IjYyIiByeD0iMyIgcnk9IjIiIGZpbGw9IiNlZjQ0NDQiLz4KICA8ZWxsaXBzZSBjeD0iNTUiIGN5PSI2MiIgcng9IjMiIHJ5PSIyIiBmaWxsPSIjM2I4MmY2Ii8+CiAgPGVsbGlwc2UgY3g9Ijc1IiBjeT0iNjIiIHJ4PSIzIiByeT0iMiIgZmlsbD0iIzEwYjk4MSIvPgogIDxlbGxpcHNlIGN4PSI0MCIgY3k9IjQ5IiByeD0iMi41IiByeT0iMiIgZmlsbD0iI2VmNDQ0NCIvPgogIDxlbGxpcHNlIGN4PSI4MCIgY3k9IjQ5IiByeD0iMi41IiByeT0iMiIgZmlsbD0iI2ZiYmYyNCIvPgogIDxyZWN0IHg9IjU4IiB5PSIyMCIgd2lkdGg9IjMiIGhlaWdodD0iMTQiIGZpbGw9IiM3ODM1MGYiLz4KICA8cGF0aCBkPSJNIDU4IDIyIEwgNTggMTYgTCA1NCAyMCBMIDU4IDIyIFoiIGZpbGw9IiNmNTllMGIiLz4KICA8cGF0aCBkPSJNIDU4IDIyIEwgNTggMTQgTCA2MiAxOCBMIDU4IDIyIFoiIGZpbGw9IiNmYmJmMjQiLz4KICA8ZWxsaXBzZSBjeD0iNDAiIGN5PSIzOCIgcng9IjIuNSIgcnk9IjIiIGZpbGw9IiNlZjQ0NDQiLz4KICA8ZWxsaXBzZSBjeD0iODAiIGN5PSIzOCIgcng9IjIuNSIgcnk9IjIiIGZpbGw9IiMxMGI5ODEiLz4KPC9zdmc+Cg==' },
+    { id: 'fries', name: 'سیب‌زمینی سرخ‌کرده', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImZyaWVzRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlMDQ3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2NhOGEwNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iY2FydG9uRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZWY0NDQ0Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzk5MWIxYiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA4IiByeD0iNDAiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8cGF0aCBkPSJNIDMwIDU1IEwgOTAgNTUgTCA4NSAxMDUgTCAzNSAxMDUgWiIgZmlsbD0idXJsKCNjYXJ0b25HKSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNIDMwIDU1IEwgOTAgNTUgTCA4OCA2NSBMIDMyIDY1IFoiIGZpbGw9IiNkYzI2MjYiLz4KICA8cmVjdCB4PSIzNSIgeT0iNzUiIHdpZHRoPSI1MCIgaGVpZ2h0PSIyMCIgZmlsbD0iI2ZlZjljMyIgb3BhY2l0eT0iMC44NSIvPgogIDx0ZXh0IHg9IjYwIiB5PSI5MCIgZm9udC1mYW1pbHk9IlRhaG9tYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNkYzI2MjYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPtiz24zYqOKAjNiy2YXbjNmG24w8L3RleHQ+CiAgPHJlY3QgeD0iMzgiIHk9IjIwIiB3aWR0aD0iNiIgaGVpZ2h0PSI0MCIgcng9IjIiIGZpbGw9InVybCgjZnJpZXNHKSIgc3Ryb2tlPSIjYTE2MjA3IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8cmVjdCB4PSI0NiIgeT0iMTUiIHdpZHRoPSI2IiBoZWlnaHQ9IjQ1IiByeD0iMiIgZmlsbD0idXJsKCNmcmllc0cpIiBzdHJva2U9IiNhMTYyMDciIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9IjU0IiB5PSIxOCIgd2lkdGg9IjYiIGhlaWdodD0iNDIiIHJ4PSIyIiBmaWxsPSJ1cmwoI2ZyaWVzRykiIHN0cm9rZT0iI2ExNjIwNyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHJlY3QgeD0iNjIiIHk9IjE0IiB3aWR0aD0iNiIgaGVpZ2h0PSI0NiIgcng9IjIiIGZpbGw9InVybCgjZnJpZXNHKSIgc3Ryb2tlPSIjYTE2MjA3IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8cmVjdCB4PSI3MCIgeT0iMjAiIHdpZHRoPSI2IiBoZWlnaHQ9IjQwIiByeD0iMiIgZmlsbD0idXJsKCNmcmllc0cpIiBzdHJva2U9IiNhMTYyMDciIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9Ijc4IiB5PSIyMiIgd2lkdGg9IjYiIGhlaWdodD0iMzgiIHJ4PSIyIiBmaWxsPSJ1cmwoI2ZyaWVzRykiIHN0cm9rZT0iI2ExNjIwNyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHJlY3QgeD0iNDIiIHk9IjUwIiB3aWR0aD0iNSIgaGVpZ2h0PSIyMCIgcng9IjIiIGZpbGw9IiNmZWYwOGEiLz4KICA8cmVjdCB4PSI3NSIgeT0iNTAiIHdpZHRoPSI1IiBoZWlnaHQ9IjIwIiByeD0iMiIgZmlsbD0iI2ZlZjA4YSIvPgo8L3N2Zz4K' },
+    { id: 'chocolate', name: 'شکلات', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNob2NvRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOTI0MDBlIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzQ1MWEwMyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0id3JhcEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2RjMjYyNiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3ZjFkMWQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxlbGxpcHNlIGN4PSI2MCIgY3k9IjEwOCIgcng9IjM4IiByeT0iNiIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yIi8+CiAgPHJlY3QgeD0iMjUiIHk9IjQwIiB3aWR0aD0iNzAiIGhlaWdodD0iNDAiIHJ4PSI0IiBmaWxsPSJ1cmwoI2Nob2NvRykiIHN0cm9rZT0iIzFjMGEwMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTSAyNSA0MCBMIDE4IDM1IEwgMTggODUgTCAyNSA4MCBaIiBmaWxsPSJ1cmwoI3dyYXBHKSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0gOTUgNDAgTCAxMDIgMzUgTCAxMDIgODUgTCA5NSA4MCBaIiBmaWxsPSJ1cmwoI3dyYXBHKSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxsaW5lIHgxPSIyMCIgeTE9IjQwIiB4Mj0iMjAiIHkyPSI4MCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxsaW5lIHgxPSIxMDAiIHkxPSI0MCIgeDI9IjEwMCIgeTI9IjgwIiBzdHJva2U9IiM3ZjFkMWQiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHJlY3QgeD0iMzAiIHk9IjQ1IiB3aWR0aD0iNjAiIGhlaWdodD0iNiIgZmlsbD0iI2ZiYmYyNCIgb3BhY2l0eT0iMC44Ii8+CiAgPHRleHQgeD0iNjAiIHk9IjUxIiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjNDUxYTAzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7YtNqp2YTYp9iqPC90ZXh0PgogIDxyZWN0IHg9IjMwIiB5PSI1NSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjIiIGZpbGw9IiMxYzBhMDIiLz4KICA8cmVjdCB4PSIzMCIgeT0iNjUiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyIiBmaWxsPSIjMWMwYTAyIi8+CiAgPHJlY3QgeD0iMzAiIHk9IjczIiB3aWR0aD0iNjAiIGhlaWdodD0iMiIgZmlsbD0iIzFjMGEwMiIvPgogIDxyZWN0IHg9IjUwIiB5PSI0NSIgd2lkdGg9IjIiIGhlaWdodD0iMzAiIGZpbGw9IiMxYzBhMDIiLz4KICA8cmVjdCB4PSI3MCIgeT0iNDUiIHdpZHRoPSIyIiBoZWlnaHQ9IjMwIiBmaWxsPSIjMWMwYTAyIi8+Cjwvc3ZnPgo=' },
+    { id: 'icecream', name: 'بستنی', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNvbmVHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYTE2MjA3Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjcmVhbTEiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZiY2ZlOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlYzQ4OTkiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImNyZWFtMiIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmVmM2M3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y1OWUwYiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjYwIiBjeT0iMTA4IiByeD0iMzIiIHJ5PSI2IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjIiLz4KICA8cGF0aCBkPSJNIDM4IDYwIEwgODIgNjAgTCA3NSAxMDUgTCA0NSAxMDUgWiIgZmlsbD0idXJsKCNjb25lRykiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjQyIiB5MT0iNzAiIHgyPSI3OCIgeTI9IjcwIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgPGxpbmUgeDE9IjQ0IiB5MT0iODAiIHgyPSI3NiIgeTI9IjgwIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgPGxpbmUgeDE9IjQ2IiB5MT0iOTAiIHgyPSI3NCIgeTI9IjkwIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgPGxpbmUgeDE9IjQ4IiB5MT0iMTAwIiB4Mj0iNzIiIHkyPSIxMDAiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjYiLz4KICA8bGluZSB4MT0iNDgiIHkxPSI2NSIgeDI9IjU4IiB5Mj0iMTAwIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMC44IiBvcGFjaXR5PSIwLjUiLz4KICA8bGluZSB4MT0iNzIiIHkxPSI2NSIgeDI9IjYyIiB5Mj0iMTAwIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMC44IiBvcGFjaXR5PSIwLjUiLz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSI1NSIgcng9IjI4IiByeT0iMTQiIGZpbGw9InVybCgjY3JlYW0yKSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI0MCIgcng9IjIyIiByeT0iMTQiIGZpbGw9InVybCgjY3JlYW0xKSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8ZWxsaXBzZSBjeD0iNzAiIGN5PSIzNSIgcng9IjIwIiByeT0iMTQiIGZpbGw9InVybCgjY3JlYW0yKSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjIyIiByPSI4IiBmaWxsPSJ1cmwoI2NyZWFtMSkiIHN0cm9rZT0iIzgzMTg0MyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8Y2lyY2xlIGN4PSI0MiIgY3k9IjM1IiByPSIyLjUiIGZpbGw9IiNlZjQ0NDQiLz4KICA8Y2lyY2xlIGN4PSI4MCIgY3k9IjMyIiByPSIyLjUiIGZpbGw9IiNlZjQ0NDQiLz4KICA8Y2lyY2xlIGN4PSI2MCIgY3k9IjE4IiByPSIyIiBmaWxsPSIjZWY0NDQ0Ii8+CiAgPHJlY3QgeD0iNTgiIHk9IjEwIiB3aWR0aD0iNCIgaGVpZ2h0PSI4IiBmaWxsPSIjYTE2MjA3Ii8+Cjwvc3ZnPgo=' }
+  ]
+};
+
+/* ---------- Data: Characters (10) ---------- */
+const CHARACTERS = [
+  // Healthy-looking (1-5)
+  { id: 1, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMxYm9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMzRkMzk5Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzA0Nzg1NyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzFoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNjAiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gV2F0ZXIgYm90dGxlIGluIGhhbmQgLS0+CiAgPHJlY3QgeD0iNDAiIHk9IjE2MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjMwIiByeD0iNCIgZmlsbD0iIzBlYTVlOSIgc3Ryb2tlPSIjMDM2OWExIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxyZWN0IHg9IjQ0IiB5PSIxNTUiIHdpZHRoPSIxMiIgaGVpZ2h0PSI2IiBmaWxsPSIjMDM2OWExIi8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iMTc1IiByeD0iOCIgcnk9IjMiIGZpbGw9IiM3ZGQzZmMiLz4KICA8IS0tIEJvZHkgLyBzcG9ydHkgdGFuayB0b3AgLS0+CiAgPHBhdGggZD0iTSA2NSAxMzAgUSA2NSAxMjAgMTAwIDEyMCBRIDEzNSAxMjAgMTM1IDEzMCBMIDE0MCAyMDAgUSAxNDAgMjEwIDEzMCAyMTAgTCA3MCAyMTAgUSA2MCAyMTAgNjAgMjAwIFoiIGZpbGw9InVybCgjYzFib2R5KSIvPgogIDxwYXRoIGQ9Ik0gODAgMTIwIEwgMTAwIDEzNSBMIDEyMCAxMjAiIHN0cm9rZT0iIzA0Nzg1NyIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CiAgPCEtLSBOdW1iZXIgMSBvbiBzaGlydCAtLT4KICA8dGV4dCB4PSIxMDAiIHk9IjE2NSIgZm9udC1mYW1pbHk9IlRhaG9tYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjE8L3RleHQ+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijg1IiByPSIzNSIgZmlsbD0idXJsKCNjMWhlYWQpIi8+CiAgPCEtLSBTd2VhdGJhbmQgLS0+CiAgPHJlY3QgeD0iNjUiIHk9IjcwIiB3aWR0aD0iNzAiIGhlaWdodD0iOCIgZmlsbD0iI2VmNDQ0NCIvPgogIDwhLS0gSGFpciAoc2hvcnQpIC0tPgogIDxwYXRoIGQ9Ik0gNjggNzAgUSA3NSA1MCAxMDAgNTAgUSAxMjUgNTAgMTMyIDcwIiBmaWxsPSIjM2YyYTFkIi8+CiAgPCEtLSBFeWVzIChicmlnaHQpIC0tPgogIDxlbGxpcHNlIGN4PSI4OCIgY3k9Ijg4IiByeD0iNCIgcnk9IjUiIGZpbGw9IiMxZTI5M2IiLz4KICA8ZWxsaXBzZSBjeD0iMTEyIiBjeT0iODgiIHJ4PSI0IiByeT0iNSIgZmlsbD0iIzFlMjkzYiIvPgogIDxjaXJjbGUgY3g9Ijg5IiBjeT0iODYiIHI9IjEuNSIgZmlsbD0iI2ZmZiIvPgogIDxjaXJjbGUgY3g9IjExMyIgY3k9Ijg2IiByPSIxLjUiIGZpbGw9IiNmZmYiLz4KICA8IS0tIEJpZyBzbWlsZSAtLT4KICA8cGF0aCBkPSJNIDg1IDEwMCBRIDEwMCAxMTUgMTE1IDEwMCIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gUm9zeSBjaGVla3MgKGVuZXJnZXRpYykgLS0+CiAgPGNpcmNsZSBjeD0iNzgiIGN5PSI5OCIgcj0iNSIgZmlsbD0iI2Y4NzE3MSIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMTIyIiBjeT0iOTgiIHI9IjUiIGZpbGw9IiNmODcxNzEiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0gU3Ryb25nIGFybSBmbGV4aW5nIC0tPgogIDxwYXRoIGQ9Ik0gNjAgMTQ1IFEgNTAgMTY1IDU1IDE4MCBMIDcwIDE3NSBRIDc1IDE2MCA3NSAxNDUgWiIgZmlsbD0idXJsKCNjMWJvZHkpIiBzdHJva2U9IiMwNDc4NTciIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPCEtLSBMZWdzIC8gcnVubmluZyBzaG9ydHMgLS0+CiAgPHJlY3QgeD0iNjUiIHk9IjIwMCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjMWUyOTNiIi8+CiAgPHJlY3QgeD0iMTA1IiB5PSIyMDAiIHdpZHRoPSIzMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzFlMjkzYiIvPgogIDwhLS0gU25lYWtlcnMgLS0+CiAgPGVsbGlwc2UgY3g9IjgwIiBjeT0iMjIyIiByeD0iMTUiIHJ5PSI2IiBmaWxsPSIjZmJiZjI0IiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGVsbGlwc2UgY3g9IjEyMCIgY3k9IjIyMiIgcng9IjE1IiByeT0iNiIgZmlsbD0iI2ZiYmYyNCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gRW5lcmd5IHNwYXJrbGUgLS0+CiAgPHBhdGggZD0iTSAxNTAgNjAgTCAxNTMgNjcgTCAxNjAgNzAgTCAxNTMgNzMgTCAxNTAgODAgTCAxNDcgNzMgTCAxNDAgNzAgTCAxNDcgNjcgWiIgZmlsbD0iI2ZiYmYyNCIvPgo8L3N2Zz4K', healthy: true, name: 'ورزشکار دونده', traits: ['ورزش روزانه', 'آب کافی', 'خواب منظم'] },
+  { id: 2, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMyYm9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYzRiNWZkIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZkMjhkOSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzJoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJ5b2dhTWF0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmNDcyYjYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYmUxODVkIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNjUiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gWW9nYSBtYXQgcm9sbGVkIHVuZGVyIGFybSAtLT4KICA8cmVjdCB4PSIzMCIgeT0iMTU1IiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIHJ4PSIxMCIgZmlsbD0idXJsKCN5b2dhTWF0KSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxlbGxpcHNlIGN4PSIzMiIgY3k9IjE2NSIgcng9IjYiIHJ5PSIxMCIgZmlsbD0iI2VjNDg5OSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8IS0tIEJvZHkgLyBsb29zZSB5b2dhIHRvcCAtLT4KICA8cGF0aCBkPSJNIDY1IDEzNSBRIDY1IDEyMCAxMDAgMTIwIFEgMTM1IDEyMCAxMzUgMTM1IEwgMTQwIDIwMCBRIDE0MCAyMTAgMTMwIDIxMCBMIDcwIDIxMCBRIDYwIDIxMCA2MCAyMDAgWiIgZmlsbD0idXJsKCNjMmJvZHkpIi8+CiAgPCEtLSBMb3R1cyBzeW1ib2wgb24gY2hlc3QgLS0+CiAgPHBhdGggZD0iTSAxMDAgMTQ1IFEgOTIgMTU1IDk1IDE2NSBRIDEwMCAxNjggMTA1IDE2NSBRIDEwOCAxNTUgMTAwIDE0NSBaIiBmaWxsPSIjZmZmIi8+CiAgPHBhdGggZD0iTSAxMDAgMTUwIFEgOTUgMTU4IDEwMCAxNjIgUSAxMDUgMTU4IDEwMCAxNTAgWiIgZmlsbD0iI2ZiYmYyNCIvPgogIDwhLS0gSGVhZCAtLT4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSI4NSIgcj0iMzUiIGZpbGw9InVybCgjYzJoZWFkKSIvPgogIDwhLS0gSGFpciBidW4gLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjU1IiByeD0iMTQiIHJ5PSIxMCIgZmlsbD0iIzNmMmExZCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjUwIiByPSI4IiBmaWxsPSIjM2YyYTFkIi8+CiAgPHBhdGggZD0iTSA2OCA3OCBRIDc1IDYwIDEwMCA1OCBRIDEyNSA2MCAxMzIgNzgiIGZpbGw9IiMzZjJhMWQiLz4KICA8IS0tIENhbG0gZXllcyAoY2xvc2VkLCBwZWFjZWZ1bCkgLS0+CiAgPHBhdGggZD0iTSA4MiA4OCBRIDg4IDkyIDk0IDg4IiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMi41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEwNiA4OCBRIDExMiA5MiAxMTggODgiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU2VyZW5lIHNtaWxlIC0tPgogIDxwYXRoIGQ9Ik0gOTAgMTAyIFEgMTAwIDExMCAxMTAgMTAyIiBzdHJva2U9IiM3YzJkMTIiIHN0cm9rZS13aWR0aD0iMi41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIFBlYWNlIGhhbmQgc2lnbiAtLT4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNjAiIHI9IjE0IiBmaWxsPSJ1cmwoI2MyaGVhZCkiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMTQ4IiB5MT0iMTU1IiB4Mj0iMTQ4IiB5Mj0iMTQyIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjE1NSIgeTE9IjE1NSIgeDI9IjE1NSIgeTI9IjE0NSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gTGVncyAtLT4KICA8cmVjdCB4PSI3MCIgeT0iMjA1IiB3aWR0aD0iMjUiIGhlaWdodD0iMTUiIGZpbGw9IiMxZTI5M2IiLz4KICA8cmVjdCB4PSIxMDUiIHk9IjIwNSIgd2lkdGg9IjI1IiBoZWlnaHQ9IjE1IiBmaWxsPSIjMWUyOTNiIi8+CiAgPCEtLSBCYXJlZm9vdCAvIHNhbmRhbCAtLT4KICA8ZWxsaXBzZSBjeD0iODIiIGN5PSIyMjIiIHJ4PSIxMyIgcnk9IjUiIGZpbGw9InVybCgjYzJoZWFkKSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTE4IiBjeT0iMjIyIiByeD0iMTMiIHJ5PSI1IiBmaWxsPSJ1cmwoI2MyaGVhZCkiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBNZWRpdGF0aW9uIHNwYXJrbGVzIC0tPgogIDxjaXJjbGUgY3g9IjQ1IiBjeT0iODAiIHI9IjIiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSIxNTUiIGN5PSI2MCIgcj0iMi41IiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGNpcmNsZSBjeD0iNDAiIGN5PSIxMTAiIHI9IjEuNSIgZmlsbD0iI2ZiYmYyNCIvPgo8L3N2Zz4K', healthy: true, name: 'استاد یوگا', traits: ['آرامش ذهنی', 'تغذیه سبزیجات', 'خواب کافی'] },
+  { id: 3, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMzYm9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjBhNWZhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFkNGVkOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzNoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJoZWxtZXRHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmYjcxODUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYmUxMjNjIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNzAiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gQmljeWNsZSBoZWxtZXQgLS0+CiAgPHBhdGggZD0iTSA2MCA3NSBRIDYwIDQ1IDEwMCA0NSBRIDE0MCA0NSAxNDAgNzUgTCAxNDAgODUgUSAxMzAgNzAgMTAwIDcwIFEgNzAgNzAgNjAgODUgWiIgZmlsbD0idXJsKCNoZWxtZXRHKSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIFZlbnQgbGluZXMgb24gaGVsbWV0IC0tPgogIDxsaW5lIHgxPSI3NSIgeTE9IjU1IiB4Mj0iNzgiIHkyPSI2OCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMTAwIiB5MT0iNTAiIHgyPSIxMDAiIHkyPSI2NSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMTI1IiB5MT0iNTUiIHgyPSIxMjIiIHkyPSI2OCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIEJvZHkgLyBjeWNsaW5nIGplcnNleSAtLT4KICA8cGF0aCBkPSJNIDY1IDEzMCBRIDY1IDEyMCAxMDAgMTIwIFEgMTM1IDEyMCAxMzUgMTMwIEwgMTQwIDIwMCBRIDE0MCAyMTAgMTMwIDIxMCBMIDcwIDIxMCBRIDYwIDIxMCA2MCAyMDAgWiIgZmlsbD0idXJsKCNjM2JvZHkpIi8+CiAgPCEtLSBTdHJpcGVzIC0tPgogIDxyZWN0IHg9IjY1IiB5PSIxNDUiIHdpZHRoPSI3MCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CiAgPHJlY3QgeD0iNjUiIHk9IjE1NSIgd2lkdGg9IjcwIiBoZWlnaHQ9IjQiIGZpbGw9IiNmYmJmMjQiLz4KICA8IS0tIEhlYWQgLS0+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iODUiIHI9IjMyIiBmaWxsPSJ1cmwoI2MzaGVhZCkiLz4KICA8IS0tIEhhaXIgdW5kZXIgaGVsbWV0IC0tPgogIDxwYXRoIGQ9Ik0gNzAgODAgUSA4MCA2NSAxMDAgNjUgUSAxMjAgNjUgMTMwIDgwIiBmaWxsPSIjM2YyYTFkIi8+CiAgPCEtLSBTcG9ydHkgc3VuZ2xhc3NlcyAtLT4KICA8cmVjdCB4PSI3OCIgeT0iODIiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiMxZTI5M2IiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHJlY3QgeD0iMTA0IiB5PSI4MiIgd2lkdGg9IjE4IiBoZWlnaHQ9IjEwIiByeD0iMyIgZmlsbD0iIzFlMjkzYiIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8bGluZSB4MT0iOTYiIHkxPSI4NiIgeDI9IjEwNCIgeTI9Ijg2IiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSI4MyIgY3k9Ijg2IiByeD0iMyIgcnk9IjIiIGZpbGw9IiM2MGE1ZmEiIG9wYWNpdHk9IjAuNyIvPgogIDxlbGxpcHNlIGN4PSIxMDkiIGN5PSI4NiIgcng9IjMiIHJ5PSIyIiBmaWxsPSIjNjBhNWZhIiBvcGFjaXR5PSIwLjciLz4KICA8IS0tIERldGVybWluZWQgc21pbGUgLS0+CiAgPHBhdGggZD0iTSA4NSAxMDIgUSAxMDAgMTEwIDExNSAxMDIiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIEJpa2UgKHZpc2libGUgcG9ydGlvbikgLS0+CiAgPGNpcmNsZSBjeD0iNjAiIGN5PSIyMTAiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMyIvPgogIDxjaXJjbGUgY3g9IjYwIiBjeT0iMjEwIiByPSI0IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGxpbmUgeDE9IjYwIiB5MT0iMTg4IiB4Mj0iNjAiIHkyPSIyMzIiIHN0cm9rZT0iIzQ3NTU2OSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGxpbmUgeDE9IjM4IiB5MT0iMjEwIiB4Mj0iODIiIHkyPSIyMTAiIHN0cm9rZT0iIzQ3NTU2OSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBBcm0gaG9sZGluZyBoYW5kbGViYXIgLS0+CiAgPHBhdGggZD0iTSA2MCAxNDUgUSA1MCAxNzUgNTUgMTk1IiBzdHJva2U9InVybCgjYzNoZWFkKSIgc3Ryb2tlLXdpZHRoPSIxNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBMZWdzIC0tPgogIDxyZWN0IHg9IjcwIiB5PSIyMDAiIHdpZHRoPSIyNSIgaGVpZ2h0PSIyMCIgZmlsbD0iIzFlMjkzYiIvPgogIDxyZWN0IHg9IjEwNSIgeT0iMjAwIiB3aWR0aD0iMjUiIGhlaWdodD0iMjAiIGZpbGw9IiMxZTI5M2IiLz4KICA8IS0tIFNuZWFrZXJzIC0tPgogIDxlbGxpcHNlIGN4PSI4MiIgY3k9IjIyMiIgcng9IjE0IiByeT0iNSIgZmlsbD0iI2ZiYmYyNCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxlbGxpcHNlIGN4PSIxMTgiIGN5PSIyMjIiIHJ4PSIxNCIgcnk9IjUiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIFNwZWVkIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyMCIgeTE9IjE2MCIgeDI9IjM1IiB5Mj0iMTYwIiBzdHJva2U9IiM2MGE1ZmEiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC42Ii8+CiAgPGxpbmUgeDE9IjE1IiB5MT0iMTc1IiB4Mj0iMzAiIHkyPSIxNzUiIHN0cm9rZT0iIzYwYTVmYSIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjUiLz4KPC9zdmc+Cg==', healthy: true, name: 'دوچرخه‌سوار', traits: ['فعالیت بدنی', 'هیدراته بودن', 'استقامت'] },
+  { id: 4, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM0Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmI5MjNjIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2MyNDEwYyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzRoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJiYWxsRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmI3MTg1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2JlMTIzYyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjY1IiByeT0iMTAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMjUiLz4KICA8IS0tIEJhc2tldGJhbGwgLS0+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIxNzAiIHI9IjIyIiBmaWxsPSJ1cmwoI2JhbGxHKSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iNTAiIHkxPSIxNDgiIHgyPSI1MCIgeTI9IjE5MiIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0gMjggMTcwIFEgNTAgMTYwIDcyIDE3MCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0gMjggMTcwIFEgNTAgMTgwIDcyIDE3MCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgogIDwhLS0gQm9keSAvIGJhc2tldGJhbGwgamVyc2V5IC0tPgogIDxwYXRoIGQ9Ik0gNjUgMTMwIFEgNjUgMTIwIDEwMCAxMjAgUSAxMzUgMTIwIDEzNSAxMzAgTCAxNDAgMjAwIFEgMTQwIDIxMCAxMzAgMjEwIEwgNzAgMjEwIFEgNjAgMjEwIDYwIDIwMCBaIiBmaWxsPSJ1cmwoI2M0Ym9keSkiLz4KICA8IS0tIEplcnNleSBudW1iZXIgLS0+CiAgPHRleHQgeD0iMTAwIiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJUYWhvbWEsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj43PC90ZXh0PgogIDwhLS0gVGFuayB0b3Agc3RyYXBzIC0tPgogIDxwYXRoIGQ9Ik0gNzUgMTIwIEwgODUgMTMwIE0gMTI1IDEyMCBMIDExNSAxMzAiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijg1IiByPSIzNSIgZmlsbD0idXJsKCNjNGhlYWQpIi8+CiAgPCEtLSBTaG9ydCBoYWlyIC0tPgogIDxwYXRoIGQ9Ik0gNzAgNjUgUSA4MCA1MCAxMDAgNTAgUSAxMjAgNTAgMTMwIDY1IFEgMTI1IDYwIDEwMCA2MCBRIDc1IDYwIDcwIDY1IFoiIGZpbGw9IiMxZjI5MzciLz4KICA8IS0tIFN3ZWF0YmFuZCAtLT4KICA8cmVjdCB4PSI2NSIgeT0iNjgiIHdpZHRoPSI3MCIgaGVpZ2h0PSI2IiBmaWxsPSIjZGMyNjI2Ii8+CiAgPCEtLSBFeWVzIChkZXRlcm1pbmVkLCBmb2N1c2VkKSAtLT4KICA8ZWxsaXBzZSBjeD0iODgiIGN5PSI4NiIgcng9IjQiIHJ5PSI1IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGVsbGlwc2UgY3g9IjExMiIgY3k9Ijg2IiByeD0iNCIgcnk9IjUiIGZpbGw9IiMxZTI5M2IiLz4KICA8Y2lyY2xlIGN4PSI4OSIgY3k9Ijg0IiByPSIxLjUiIGZpbGw9IiNmZmYiLz4KICA8Y2lyY2xlIGN4PSIxMTMiIGN5PSI4NCIgcj0iMS41IiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBFeWVicm93cyAtLT4KICA8bGluZSB4MT0iODIiIHkxPSI3OCIgeDI9Ijk0IiB5Mj0iNzYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8bGluZSB4MT0iMTA2IiB5MT0iNzYiIHgyPSIxMTgiIHkyPSI3OCIgc3Ryb2tlPSIjMWUyOTNiIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gRXhjaXRlZCBzbWlsZSAtLT4KICA8cGF0aCBkPSJNIDgyIDEwMiBRIDEwMCAxMTYgMTE4IDEwMiIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gTXVzY3VsYXIgYXJtIGhvbGRpbmcgYmFsbCAtLT4KICA8cGF0aCBkPSJNIDYwIDE0NSBRIDQ1IDE2NSA1MCAxODUgTCA2NSAxODAgUSA3MCAxNjUgNzAgMTQ1IFoiIGZpbGw9InVybCgjYzRoZWFkKSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gU3Ryb25nIGFybSBsaW5lcyAtLT4KICA8cGF0aCBkPSJNIDU4IDE2MCBRIDYyIDE2NSA1OCAxNzAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIi8+CiAgPCEtLSBMZWdzIC8gc2hvcnRzIC0tPgogIDxyZWN0IHg9IjY4IiB5PSIyMDAiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzFlMjkzYiIvPgogIDxyZWN0IHg9IjEwNCIgeT0iMjAwIiB3aWR0aD0iMjgiIGhlaWdodD0iMTgiIGZpbGw9IiMxZTI5M2IiLz4KICA8IS0tIFNwb3J0eSBzaG9lcyAtLT4KICA8cGF0aCBkPSJNIDY1IDIxOCBMIDk1IDIxOCBMIDk1IDIyOCBMIDcwIDIyOCBRIDY1IDIyOCA2NSAyMjQgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWUyOTNiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0gMTA1IDIxOCBMIDEzNSAyMTggTCAxMzUgMjI0IFEgMTM1IDIyOCAxMzAgMjI4IEwgMTA1IDIyOCBaIiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjcyIiB5MT0iMjIzIiB4Mj0iOTIiIHkyPSIyMjMiIHN0cm9rZT0iI2RjMjYyNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMTA4IiB5MT0iMjIzIiB4Mj0iMTI4IiB5Mj0iMjIzIiBzdHJva2U9IiNkYzI2MjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+Cjwvc3ZnPgo=', healthy: true, name: 'بسکتبالیست', traits: ['حرکت منظم', 'تغذیه ورزشی', 'انرژی بالا'] },
+  { id: 5, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM1Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYTNlNjM1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzRkN2MwZiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzVoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNjAiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gQXBwbGUgaW4gaGFuZCAtLT4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNjUiIHI9IjE0IiBmaWxsPSIjZWY0NDQ0IiBzdHJva2U9IiM3ZjFkMWQiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0gMTUwIDE1MiBRIDE1MiAxNDUgMTU4IDE0MiIgc3Ryb2tlPSIjNzgzNTBmIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0gMTU2IDE0NSBRIDE2NSAxNDAgMTY4IDE0OCIgZmlsbD0iIzE2YTM0YSIgc3Ryb2tlPSIjMTU4MDNkIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTQ2IiBjeT0iMTYwIiByeD0iMyIgcnk9IjUiIGZpbGw9IiNmY2E1YTUiIG9wYWNpdHk9IjAuNyIvPgogIDwhLS0gQm9keSAvIGhlYWx0aHkgdC1zaGlydCAtLT4KICA8cGF0aCBkPSJNIDY1IDEzMCBRIDY1IDEyMCAxMDAgMTIwIFEgMTM1IDEyMCAxMzUgMTMwIEwgMTQwIDIwMCBRIDE0MCAyMTAgMTMwIDIxMCBMIDcwIDIxMCBRIDYwIDIxMCA2MCAyMDAgWiIgZmlsbD0idXJsKCNjNWJvZHkpIi8+CiAgPCEtLSBBcHBsZSBsb2dvIG9uIHNoaXJ0IC0tPgogIDxwYXRoIGQ9Ik0gMTAwIDE1MCBRIDk1IDE1MiA5NSAxNTggUSA5NSAxNjggMTAwIDE3MiBRIDEwNSAxNjggMTA1IDE1OCBRIDEwNSAxNTIgMTAwIDE1MCBaIiBmaWxsPSIjZWY0NDQ0IiBzdHJva2U9IiM3ZjFkMWQiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxwYXRoIGQ9Ik0gMTAwIDE1MCBMIDEwMCAxNDgiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTSAxMDAgMTQ4IFEgMTA1IDE0NCAxMDggMTQ2IiBzdHJva2U9IiMxNmEzNGEiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogIDwhLS0gSGVhZCAtLT4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSI4NSIgcj0iMzUiIGZpbGw9InVybCgjYzVoZWFkKSIvPgogIDwhLS0gSGFpciAoY3VybHksIGVuZXJnZXRpYykgLS0+CiAgPHBhdGggZD0iTSA2NSA3MCBRIDYwIDUwIDgwIDQ4IFEgOTAgNDAgMTAwIDQ4IFEgMTEwIDQwIDEyMCA0OCBRIDE0MCA1MCAxMzUgNzAgUSAxMzAgNjAgMTAwIDYwIFEgNzAgNjAgNjUgNzAgWiIgZmlsbD0iIzdjMmQxMiIvPgogIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNTUiIHI9IjYiIGZpbGw9IiM3YzJkMTIiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSI0OCIgcj0iNiIgZmlsbD0iIzdjMmQxMiIvPgogIDxjaXJjbGUgY3g9IjEyNSIgY3k9IjU1IiByPSI2IiBmaWxsPSIjN2MyZDEyIi8+CiAgPCEtLSBCcmlnaHQgaGFwcHkgZXllcyAtLT4KICA8ZWxsaXBzZSBjeD0iODgiIGN5PSI4OCIgcng9IjQiIHJ5PSI1IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGVsbGlwc2UgY3g9IjExMiIgY3k9Ijg4IiByeD0iNCIgcnk9IjUiIGZpbGw9IiMxZTI5M2IiLz4KICA8Y2lyY2xlIGN4PSI4OSIgY3k9Ijg2IiByPSIxLjgiIGZpbGw9IiNmZmYiLz4KICA8Y2lyY2xlIGN4PSIxMTMiIGN5PSI4NiIgcj0iMS44IiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBCaWcgc21pbGUgd2l0aCB0ZWV0aCAtLT4KICA8cGF0aCBkPSJNIDgyIDEwMiBRIDEwMCAxMTggMTE4IDEwMiBRIDEwMCAxMTAgODIgMTAyIFoiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjEwMCIgeTE9IjEwNSIgeDI9IjEwMCIgeTI9IjExMyIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8IS0tIFJvc3kgaGVhbHRoeSBjaGVla3MgLS0+CiAgPGNpcmNsZSBjeD0iNzgiIGN5PSI5OCIgcj0iNiIgZmlsbD0iI2Y4NzE3MSIgb3BhY2l0eT0iMC40NSIvPgogIDxjaXJjbGUgY3g9IjEyMiIgY3k9Ijk4IiByPSI2IiBmaWxsPSIjZjg3MTcxIiBvcGFjaXR5PSIwLjQ1Ii8+CiAgPCEtLSBBcm0gaG9sZGluZyBhcHBsZSAtLT4KICA8cGF0aCBkPSJNIDEzNSAxNDUgUSAxNDUgMTU1IDE1MCAxNjUiIHN0cm9rZT0idXJsKCNjNWhlYWQpIiBzdHJva2Utd2lkdGg9IjE0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIFNob3J0cyAtLT4KICA8cmVjdCB4PSI2OCIgeT0iMjAwIiB3aWR0aD0iMjgiIGhlaWdodD0iMTgiIGZpbGw9IiNhM2U2MzUiLz4KICA8cmVjdCB4PSIxMDQiIHk9IjIwMCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjE4IiBmaWxsPSIjYTNlNjM1Ii8+CiAgPCEtLSBTYW5kYWxzIC0tPgogIDxlbGxpcHNlIGN4PSI4MiIgY3k9IjIyMiIgcng9IjEzIiByeT0iNSIgZmlsbD0iIzkyNDAwZSIvPgogIDxlbGxpcHNlIGN4PSIxMTgiIGN5PSIyMjIiIHJ4PSIxMyIgcnk9IjUiIGZpbGw9IiM5MjQwMGUiLz4KICA8IS0tIFNwYXJrbGVzICh2aXRhbGl0eSkgLS0+CiAgPHBhdGggZD0iTSA0MCA2MCBMIDQyIDY1IEwgNDcgNjcgTCA0MiA2OSBMIDQwIDc0IEwgMzggNjkgTCAzMyA2NyBMIDM4IDY1IFoiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxMDAiIHI9IjMiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjEyMCIgcj0iMiIgZmlsbD0iI2ZiYmYyNCIvPgo8L3N2Zz4K', healthy: true, name: 'دوست میوه‌ها', traits: ['مصرف میوه', 'نشاط', 'سبک زندگی فعال'] },
+  // Unhealthy-looking (6-10)
+  { id: 6, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM2Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjQ3NDhiIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzMzNDE1NSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzZoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWYzYzciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJzb2RhQ2FuIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNkYzI2MjYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjN2YxZDFkIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNjUiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4zIi8+CiAgPCEtLSBTb2RhIGNhbiBpbiBoYW5kIC0tPgogIDxyZWN0IHg9IjEzNSIgeT0iMTU1IiB3aWR0aD0iMjIiIGhlaWdodD0iMzIiIHJ4PSIzIiBmaWxsPSJ1cmwoI3NvZGFDYW4pIiBzdHJva2U9IiM0NTBhMGEiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGVsbGlwc2UgY3g9IjE0NiIgY3k9IjE1NSIgcng9IjExIiByeT0iMyIgZmlsbD0iIzdmMWQxZCIvPgogIDx0ZXh0IHg9IjE0NiIgeT0iMTc4IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7ZhtmI2LTYp9io2Yc8L3RleHQ+CiAgPCEtLSBTbG91Y2hlZCBib2R5IChyb3VuZGVkIHNob3VsZGVycykgLS0+CiAgPHBhdGggZD0iTSA2MCAxNDUgUSA1NSAxMzAgMTAwIDEyNSBRIDE0NSAxMzAgMTQwIDE0NSBMIDE0NSAyMDUgUSAxNDUgMjEyIDEzOCAyMTIgTCA2MiAyMTIgUSA1NSAyMTIgNTUgMjA1IFoiIGZpbGw9InVybCgjYzZib2R5KSIvPgogIDwhLS0gU2F1Y2Ugc3RhaW4gLS0+CiAgPGVsbGlwc2UgY3g9IjEwNSIgY3k9IjE2NSIgcng9IjEyIiByeT0iNiIgZmlsbD0iI2ZiYmYyNCIgb3BhY2l0eT0iMC41Ii8+CiAgPGVsbGlwc2UgY3g9IjExMCIgY3k9IjE3MCIgcng9IjgiIHJ5PSI0IiBmaWxsPSIjZGMyNjI2IiBvcGFjaXR5PSIwLjQiLz4KICA8IS0tIEhlYWQgKHNsaWdodGx5IHRpbHRlZCBmb3J3YXJkKSAtLT4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iODgiIHJ4PSIzNCIgcnk9IjM2IiBmaWxsPSJ1cmwoI2M2aGVhZCkiLz4KICA8IS0tIE1lc3N5IGhhaXIgLS0+CiAgPHBhdGggZD0iTSA2NSA3NSBRIDYwIDUwIDgwIDQ4IFEgOTAgNDAgMTA1IDQ4IFEgMTI1IDQ1IDEzNSA3MCBRIDEzMCA1NSAxMDAgNTUgUSA3MCA1NSA2NSA3NSBaIiBmaWxsPSIjNTI1MjViIi8+CiAgPHBhdGggZD0iTSA3MCA2MCBMIDY1IDUwIE0gMTMwIDYwIEwgMTM1IDUwIE0gMTAwIDQ1IEwgMTAwIDM4IiBzdHJva2U9IiM1MjUyNWIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBEYXJrIGV5ZSBiYWdzICh0aXJlZCkgLS0+CiAgPGVsbGlwc2UgY3g9Ijg4IiBjeT0iOTUiIHJ4PSI5IiByeT0iNiIgZmlsbD0iIzc4MzUwZiIgb3BhY2l0eT0iMC41Ii8+CiAgPGVsbGlwc2UgY3g9IjExMiIgY3k9Ijk1IiByeD0iOSIgcnk9IjYiIGZpbGw9IiM3ODM1MGYiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0gSGFsZi1jbG9zZWQgdGlyZWQgZXllcyAtLT4KICA8ZWxsaXBzZSBjeD0iODgiIGN5PSI5MiIgcng9IjQiIHJ5PSIyLjUiIGZpbGw9IiMxZTI5M2IiLz4KICA8ZWxsaXBzZSBjeD0iMTEyIiBjeT0iOTIiIHJ4PSI0IiByeT0iMi41IiBmaWxsPSIjMWUyOTNiIi8+CiAgPHBhdGggZD0iTSA4MCA4OCBMIDk2IDg4IE0gMTA0IDg4IEwgMTIwIDg4IiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBZYXduIC8gdGlyZWQgbW91dGggLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjExMCIgcng9IjYiIHJ5PSI4IiBmaWxsPSIjN2MyZDEyIi8+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjExMyIgcng9IjMiIHJ5PSI0IiBmaWxsPSIjNDUwYTBhIi8+CiAgPCEtLSBTd2VhdCBkcm9wIC0tPgogIDxwYXRoIGQ9Ik0gMTMyIDgwIFEgMTMwIDg4IDEzNCA5MCBRIDEzOCA4OCAxMzYgODAgWiIgZmlsbD0iIzYwYTVmYSIgb3BhY2l0eT0iMC44Ii8+CiAgPCEtLSBEcm9vcHkgYXJtcyAtLT4KICA8cGF0aCBkPSJNIDYwIDE1MCBRIDUwIDE3NSA2MCAxOTUiIHN0cm9rZT0idXJsKCNjNmhlYWQpIiBzdHJva2Utd2lkdGg9IjEzIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDE0MCAxNTAgUSAxNTAgMTY1IDE0NSAxODAiIHN0cm9rZT0idXJsKCNjNmhlYWQpIiBzdHJva2Utd2lkdGg9IjEzIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIExlZ3MgKHNsb3VjaGVkIHBvc3R1cmUpIC0tPgogIDxyZWN0IHg9IjY4IiB5PSIyMDAiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzFlMjkzYiIvPgogIDxyZWN0IHg9IjEwNCIgeT0iMjAwIiB3aWR0aD0iMjgiIGhlaWdodD0iMTgiIGZpbGw9IiMxZTI5M2IiLz4KICA8IS0tIFdvcm4gc2hvZXMgLS0+CiAgPGVsbGlwc2UgY3g9IjgyIiBjeT0iMjIyIiByeD0iMTQiIHJ5PSI1IiBmaWxsPSIjNTI1MjViIiBzdHJva2U9IiMyNzI3MmEiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxlbGxpcHNlIGN4PSIxMTgiIGN5PSIyMjIiIHJ4PSIxNCIgcnk9IjUiIGZpbGw9IiM1MjUyNWIiIHN0cm9rZT0iIzI3MjcyYSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBaenogKHNsZWVweSkgLS0+CiAgPHRleHQgeD0iMTUwIiB5PSI2MCIgZm9udC1mYW1pbHk9IlRhaG9tYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiM5NGEzYjgiIG9wYWNpdHk9IjAuNyI+ejwvdGV4dD4KICA8dGV4dCB4PSIxNjAiIHk9IjQ4IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzk0YTNiOCIgb3BhY2l0eT0iMC42Ij5aPC90ZXh0PgogIDx0ZXh0IHg9IjE3MiIgeT0iMzUiIGZvbnQtZmFtaWx5PSJUYWhvbWEsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjOTRhM2I4IiBvcGFjaXR5PSIwLjUiPlo8L3RleHQ+Cjwvc3ZnPgo=', healthy: false, name: 'بی‌حال', traits: ['کم‌خوابی', 'نوشابه زیاد', 'بی‌تحرکی'] },
+  { id: 7, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM3Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNDc1NTY5Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFlMjkzYiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzdoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWYzYzciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmFjYzE1Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJlbmVyZ3lDYW4iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzg0Y2MxNiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZjYyMTIiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxlbGxpcHNlIGN4PSIxMDAiIGN5PSIyMjAiIHJ4PSI2OCIgcnk9IjEwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjMiLz4KICA8IS0tIEVuZXJneSBkcmluayBjYW4gLS0+CiAgPHJlY3QgeD0iMTM1IiB5PSIxNTUiIHdpZHRoPSIyMiIgaGVpZ2h0PSIzNSIgcng9IjMiIGZpbGw9InVybCgjZW5lcmd5Q2FuKSIgc3Ryb2tlPSIjMWEyZTA1IiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxlbGxpcHNlIGN4PSIxNDYiIGN5PSIxNTUiIHJ4PSIxMSIgcnk9IjMiIGZpbGw9IiMzZjYyMTIiLz4KICA8cGF0aCBkPSJNIDE0MCAxNjUgTCAxNTIgMTY1IEwgMTUyIDE3OCBMIDE0NiAxODQgTCAxNDAgMTc4IFoiIGZpbGw9IiNmYmJmMjQiLz4KICA8dGV4dCB4PSIxNDYiIHk9IjE3NCIgZm9udC1mYW1pbHk9IlRhaG9tYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSI2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzFhMmUwNSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RU5FUkdZPC90ZXh0PgogIDwhLS0gQm9keSBzbG91Y2hlZCAtLT4KICA8cGF0aCBkPSJNIDU4IDE1MCBRIDUwIDEzNSAxMDAgMTI4IFEgMTUwIDEzNSAxNDIgMTUwIEwgMTQ4IDIwNSBRIDE0OCAyMTIgMTQwIDIxMiBMIDYwIDIxMiBRIDUyIDIxMiA1MiAyMDUgWiIgZmlsbD0idXJsKCNjN2JvZHkpIi8+CiAgPCEtLSBTdGFpbiBvbiBzaGlydCAtLT4KICA8ZWxsaXBzZSBjeD0iMTE1IiBjeT0iMTcwIiByeD0iMTAiIHJ5PSI2IiBmaWxsPSIjODRjYzE2IiBvcGFjaXR5PSIwLjQiLz4KICA8IS0tIEhlYWQgKHBhbGUsIHNsaWdodGx5IGdyZWVuaXNoKSAtLT4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iODgiIHJ4PSIzNCIgcnk9IjM2IiBmaWxsPSJ1cmwoI2M3aGVhZCkiLz4KICA8IS0tIFVua2VtcHQgaGFpciAtLT4KICA8cGF0aCBkPSJNIDY1IDcyIFEgNjAgNDUgODUgNDggUSAxMDAgMzggMTE1IDQ4IFEgMTQwIDQ1IDEzNSA3MiBRIDEyNSA1OCAxMDAgNTggUSA3NSA1OCA2NSA3MiBaIiBmaWxsPSIjMjcyNzJhIi8+CiAgPHBhdGggZD0iTSA3NSA2MCBMIDcwIDQ4IE0gOTAgNTAgTCA4OCAzOCBNIDExMCA1MCBMIDExMiAzOCBNIDEyNSA2MCBMIDEzMCA0OCIgc3Ryb2tlPSIjMjcyNzJhIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gVHdpdGNoeSAvIHdpZGUgZXllcyAoY2FmZmVpbmUpIC0tPgogIDxlbGxpcHNlIGN4PSI4OCIgY3k9Ijg4IiByeD0iNiIgcnk9IjciIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8ZWxsaXBzZSBjeD0iMTEyIiBjeT0iODgiIHJ4PSI2IiByeT0iNyIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWUyOTNiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxjaXJjbGUgY3g9Ijg4IiBjeT0iODgiIHI9IjMiIGZpbGw9IiMxZTI5M2IiLz4KICA8Y2lyY2xlIGN4PSIxMTIiIGN5PSI4OCIgcj0iMyIgZmlsbD0iIzFlMjkzYiIvPgogIDwhLS0gUmVkIGxpbmVzIChzdHJhaW5lZCkgLS0+CiAgPGxpbmUgeDE9IjgyIiB5MT0iODQiIHgyPSI4MCIgeTI9IjgwIiBzdHJva2U9IiNlZjQ0NDQiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxsaW5lIHgxPSI5NCIgeTE9Ijg0IiB4Mj0iOTYiIHkyPSI4MCIgc3Ryb2tlPSIjZWY0NDQ0IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8bGluZSB4MT0iMTA2IiB5MT0iODQiIHgyPSIxMDQiIHkyPSI4MCIgc3Ryb2tlPSIjZWY0NDQ0IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8bGluZSB4MT0iMTE4IiB5MT0iODQiIHgyPSIxMjAiIHkyPSI4MCIgc3Ryb2tlPSIjZWY0NDQ0IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8IS0tIFRpZ2h0IG1vdXRoIC0tPgogIDxwYXRoIGQ9Ik0gODggMTA4IEwgMTEyIDEwOCIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU2hha3kgbGluZXMgYXJvdW5kIC0tPgogIDxwYXRoIGQ9Ik0gMzUgMTAwIEwgNDUgOTUgTCA0MCAxMDUgTCA1MCAxMDAiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiIG9wYWNpdHk9IjAuNiIvPgogIDxwYXRoIGQ9Ik0gMTUwIDEwMCBMIDE2MCA5NSBMIDE1NSAxMDUgTCAxNjUgMTAwIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjYiLz4KICA8IS0tIEhvbGRpbmcgY2FuIChzaGFreSBhcm0pIC0tPgogIDxwYXRoIGQ9Ik0gMTQwIDE0NSBRIDE0NSAxNTUgMTQyIDE3MCIgc3Ryb2tlPSJ1cmwoI2M3aGVhZCkiIHN0cm9rZS13aWR0aD0iMTMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gT3RoZXIgYXJtIGhhbmdpbmcgLS0+CiAgPHBhdGggZD0iTSA2MCAxNTAgUSA1MCAxODAgNjAgMjAwIiBzdHJva2U9InVybCgjYzdoZWFkKSIgc3Ryb2tlLXdpZHRoPSIxMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBMZWdzIC0tPgogIDxyZWN0IHg9IjY4IiB5PSIyMDAiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzBmMTcyYSIvPgogIDxyZWN0IHg9IjEwNCIgeT0iMjAwIiB3aWR0aD0iMjgiIGhlaWdodD0iMTgiIGZpbGw9IiMwZjE3MmEiLz4KICA8IS0tIFdvcm4tb3V0IHNuZWFrZXJzIC0tPgogIDxlbGxpcHNlIGN4PSI4MiIgY3k9IjIyMiIgcng9IjE0IiByeT0iNSIgZmlsbD0iIzI3MjcyYSIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTE4IiBjeT0iMjIyIiByeD0iMTQiIHJ5PSI1IiBmaWxsPSIjMjcyNzJhIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxsaW5lIHgxPSI3NiIgeTE9IjIyMiIgeDI9IjcwIiB5Mj0iMjE4IiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMSIvPgogIDwhLS0gTGlnaHRuaW5nIChvdmVyLWNhZmZlaW5hdGVkKSAtLT4KICA8cGF0aCBkPSJNIDE2NSAxMzAgTCAxNjAgMTQ1IEwgMTcwIDE0NSBMIDE2MiAxNjUiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+Cjwvc3ZnPgo=', healthy: false, name: 'افسرده و خسته', traits: ['نوشیدنی انرژی‌زا', 'تغذیه نامناسب', 'استرس'] },
+  { id: 8, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM4Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjQ3MmI2Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2JlMTg1ZCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzhoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWYzYzciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJkb251dEJpZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlMDQ3Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2NhOGEwNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjY4IiByeT0iMTAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMyIvPgogIDwhLS0gQmlnIGRvbnV0IGluIGhhbmQgLS0+CiAgPGNpcmNsZSBjeD0iMTQ4IiBjeT0iMTY1IiByPSIyMCIgZmlsbD0idXJsKCNkb251dEJpZykiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGNpcmNsZSBjeD0iMTQ4IiBjeT0iMTY1IiByPSI3IiBmaWxsPSIjMWUyOTNiIi8+CiAgPHBhdGggZD0iTSAxNDggMTQ1IEEgMjAgMjAgMCAwIDEgMTY4IDE2NSBMIDE2MSAxNjUgQSAxMyAxMyAwIDAgMCAxNDggMTUyIFoiIGZpbGw9IiNmNDcyYjYiIG9wYWNpdHk9IjAuODUiLz4KICA8Y2lyY2xlIGN4PSIxMzgiIGN5PSIxNTUiIHI9IjIiIGZpbGw9IiNlZjQ0NDQiLz4KICA8Y2lyY2xlIGN4PSIxNTgiIGN5PSIxNTgiIHI9IjIiIGZpbGw9IiMzYjgyZjYiLz4KICA8Y2lyY2xlIGN4PSIxNTUiIGN5PSIxNzUiIHI9IjIiIGZpbGw9IiMxMGI5ODEiLz4KICA8IS0tIFJvdW5kIGJvZHkgLS0+CiAgPHBhdGggZD0iTSA2MCAxNDUgUSA1OCAxMjggMTAwIDEyNSBRIDE0MiAxMjggMTQwIDE0NSBMIDE0OCAyMDUgUSAxNDggMjEyIDE0MCAyMTIgTCA2MCAyMTIgUSA1MiAyMTIgNTIgMjA1IFoiIGZpbGw9InVybCgjYzhib2R5KSIvPgogIDwhLS0gU3RpY2t5IHN0YWluIC0tPgogIDxlbGxpcHNlIGN4PSIxMDUiIGN5PSIxNzAiIHJ4PSIxNCIgcnk9IjgiIGZpbGw9IiNmYmJmMjQiIG9wYWNpdHk9IjAuNSIvPgogIDxlbGxpcHNlIGN4PSI5NSIgY3k9IjE3NSIgcng9IjYiIHJ5PSI0IiBmaWxsPSIjZGMyNjI2IiBvcGFjaXR5PSIwLjQiLz4KICA8IS0tIEhlYWQgLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijg4IiByeD0iMzQiIHJ5PSIzNiIgZmlsbD0idXJsKCNjOGhlYWQpIi8+CiAgPCEtLSBNZXNzeSBoYWlyIHdpdGggY2FuZHkgc3R1Y2sgLS0+CiAgPHBhdGggZD0iTSA2NSA3MiBRIDYwIDQ4IDg1IDUwIFEgMTAwIDM4IDExNSA1MCBRIDE0MCA0OCAxMzUgNzIgUSAxMjUgNTggMTAwIDU4IFEgNzUgNTggNjUgNzIgWiIgZmlsbD0iIzdjMmQxMiIvPgogIDwhLS0gQ2FuZHkgd3JhcHBlciBzdHVjayBpbiBoYWlyIC0tPgogIDxwYXRoIGQ9Ik0gMTE1IDUwIEwgMTMwIDM4IEwgMTM4IDQyIEwgMTI1IDU1IFoiIGZpbGw9IiNlZjQ0NDQiIHN0cm9rZT0iIzdmMWQxZCIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGxpbmUgeDE9IjExOCIgeTE9IjQ4IiB4Mj0iMTM1IiB5Mj0iNDAiIHN0cm9rZT0iIzdmMWQxZCIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBTdGlja3kgY2hlZWtzIC0tPgogIDxjaXJjbGUgY3g9Ijc4IiBjeT0iMTAwIiByPSI3IiBmaWxsPSIjZjg3MTcxIiBvcGFjaXR5PSIwLjUiLz4KICA8Y2lyY2xlIGN4PSIxMjIiIGN5PSIxMDAiIHI9IjciIGZpbGw9IiNmODcxNzEiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0gU3VnYXJ5IGV5ZXMgKGdsYXplZCkgLS0+CiAgPGVsbGlwc2UgY3g9Ijg4IiBjeT0iOTIiIHJ4PSI1IiByeT0iNSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWUyOTNiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxlbGxpcHNlIGN4PSIxMTIiIGN5PSI5MiIgcng9IjUiIHJ5PSI1IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGNpcmNsZSBjeD0iODgiIGN5PSI5MiIgcj0iMi41IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGNpcmNsZSBjeD0iMTEyIiBjeT0iOTIiIHI9IjIuNSIgZmlsbD0iIzFlMjkzYiIvPgogIDwhLS0gU3dlZXQgc21pbGUgKHN1Z2FyIHJ1c2gpIC0tPgogIDxwYXRoIGQ9Ik0gODUgMTA1IFEgMTAwIDExNSAxMTUgMTA1IiBzdHJva2U9IiM3YzJkMTIiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBUb25ndWUgbGlja2luZyBsaXBzIC0tPgogIDxwYXRoIGQ9Ik0gOTUgMTEzIFEgMTAwIDExNiAxMDUgMTEzIiBzdHJva2U9IiNlZjQ0NDQiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogIDwhLS0gTWlzc2luZyB0b290aCAoc3VnYXIgZGFtYWdlKSAtLT4KICA8cmVjdCB4PSI5OCIgeT0iMTA4IiB3aWR0aD0iNCIgaGVpZ2h0PSI2IiBmaWxsPSIjMWUyOTNiIi8+CiAgPCEtLSBBcm1zIChjaHViYnkpIC0tPgogIDxlbGxpcHNlIGN4PSI1NSIgY3k9IjE3MCIgcng9IjEzIiByeT0iMjAiIGZpbGw9InVybCgjYzhib2R5KSIgdHJhbnNmb3JtPSJyb3RhdGUoLTE1IDU1IDE3MCkiLz4KICA8cGF0aCBkPSJNIDE0MCAxNDUgUSAxNDUgMTU1IDE0NSAxNjUiIHN0cm9rZT0idXJsKCNjOGhlYWQpIiBzdHJva2Utd2lkdGg9IjE0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIExlZ3MgLS0+CiAgPHJlY3QgeD0iNzAiIHk9IjIwMCIgd2lkdGg9IjI2IiBoZWlnaHQ9IjE4IiBmaWxsPSIjOWQxNzRkIi8+CiAgPHJlY3QgeD0iMTA0IiB5PSIyMDAiIHdpZHRoPSIyNiIgaGVpZ2h0PSIxOCIgZmlsbD0iIzlkMTc0ZCIvPgogIDwhLS0gU2xpcC1vbiBzaG9lcyAobG9vc2UpIC0tPgogIDxlbGxpcHNlIGN4PSI4MiIgY3k9IjIyMiIgcng9IjE0IiByeT0iNSIgZmlsbD0iIzgzMTg0MyIgc3Ryb2tlPSIjNTAwNzI0IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTE4IiBjeT0iMjIyIiByeD0iMTQiIHJ5PSI1IiBmaWxsPSIjODMxODQzIiBzdHJva2U9IiM1MDA3MjQiIHN0cm9rZS13aWR0aD0iMSIvPgogIDwhLS0gU3VnYXIgc3BhcmtsZXMgLS0+CiAgPGNpcmNsZSBjeD0iNDAiIGN5PSIxMjAiIHI9IjIiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSIzNSIgY3k9IjE0MCIgcj0iMS41IiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGNpcmNsZSBjeD0iMTcwIiBjeT0iMTQwIiByPSIyIiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGNpcmNsZSBjeD0iMTc1IiBjeT0iMTE1IiByPSIxLjUiIGZpbGw9IiNmYmJmMjQiLz4KPC9zdmc+Cg==', healthy: false, name: 'شکلات‌دوست', traits: ['شیرینی زیاد', 'دندون خراب', 'بی‌تحرکی'] },
+  { id: 9, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM5Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOTRhM2I4Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzQ3NTU2OSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzloZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNlMmU4ZjAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjY2JkNWUxIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjb3VjaEciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzdjM2FlZCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0YzFkOTUiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxlbGxpcHNlIGN4PSIxMDAiIGN5PSIyMjAiIHJ4PSI3NSIgcnk9IjEwIiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjMiLz4KICA8IS0tIENvdWNoIGJhY2sgLS0+CiAgPHJlY3QgeD0iMzAiIHk9IjE1NSIgd2lkdGg9IjE0MCIgaGVpZ2h0PSIzNSIgcng9IjgiIGZpbGw9InVybCgjY291Y2hHKSIgc3Ryb2tlPSIjMzEyZTgxIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cmVjdCB4PSIzMCIgeT0iMTkwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzViMjFiNiIgc3Ryb2tlPSIjMzEyZTgxIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gQm9keSBzbHVtcGVkIG9uIGNvdWNoIC0tPgogIDxwYXRoIGQ9Ik0gNjAgMTY1IFEgNTggMTQ1IDEwMCAxNDIgUSAxNDIgMTQ1IDE0MCAxNjUgTCAxNDUgMjAwIFEgMTQ1IDIwOCAxMzggMjA4IEwgNjIgMjA4IFEgNTUgMjA4IDU1IDIwMCBaIiBmaWxsPSJ1cmwoI2M5Ym9keSkiLz4KICA8IS0tIFdyaW5rbGVkIHNoaXJ0IGxpbmVzIC0tPgogIDxwYXRoIGQ9Ik0gNzAgMTY1IFEgMTAwIDE2OCAxMzAgMTY1IiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgb3BhY2l0eT0iMC40Ii8+CiAgPHBhdGggZD0iTSA3NSAxODAgUSAxMDAgMTgzIDEyNSAxODAiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBvcGFjaXR5PSIwLjQiLz4KICA8IS0tIEhlYWQgKHBhbGUsIHNsaWdodGx5IGJsdWUtZ3JleSkgLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjEwMCIgcng9IjM0IiByeT0iMzYiIGZpbGw9InVybCgjYzloZWFkKSIvPgogIDwhLS0gR3JlYXN5IGhhaXIgLS0+CiAgPHBhdGggZD0iTSA2NSA4NSBRIDYwIDYwIDg1IDYyIFEgMTAwIDUwIDExNSA2MiBRIDE0MCA2MCAxMzUgODUgUSAxMjUgNzAgMTAwIDcwIFEgNzUgNzAgNjUgODUgWiIgZmlsbD0iIzUyNTI1YiIvPgogIDxwYXRoIGQ9Ik0gNzAgNzAgTCA2NSA2MCBNIDEzMCA3MCBMIDEzNSA2MCIgc3Ryb2tlPSIjNTI1MjViIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gSGVhdnkgZGFyayBjaXJjbGVzIHVuZGVyIGV5ZXMgLS0+CiAgPGVsbGlwc2UgY3g9Ijg4IiBjeT0iMTA1IiByeD0iMTAiIHJ5PSI3IiBmaWxsPSIjN2MzYWVkIiBvcGFjaXR5PSIwLjQiLz4KICA8ZWxsaXBzZSBjeD0iMTEyIiBjeT0iMTA1IiByeD0iMTAiIHJ5PSI3IiBmaWxsPSIjN2MzYWVkIiBvcGFjaXR5PSIwLjQiLz4KICA8IS0tIEhhbGYtY2xvc2VkIHNsZWVweSBleWVzIC0tPgogIDxwYXRoIGQ9Ik0gODAgMTAwIFEgODggOTYgOTYgMTAwIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMi41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEwNCAxMDAgUSAxMTIgOTYgMTIwIDEwMCIgc3Ryb2tlPSIjMWUyOTNiIiBzdHJva2Utd2lkdGg9IjIuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGVsbGlwc2UgY3g9Ijg4IiBjeT0iMTAwIiByeD0iMiIgcnk9IjEuNSIgZmlsbD0iIzFlMjkzYiIvPgogIDxlbGxpcHNlIGN4PSIxMTIiIGN5PSIxMDAiIHJ4PSIyIiByeT0iMS41IiBmaWxsPSIjMWUyOTNiIi8+CiAgPCEtLSBFeWVicm93cyAod29ycmllZCAvIHRpcmVkKSAtLT4KICA8cGF0aCBkPSJNIDc4IDkwIEwgOTUgODgiIHN0cm9rZT0iIzUyNTI1YiIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0gMTA1IDg4IEwgMTIyIDkwIiBzdHJva2U9IiM1MjUyNWIiIHN0cm9rZS13aWR0aD0iMi41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIFlhd24gLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjExOCIgcng9IjgiIHJ5PSIxMCIgZmlsbD0iIzFlMjkzYiIvPgogIDxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxMjIiIHJ4PSI0IiByeT0iNSIgZmlsbD0iIzdjMmQxMiIvPgogIDwhLS0gUmVtb3RlIGluIGxhcCAtLT4KICA8cmVjdCB4PSI1NSIgeT0iMTgwIiB3aWR0aD0iMzAiIGhlaWdodD0iMTQiIHJ4PSIzIiBmaWxsPSIjMWUyOTNiIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxjaXJjbGUgY3g9IjYzIiBjeT0iMTg2IiByPSIyIiBmaWxsPSIjZWY0NDQ0Ii8+CiAgPGNpcmNsZSBjeD0iNzAiIGN5PSIxODYiIHI9IjIiIGZpbGw9IiMxMGI5ODEiLz4KICA8Y2lyY2xlIGN4PSI3NyIgY3k9IjE4NiIgcj0iMiIgZmlsbD0iI2ZiYmYyNCIvPgogIDxyZWN0IHg9IjYwIiB5PSIxOTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIzIiByeD0iMSIgZmlsbD0iIzQ3NTU2OSIvPgogIDwhLS0gQmFnIG9mIGNoaXBzIG5leHQgdG8gLS0+CiAgPHBhdGggZD0iTSAxNDUgMTg1IEwgMTUwIDE3NSBMIDE3NSAxNzUgTCAxODAgMTg1IEwgMTc4IDIwNSBMIDE0NyAyMDUgWiIgZmlsbD0iI2RjMjYyNiIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDx0ZXh0IHg9IjE2MiIgeT0iMTk1IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjkiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7ahtuM2b7YszwvdGV4dD4KICA8IS0tIEFybXMgZHJvb3BpbmcgLS0+CiAgPHBhdGggZD0iTSA1NSAxNjUgUSA0NSAxODUgNTUgMjAwIiBzdHJva2U9InVybCgjYzloZWFkKSIgc3Ryb2tlLXdpZHRoPSIxMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTSAxNDUgMTY1IFEgMTU1IDE4MCAxNTIgMTk1IiBzdHJva2U9InVybCgjYzloZWFkKSIgc3Ryb2tlLXdpZHRoPSIxMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBMZWdzIChzcHJhd2xlZCkgLS0+CiAgPHJlY3QgeD0iNjgiIHk9IjIwMCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjE4IiBmaWxsPSIjMWUyOTNiIi8+CiAgPHJlY3QgeD0iMTA0IiB5PSIyMDAiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzFlMjkzYiIvPgogIDwhLS0gV29ybiBzbGlwcGVycyAtLT4KICA8ZWxsaXBzZSBjeD0iODIiIGN5PSIyMjAiIHJ4PSIxNiIgcnk9IjYiIGZpbGw9IiNhNzhiZmEiIHN0cm9rZT0iIzViMjFiNiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGVsbGlwc2UgY3g9IjExOCIgY3k9IjIyMCIgcng9IjE2IiByeT0iNiIgZmlsbD0iI2E3OGJmYSIgc3Ryb2tlPSIjNWIyMWI2IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8IS0tIFp6eiAtLT4KICA8dGV4dCB4PSIxNTUiIHk9IjYwIiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzk0YTNiOCIgb3BhY2l0eT0iMC42Ij56PC90ZXh0PgogIDx0ZXh0IHg9IjE2NyIgeT0iNDgiIGZvbnQtZmFtaWx5PSJUYWhvbWEsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjOTRhM2I4IiBvcGFjaXR5PSIwLjUiPlo8L3RleHQ+CiAgPHRleHQgeD0iMTgwIiB5PSIzMiIgZm9udC1mYW1pbHk9IlRhaG9tYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiM5NGEzYjgiIG9wYWNpdHk9IjAuNCI+WjwvdGV4dD4KPC9zdmc+Cg==', healthy: false, name: 'مبل‌نشین', traits: ['تماشای تلویزیون', 'چیپس و تنقلات', 'خواب ناکافی'] },
+  { id: 10, svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMxMGJvZHkiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ExNjIwNyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0NTFhMDMiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMxMGhlYWQiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZjNjNyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmYmJmMjQiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImJ1cmdlckJpZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmI5MjNjIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzdjMmQxMiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjY4IiByeT0iMTAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMyIvPgogIDwhLS0gQmlnIGJ1cmdlciBpbiBoYW5kIC0tPgogIDxlbGxpcHNlIGN4PSIxNDgiIGN5PSIxNTgiIHJ4PSIxOCIgcnk9IjYiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSIxMzIiIHk9IjE1OCIgd2lkdGg9IjMyIiBoZWlnaHQ9IjUiIGZpbGw9IiM4NGNjMTYiIHN0cm9rZT0iIzM2NTMxNCIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGVsbGlwc2UgY3g9IjE0OCIgY3k9IjE3MCIgcng9IjE4IiByeT0iNiIgZmlsbD0idXJsKCNidXJnZXJCaWcpIiBzdHJva2U9IiM0NTBhMGEiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGVsbGlwc2UgY3g9IjE0OCIgY3k9IjE3OCIgcng9IjE4IiByeT0iNSIgZmlsbD0iI2VmNDQ0NCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTQ4IiBjeT0iMTg1IiByeD0iMTgiIHJ5PSI2IiBmaWxsPSIjZmJiZjI0IiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPCEtLSBCb2R5IChyb3VuZCwgYmlnIGJlbGx5KSAtLT4KICA8cGF0aCBkPSJNIDU1IDE0NSBRIDUwIDEzMCAxMDAgMTI1IFEgMTUwIDEzMCAxNDUgMTQ1IFEgMTU1IDE3NSAxNDggMjAwIFEgMTQ4IDIxMCAxNDAgMjEwIEwgNjAgMjEwIFEgNTIgMjEwIDUyIDIwMCBRIDQ1IDE3NSA1NSAxNDUgWiIgZmlsbD0idXJsKCNjMTBib2R5KSIvPgogIDwhLS0gQmVsdCBzdHJhaW5pbmcgLS0+CiAgPHJlY3QgeD0iNTUiIHk9IjE4MCIgd2lkdGg9IjkwIiBoZWlnaHQ9IjYiIGZpbGw9IiMxZTI5M2IiLz4KICA8cmVjdCB4PSI5NSIgeT0iMTgwIiB3aWR0aD0iMTAiIGhlaWdodD0iNiIgZmlsbD0iI2ZiYmYyNCIvPgogIDwhLS0gU3RhaW5zIC0tPgogIDxlbGxpcHNlIGN4PSI4MCIgY3k9IjE2NSIgcng9IjgiIHJ5PSI1IiBmaWxsPSIjZGMyNjI2IiBvcGFjaXR5PSIwLjUiLz4KICA8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iMTcyIiByeD0iMTAiIHJ5PSI2IiBmaWxsPSIjZmJiZjI0IiBvcGFjaXR5PSIwLjUiLz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMTk1IiByeD0iNiIgcnk9IjQiIGZpbGw9IiM4NGNjMTYiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0gSGVhZCAocm91bmQsIGRvdWJsZSBjaGluKSAtLT4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iOTIiIHJ4PSIzNiIgcnk9IjM4IiBmaWxsPSJ1cmwoI2MxMGhlYWQpIi8+CiAgPCEtLSBEb3VibGUgY2hpbiAtLT4KICA8cGF0aCBkPSJNIDc1IDExNSBRIDEwMCAxMjUgMTI1IDExNSBRIDEyNSAxMjIgMTAwIDEyNiBRIDc1IDEyMiA3NSAxMTUgWiIgZmlsbD0iI2ZhY2MxNSIvPgogIDwhLS0gQmFsZC1pc2ggd2l0aCBtZXNzeSB0dWZ0cyAtLT4KICA8cGF0aCBkPSJNIDY1IDc4IFEgNjAgNTUgODUgNTUgUSAxMDAgNDUgMTE1IDU1IFEgMTQwIDU1IDEzNSA3OCBRIDEzMCA2NSAxMDAgNjUgUSA3MCA2NSA2NSA3OCBaIiBmaWxsPSIjN2MyZDEyIi8+CiAgPHBhdGggZD0iTSA3NSA2NSBMIDcyIDU1IE0gMTI1IDY1IEwgMTI4IDU1IE0gMTAwIDUwIEwgMTAwIDQyIiBzdHJva2U9IiM3YzJkMTIiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBHcmVhc3kgZm9yZWhlYWQgc2hpbmUgLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9Ijc1IiByeD0iMTUiIHJ5PSIzIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjQiLz4KICA8IS0tIFRpcmVkIHNtYWxsIGV5ZXMgLS0+CiAgPGVsbGlwc2UgY3g9Ijg1IiBjeT0iOTIiIHJ4PSI0IiByeT0iMyIgZmlsbD0iIzFlMjkzYiIvPgogIDxlbGxpcHNlIGN4PSIxMTUiIGN5PSI5MiIgcng9IjQiIHJ5PSIzIiBmaWxsPSIjMWUyOTNiIi8+CiAgPGxpbmUgeDE9Ijc4IiB5MT0iODYiIHgyPSI5MiIgeTI9Ijg2IiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjEwOCIgeTE9Ijg2IiB4Mj0iMTIyIiB5Mj0iODYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIEhlYXZ5IGV5ZWJyb3dzIC0tPgogIDxwYXRoIGQ9Ik0gNzggODggUSA4NiA4NCA5NCA4OCIgc3Ryb2tlPSIjNDUxYTAzIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0gMTA2IDg4IFEgMTE0IDg0IDEyMiA4OCIgc3Ryb2tlPSIjNDUxYTAzIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gTW91dGggY2hld2luZyAtLT4KICA8cGF0aCBkPSJNIDg1IDExMCBRIDEwMCAxMTggMTE1IDExMCBRIDEwMCAxMTMgODUgMTEwIFoiIGZpbGw9IiM3YzJkMTIiIHN0cm9rZT0iIzQ1MWEwMyIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIENydW1icyBvbiBmYWNlIC0tPgogIDxjaXJjbGUgY3g9IjgwIiBjeT0iMTA1IiByPSIxLjUiIGZpbGw9IiNhMTYyMDciLz4KICA8Y2lyY2xlIGN4PSIxMTgiIGN5PSIxMDgiIHI9IjEuNSIgZmlsbD0iI2ExNjIwNyIvPgogIDxjaXJjbGUgY3g9IjEyNSIgY3k9IjEwMCIgcj0iMSIgZmlsbD0iI2ExNjIwNyIvPgogIDwhLS0gUm9zeSByZWQgbm9zZSAtLT4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjUiIGZpbGw9IiNmODcxNzEiIG9wYWNpdHk9IjAuNiIvPgogIDwhLS0gQXJtIGhvbGRpbmcgYnVyZ2VyIChjaHViYnkpIC0tPgogIDxlbGxpcHNlIGN4PSIxMzUiIGN5PSIxNjAiIHJ4PSIxMiIgcnk9IjE4IiBmaWxsPSJ1cmwoI2MxMGJvZHkpIiB0cmFuc2Zvcm09InJvdGF0ZSgyMCAxMzUgMTYwKSIvPgogIDxlbGxpcHNlIGN4PSIxNDUiIGN5PSIxNTUiIHJ4PSIxMCIgcnk9IjgiIGZpbGw9InVybCgjYzEwaGVhZCkiLz4KICA8IS0tIE90aGVyIGFybSBoYW5naW5nIC0tPgogIDxwYXRoIGQ9Ik0gNjAgMTUwIFEgNTAgMTc1IDU1IDE5NSIgc3Ryb2tlPSJ1cmwoI2MxMGhlYWQpIiBzdHJva2Utd2lkdGg9IjE0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIExlZ3MgLS0+CiAgPHJlY3QgeD0iNjgiIHk9IjIwMCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjE4IiBmaWxsPSIjMWUyOTNiIi8+CiAgPHJlY3QgeD0iMTA0IiB5PSIyMDAiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzFlMjkzYiIvPgogIDwhLS0gV29ybiBzYW5kYWxzIC0tPgogIDxlbGxpcHNlIGN4PSI4MiIgY3k9IjIyMiIgcng9IjE0IiByeT0iNSIgZmlsbD0iIzQ1MWEwMyIgc3Ryb2tlPSIjMWMwYTAyIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTE4IiBjeT0iMjIyIiByeD0iMTQiIHJ5PSI1IiBmaWxsPSIjNDUxYTAzIiBzdHJva2U9IiMxYzBhMDIiIHN0cm9rZS13aWR0aD0iMSIvPgogIDwhLS0gR3JlYXNlIGRyaXAgLS0+CiAgPHBhdGggZD0iTSAxMzggMTc1IFEgMTM4IDE4MCAxNDAgMTgyIiBzdHJva2U9IiNmYmJmMjQiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogIDwhLS0gU3dlYXQgZHJvcCAtLT4KICA8cGF0aCBkPSJNIDYwIDk1IFEgNTggMTAyIDYyIDEwNCBRIDY2IDEwMiA2NCA5NSBaIiBmaWxsPSIjNjBhNWZhIiBvcGFjaXR5PSIwLjciLz4KPC9zdmc+Cg==', healthy: false, name: 'برگری', traits: ['فست‌فود زیاد', 'چاقی', 'بی‌انگیزه'] }
+];
+
+/* ---------- Data: Sleep / Activity / Rest Questions ---------- */
+const LIFESTYLE_QUESTIONS = [
+  {
+    id: 'sleep',
+    text: ' امشب چند ساعت خوابیدی؟',
+    icon: 'خ',
+    options: [
+      { text: '۹ تا ۱۱ ساعت (مثل یه قهرمان)', value: 15, healthy: true },
+      { text: '۶ تا ۸ ساعت', value: 5, healthy: true },
+      { text: 'کمتر از ۵ ساعت', value: -10, healthy: false }
+    ]
+  },
+  {
+    id: 'activity',
+    text: ' امروز چقدر بازی و دویدن داشتی؟',
+    icon: 'ور',
+    options: [
+      { text: 'یک ساعت در فضای باز', value: 15, healthy: true },
+      { text: 'نیم ساعت در خانه', value: 8, healthy: true },
+      { text: 'اصلاً، فقط نشستم', value: -8, healthy: false }
+    ]
+  },
+  {
+    id: 'rest',
+    text: ' بعد از مدرسه چکار می‌کنی؟',
+    icon: 'اس',
+    options: [
+      { text: 'یک چرت کوتاه و بعد درس', value: 12, healthy: true },
+      { text: 'کارای سبک در خانه', value: 6, healthy: true },
+      { text: 'گوشی و تلویزیون تا شب', value: -10, healthy: false }
+    ]
+  },
+  {
+    id: 'breakfast',
+    text: ' امروز صبحانه خوردی؟',
+    icon: 'ص',
+    options: [
+      { text: 'بله، صبحانه سالم', value: 12, healthy: true },
+      { text: 'فقط یک چیز کوچک', value: 4, healthy: true },
+      { text: 'نه، صبحانه نخوردم', value: -12, healthy: false }
+    ]
+  },
+  {
+    id: 'hydrate',
+    text: ' امروز چقدر آب خوردی؟',
+    icon: 'آ',
+    options: [
+      { text: '۶ لیوان یا بیشتر', value: 12, healthy: true },
+      { text: '۳ تا ۵ لیوان', value: 6, healthy: true },
+      { text: 'فقط نوشابه و آب‌میوه', value: -8, healthy: false }
+    ]
+  }
+];
+
+/* ---------- Data: Shop Items ---------- */
+const SHOP_ITEMS = {
+  skins: [
+    { id: 'skin-default', name: 'گیمر کلاسیک', svg: './icons/gamer.png', price: 0, owned: true },
+    { id: 'skin-hero', name: 'قهرمان سلامت', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMxYm9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMzRkMzk5Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzA0Nzg1NyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzFoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNjAiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gV2F0ZXIgYm90dGxlIGluIGhhbmQgLS0+CiAgPHJlY3QgeD0iNDAiIHk9IjE2MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjMwIiByeD0iNCIgZmlsbD0iIzBlYTVlOSIgc3Ryb2tlPSIjMDM2OWExIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxyZWN0IHg9IjQ0IiB5PSIxNTUiIHdpZHRoPSIxMiIgaGVpZ2h0PSI2IiBmaWxsPSIjMDM2OWExIi8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iMTc1IiByeD0iOCIgcnk9IjMiIGZpbGw9IiM3ZGQzZmMiLz4KICA8IS0tIEJvZHkgLyBzcG9ydHkgdGFuayB0b3AgLS0+CiAgPHBhdGggZD0iTSA2NSAxMzAgUSA2NSAxMjAgMTAwIDEyMCBRIDEzNSAxMjAgMTM1IDEzMCBMIDE0MCAyMDAgUSAxNDAgMjEwIDEzMCAyMTAgTCA3MCAyMTAgUSA2MCAyMTAgNjAgMjAwIFoiIGZpbGw9InVybCgjYzFib2R5KSIvPgogIDxwYXRoIGQ9Ik0gODAgMTIwIEwgMTAwIDEzNSBMIDEyMCAxMjAiIHN0cm9rZT0iIzA0Nzg1NyIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CiAgPCEtLSBOdW1iZXIgMSBvbiBzaGlydCAtLT4KICA8dGV4dCB4PSIxMDAiIHk9IjE2NSIgZm9udC1mYW1pbHk9IlRhaG9tYSwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjE8L3RleHQ+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijg1IiByPSIzNSIgZmlsbD0idXJsKCNjMWhlYWQpIi8+CiAgPCEtLSBTd2VhdGJhbmQgLS0+CiAgPHJlY3QgeD0iNjUiIHk9IjcwIiB3aWR0aD0iNzAiIGhlaWdodD0iOCIgZmlsbD0iI2VmNDQ0NCIvPgogIDwhLS0gSGFpciAoc2hvcnQpIC0tPgogIDxwYXRoIGQ9Ik0gNjggNzAgUSA3NSA1MCAxMDAgNTAgUSAxMjUgNTAgMTMyIDcwIiBmaWxsPSIjM2YyYTFkIi8+CiAgPCEtLSBFeWVzIChicmlnaHQpIC0tPgogIDxlbGxpcHNlIGN4PSI4OCIgY3k9Ijg4IiByeD0iNCIgcnk9IjUiIGZpbGw9IiMxZTI5M2IiLz4KICA8ZWxsaXBzZSBjeD0iMTEyIiBjeT0iODgiIHJ4PSI0IiByeT0iNSIgZmlsbD0iIzFlMjkzYiIvPgogIDxjaXJjbGUgY3g9Ijg5IiBjeT0iODYiIHI9IjEuNSIgZmlsbD0iI2ZmZiIvPgogIDxjaXJjbGUgY3g9IjExMyIgY3k9Ijg2IiByPSIxLjUiIGZpbGw9IiNmZmYiLz4KICA8IS0tIEJpZyBzbWlsZSAtLT4KICA8cGF0aCBkPSJNIDg1IDEwMCBRIDEwMCAxMTUgMTE1IDEwMCIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gUm9zeSBjaGVla3MgKGVuZXJnZXRpYykgLS0+CiAgPGNpcmNsZSBjeD0iNzgiIGN5PSI5OCIgcj0iNSIgZmlsbD0iI2Y4NzE3MSIgb3BhY2l0eT0iMC41Ii8+CiAgPGNpcmNsZSBjeD0iMTIyIiBjeT0iOTgiIHI9IjUiIGZpbGw9IiNmODcxNzEiIG9wYWNpdHk9IjAuNSIvPgogIDwhLS0gU3Ryb25nIGFybSBmbGV4aW5nIC0tPgogIDxwYXRoIGQ9Ik0gNjAgMTQ1IFEgNTAgMTY1IDU1IDE4MCBMIDcwIDE3NSBRIDc1IDE2MCA3NSAxNDUgWiIgZmlsbD0idXJsKCNjMWJvZHkpIiBzdHJva2U9IiMwNDc4NTciIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPCEtLSBMZWdzIC8gcnVubmluZyBzaG9ydHMgLS0+CiAgPHJlY3QgeD0iNjUiIHk9IjIwMCIgd2lkdGg9IjMwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjMWUyOTNiIi8+CiAgPHJlY3QgeD0iMTA1IiB5PSIyMDAiIHdpZHRoPSIzMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzFlMjkzYiIvPgogIDwhLS0gU25lYWtlcnMgLS0+CiAgPGVsbGlwc2UgY3g9IjgwIiBjeT0iMjIyIiByeD0iMTUiIHJ5PSI2IiBmaWxsPSIjZmJiZjI0IiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGVsbGlwc2UgY3g9IjEyMCIgY3k9IjIyMiIgcng9IjE1IiByeT0iNiIgZmlsbD0iI2ZiYmYyNCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gRW5lcmd5IHNwYXJrbGUgLS0+CiAgPHBhdGggZD0iTSAxNTAgNjAgTCAxNTMgNjcgTCAxNjAgNzAgTCAxNTMgNzMgTCAxNTAgODAgTCAxNDcgNzMgTCAxNDAgNzAgTCAxNDcgNjcgWiIgZmlsbD0iI2ZiYmYyNCIvPgo8L3N2Zz4K', price: 12 },
+    { id: 'skin-yoga', name: 'استاد یوگا', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMyYm9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYzRiNWZkIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZkMjhkOSIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzJoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJ5b2dhTWF0IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmNDcyYjYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYmUxODVkIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNjUiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gWW9nYSBtYXQgcm9sbGVkIHVuZGVyIGFybSAtLT4KICA8cmVjdCB4PSIzMCIgeT0iMTU1IiB3aWR0aD0iNDAiIGhlaWdodD0iMjAiIHJ4PSIxMCIgZmlsbD0idXJsKCN5b2dhTWF0KSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxlbGxpcHNlIGN4PSIzMiIgY3k9IjE2NSIgcng9IjYiIHJ5PSIxMCIgZmlsbD0iI2VjNDg5OSIgc3Ryb2tlPSIjODMxODQzIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8IS0tIEJvZHkgLyBsb29zZSB5b2dhIHRvcCAtLT4KICA8cGF0aCBkPSJNIDY1IDEzNSBRIDY1IDEyMCAxMDAgMTIwIFEgMTM1IDEyMCAxMzUgMTM1IEwgMTQwIDIwMCBRIDE0MCAyMTAgMTMwIDIxMCBMIDcwIDIxMCBRIDYwIDIxMCA2MCAyMDAgWiIgZmlsbD0idXJsKCNjMmJvZHkpIi8+CiAgPCEtLSBMb3R1cyBzeW1ib2wgb24gY2hlc3QgLS0+CiAgPHBhdGggZD0iTSAxMDAgMTQ1IFEgOTIgMTU1IDk1IDE2NSBRIDEwMCAxNjggMTA1IDE2NSBRIDEwOCAxNTUgMTAwIDE0NSBaIiBmaWxsPSIjZmZmIi8+CiAgPHBhdGggZD0iTSAxMDAgMTUwIFEgOTUgMTU4IDEwMCAxNjIgUSAxMDUgMTU4IDEwMCAxNTAgWiIgZmlsbD0iI2ZiYmYyNCIvPgogIDwhLS0gSGVhZCAtLT4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSI4NSIgcj0iMzUiIGZpbGw9InVybCgjYzJoZWFkKSIvPgogIDwhLS0gSGFpciBidW4gLS0+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjU1IiByeD0iMTQiIHJ5PSIxMCIgZmlsbD0iIzNmMmExZCIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjUwIiByPSI4IiBmaWxsPSIjM2YyYTFkIi8+CiAgPHBhdGggZD0iTSA2OCA3OCBRIDc1IDYwIDEwMCA1OCBRIDEyNSA2MCAxMzIgNzgiIGZpbGw9IiMzZjJhMWQiLz4KICA8IS0tIENhbG0gZXllcyAoY2xvc2VkLCBwZWFjZWZ1bCkgLS0+CiAgPHBhdGggZD0iTSA4MiA4OCBRIDg4IDkyIDk0IDg4IiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMi41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8cGF0aCBkPSJNIDEwNiA4OCBRIDExMiA5MiAxMTggODgiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyLjUiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU2VyZW5lIHNtaWxlIC0tPgogIDxwYXRoIGQ9Ik0gOTAgMTAyIFEgMTAwIDExMCAxMTAgMTAyIiBzdHJva2U9IiM3YzJkMTIiIHN0cm9rZS13aWR0aD0iMi41IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIFBlYWNlIGhhbmQgc2lnbiAtLT4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNjAiIHI9IjE0IiBmaWxsPSJ1cmwoI2MyaGVhZCkiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMTQ4IiB5MT0iMTU1IiB4Mj0iMTQ4IiB5Mj0iMTQyIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPGxpbmUgeDE9IjE1NSIgeTE9IjE1NSIgeDI9IjE1NSIgeTI9IjE0NSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gTGVncyAtLT4KICA8cmVjdCB4PSI3MCIgeT0iMjA1IiB3aWR0aD0iMjUiIGhlaWdodD0iMTUiIGZpbGw9IiMxZTI5M2IiLz4KICA8cmVjdCB4PSIxMDUiIHk9IjIwNSIgd2lkdGg9IjI1IiBoZWlnaHQ9IjE1IiBmaWxsPSIjMWUyOTNiIi8+CiAgPCEtLSBCYXJlZm9vdCAvIHNhbmRhbCAtLT4KICA8ZWxsaXBzZSBjeD0iODIiIGN5PSIyMjIiIHJ4PSIxMyIgcnk9IjUiIGZpbGw9InVybCgjYzJoZWFkKSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTE4IiBjeT0iMjIyIiByeD0iMTMiIHJ5PSI1IiBmaWxsPSJ1cmwoI2MyaGVhZCkiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBNZWRpdGF0aW9uIHNwYXJrbGVzIC0tPgogIDxjaXJjbGUgY3g9IjQ1IiBjeT0iODAiIHI9IjIiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSIxNTUiIGN5PSI2MCIgcj0iMi41IiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGNpcmNsZSBjeD0iNDAiIGN5PSIxMTAiIHI9IjEuNSIgZmlsbD0iI2ZiYmYyNCIvPgo8L3N2Zz4K', price: 14 },
+    { id: 'skin-runner', name: 'دوچرخه‌سوار', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImMzYm9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjBhNWZhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFkNGVkOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzNoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJoZWxtZXRHIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmYjcxODUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYmUxMjNjIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNzAiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gQmljeWNsZSBoZWxtZXQgLS0+CiAgPHBhdGggZD0iTSA2MCA3NSBRIDYwIDQ1IDEwMCA0NSBRIDE0MCA0NSAxNDAgNzUgTCAxNDAgODUgUSAxMzAgNzAgMTAwIDcwIFEgNzAgNzAgNjAgODUgWiIgZmlsbD0idXJsKCNoZWxtZXRHKSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIFZlbnQgbGluZXMgb24gaGVsbWV0IC0tPgogIDxsaW5lIHgxPSI3NSIgeTE9IjU1IiB4Mj0iNzgiIHkyPSI2OCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMTAwIiB5MT0iNTAiIHgyPSIxMDAiIHkyPSI2NSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMTI1IiB5MT0iNTUiIHgyPSIxMjIiIHkyPSI2OCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8IS0tIEJvZHkgLyBjeWNsaW5nIGplcnNleSAtLT4KICA8cGF0aCBkPSJNIDY1IDEzMCBRIDY1IDEyMCAxMDAgMTIwIFEgMTM1IDEyMCAxMzUgMTMwIEwgMTQwIDIwMCBRIDE0MCAyMTAgMTMwIDIxMCBMIDcwIDIxMCBRIDYwIDIxMCA2MCAyMDAgWiIgZmlsbD0idXJsKCNjM2JvZHkpIi8+CiAgPCEtLSBTdHJpcGVzIC0tPgogIDxyZWN0IHg9IjY1IiB5PSIxNDUiIHdpZHRoPSI3MCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CiAgPHJlY3QgeD0iNjUiIHk9IjE1NSIgd2lkdGg9IjcwIiBoZWlnaHQ9IjQiIGZpbGw9IiNmYmJmMjQiLz4KICA8IS0tIEhlYWQgLS0+CiAgPGNpcmNsZSBjeD0iMTAwIiBjeT0iODUiIHI9IjMyIiBmaWxsPSJ1cmwoI2MzaGVhZCkiLz4KICA8IS0tIEhhaXIgdW5kZXIgaGVsbWV0IC0tPgogIDxwYXRoIGQ9Ik0gNzAgODAgUSA4MCA2NSAxMDAgNjUgUSAxMjAgNjUgMTMwIDgwIiBmaWxsPSIjM2YyYTFkIi8+CiAgPCEtLSBTcG9ydHkgc3VuZ2xhc3NlcyAtLT4KICA8cmVjdCB4PSI3OCIgeT0iODIiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxMCIgcng9IjMiIGZpbGw9IiMxZTI5M2IiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHJlY3QgeD0iMTA0IiB5PSI4MiIgd2lkdGg9IjE4IiBoZWlnaHQ9IjEwIiByeD0iMyIgZmlsbD0iIzFlMjkzYiIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8bGluZSB4MT0iOTYiIHkxPSI4NiIgeDI9IjEwNCIgeTI9Ijg2IiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxlbGxpcHNlIGN4PSI4MyIgY3k9Ijg2IiByeD0iMyIgcnk9IjIiIGZpbGw9IiM2MGE1ZmEiIG9wYWNpdHk9IjAuNyIvPgogIDxlbGxpcHNlIGN4PSIxMDkiIGN5PSI4NiIgcng9IjMiIHJ5PSIyIiBmaWxsPSIjNjBhNWZhIiBvcGFjaXR5PSIwLjciLz4KICA8IS0tIERldGVybWluZWQgc21pbGUgLS0+CiAgPHBhdGggZD0iTSA4NSAxMDIgUSAxMDAgMTEwIDExNSAxMDIiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIEJpa2UgKHZpc2libGUgcG9ydGlvbikgLS0+CiAgPGNpcmNsZSBjeD0iNjAiIGN5PSIyMTAiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMyIvPgogIDxjaXJjbGUgY3g9IjYwIiBjeT0iMjEwIiByPSI0IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGxpbmUgeDE9IjYwIiB5MT0iMTg4IiB4Mj0iNjAiIHkyPSIyMzIiIHN0cm9rZT0iIzQ3NTU2OSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPGxpbmUgeDE9IjM4IiB5MT0iMjEwIiB4Mj0iODIiIHkyPSIyMTAiIHN0cm9rZT0iIzQ3NTU2OSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBBcm0gaG9sZGluZyBoYW5kbGViYXIgLS0+CiAgPHBhdGggZD0iTSA2MCAxNDUgUSA1MCAxNzUgNTUgMTk1IiBzdHJva2U9InVybCgjYzNoZWFkKSIgc3Ryb2tlLXdpZHRoPSIxNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBMZWdzIC0tPgogIDxyZWN0IHg9IjcwIiB5PSIyMDAiIHdpZHRoPSIyNSIgaGVpZ2h0PSIyMCIgZmlsbD0iIzFlMjkzYiIvPgogIDxyZWN0IHg9IjEwNSIgeT0iMjAwIiB3aWR0aD0iMjUiIGhlaWdodD0iMjAiIGZpbGw9IiMxZTI5M2IiLz4KICA8IS0tIFNuZWFrZXJzIC0tPgogIDxlbGxpcHNlIGN4PSI4MiIgY3k9IjIyMiIgcng9IjE0IiByeT0iNSIgZmlsbD0iI2ZiYmYyNCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxlbGxpcHNlIGN4PSIxMTgiIGN5PSIyMjIiIHJ4PSIxNCIgcnk9IjUiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8IS0tIFNwZWVkIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIyMCIgeTE9IjE2MCIgeDI9IjM1IiB5Mj0iMTYwIiBzdHJva2U9IiM2MGE1ZmEiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iMC42Ii8+CiAgPGxpbmUgeDE9IjE1IiB5MT0iMTc1IiB4Mj0iMzAiIHkyPSIxNzUiIHN0cm9rZT0iIzYwYTVmYSIgc3Ryb2tlLXdpZHRoPSIyIiBvcGFjaXR5PSIwLjUiLz4KPC9zdmc+Cg==', price: 13 },
+    { id: 'skin-ball', name: 'بسکتبالیست', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM0Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmI5MjNjIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2MyNDEwYyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzRoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJiYWxsRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmI3MTg1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2JlMTIzYyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjY1IiByeT0iMTAiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMjUiLz4KICA8IS0tIEJhc2tldGJhbGwgLS0+CiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIxNzAiIHI9IjIyIiBmaWxsPSJ1cmwoI2JhbGxHKSIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iNTAiIHkxPSIxNDgiIHgyPSI1MCIgeTI9IjE5MiIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0gMjggMTcwIFEgNTAgMTYwIDcyIDE3MCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Ik0gMjggMTcwIFEgNTAgMTgwIDcyIDE3MCIgc3Ryb2tlPSIjN2YxZDFkIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPgogIDwhLS0gQm9keSAvIGJhc2tldGJhbGwgamVyc2V5IC0tPgogIDxwYXRoIGQ9Ik0gNjUgMTMwIFEgNjUgMTIwIDEwMCAxMjAgUSAxMzUgMTIwIDEzNSAxMzAgTCAxNDAgMjAwIFEgMTQwIDIxMCAxMzAgMjEwIEwgNzAgMjEwIFEgNjAgMjEwIDYwIDIwMCBaIiBmaWxsPSJ1cmwoI2M0Ym9keSkiLz4KICA8IS0tIEplcnNleSBudW1iZXIgLS0+CiAgPHRleHQgeD0iMTAwIiB5PSIxNzAiIGZvbnQtZmFtaWx5PSJUYWhvbWEsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMzIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj43PC90ZXh0PgogIDwhLS0gVGFuayB0b3Agc3RyYXBzIC0tPgogIDxwYXRoIGQ9Ik0gNzUgMTIwIEwgODUgMTMwIE0gMTI1IDEyMCBMIDExNSAxMzAiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijg1IiByPSIzNSIgZmlsbD0idXJsKCNjNGhlYWQpIi8+CiAgPCEtLSBTaG9ydCBoYWlyIC0tPgogIDxwYXRoIGQ9Ik0gNzAgNjUgUSA4MCA1MCAxMDAgNTAgUSAxMjAgNTAgMTMwIDY1IFEgMTI1IDYwIDEwMCA2MCBRIDc1IDYwIDcwIDY1IFoiIGZpbGw9IiMxZjI5MzciLz4KICA8IS0tIFN3ZWF0YmFuZCAtLT4KICA8cmVjdCB4PSI2NSIgeT0iNjgiIHdpZHRoPSI3MCIgaGVpZ2h0PSI2IiBmaWxsPSIjZGMyNjI2Ii8+CiAgPCEtLSBFeWVzIChkZXRlcm1pbmVkLCBmb2N1c2VkKSAtLT4KICA8ZWxsaXBzZSBjeD0iODgiIGN5PSI4NiIgcng9IjQiIHJ5PSI1IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGVsbGlwc2UgY3g9IjExMiIgY3k9Ijg2IiByeD0iNCIgcnk9IjUiIGZpbGw9IiMxZTI5M2IiLz4KICA8Y2lyY2xlIGN4PSI4OSIgY3k9Ijg0IiByPSIxLjUiIGZpbGw9IiNmZmYiLz4KICA8Y2lyY2xlIGN4PSIxMTMiIGN5PSI4NCIgcj0iMS41IiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBFeWVicm93cyAtLT4KICA8bGluZSB4MT0iODIiIHkxPSI3OCIgeDI9Ijk0IiB5Mj0iNzYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8bGluZSB4MT0iMTA2IiB5MT0iNzYiIHgyPSIxMTgiIHkyPSI3OCIgc3Ryb2tlPSIjMWUyOTNiIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gRXhjaXRlZCBzbWlsZSAtLT4KICA8cGF0aCBkPSJNIDgyIDEwMiBRIDEwMCAxMTYgMTE4IDEwMiIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gTXVzY3VsYXIgYXJtIGhvbGRpbmcgYmFsbCAtLT4KICA8cGF0aCBkPSJNIDYwIDE0NSBRIDQ1IDE2NSA1MCAxODUgTCA2NSAxODAgUSA3MCAxNjUgNzAgMTQ1IFoiIGZpbGw9InVybCgjYzRoZWFkKSIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDwhLS0gU3Ryb25nIGFybSBsaW5lcyAtLT4KICA8cGF0aCBkPSJNIDU4IDE2MCBRIDYyIDE2NSA1OCAxNzAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIi8+CiAgPCEtLSBMZWdzIC8gc2hvcnRzIC0tPgogIDxyZWN0IHg9IjY4IiB5PSIyMDAiIHdpZHRoPSIyOCIgaGVpZ2h0PSIxOCIgZmlsbD0iIzFlMjkzYiIvPgogIDxyZWN0IHg9IjEwNCIgeT0iMjAwIiB3aWR0aD0iMjgiIGhlaWdodD0iMTgiIGZpbGw9IiMxZTI5M2IiLz4KICA8IS0tIFNwb3J0eSBzaG9lcyAtLT4KICA8cGF0aCBkPSJNIDY1IDIxOCBMIDk1IDIxOCBMIDk1IDIyOCBMIDcwIDIyOCBRIDY1IDIyOCA2NSAyMjQgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWUyOTNiIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogIDxwYXRoIGQ9Ik0gMTA1IDIxOCBMIDEzNSAyMTggTCAxMzUgMjI0IFEgMTM1IDIyOCAxMzAgMjI4IEwgMTA1IDIyOCBaIiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPGxpbmUgeDE9IjcyIiB5MT0iMjIzIiB4Mj0iOTIiIHkyPSIyMjMiIHN0cm9rZT0iI2RjMjYyNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8bGluZSB4MT0iMTA4IiB5MT0iMjIzIiB4Mj0iMTI4IiB5Mj0iMjIzIiBzdHJva2U9IiNkYzI2MjYiIHN0cm9rZS13aWR0aD0iMS41Ii8+Cjwvc3ZnPgo=', price: 15 },
+    { id: 'skin-fruit', name: 'دوست میوه‌ها', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImM1Ym9keSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjYTNlNjM1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzRkN2MwZiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYzVoZWFkIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZGU2OGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmJiZjI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMjIwIiByeD0iNjAiIHJ5PSIxMCIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4yNSIvPgogIDwhLS0gQXBwbGUgaW4gaGFuZCAtLT4KICA8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNjUiIHI9IjE0IiBmaWxsPSIjZWY0NDQ0IiBzdHJva2U9IiM3ZjFkMWQiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0gMTUwIDE1MiBRIDE1MiAxNDUgMTU4IDE0MiIgc3Ryb2tlPSIjNzgzNTBmIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0gMTU2IDE0NSBRIDE2NSAxNDAgMTY4IDE0OCIgZmlsbD0iIzE2YTM0YSIgc3Ryb2tlPSIjMTU4MDNkIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8ZWxsaXBzZSBjeD0iMTQ2IiBjeT0iMTYwIiByeD0iMyIgcnk9IjUiIGZpbGw9IiNmY2E1YTUiIG9wYWNpdHk9IjAuNyIvPgogIDwhLS0gQm9keSAvIGhlYWx0aHkgdC1zaGlydCAtLT4KICA8cGF0aCBkPSJNIDY1IDEzMCBRIDY1IDEyMCAxMDAgMTIwIFEgMTM1IDEyMCAxMzUgMTMwIEwgMTQwIDIwMCBRIDE0MCAyMTAgMTMwIDIxMCBMIDcwIDIxMCBRIDYwIDIxMCA2MCAyMDAgWiIgZmlsbD0idXJsKCNjNWJvZHkpIi8+CiAgPCEtLSBBcHBsZSBsb2dvIG9uIHNoaXJ0IC0tPgogIDxwYXRoIGQ9Ik0gMTAwIDE1MCBRIDk1IDE1MiA5NSAxNTggUSA5NSAxNjggMTAwIDE3MiBRIDEwNSAxNjggMTA1IDE1OCBRIDEwNSAxNTIgMTAwIDE1MCBaIiBmaWxsPSIjZWY0NDQ0IiBzdHJva2U9IiM3ZjFkMWQiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxwYXRoIGQ9Ik0gMTAwIDE1MCBMIDEwMCAxNDgiIHN0cm9rZT0iIzc4MzUwZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHBhdGggZD0iTSAxMDAgMTQ4IFEgMTA1IDE0NCAxMDggMTQ2IiBzdHJva2U9IiMxNmEzNGEiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogIDwhLS0gSGVhZCAtLT4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSI4NSIgcj0iMzUiIGZpbGw9InVybCgjYzVoZWFkKSIvPgogIDwhLS0gSGFpciAoY3VybHksIGVuZXJnZXRpYykgLS0+CiAgPHBhdGggZD0iTSA2NSA3MCBRIDYwIDUwIDgwIDQ4IFEgOTAgNDAgMTAwIDQ4IFEgMTEwIDQwIDEyMCA0OCBRIDE0MCA1MCAxMzUgNzAgUSAxMzAgNjAgMTAwIDYwIFEgNzAgNjAgNjUgNzAgWiIgZmlsbD0iIzdjMmQxMiIvPgogIDxjaXJjbGUgY3g9Ijc1IiBjeT0iNTUiIHI9IjYiIGZpbGw9IiM3YzJkMTIiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSI0OCIgcj0iNiIgZmlsbD0iIzdjMmQxMiIvPgogIDxjaXJjbGUgY3g9IjEyNSIgY3k9IjU1IiByPSI2IiBmaWxsPSIjN2MyZDEyIi8+CiAgPCEtLSBCcmlnaHQgaGFwcHkgZXllcyAtLT4KICA8ZWxsaXBzZSBjeD0iODgiIGN5PSI4OCIgcng9IjQiIHJ5PSI1IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGVsbGlwc2UgY3g9IjExMiIgY3k9Ijg4IiByeD0iNCIgcnk9IjUiIGZpbGw9IiMxZTI5M2IiLz4KICA8Y2lyY2xlIGN4PSI4OSIgY3k9Ijg2IiByPSIxLjgiIGZpbGw9IiNmZmYiLz4KICA8Y2lyY2xlIGN4PSIxMTMiIGN5PSI4NiIgcj0iMS44IiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBCaWcgc21pbGUgd2l0aCB0ZWV0aCAtLT4KICA8cGF0aCBkPSJNIDgyIDEwMiBRIDEwMCAxMTggMTE4IDEwMiBRIDEwMCAxMTAgODIgMTAyIFoiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzdjMmQxMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGxpbmUgeDE9IjEwMCIgeTE9IjEwNSIgeDI9IjEwMCIgeTI9IjExMyIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8IS0tIFJvc3kgaGVhbHRoeSBjaGVla3MgLS0+CiAgPGNpcmNsZSBjeD0iNzgiIGN5PSI5OCIgcj0iNiIgZmlsbD0iI2Y4NzE3MSIgb3BhY2l0eT0iMC40NSIvPgogIDxjaXJjbGUgY3g9IjEyMiIgY3k9Ijk4IiByPSI2IiBmaWxsPSIjZjg3MTcxIiBvcGFjaXR5PSIwLjQ1Ii8+CiAgPCEtLSBBcm0gaG9sZGluZyBhcHBsZSAtLT4KICA8cGF0aCBkPSJNIDEzNSAxNDUgUSAxNDUgMTU1IDE1MCAxNjUiIHN0cm9rZT0idXJsKCNjNWhlYWQpIiBzdHJva2Utd2lkdGg9IjE0IiBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8IS0tIFNob3J0cyAtLT4KICA8cmVjdCB4PSI2OCIgeT0iMjAwIiB3aWR0aD0iMjgiIGhlaWdodD0iMTgiIGZpbGw9IiNhM2U2MzUiLz4KICA8cmVjdCB4PSIxMDQiIHk9IjIwMCIgd2lkdGg9IjI4IiBoZWlnaHQ9IjE4IiBmaWxsPSIjYTNlNjM1Ii8+CiAgPCEtLSBTYW5kYWxzIC0tPgogIDxlbGxpcHNlIGN4PSI4MiIgY3k9IjIyMiIgcng9IjEzIiByeT0iNSIgZmlsbD0iIzkyNDAwZSIvPgogIDxlbGxpcHNlIGN4PSIxMTgiIGN5PSIyMjIiIHJ4PSIxMyIgcnk9IjUiIGZpbGw9IiM5MjQwMGUiLz4KICA8IS0tIFNwYXJrbGVzICh2aXRhbGl0eSkgLS0+CiAgPHBhdGggZD0iTSA0MCA2MCBMIDQyIDY1IEwgNDcgNjcgTCA0MiA2OSBMIDQwIDc0IEwgMzggNjkgTCAzMyA2NyBMIDM4IDY1IFoiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxMDAiIHI9IjMiIGZpbGw9IiNmYmJmMjQiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjEyMCIgcj0iMiIgZmlsbD0iI2ZiYmYyNCIvPgo8L3N2Zz4K', price: 11 }
+  ],
+  custom: [
+    { id: 'cust-coin-theme', name: 'تم طلایی', svg: './icons/coin.png', price: 10, type: 'theme' },
+    { id: 'cust-guide', name: 'راهنمای ویژه', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjQwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI0MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdhbWVySGlCb2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDU5NjY5Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJnYW1lckhpSGVhZCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZmRlNjhhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ZiYmYyNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2FtZXJIaUdsb3ciIGN4PSIwLjUiIGN5PSIwLjUiIHI9IjAuNiI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMC40NSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjIyMCIgcng9IjgwIiByeT0iMTQiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMjUiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMjAiIHI9IjEwMCIgZmlsbD0idXJsKCNnYW1lckhpR2xvdykiLz4KICA8IS0tIEJvZHkgLyByb2JlIC0tPgogIDxwYXRoIGQ9Ik0gNjUgMTUwIFEgNjAgMTMwIDEwMCAxMzAgUSAxNDAgMTMwIDEzNSAxNTAgTCAxNDUgMjE1IFEgMTQ1IDIyMiAxMzggMjIyIEwgNjIgMjIyIFEgNTUgMjIyIDU1IDIxNSBaIiBmaWxsPSJ1cmwoI2dhbWVySGlCb2R5KSIvPgogIDwhLS0gQ2FwZSBjb2xsYXIgLS0+CiAgPHBhdGggZD0iTSA3NSAxNDUgUSAxMDAgMTU1IDEyNSAxNDUgTCAxMjIgMTY1IFEgMTAwIDE3MiA3OCAxNjUgWiIgZmlsbD0iIzA0Nzg1NyIvPgogIDwhLS0gU3RhciBiYWRnZSAtLT4KICA8cGF0aCBkPSJNIDEwMCAxNDUgbCA0IDggOSAxIC03IDYgMiA5IC04IC01IC04IDUgMiAtOSAtNyAtNiA5IC0xIHoiIGZpbGw9IiNmYmJmMjQiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPCEtLSBIZWFkIC0tPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9Ijk1IiByPSIzOCIgZmlsbD0idXJsKCNnYW1lckhpSGVhZCkiLz4KICA8IS0tIEhhaXIgLS0+CiAgPHBhdGggZD0iTSA2NSA4MiBRIDcyIDU2IDEwMCA1NiBRIDEyOCA1NiAxMzUgODIgUSAxMjggNjggMTAwIDY4IFEgNzUgNjggNjUgODIgWiIgZmlsbD0iIzFmMjkzNyIvPgogIDwhLS0gR3JhZHVhdGlvbi1saWtlIGNhcCAtLT4KICA8cGF0aCBkPSJNIDcwIDY1IEwgMTAwIDUwIEwgMTMwIDY1IEwgMTAwIDc1IFoiIGZpbGw9IiMxZTI5M2IiLz4KICA8bGluZSB4MT0iMTAwIiB5MT0iNTAiIHgyPSIxMDAiIHkyPSI3NSIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogIDxjaXJjbGUgY3g9IjEyNSIgY3k9IjYzIiByPSIzIiBmaWxsPSIjZmJiZjI0Ii8+CiAgPGxpbmUgeDE9IjEyNSIgeTE9IjYzIiB4Mj0iMTMyIiB5Mj0iNTUiIHN0cm9rZT0iI2ZiYmYyNCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPCEtLSBFeWVzIChmcmllbmRseSwgd2l0aCBnbGFzc2VzKSAtLT4KICA8Y2lyY2xlIGN4PSI4NiIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxjaXJjbGUgY3g9IjExNCIgY3k9Ijk2IiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiMxZTI5M2IiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxsaW5lIHgxPSI5NSIgeTE9Ijk2IiB4Mj0iMTA1IiB5Mj0iOTYiIHN0cm9rZT0iIzFlMjkzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPGVsbGlwc2UgY3g9Ijg2IiBjeT0iOTYiIHJ4PSIzIiByeT0iNCIgZmlsbD0iIzFlMjkzYiIvPgogIDxlbGxpcHNlIGN4PSIxMTQiIGN5PSI5NiIgcng9IjMiIHJ5PSI0IiBmaWxsPSIjMWUyOTNiIi8+CiAgPGNpcmNsZSBjeD0iODciIGN5PSI5NCIgcj0iMSIgZmlsbD0iI2ZmZiIvPgogIDxjaXJjbGUgY3g9IjExNSIgY3k9Ijk0IiByPSIxIiBmaWxsPSIjZmZmIi8+CiAgPCEtLSBTbWlsZSAtLT4KICA8cGF0aCBkPSJNIDg2IDExMiBRIDEwMCAxMjIgMTE0IDExMiIgc3Ryb2tlPSIjN2MyZDEyIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwhLS0gU3BlZWNoIGJ1YmJsZSAtLT4KICA8cGF0aCBkPSJNIDE1MCA1MCBRIDE0NSAzMCAxNjUgMjUgUSAxOTAgMjIgMTk1IDQ1IFEgMTk4IDY1IDE3OCA3MCBMIDE2OCA3OCBMIDE3MCA2NSBRIDE1OCA2MiAxNTAgNTAgWiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSIxNjciIHk9IjQ4IiBmb250LWZhbWlseT0iVGFob21hLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzEwYjk4MSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+PzwvdGV4dD4KPC9zdmc+Cg==', price: 9, type: 'guide-skin' },
+    { id: 'cust-apple', name: 'سیب طلایی', svg: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCI+CiAgPGRlZnM+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9ImFwcGxlRyIgY3g9IjAuMzUiIGN5PSIwLjMiIHI9IjAuNyI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmY2E1YTUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1NSUiIHN0b3AtY29sb3I9IiNlZjQ0NDQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOTkxYjFiIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogIDwvZGVmcz4KICA8ZWxsaXBzZSBjeD0iNjAiIGN5PSIxMDUiIHJ4PSIzNSIgcnk9IjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuMiIvPgogIDxwYXRoIGQ9Ik0gNjAgMzAgUSAzNSAyOCAzMCA1NSBRIDI1IDg1IDQ1IDk1IFEgNjAgMTAyIDc1IDk1IFEgOTUgODUgOTAgNTUgUSA4NSAyOCA2MCAzMCBaIiBmaWxsPSJ1cmwoI2FwcGxlRykiLz4KICA8cGF0aCBkPSJNIDYwIDMwIFEgNTAgMzIgNDggMzgiIHN0cm9rZT0iIzdmMWQxZCIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0iTSA2MCAyOCBRIDYyIDE2IDcwIDEyIiBzdHJva2U9IiM3ODM1MGYiIHN0cm9rZS13aWR0aD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPHBhdGggZD0iTSA3MCAxNCBRIDgyIDggODggMTYgUSA4MCAyMCA3MiAxOCBaIiBmaWxsPSIjMTZhMzRhIi8+CiAgPHBhdGggZD0iTSA3NiAxNCBRIDgyIDEyIDg0IDE2IiBzdHJva2U9IiMxNTgwM2QiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIvPgogIDxlbGxpcHNlIGN4PSI0OCIgY3k9IjUwIiByeD0iOCIgcnk9IjE0IiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+Cg==', price: 8, type: 'food-skin' },
+    { id: 'cust-trophy', name: 'جایزه ویژه', svg: './icons/coin.png', price: 15, type: 'effect' }
+  ]
+};
+
+/* ---------- Game State ---------- */
+const STORAGE_KEY = 'healthAdventure_v1';
+
+const State = {
+  coins: 0,
+  ownedItems: ['skin-default'],
+  equippedSkin: 'skin-default',
+  soundEnabled: true,
+  // per-run state
+  run: null,
+  // hidden metrics (internal only, NOT shown to user)
+  metrics: {
+    totalResponseTimeMs: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0,
+    totalQuestions: 0,
+    progressPercent: 0
+  }
+};
+
+function newRun() {
+  return {
+    foodRounds: [],        // [{chosen, isHealthy, responseMs}]
+    lifestyleRounds: [],  // [{id, chosen, value, healthy, responseMs}]
+    selectedCharacterId: null,
+    myScore: 0,
+    opponentScore: 0,
+    won: false,
+    pausedAt: null,
+    currentStep: 0,        // 0..food count + lifestyle count -1
+    totalSteps: 0
+  };
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const data = JSON.parse(raw);
+      State.coins = data.coins || 0;
+      State.ownedItems = data.ownedItems || ['skin-default'];
+      State.equippedSkin = data.equippedSkin || 'skin-default';
+      State.soundEnabled = data.soundEnabled !== undefined ? data.soundEnabled : true;
+    }
+  } catch (e) {
+    console.warn('load state failed', e);
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      coins: State.coins,
+      ownedItems: State.ownedItems,
+      equippedSkin: State.equippedSkin,
+      soundEnabled: State.soundEnabled
+    }));
+  } catch (e) {
+    console.warn('save state failed', e);
+  }
+}
+
+function resetMetrics() {
+  State.metrics = {
+    totalResponseTimeMs: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0,
+    totalQuestions: 0,
+    progressPercent: 0
+  };
+}
+
+function updateMetrics(isCorrect, responseMs) {
+  State.metrics.totalResponseTimeMs += responseMs;
+  State.metrics.totalQuestions += 1;
+  if (isCorrect) State.metrics.correctAnswers += 1;
+  else State.metrics.wrongAnswers += 1;
+  if (State.run && State.run.totalSteps > 0) {
+    State.metrics.progressPercent = Math.round(
+      (State.metrics.totalQuestions / State.run.totalSteps) * 100
+    );
+  }
+}
+
+/* ---------- Sound (Web Audio API, no external files) ---------- */
+let audioCtx = null;
+function getAudio() {
+  if (!audioCtx) {
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+      audioCtx = null;
+    }
+  }
+  return audioCtx;
+}
+
+function playClick() {
+  if (!State.soundEnabled) return;
+  const ctx = getAudio();
+  if (!ctx) return;
+  try {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.13);
+  } catch (e) {}
+}
+
+function playSuccess() {
+  if (!State.soundEnabled) return;
+  const ctx = getAudio();
+  if (!ctx) return;
+  try {
+    [523.25, 659.25, 783.99].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.08);
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime + i * 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + i * 0.08 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.08 + 0.18);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + i * 0.08);
+      osc.stop(ctx.currentTime + i * 0.08 + 0.2);
+    });
+  } catch (e) {}
+}
+
+function playError() {
+  if (!State.soundEnabled) return;
+  const ctx = getAudio();
+  if (!ctx) return;
+  try {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(220, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(110, ctx.currentTime + 0.2);
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.14, ctx.currentTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.22);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.25);
+  } catch (e) {}
+}
+
+function playWin() {
+  if (!State.soundEnabled) return;
+  const ctx = getAudio();
+  if (!ctx) return;
+  try {
+    [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.1);
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime + i * 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + i * 0.1 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.1 + 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + i * 0.1);
+      osc.stop(ctx.currentTime + i * 0.1 + 0.32);
+    });
+  } catch (e) {}
+}
+
+function playLose() {
+  if (!State.soundEnabled) return;
+  const ctx = getAudio();
+  if (!ctx) return;
+  try {
+    [440, 392, 349.23, 293.66].forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.15);
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime + i * 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime + i * 0.15 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.15 + 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + i * 0.15);
+      osc.stop(ctx.currentTime + i * 0.15 + 0.32);
+    });
+  } catch (e) {}
+}
+
+/* ---------- UI Helpers ---------- */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+function showScreen(name) {
+  $$('.screen').forEach(s => s.classList.add('hidden'));
+  const el = $(`#screen-${name}`);
+  if (el) {
+    el.classList.remove('hidden');
+    el.scrollTop = 0;
+  }
+}
+
+function updateCoinDisplay() {
+  const v = State.coins;
+  ['#coinCount', '#coinCountHelp', '#coinCountShop', '#coinCountGame', '#coinCountChar'].forEach(sel => {
+    const el = $(sel);
+    if (el) el.textContent = v;
+  });
+}
+
+function showToast(msg, type) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || 'info');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => {
+    t.classList.remove('show');
+  }, 2200);
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pickN(arr, n) {
+  return shuffle(arr).slice(0, n);
+}
+
+/* ---------- Confetti (win celebration) ---------- */
+function showConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti';
+  document.body.appendChild(container);
+  const colors = ['#fbbf24', '#34d399', '#6366f1', '#f472b6', '#60a5fa', '#f87171'];
+  for (let i = 0; i < 60; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.animationDelay = (Math.random() * 0.5) + 's';
+    piece.style.width = (6 + Math.random() * 8) + 'px';
+    piece.style.height = (10 + Math.random() * 8) + 'px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '2px' : '50%';
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 4500);
+}
+
+/* ============================================
+   FLOW: Main Menu
+   ============================================ */
+function initMain() {
+  $('#startBtn').addEventListener('click', () => {
+    playClick();
+    startNewRun();
+  });
+  $('#shopBtn').addEventListener('click', () => {
+    playClick();
+    showScreen('shop');
+    renderShop('skins');
+  });
+  $('#helpBtn').addEventListener('click', () => {
+    playClick();
+    showScreen('help');
+  });
+
+  const soundBtn = $('#soundToggleBtn');
+  soundBtn.addEventListener('click', () => {
+    State.soundEnabled = !State.soundEnabled;
+    saveState();
+    updateSoundIcon();
+    if (State.soundEnabled) playClick();
+  });
+
+  // Back buttons
+  $('#helpBackBtn').addEventListener('click', () => {
+    playClick();
+    showScreen('main');
+  });
+  $('#shopBackBtn').addEventListener('click', () => {
+    playClick();
+    showScreen('main');
+  });
+
+  // Shop tabs
+  $$('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      playClick();
+      $$('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderShop(btn.dataset.tab);
+    });
+  });
+}
+
+function updateSoundIcon() {
+  const wrap = $('#soundIconWrap');
+  if (!wrap) return;
+  if (State.soundEnabled) {
+    wrap.innerHTML = '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sOnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c4b5fd"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs><path d="M 8 18 L 8 30 L 18 30 L 28 38 L 28 10 L 18 18 Z" fill="url(#sOnG)"/><path d="M 32 16 Q 38 24 32 32" stroke="url(#sOnG)" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M 36 12 Q 44 24 36 36" stroke="url(#sOnG)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+  } else {
+    wrap.innerHTML = '<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sOffG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#475569"/></linearGradient></defs><path d="M 8 18 L 8 30 L 18 30 L 28 38 L 28 10 L 18 18 Z" fill="url(#sOffG)"/><line x1="32" y1="16" x2="42" y2="32" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/><line x1="42" y1="16" x2="32" y2="32" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round"/></svg>';
+  }
+}
+
+/* ============================================
+   FLOW: Start a New Game Run
+   ============================================ */
+function startNewRun() {
+  State.run = newRun();
+  resetMetrics();
+  // 5 food rounds + 3 lifestyle questions = 8 total steps
+  State.run.foodRoundsPlan = pickN(FOODS.healthy, 5).map((h, i) => ({
+    healthy: h,
+    unhealthy: pickN(FOODS.unhealthy, 1)[0]
+  }));
+  State.run.lifestylePlan = pickN(LIFESTYLE_QUESTIONS, 3);
+  State.run.totalSteps = State.run.foodRoundsPlan.length + State.run.lifestylePlan.length;
+  State.run.currentStep = 0;
+  nextStep();
+}
+
+function nextStep() {
+  if (!State.run) return;
+  const r = State.run;
+  if (r.currentStep >= r.totalSteps) {
+    // proceed to character selection
+    goToCharacterSelect();
+    return;
+  }
+  if (r.currentStep < r.foodRoundsPlan.length) {
+    showFoodRound(r.currentStep);
+  } else {
+    const lIdx = r.currentStep - r.foodRoundsPlan.length;
+    showLifestyleRound(lIdx);
+  }
+  r.currentStep += 1;
+  updateProgressBar();
+}
+
+function updateProgressBar() {
+  const r = State.run;
+  if (!r) return;
+  // Progress fill uses completed steps (currentStep already incremented in nextStep)
+  const pct = Math.round((r.currentStep / r.totalSteps) * 100);
+  const bar = $('#gameProgress');
+  if (bar) bar.style.width = pct + '%';
+  // Note: label is set inside showFoodRound/showLifestyleRound using the round index
+}
+
+/* ---------- Food Round ---------- */
+function showFoodRound(idx) {
+  showScreen('game');
+  const plan = State.run.foodRoundsPlan[idx];
+  $('#questionText').textContent = 'کدوم خوراکی رو انتخاب می‌کنی؟';
+  $('#roundLabel').textContent = `سوال ${State.run.currentStep + 1} از ${State.run.totalSteps}`;
+  const container = $('#choicesContainer');
+  container.innerHTML = '';
+  $('#feedback').classList.remove('show', 'good', 'bad');
+  $('#feedback').textContent = '';
+
+  // Randomize order of healthy vs unhealthy
+  const choices = shuffle([
+    { food: plan.healthy, isHealthy: true },
+    { food: plan.unhealthy, isHealthy: false }
+  ]);
+
+  const startTime = performance.now();
+
+  choices.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'choice-card';
+    card.innerHTML = `
+      <img src="${c.food.svg}" alt="${c.food.name}" class="choice-img">
+      <span class="choice-text">${c.food.name}</span>
+    `;
+    card.addEventListener('click', () => {
+      const responseMs = Math.round(performance.now() - startTime);
+      handleFoodChoice(card, c, choices, responseMs, container);
+    });
+    container.appendChild(card);
+  });
+}
+
+function handleFoodChoice(card, chosen, allChoices, responseMs, container) {
+  if (container.dataset.locked === '1') return;
+  container.dataset.locked = '1';
+
+  playClick();
+  State.run.foodRounds.push({
+    chosen: chosen.food.id,
+    isHealthy: chosen.isHealthy,
+    responseMs
+  });
+
+  updateMetrics(chosen.isHealthy, responseMs);
+
+  // Neutral feedback: no reveal of correct/wrong. Child learns from consequences later.
+  Array.from(container.children).forEach(c => {
+    if (c === card) c.classList.add('picked');
+  });
+
+  const fb = $('#feedback');
+  fb.textContent = 'انتخابت ثبت شد!';
+  fb.className = 'feedback show';
+
+  State.coins += 1;
+  updateCoinDisplay();
+  saveState();
+  playClick();
+
+  setTimeout(() => {
+    container.dataset.locked = '';
+    nextStep();
+  }, 1400);
+}
+
+/* ---------- Lifestyle Round ---------- */
+function showLifestyleRound(idx) {
+  showScreen('game');
+  const q = State.run.lifestylePlan[idx];
+  $('#questionText').innerHTML = `<span class="icon-bubble">${q.icon}</span> ${q.text}`;
+  $('#roundLabel').textContent = `سوال ${State.run.currentStep + 1} از ${State.run.totalSteps}`;
+  const container = $('#choicesContainer');
+  container.innerHTML = '';
+  $('#feedback').classList.remove('show', 'good', 'bad');
+  $('#feedback').textContent = '';
+
+  const startTime = performance.now();
+
+  q.options.forEach(opt => {
+    const card = document.createElement('div');
+    card.className = 'choice-card';
+    card.innerHTML = `
+      <span class="choice-text">${opt.text}</span>
+    `;
+    card.addEventListener('click', () => {
+      const responseMs = Math.round(performance.now() - startTime);
+      handleLifestyleChoice(card, opt, q, responseMs, container);
+    });
+    container.appendChild(card);
+  });
+}
+
+function handleLifestyleChoice(card, opt, q, responseMs, container) {
+  if (container.dataset.locked === '1') return;
+  container.dataset.locked = '1';
+
+  playClick();
+  State.run.lifestyleRounds.push({
+    id: q.id,
+    chosen: opt.text,
+    value: opt.value,
+    healthy: opt.healthy,
+    responseMs
+  });
+
+  updateMetrics(opt.healthy, responseMs);
+
+  // Neutral feedback: no reveal
+  Array.from(container.children).forEach(c => {
+    if (c === card) c.classList.add('picked');
+  });
+
+  const fb = $('#feedback');
+  fb.textContent = 'انتخابت ثبت شد!';
+  fb.className = 'feedback show';
+
+  State.coins += 1;
+  updateCoinDisplay();
+  saveState();
+  playClick();
+
+  setTimeout(() => {
+    container.dataset.locked = '';
+    nextStep();
+  }, 1400);
+}
+
+/* ============================================
+   FLOW: Character Select
+   ============================================ */
+function goToCharacterSelect() {
+  showScreen('charselect');
+  const grid = $('#charactersGrid');
+  grid.innerHTML = '';
+  // Show all 10 characters, no labels about healthy/unhealthy
+  CHARACTERS.forEach(ch => {
+    const card = document.createElement('div');
+    card.className = 'char-card';
+    card.dataset.id = ch.id;
+    card.innerHTML = `<img src="${ch.svg}" alt="شخصیت ${ch.id}"><div class="char-name">${ch.name}</div>`;
+    card.addEventListener('click', () => {
+      playClick();
+      $$('.char-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      State.run.selectedCharacterId = ch.id;
+      const confirmBtn = $('#confirmCharBtn');
+      confirmBtn.classList.remove('hidden');
+      confirmBtn.disabled = false;
+      confirmBtn.innerHTML = `<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icGxheUciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM0ZDM5OSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMGI5ODEiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJ1cmwoI3BsYXlHKSIvPgogIDxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjIyIiBmaWxsPSJub25lIiBzdHJva2U9IiMwNDc4NTciIHN0cm9rZS13aWR0aD0iMiIvPgogIDxwYXRoIGQ9Ik0gMTkgMTQgTCAzNiAyNCBMIDE5IDM0IFoiIGZpbGw9IiNmZmYiLz4KPC9zdmc+Cg==" alt="" class="btn-icon"><span>ادامه با «${ch.name}»</span>`;
+    });
+    grid.appendChild(card);
+  });
+
+  const confirmBtn = $('#confirmCharBtn');
+  confirmBtn.classList.add('hidden');
+  confirmBtn.disabled = true;
+  confirmBtn.onclick = () => {
+    playClick();
+    if (!State.run.selectedCharacterId) return;
+    goToLoading();
+  };
+
+  // Stop button
+  $('#charStopBtn').onclick = () => {
+    playClick();
+    openPause('charselect');
+  };
+}
+
+/* ============================================
+   FLOW: Loading -> Result
+   ============================================ */
+function goToLoading() {
+  showScreen('loading');
+  // Compute scores during loading display
+  setTimeout(() => {
+    computeResult();
+    goToResult();
+  }, 2200);
+}
+
+function computeResult() {
+  const r = State.run;
+  const char = CHARACTERS.find(c => c.id === r.selectedCharacterId);
+
+  // ---- NEW SCORING (fair & strong) ----
+  // Components:
+  //   base:            40
+  //   healthy food:    +12 each  (5 rounds, max +60)
+  //   unhealthy food:  -6  each  (max -30)
+  //   lifestyle:       each option's `value` (-12..+15)
+  //   character:       +20 healthy / -20 unhealthy
+  // Range ~ -46 .. 165, clamped to [0, 100]
+  let myScore = 40;
+  let healthyFoodCount = 0;
+  let unhealthyFoodCount = 0;
+  let healthyLifeCount = 0;
+  let unhealthyLifeCount = 0;
+  r.foodRounds.forEach(f => {
+    if (f.isHealthy) { myScore += 12; healthyFoodCount++; }
+    else { myScore -= 6; unhealthyFoodCount++; }
+  });
+  r.lifestyleRounds.forEach(l => {
+    myScore += l.value;
+    if (l.healthy) healthyLifeCount++; else unhealthyLifeCount++;
+  });
+  myScore += char.healthy ? 20 : -20;
+  myScore = Math.max(0, Math.min(100, myScore));
+
+  // Opponent: moderate & slightly randomized. Average ~62 (range 55..70).
+  // Now winning depends primarily on player's own choices:
+  //   - All healthy choices + healthy character -> score ~95-100 -> wins
+  //   - Mixed choices                          -> score ~50-70  -> close call
+  //   - Poor choices + unhealthy character     -> score ~10-30  -> loses
+  let oppScore = 55 + Math.floor(Math.random() * 16);
+
+  r.myScore = myScore;
+  r.oppScore = oppScore;
+  r.won = myScore >= oppScore;
+  r.healthyFoodCount = healthyFoodCount;
+  r.unhealthyFoodCount = unhealthyFoodCount;
+  r.healthyLifeCount = healthyLifeCount;
+  r.unhealthyLifeCount = unhealthyLifeCount;
+
+  // Coins by performance
+  if (r.won) {
+    State.coins += 5;
+  } else if (myScore >= oppScore - 8) {
+    State.coins += 3;
+  } else {
+    State.coins += 1;
+  }
+  saveState();
+  updateCoinDisplay();
+}
+
+function goToResult() {
+  showScreen('result');
+  const r = State.run;
+  const char = CHARACTERS.find(c => c.id === r.selectedCharacterId);
+  const banner = $('#resultBanner');
+  const title = $('#resultTitle');
+  const charWrap = $('#resultCharImg');
+  const scoreWrap = $('#resultScore');
+
+  charWrap.innerHTML = `<img src="${char.svg}" alt="">`;
+
+  if (r.won) {
+    banner.classList.add('win');
+    banner.classList.remove('lose');
+    title.textContent = 'تبریک! برنده شدی';
+    charWrap.classList.add('win');
+    charWrap.classList.remove('lose');
+    scoreWrap.innerHTML = `امتیاز تو: <strong style="color:var(--gold)">${r.myScore}</strong>`;
+    playWin();
+    showConfetti();
+  } else {
+    banner.classList.add('lose');
+    banner.classList.remove('win');
+    title.textContent = 'این بار باختی';
+    charWrap.classList.add('lose');
+    charWrap.classList.remove('win');
+    scoreWrap.innerHTML = `امتیاز تو: <strong style="color:var(--danger)">${r.myScore}</strong>`;
+    playLose();
+  }
+
+  $('#myScoreDisplay').textContent = r.myScore;
+  $('#oppScoreDisplay').textContent = r.oppScore;
+
+  $('#reflectBtn').onclick = () => {
+    playClick();
+    goToReflection();
+  };
+}
+
+/* ============================================
+   FLOW: Reflection Question
+   ============================================ */
+function goToReflection() {
+  showScreen('reflection');
+  const r = State.run;
+  const char = CHARACTERS.find(c => c.id === r.selectedCharacterId);
+
+  // Generate options based on actual game events
+  const q = $('#reflectionQuestion');
+  q.textContent = r.won
+    ? 'به نظرت چرا برنده شدی؟'
+    : 'به نظرت چرا مسابقه رو باختی؟';
+
+  // Build options dynamically
+  const options = buildReflectionOptions(r, char);
+  const container = $('#reflectionOptions');
+  container.innerHTML = '';
+
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'reflection-option';
+    btn.textContent = opt.text;
+    btn.dataset.correct = opt.correct ? '1' : '0';
+    btn.addEventListener('click', () => {
+      playClick();
+      handleReflectionAnswer(btn, opt, container);
+    });
+    container.appendChild(btn);
+  });
+}
+
+function buildReflectionOptions(r, char) {
+  // Determine the single most correct reason based on actual game events
+  const healthyFoods = r.foodRounds.filter(f => f.isHealthy).length;
+  const unhealthyFoods = r.foodRounds.filter(f => !f.isHealthy).length;
+  const healthyLifestyle = r.lifestyleRounds.filter(l => l.healthy).length;
+  const unhealthyLifestyle = r.lifestyleRounds.filter(l => !l.healthy).length;
+
+  // 0 = food, 1 = lifestyle, 2 = character, 3 = opponent
+  let correctIdx;
+  if (r.won) {
+    // Won — the strongest positive contributor
+    if (healthyFoods >= 3) correctIdx = 0;
+    else if (healthyLifestyle >= 2) correctIdx = 1;
+    else if (char.healthy) correctIdx = 2;
+    else correctIdx = 0; // fallback
+  } else {
+    // Lost — the strongest negative contributor
+    if (unhealthyFoods >= 2) correctIdx = 0;
+    else if (unhealthyLifestyle >= 1) correctIdx = 1;
+    else if (!char.healthy) correctIdx = 2;
+    else correctIdx = 3; // opponent simply outperformed
+  }
+
+  const optionTexts = r.won
+    ? [
+        'چون غذای سالم‌تری خوردم',
+        'چون خواب و استراحت کافی داشتم',
+        'چون شخصیت سالم‌تری انتخاب کردم',
+        'چون حریفم انتخاب‌های سالم‌تری داشت'
+      ]
+    : [
+        'چون غذای ناسالم زیادی خوردم',
+        'چون خواب و استراحت کافی نداشتم',
+        'چون شخصیت ضعیف‌تری انتخاب کردم',
+        'چون حریفم انتخاب‌های سالم‌تری داشت'
+      ];
+
+  const options = optionTexts.map((text, i) => ({
+    text,
+    correct: i === correctIdx
+  }));
+
+  return shuffle(options);
+}
+
+function handleReflectionAnswer(btn, opt, container) {
+  if (container.dataset.locked === '1') return;
+  container.dataset.locked = '1';
+
+  // Neutral: just mark selected (no reveal of correct/wrong)
+  Array.from(container.children).forEach(b => {
+    if (b === btn) b.classList.add('selected');
+  });
+
+  // Always award coins for engaging with the reflection question
+  State.coins += 2;
+  updateCoinDisplay();
+  saveState();
+  playClick();
+
+  setTimeout(() => {
+    container.dataset.locked = '';
+    goToExplanation();
+  }, 1000);
+}
+
+/* ============================================
+   FLOW: Guide Explanation
+   ============================================ */
+function goToExplanation() {
+  showScreen('explanation');
+  const r = State.run;
+  const char = CHARACTERS.find(c => c.id === r.selectedCharacterId);
+  const text = $('#explanationText');
+
+  const healthyFoods = r.foodRounds.filter(f => f.isHealthy).length;
+  const unhealthyFoods = r.foodRounds.filter(f => !f.isHealthy).length;
+  const healthyLifestyle = r.lifestyleRounds.filter(l => l.healthy).length;
+  const unhealthyLifestyle = r.lifestyleRounds.filter(l => !l.healthy).length;
+
+  let msg = '';
+
+  if (r.won) {
+    msg = '<strong>آفرین! تو برنده شدی!</strong><br><br>';
+    msg += `دلیل برد تو این بود که انتخاب‌های خوبی داشتی. از ${r.foodRounds.length} خوراکی، ${healthyFoods} تاش سالم بود. `;
+    if (char.healthy) {
+      msg += `همچنین شخصیتی که انتخاب کردی ظاهر و نشونه‌های یک فرد سالم رو داشت: ${char.traits.join('، ')}. `;
+    } else {
+      msg += `ولی شخصیت انتخابی‌ت کاملاً سالم به نظر نمی‌رسید؛ خوشبختانه انتخاب غذای خوبت جرأت داد. `;
+    }
+    if (healthyLifestyle > 0) {
+      msg += `در مورد خواب و استراحت هم ${healthyLifestyle} انتخاب سالم داشتی. `;
+    }
+    msg += '<br><br>یادت باشه: غذای سالم، خواب کافی و فعالیت بدنی قهرمان می‌سازن!';
+  } else {
+    msg = '<strong>اشکالی نداره، این دفعه باختی!</strong><br><br>';
+    msg += `بیا با هم ببینیم چی شد. `;
+    if (unhealthyFoods > 0) {
+      msg += `از ${r.foodRounds.length} خوراکی، ${unhealthyFoods} تاش ناسالم بود. غذای ناسالم انرژی بدنت رو کم می‌کنه. `;
+    }
+    if (!char.healthy) {
+      msg += `همچنین شخصیتی که انتخاب کردی نشونه‌های یک فرد ضعیف داشت: ${char.traits.join('، ')}. `;
+    }
+    if (unhealthyLifestyle > 0) {
+      msg += `در مورد خواب و استراحت هم ${unhealthyLifestyle} انتخاب ناسالم داشتی که انرژی‌ات رو کم کرد. `;
+    }
+    msg += '<br><br>دفعه بعد اگه غذای سالم‌تر بخوری، خوب بخوابی و فعال‌تر باشی، حتماً برنده می‌شی! هرگز از شکست نترس، چون ازش یاد می‌گیری.';
+  }
+
+  text.innerHTML = msg;
+
+  $('#finishBtn').onclick = () => {
+    playClick();
+    finishRun();
+  };
+}
+
+function finishRun() {
+  State.run = null;
+  resetMetrics();
+  showScreen('main');
+  showToast('سکه‌هات ذخیره شد!', 'success');
+}
+
+/* ============================================
+   FLOW: Pause Menu
+   ============================================ */
+let pauseReturnScreen = 'main';
+
+function openPause(fromScreen) {
+  pauseReturnScreen = fromScreen || 'main';
+  $('#pauseOverlay').classList.remove('hidden');
+}
+
+function closePause() {
+  $('#pauseOverlay').classList.add('hidden');
+}
+
+function initPause() {
+  // Stop button on game screen
+  $('#stopBtn').addEventListener('click', () => {
+    playClick();
+    openPause('game');
+  });
+
+  $('#continueBtn').addEventListener('click', () => {
+    playClick();
+    closePause();
+    if (!State.run) {
+      showScreen('main');
+      return;
+    }
+    const r = State.run;
+    if (pauseReturnScreen === 'charselect') {
+      // Always re-render the character selection screen
+      goToCharacterSelect();
+    } else if (r.currentStep < r.totalSteps) {
+      // Re-render the current question step
+      r.currentStep -= 1;
+      nextStep();
+    } else {
+      // All questions answered → go to character select
+      goToCharacterSelect();
+    }
+  });
+
+  $('#restartBtn').addEventListener('click', () => {
+    playClick();
+    closePause();
+    State.run = null;
+    resetMetrics();
+    startNewRun();
+  });
+
+  $('#pauseHomeBtn').addEventListener('click', () => {
+    playClick();
+    closePause();
+    State.run = null;
+    resetMetrics();
+    showScreen('main');
+  });
+}
+
+/* ============================================
+   FLOW: Shop
+   ============================================ */
+function renderShop(tab) {
+  const grid = $('#shopGrid');
+  grid.innerHTML = '';
+  const items = SHOP_ITEMS[tab] || [];
+
+  items.forEach(item => {
+    const owned = State.ownedItems.includes(item.id);
+    const canAfford = State.coins >= item.price;
+    const isEquipped = State.equippedSkin === item.id;
+
+    const card = document.createElement('div');
+    card.className = 'shop-item' + (owned ? ' owned' : '');
+    card.innerHTML = `
+      <img src="${item.svg}" alt="${item.name}" class="shop-item-preview">
+      <div class="shop-item-name">${item.name}</div>
+      <div class="shop-item-price">
+        <img src="./icons/coin.png" alt="" class="coin-icon">
+        <span>${item.price}</span>
+      </div>
+    `;
+
+    const btn = document.createElement('button');
+    btn.className = 'buy-btn';
+    if (owned) {
+      if (tab === 'skins') {
+        btn.textContent = isEquipped ? 'پوشیده شده' : 'پوشیدن';
+        btn.classList.toggle('equipped', isEquipped);
+        btn.disabled = isEquipped;
+        btn.addEventListener('click', () => {
+          playClick();
+          State.equippedSkin = item.id;
+          saveState();
+          renderShop(tab);
+          showToast('پوسته جدید پوشیده شد!', 'success');
+        });
+      } else {
+        btn.textContent = 'داری';
+        btn.disabled = true;
+      }
+    } else {
+      btn.textContent = 'خرید';
+      btn.disabled = !canAfford;
+      btn.addEventListener('click', () => {
+        playClick();
+        if (State.coins < item.price) {
+          showToast('سکه کافی نداری!', 'error');
+          playError();
+          return;
+        }
+        State.coins -= item.price;
+        State.ownedItems.push(item.id);
+        saveState();
+        updateCoinDisplay();
+        renderShop(tab);
+        playSuccess();
+        showToast('خرید موفق بود!', 'success');
+      });
+    }
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================
+   INIT
+   ============================================ */
+function init() {
+  loadState();
+  updateCoinDisplay();
+  updateSoundIcon();
+  initMain();
+  initPause();
+  // resume audio context on first user interaction (autoplay policy)
+  const unlock = () => {
+    const ctx = getAudio();
+    if (ctx && ctx.state === 'suspended') ctx.resume();
+  };
+  document.addEventListener('touchstart', unlock, { once: true });
+  document.addEventListener('click', unlock, { once: true });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+})();
+
+</script>
+</body>
+</html>

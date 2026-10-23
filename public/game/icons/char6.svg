@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" width="200" height="240">
+  <defs>
+    <linearGradient id="c6body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="c6head" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="sodaCan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#7f1d1d"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="220" rx="65" ry="10" fill="#000" opacity="0.3"/>
+  <!-- Soda can in hand -->
+  <rect x="135" y="155" width="22" height="32" rx="3" fill="url(#sodaCan)" stroke="#450a0a" stroke-width="1.5"/>
+  <ellipse cx="146" cy="155" rx="11" ry="3" fill="#7f1d1d"/>
+  <text x="146" y="178" font-family="Tahoma, sans-serif" font-size="9" font-weight="bold" fill="#fff" text-anchor="middle">نوشابه</text>
+  <!-- Slouched body (rounded shoulders) -->
+  <path d="M 60 145 Q 55 130 100 125 Q 145 130 140 145 L 145 205 Q 145 212 138 212 L 62 212 Q 55 212 55 205 Z" fill="url(#c6body)"/>
+  <!-- Sauce stain -->
+  <ellipse cx="105" cy="165" rx="12" ry="6" fill="#fbbf24" opacity="0.5"/>
+  <ellipse cx="110" cy="170" rx="8" ry="4" fill="#dc2626" opacity="0.4"/>
+  <!-- Head (slightly tilted forward) -->
+  <ellipse cx="100" cy="88" rx="34" ry="36" fill="url(#c6head)"/>
+  <!-- Messy hair -->
+  <path d="M 65 75 Q 60 50 80 48 Q 90 40 105 48 Q 125 45 135 70 Q 130 55 100 55 Q 70 55 65 75 Z" fill="#52525b"/>
+  <path d="M 70 60 L 65 50 M 130 60 L 135 50 M 100 45 L 100 38" stroke="#52525b" stroke-width="4" stroke-linecap="round"/>
+  <!-- Dark eye bags (tired) -->
+  <ellipse cx="88" cy="95" rx="9" ry="6" fill="#78350f" opacity="0.5"/>
+  <ellipse cx="112" cy="95" rx="9" ry="6" fill="#78350f" opacity="0.5"/>
+  <!-- Half-closed tired eyes -->
+  <ellipse cx="88" cy="92" rx="4" ry="2.5" fill="#1e293b"/>
+  <ellipse cx="112" cy="92" rx="4" ry="2.5" fill="#1e293b"/>
+  <path d="M 80 88 L 96 88 M 104 88 L 120 88" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Yawn / tired mouth -->
+  <ellipse cx="100" cy="110" rx="6" ry="8" fill="#7c2d12"/>
+  <ellipse cx="100" cy="113" rx="3" ry="4" fill="#450a0a"/>
+  <!-- Sweat drop -->
+  <path d="M 132 80 Q 130 88 134 90 Q 138 88 136 80 Z" fill="#60a5fa" opacity="0.8"/>
+  <!-- Droopy arms -->
+  <path d="M 60 150 Q 50 175 60 195" stroke="url(#c6head)" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <path d="M 140 150 Q 150 165 145 180" stroke="url(#c6head)" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <!-- Legs (slouched posture) -->
+  <rect x="68" y="200" width="28" height="18" fill="#1e293b"/>
+  <rect x="104" y="200" width="28" height="18" fill="#1e293b"/>
+  <!-- Worn shoes -->
+  <ellipse cx="82" cy="222" rx="14" ry="5" fill="#52525b" stroke="#27272a" stroke-width="1"/>
+  <ellipse cx="118" cy="222" rx="14" ry="5" fill="#52525b" stroke="#27272a" stroke-width="1"/>
+  <!-- Zzz (sleepy) -->
+  <text x="150" y="60" font-family="Tahoma, sans-serif" font-size="14" font-weight="bold" fill="#94a3b8" opacity="0.7">z</text>
+  <text x="160" y="48" font-family="Tahoma, sans-serif" font-size="18" font-weight="bold" fill="#94a3b8" opacity="0.6">Z</text>
+  <text x="172" y="35" font-family="Tahoma, sans-serif" font-size="22" font-weight="bold" fill="#94a3b8" opacity="0.5">Z</text>
+</svg>
