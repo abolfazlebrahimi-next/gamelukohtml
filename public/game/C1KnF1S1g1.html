@@ -1887,27 +1887,29 @@
         .btn-magic.btn-large:hover { box-shadow: 0 9px 0 #C96A00, 0 18px 28px rgba(201, 106, 0, 0.34) !important; }
         .secondary-buttons .btn { min-height: 56px; font-size: clamp(0.85rem, 1.9vmin, 1rem) !important; }
 
-        /* ---------- سکه (تصویر بیت‌مپ خوانا نیست؛ سکه با CSS) ---------- */
+        /* ---------- سکه: تصویر واقعی ./icons/coin.png ---------- */
         .coin-display {
             background: #FFFFFF !important; border: 2px solid var(--loko-orange-bright) !important;
-            border-radius: 999px !important; padding: 4px 14px !important;
+            border-radius: 999px !important; padding: 3px 14px 3px 10px !important;
             box-shadow: 0 3px 0 #E39A1A, 0 8px 16px rgba(255, 138, 0, 0.2) !important;
-            display: inline-flex !important; align-items: center; gap: 8px;
+            display: inline-flex !important; align-items: center; gap: 6px;
         }
-        .coin-display .coin-icon-img { display: none !important; }
-        .coin-display::before, .coin-reward::before {
-            content: ''; width: 26px; height: 26px; border-radius: 50%; flex: none; display: inline-block;
-            background: radial-gradient(circle at 34% 26%, #FFFDF2 0%, #FFE9A3 22%, #FFC93C 52%, #F2A11D 76%, #C97A00 100%);
-            box-shadow: inset 0 -3px 0 rgba(160, 92, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.9), 0 2px 5px rgba(160, 92, 0, 0.35);
+        /* تصویر سکه در فایل اصلی حاشیه‌ی شفاف بزرگی دارد؛ با اندازه/مارجین منفی
+           دقیقاً به اندازه‌ی دیدنی (~۲۷px) درمی‌آید و بزرگ و خوانا دیده می‌شود */
+        .coin-display img, .coin-icon-img, .coin-reward img {
+            display: block !important;
+            width: 48px !important; height: 48px !important;
+            margin: -10px !important; flex: none;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 3px rgba(140, 80, 0, 0.28));
         }
-        .coin-display::before { order: 2; }
+        .coin-display::before, .coin-reward::before { content: none !important; display: none !important; }
         .coin-amount {
             color: var(--navy-800) !important; text-shadow: none !important;
             font-weight: 900 !important; font-size: clamp(1rem, 2.4vmin, 1.25rem) !important;
-            margin: 0 !important; order: 1;
+            margin: 0 !important;
         }
-        .coin-reward { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
-        .coin-reward img { display: none !important; }
+        .coin-reward { display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
 
         /* ---------- منوی اصلی ---------- */
         .menu-container { border-radius: 26px; }
@@ -1995,7 +1997,7 @@
             .game-subtitle { font-size: clamp(0.78rem, 1.8vmin, 0.98rem) !important; }
             .character-wrapper {
                 grid-area: hero; margin: 0 auto !important;
-                width: min(100%, 44vmin, 320px) !important; height: auto !important;
+                width: min(100%, 34vmin, 280px) !important; height: auto !important;
                 aspect-ratio: 1 / 1;
             }
             .character-frame { border-radius: 26px !important; }
@@ -2089,6 +2091,43 @@
             .result-buttons .btn { flex: 1; }
             .countdown-number { font-size: clamp(3rem, 13vmin, 7rem) !important; }
             .countdown-text { font-size: clamp(1rem, 3vmin, 1.8rem) !important; }
+
+            /* --- پایداری چیدمان: هیچ‌چیز بریده یا سرریز نشود --- */
+            .menu-container { max-height: calc(100% - 4px) !important; align-content: center; }
+            .result-modal, #buy-success-modal {
+                overflow-y: auto !important;
+                padding: calc(8px + var(--sat)) calc(8px + var(--sar)) calc(8px + var(--sab)) calc(8px + var(--sal)) !important;
+            }
+            .result-content, .buy-success-content { margin: auto !important; max-height: none !important; }
+            .result-emoji-big { margin-bottom: 0.15rem !important; }
+            .result-stats { margin: 0.45rem 0 0.6rem !important; gap: 0.6rem !important; }
+            .result-buttons { flex-wrap: wrap; }
+            .result-buttons .btn { min-height: 56px; }
+
+            /* --- فروشگاه: تب‌ها و کارت‌های خوانا --- */
+            .shop-tabs { flex-wrap: wrap; }
+            .tab-btn { min-height: 48px !important; font-size: clamp(0.74rem, 1.6vmin, 0.92rem) !important; padding: 8px 8px !important; }
+            .shop-tab-content { overscroll-behavior: contain; }
+            .shop-item { border-radius: 16px !important; }
+            .shop-item-name { font-size: clamp(0.74rem, 1.7vmin, 0.9rem) !important; }
+            .shop-item-icon, .shop-item-img { max-height: 64px !important; }
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            .menu-container { padding: 12px !important; gap: 6px 10px !important; grid-template-columns: minmax(96px, 28%) minmax(0, 1fr) !important; }
+            .character-wrapper { width: min(100%, 36vmin, 190px) !important; }
+            .speech-bubble-inside { display: none !important; }
+            .menu-title-banner { padding: 8px 10px !important; margin-bottom: 6px !important; }
+            .game-title { font-size: clamp(1.05rem, 3.4vmin, 1.5rem) !important; }
+            .game-subtitle { font-size: 0.72rem !important; }
+            .menu-container > div:last-child { gap: 8px !important; }
+            .secondary-buttons { gap: 8px !important; }
+            .result-emoji-big { font-size: 1.6rem !important; }
+            .result-title { font-size: 1.05rem !important; }
+            .countdown-number { font-size: 3rem !important; }
+            .countdown-text { font-size: 1rem !important; }
+            .levels-grid { grid-template-columns: repeat(10, minmax(0, 1fr)) !important; }
+            .conveyor-belt { height: clamp(76px, 22vh, 96px) !important; }
         }
 
         @media (orientation: portrait) {

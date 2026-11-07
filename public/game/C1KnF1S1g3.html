@@ -661,21 +661,62 @@ html, body {
     .back-btn { min-height: 48px; font-size: clamp(0.85rem, 1.9vmin, 1rem) !important; padding: 8px 16px !important; }
     .icon-btn { min-width: 48px; min-height: 48px; }
 
-    /* ---------- سکه با CSS (بیت‌مپ ناخوانا) ---------- */
+    /* ---------- سکه: تصویر واقعی ./icons/coin.png ---------- */
     .coin-display {
       background: #FFFFFF !important; border: 2px solid var(--loko-orange-bright) !important;
       box-shadow: 0 3px 0 #E39A1A, 0 8px 16px rgba(255, 138, 0, 0.2) !important;
-      padding: 4px 14px !important; gap: 8px !important;
+      padding: 3px 14px 3px 10px !important; gap: 6px !important;
     }
-    .coin-icon-img { display: none !important; }
-    .coin-display::before {
-      content: ''; width: 26px; height: 26px; border-radius: 50%; flex: none; display: inline-block; order: 2;
-      background: radial-gradient(circle at 34% 26%, #FFFDF2 0%, #FFE9A3 22%, #FFC93C 52%, #F2A11D 76%, #C97A00 100%);
-      box-shadow: inset 0 -3px 0 rgba(160, 92, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.9), 0 2px 5px rgba(160, 92, 0, 0.35);
+    /* حاشیه‌ی شفاف تصویر اصلی با مارجین منفی جبران می‌شود تا سکه درشت دیده شود */
+    .coin-icon-img, .coin-display img {
+      display: block !important;
+      width: 48px !important; height: 48px !important;
+      margin: -10px !important; flex: none;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 3px rgba(140, 80, 0, 0.28));
     }
+    .coin-display::before { content: none !important; display: none !important; }
     .coin-amount {
-      color: var(--navy-800) !important; font-weight: 900 !important; order: 1;
+      color: var(--navy-800) !important; font-weight: 900 !important;
       font-size: clamp(1rem, 2.4vmin, 1.2rem) !important; text-shadow: none !important;
+    }
+
+    /* ---------- صفحه اول: کارت روشن مثل بقیه بازی‌ها ---------- */
+    .loko-main-card {
+      width: min(100%, 1020px); max-height: min(100%, 660px);
+      background: #FFF9EF; border: 3px solid #FFFFFF; border-radius: 26px;
+      box-shadow: 0 18px 40px rgba(4, 16, 31, 0.34);
+      color: #102B55;
+      padding: clamp(14px, 2.4vmin, 28px);
+      display: flex; flex-direction: column; align-items: center; gap: clamp(8px, 1.6vmin, 16px);
+      overflow: hidden;
+    }
+    .loko-main-card .top-bar { width: 100%; }
+    .loko-main-card .game-title {
+      background: linear-gradient(135deg, #102B55 20%, #B45309 100%) !important;
+      -webkit-background-clip: text !important; background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      filter: none !important;
+    }
+    .loko-main-card .speech-bubble {
+      background: #FFFFFF !important; border: 2px solid var(--loko-sky) !important;
+      color: #102B55 !important; box-shadow: none !important; animation: none !important;
+      font-size: clamp(0.8rem, 1.9vmin, 0.95rem) !important;
+    }
+    .loko-main-card .speech-bubble::before, .loko-main-card .speech-bubble::after { display: none !important; }
+    .loko-main-card .icon-btn {
+      background: #FFFFFF !important; border: 2px solid var(--loko-line) !important;
+      box-shadow: 0 3px 0 rgba(16, 43, 85, 0.1) !important;
+    }
+    .loko-main-card .icon-btn svg { stroke: #102B55 !important; }
+    .loko-main-card .btn-secondary-loko {
+      background: #FFFFFF !important; color: #102B55 !important;
+      border: 2px solid var(--loko-line) !important;
+      box-shadow: 0 4px 0 rgba(16, 43, 85, 0.1) !important;
+    }
+    .loko-main-card .character-img {
+      filter: drop-shadow(0 12px 18px rgba(16, 43, 85, 0.28)) !important;
+      animation: none !important;
     }
 
     /* ---------- متن‌های خواناتر ---------- */
@@ -707,24 +748,23 @@ html, body {
     @media (orientation: landscape) {
 
       /* --- منوی اصلی: قهرمان | عنوان و دکمه‌ها --- */
-      #screen-main.active {
+      #screen-main.active { display: flex; align-items: center; justify-content: center; }
+      .loko-main-card {
         display: grid;
         grid-template-columns: minmax(140px, 34%) minmax(0, 1fr);
         grid-template-rows: minmax(0, 1fr) auto;
         grid-template-areas: "char head" "char buttons";
         align-items: center;
         gap: clamp(8px, 1.6vmin, 18px) clamp(10px, 2.2vmin, 26px);
-        padding: calc(10px + var(--sat)) calc(16px + var(--sar)) calc(10px + var(--sab)) calc(16px + var(--sal));
       }
-      #screen-main .character-wrapper { grid-area: char; min-height: 0 !important; height: 100%; overflow: hidden; }
-      #screen-main .character-img {
+      .loko-main-card .character-wrapper { grid-area: char; min-height: 0 !important; height: 100%; overflow: hidden; }
+      .loko-main-card .character-img {
         width: auto !important; max-width: 100% !important;
         max-height: min(100%, 46vmin) !important; object-fit: contain;
       }
-      #screen-main .main-header { grid-area: head; align-self: end; gap: clamp(4px, 1vmin, 10px) !important; }
-      #screen-main .main-buttons { grid-area: buttons; align-self: start; gap: clamp(6px, 1.2vmin, 12px) !important; margin-top: clamp(6px, 1.4vmin, 14px); }
-      #screen-main .top-bar { width: 100%; }
-      .speech-bubble { margin-top: 8px !important; }
+      .loko-main-card .main-header { grid-area: head; align-self: end; gap: clamp(4px, 1vmin, 10px) !important; width: 100%; }
+      .loko-main-card .main-buttons { grid-area: buttons; align-self: start; gap: clamp(6px, 1.2vmin, 12px) !important; margin-top: clamp(6px, 1.4vmin, 14px); }
+      .loko-main-card .speech-bubble { margin-top: 8px !important; }
 
       /* --- انتخاب مرحله --- */
       .level-grid { grid-template-columns: repeat(8, minmax(0, 1fr)) !important; gap: clamp(6px, 1.2vmin, 12px) !important; padding-bottom: 8px !important; }
@@ -757,6 +797,38 @@ html, body {
       .placed-curve { width: clamp(32px, 6vmin, 48px) !important; height: clamp(32px, 6vmin, 48px) !important; }
       .placement-feedback { top: 4px !important; }
       .level-text { font-size: clamp(0.85rem, 2vmin, 1rem) !important; }
+
+      /* --- راهنما: تصویر | متن، با اسکرول داخلی امن --- */
+      .help-bubble { max-height: 100%; overflow-y: auto; overscroll-behavior: contain; }
+      .help-intro { font-size: clamp(0.8rem, 1.9vmin, 0.95rem) !important; margin-bottom: 10px !important; }
+      .mini-board-frame { height: clamp(120px, 24vh, 220px) !important; }
+      .help-mini-reset { min-height: 44px; }
+      .help-demo-title, .help-demo-score { font-size: clamp(0.72rem, 1.7vmin, 0.85rem) !important; }
+
+      /* --- فروشگاه: تب‌های بزرگ‌تر و شبکه‌ی خوانا --- */
+      .shop-tab { min-height: 48px; font-size: clamp(0.78rem, 1.8vmin, 0.92rem) !important; }
+      .shop-items { overscroll-behavior: contain; }
+      .level-card { min-height: 64px; }
+
+      /* --- مودال‌ها: هرگز بریده نشوند --- */
+      .modal-overlay { overflow-y: auto !important; padding: calc(8px + var(--sat)) 8px calc(8px + var(--sab)) !important; }
+      .modal { margin: auto !important; max-height: none !important; }
+      .modal-icon { width: clamp(48px, 9vmin, 72px) !important; height: auto !important; margin-bottom: 8px !important; }
+      .modal-title { font-size: clamp(1.1rem, 2.8vmin, 1.5rem) !important; }
+      .modal-text { font-size: clamp(0.78rem, 1.8vmin, 0.92rem) !important; margin-bottom: 12px !important; }
+      .modal-buttons { flex-direction: row !important; }
+      .modal-buttons > * { flex: 1; }
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      .loko-main-card { padding: 12px !important; grid-template-columns: minmax(96px, 28%) minmax(0, 1fr) !important; }
+      .loko-main-card .character-img { max-height: min(100%, 40vmin) !important; }
+      .loko-main-card .game-title { font-size: clamp(1.05rem, 3.4vmin, 1.5rem) !important; }
+      .loko-main-card .speech-bubble { display: none !important; }
+      .page-title { font-size: 1rem !important; margin: 4px 0 8px !important; }
+      .mini-board-frame { height: clamp(96px, 20vh, 140px) !important; }
+      .modal-icon { display: none !important; }
+      .board-frame { padding: 6px !important; }
     }
 
     @media (orientation: portrait) {
@@ -775,6 +847,7 @@ html, body {
 
   <!-- ===== Main Menu ===== -->
   <section id="screen-main" class="screen active">
+   <div class="loko-main-card">
     <div class="main-header">
       <div class="top-bar" style="width: 100%; justify-content: space-between;">
         <div class="coin-display">
@@ -818,6 +891,7 @@ html, body {
         </button>
       </div>
     </div>
+   </div>
   </section>
 
   <!-- ===== Level Selection ===== -->
