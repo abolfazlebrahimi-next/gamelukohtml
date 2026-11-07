@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>آزمایشگاه میوه‌ها - علوم کلاس اول</title>
     <style>
         @font-face {
@@ -1272,6 +1272,640 @@
             }
         }
     </style>
+
+  <style id="loko-landscape">
+    /* ============================================================
+       کیت افقی LOKO — سرمه‌ای + نارنجی، یک صفحه، بدون اسکرول
+       ============================================================ */
+    :root {
+      --app-h: 100dvh; --app-w: 100vw;
+      --loko-navy: #071A35; --loko-navy2: #102B55;
+      --loko-orange: #FF8A00; --loko-orange2: #FFAD24;
+      --loko-cream: #FFF9EF; --loko-sky: #79CFFF;
+      --loko-ink: #0A1F3D; --loko-ink2: #4A6285;
+      --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px); --sar: env(safe-area-inset-right, 0px);
+    }
+    html, body { width: 100%; height: 100%; overflow: hidden !important; overscroll-behavior: none; }
+    body {
+      background-color: #071A35 !important;
+      background-image:
+        radial-gradient(circle at 20% 16%, rgba(121, 207, 255, 0.24), transparent 55%),
+        radial-gradient(circle at 84% 86%, rgba(255, 138, 0, 0.22), transparent 55%),
+        linear-gradient(160deg, #071A35, #102B55 58%, #071A35) !important;
+      background-attachment: fixed;
+      color: #0A1F3D;
+      font-family: 'Shoor Rounded', 'Shoor', Tahoma, sans-serif !important;
+    }
+    /* قاب بازی: کل صفحه */
+    #app, #appWrapper {
+      max-width: none !important; width: 100% !important; min-width: 0 !important;
+      height: var(--app-h, 100dvh) !important; max-height: none !important;
+      margin: 0 !important; padding: 0 !important;
+      background: transparent !important; box-shadow: none !important;
+      border: 0 !important; border-radius: 0 !important;
+    }
+    /* هر صفحه یک کارت روشن با فاصله‌ی امن */
+    .screen {
+      inset: calc(6px + var(--sat)) calc(6px + var(--sar)) calc(6px + var(--sab)) calc(6px + var(--sal)) !important;
+      height: auto !important; width: auto !important;
+      padding: clamp(7px, 1.3vmin, 15px) clamp(9px, 1.9vmin, 20px) !important;
+      overflow: hidden !important;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF9EF 100%) !important;
+      border: 3px solid #FFFFFF !important;
+      border-radius: clamp(15px, 2.8vmin, 26px) !important;
+      box-shadow: 0 12px 30px rgba(3, 14, 30, 0.38) !important;
+      color: var(--loko-ink);
+    }
+    .screen.overlay, .screen.result-screen, .screen.stop-menu, #screen-result, #screen-stop {
+      inset: 0 !important;
+      background: rgba(7, 26, 53, 0.86) !important;
+      background-image: none !important;
+      border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+      padding: clamp(8px, 1.5vmin, 18px) !important;
+      align-items: center !important; justify-content: center !important;
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    /* هدر و چیپ سکه */
+    .header, .app-header { padding: 0 0 clamp(4px, 0.9vmin, 9px) !important; gap: 8px; flex: none; }
+    .coin-display, .shop-coin, .game-coins, .game-coin {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      border: 2px solid rgba(255, 255, 255, 0.18) !important;
+      color: #FFE9A3 !important;
+      padding: 3px 15px 3px 4px !important;
+      border-radius: 999px !important;
+      box-shadow: 0 4px 0 #05101F, 0 8px 16px rgba(3, 14, 30, 0.28) !important;
+      font-size: clamp(0.95rem, 2.3vmin, 1.15rem) !important;
+      font-weight: 900 !important;
+      display: inline-flex; align-items: center; gap: 6px !important;
+      -webkit-backdrop-filter: none; backdrop-filter: none;
+    }
+    .coin-icon-img, .coin-icon-wrapper, .coin-display .coin-icon { flex: none; }
+    .coin-display .coin-icon-img,
+    .coin-display .coin-icon-wrapper,
+    .coin-display img,
+    .shop-coin img,
+    .game-coins img {
+      width: clamp(38px, 9vmin, 48px) !important; height: clamp(38px, 9vmin, 48px) !important;
+      margin: -10px -2px -10px -8px !important;
+      filter: drop-shadow(0 2px 3px rgba(3, 14, 30, 0.45)) !important;
+      animation: none !important;
+    }
+    .coin-icon-wrapper { width: auto !important; height: auto !important; display: inline-flex !important; }
+    .btn-icon, .back-btn, .btn-back {
+      width: clamp(42px, 8.6vmin, 54px) !important; height: clamp(42px, 8.6vmin, 54px) !important;
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      border: 2px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 14px !important; color: #FFFFFF !important;
+      box-shadow: 0 4px 0 #05101F !important;
+      display: inline-grid !important; place-items: center;
+      padding: 0 !important; flex: none;
+    }
+    .btn-icon svg, .back-btn svg, .btn-back svg { width: 55% !important; height: 55% !important; }
+    /* تیترها */
+    .game-title, .menu-title {
+      color: var(--loko-ink) !important;
+      text-shadow: none !important;
+      background: #FFFFFF; border: 3px solid var(--loko-orange);
+      border-radius: 16px;
+      padding: clamp(1px, 0.6vmin, 7px) clamp(12px, 2.6vmin, 26px);
+      box-shadow: 0 5px 0 rgba(255, 138, 0, 0.28);
+      font-size: clamp(1.25rem, 4vmin, 2.1rem) !important;
+      line-height: 1.35;
+    }
+    .game-subtitle, .menu-subtitle { color: var(--loko-ink2) !important; font-size: clamp(0.78rem, 1.9vmin, 1rem) !important; }
+    .section-title, .loko-title { color: var(--loko-ink) !important; text-shadow: none !important; }
+    .speech-bubble, .welcome-bubble, .menu-bubble {
+      background: #EAF7FF !important; color: var(--loko-ink) !important;
+      border: 2px solid var(--loko-sky) !important;
+      font-size: clamp(0.8rem, 2vmin, 1rem) !important;
+      padding: clamp(5px, 1.2vmin, 10px) clamp(10px, 2.4vmin, 20px) !important;
+      box-shadow: 0 4px 10px rgba(10, 31, 61, 0.12) !important;
+    }
+    .speech-bubble::after { border-top-color: var(--loko-sky) !important; }
+    .character-img, .main-character, .character-container img, .menu-character img {
+      filter: drop-shadow(0 10px 16px rgba(10, 31, 61, 0.25)) !important;
+    }
+    /* دکمه‌ها */
+    .btn {
+      min-height: clamp(44px, 8.4vmin, 56px) !important;
+      border-radius: clamp(12px, 2.2vmin, 18px) !important;
+      font-size: clamp(0.9rem, 2.2vmin, 1.08rem) !important;
+      font-weight: 900 !important;
+    }
+    .btn-primary, .btn-gold, .btn-start, .btn-start {
+      background: linear-gradient(180deg, #FFAD24, #FF8A00) !important;
+      color: #071A35 !important;
+      border: 2px solid #FFFFFF !important;
+      box-shadow: 0 5px 0 #C96A00, 0 10px 18px rgba(201, 106, 0, 0.28) !important;
+    }
+    .btn-secondary, .btn-glass {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      color: #FFFFFF !important;
+      border: 2px solid rgba(255, 255, 255, 0.16) !important;
+      box-shadow: 0 5px 0 #05101F !important;
+    }
+    .btn-danger {
+      background: #FFFFFF !important; color: #C9453A !important;
+      border: 2px solid #FFC2BB !important;
+      box-shadow: 0 5px 0 #F0C9C4 !important;
+    }
+    /* کارت‌های محتوا */
+    .glass-card, .menu-container, .levels-container, .shop-container, .guide-container, .content-area {
+      background: transparent !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+      border: 0 !important; box-shadow: none !important;
+      color: var(--loko-ink) !important;
+    }
+    .lvl-card, .level-card, .game-card, .shop-item, .shop-card, .help-step, .guide-step {
+      background: #FFFFFF !important;
+      border: 2px solid #FFE0B8 !important;
+      border-radius: clamp(12px, 2.2vmin, 18px) !important;
+      color: var(--loko-ink) !important;
+      box-shadow: 0 4px 0 rgba(255, 138, 0, 0.16) !important;
+    }
+    .toast {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      color: #FFFFFF !important; border: 2px solid rgba(255, 255, 255, 0.2) !important;
+      border-radius: 14px !important;
+    }
+
+    /* ===== کاروسل فروشگاه (مشترک) ===== */
+    .loko-shop-stage {
+        position: relative; width: 100%; height: 100%; min-height: 0;
+        flex: 1 1 auto;
+        display: grid; place-items: center;
+        padding: 0 54px 14px;
+    }
+    .loko-shop-stage .shop-grid,
+    .loko-shop-stage .shop-items,
+    .loko-shop-stage .shop-content {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: minmax(0, 1fr) !important;
+        place-items: center; width: 100%; height: 100%;
+        gap: 0 !important; padding: 0 !important;
+        align-content: center !important;
+        overflow: hidden !important;
+        background: transparent !important;
+        border: 0 !important;
+    }
+    .loko-shop-stage .shop-grid > *,
+    .loko-shop-stage .shop-items > *,
+    .loko-shop-stage .shop-content > * {
+        width: min(100%, 340px); max-height: 100%; margin: 0 auto;
+    }
+    .loko-shop-stage .shop-grid > * > :first-child,
+    .loko-shop-stage .shop-items > * > :first-child,
+    .loko-shop-stage .shop-content > * > :first-child {
+        flex: none; width: 100% !important;
+        height: clamp(46px, 14vh, 92px) !important;
+        min-height: 46px; max-height: 92px;
+        overflow: hidden; border-radius: 12px;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    .loko-shop-hidden { display: none !important; }
+    .loko-shop-nav {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        width: clamp(44px, 6vmin, 56px); height: clamp(44px, 6vmin, 56px);
+        border-radius: 50%; border: 3px solid #FFFFFF; cursor: pointer; z-index: 6;
+        display: grid; place-items: center; line-height: 1; padding: 0;
+        font-size: clamp(1.3rem, 3.2vmin, 1.9rem); font-weight: 900;
+        background: linear-gradient(180deg, #FFAD24, #FF8A00); color: #071A35;
+        box-shadow: 0 5px 0 #C96A00, 0 10px 18px rgba(201, 106, 0, 0.3);
+        transition: transform 0.15s ease, opacity 0.2s ease;
+    }
+    .loko-shop-nav:active { transform: translateY(-50%) scale(0.94); }
+    .loko-shop-nav[disabled] { opacity: 0.32; box-shadow: none; cursor: default; }
+    .loko-prev { right: 0; }
+    .loko-next { left: 0; }
+    .loko-shop-stage::after {
+        content: attr(data-pos); position: absolute; bottom: 0; left: 50%;
+        transform: translateX(-50%); font-size: clamp(0.66rem, 1.5vmin, 0.8rem);
+        font-weight: 800; color: #4A6285; background: rgba(16, 43, 85, 0.08);
+        padding: 1px 10px; border-radius: 999px; line-height: 1.7;
+    }
+
+
+    /* ═══════════ پوسته‌ی روشن LOKO (هم‌خانواده‌ی بقیه‌ی بازی‌ها) ═══════════ */
+    html {
+      background-color: #071A35 !important;
+      background-image: var(--loko-theme-image,
+        radial-gradient(circle at 20% 16%, rgba(121, 207, 255, 0.24), transparent 55%),
+        radial-gradient(circle at 84% 86%, rgba(255, 138, 0, 0.22), transparent 55%),
+        linear-gradient(160deg, #071A35, #102B55 58%, #071A35)) !important;
+      background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important;
+    }
+    body { background: transparent !important; background-image: none !important; }
+    .stars { opacity: 0.5 !important; }
+
+    .screen {
+      top: calc(6px + var(--sat)) !important;
+      left: calc(6px + var(--sar)) !important;
+      right: calc(6px + var(--sar)) !important;
+      bottom: calc(6px + var(--sab)) !important;
+      width: auto !important; height: auto !important;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF9EF 100%) !important;
+      border: 3px solid #FFFFFF !important;
+      border-radius: clamp(15px, 2.8vmin, 26px) !important;
+      box-shadow: 0 14px 34px rgba(3, 14, 30, 0.4) !important;
+      overflow: hidden !important;
+      padding: clamp(8px, 1.8vmin, 16px) !important;
+      gap: clamp(4px, 1.2vmin, 12px) !important;
+      color: #10203A !important;
+      --text-color: #10203A;
+      --text-secondary: #4A6285;
+      --help-text-color: #10203A;
+      --glass-bg: rgba(255, 255, 255, 0.92);
+      --glass-border: #FFE0B8;
+      --theme-glass-bg: rgba(255, 255, 255, 0.94);
+      --theme-gold: #C96A00;
+      --gold: #C96A00;
+      --gold-dark: #B96F00;
+      --theme-primary: #1B3F70;
+      --theme-secondary: #FF8A00;
+      --success: #14805A;
+      --danger: #C9453A;
+    }
+
+    .glass-card {
+      background: transparent !important; border: 0 !important; box-shadow: none !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    }
+    .menu-container, .fruit-select-container, .intro-container, .shop-container { max-width: none !important; }
+
+    /* دکمه‌ها */
+    .btn {
+      min-height: clamp(44px, 8.8vmin, 58px) !important;
+      font-size: clamp(0.82rem, 2.1vmin, 1.02rem) !important;
+      border-radius: 16px !important;
+      padding: 4px clamp(12px, 2.4vmin, 22px) !important;
+      display: inline-flex !important; align-items: center; justify-content: center;
+      gap: clamp(4px, 1.2vmin, 10px); white-space: nowrap;
+    }
+    .btn-start, .btn-primary {
+      background: linear-gradient(180deg, #FFAD24, #FF8A00) !important;
+      color: #071A35 !important; border: 2px solid #FFFFFF !important;
+      box-shadow: 0 5px 0 #C96A00 !important; text-shadow: none !important; font-weight: 900 !important;
+    }
+    .btn-secondary {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      color: #FFFFFF !important; border: 2px solid #FFFFFF !important;
+      box-shadow: 0 4px 0 #05101F !important;
+    }
+    .btn-danger {
+      background: #FFFFFF !important; color: #C9453A !important;
+      border: 2px solid #FFC2BB !important; box-shadow: 0 4px 0 #F0C9C4 !important;
+    }
+    .back-btn {
+      background: #FFFFFF !important; color: #0A1F3D !important;
+      border: 2px solid #DCE6F0 !important; border-radius: 50% !important;
+      width: clamp(38px, 7.6vmin, 46px) !important; height: clamp(38px, 7.6vmin, 46px) !important;
+      box-shadow: 0 3px 0 #DCE6F0 !important;
+    }
+
+    /* سکه‌ها */
+    .coin-display, .shop-coin {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      border: 2px solid #FFC93C !important; color: #FFE9A3 !important;
+      border-radius: 999px !important; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3) !important;
+      padding: clamp(3px, 0.9vmin, 8px) clamp(9px, 1.8vmin, 14px) !important;
+      font-size: clamp(0.78rem, 2vmin, 0.95rem) !important; font-weight: 900 !important;
+    }
+    .coin-display img, .shop-coin img {
+      width: clamp(18px, 4vmin, 26px) !important; height: clamp(18px, 4vmin, 26px) !important;
+      object-fit: contain !important;
+    }
+    .coin-amount, .shop-coin span { color: #FFE9A3 !important; font-size: clamp(0.78rem, 2vmin, 0.95rem) !important; font-weight: 900 !important; }
+
+    /* عنوان */
+    .menu-title {
+      background: linear-gradient(135deg, #0A1F3D 0%, #C96A00 55%, #FF8A00 100%) !important;
+      -webkit-background-clip: text !important; background-clip: text !important;
+      -webkit-text-fill-color: transparent !important; color: transparent !important;
+      text-shadow: none !important;
+      font-size: clamp(1.5rem, 5vmin, 2.4rem) !important; line-height: 1.25 !important;
+    }
+    .menu-subtitle { color: #4A6285 !important; }
+    .fruit-select-container h2, .intro-container h2, #help-scene h2 { color: #0A1F3D !important; text-shadow: none !important; }
+
+    /* کارت میوه‌ها */
+    .fruit-option {
+      background: #FFFFFF !important; border: 2px solid #FFE0B8 !important;
+      border-radius: 16px !important; box-shadow: 0 4px 0 rgba(255, 138, 0, 0.14) !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    }
+    .fruit-option .fruit-name { color: #10203A !important; }
+    .fruit-option .fruit-desc { color: #6B7F99 !important; }
+
+    /* مقدمه‌ی میوه‌ها */
+    .intro-fact, .intro-fun-fact { background: #FFFFFF !important; border-radius: 12px !important; box-shadow: 0 3px 0 rgba(255, 138, 0, 0.1) !important; }
+    .intro-fact { border-right: 3px solid #FFC48A !important; }
+    .intro-fact .fact-text, .intro-fun-fact .ff-text { color: #10203A !important; }
+    .intro-fact .fact-text strong, .intro-fun-fact .ff-text strong { color: #B45309 !important; }
+    .intro-divider { background: #FFE0B8 !important; }
+
+    /* راهنما */
+    .help-steps .step { background: #FFFFFF !important; border: 2px solid #FFE0B8 !important; border-radius: 12px !important; }
+    .help-steps .step .text { color: #10203A !important; }
+    .help-steps .step .num { background: #1B3F70 !important; color: #FFFFFF !important; }
+
+    /* فروشگاه */
+    .shop-grid { overflow: hidden !important; }
+    #shop-scene .loko-shop-stage .shop-grid > * { width: min(100%, 380px) !important; }
+    .shop-item {
+      background: #FFFFFF !important; border: 2px solid #FFE0B8 !important;
+      border-radius: 16px !important; color: #10203A !important; box-shadow: none !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+      padding: clamp(6px, 1.4vmin, 12px) !important; gap: clamp(3px, 1vmin, 8px) !important;
+    }
+    .shop-item.active-item { border-color: #FF8A00 !important; box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.22) !important; }
+    .shop-item.locked-item { opacity: 1 !important; filter: none !important; }
+    .shop-item .name { color: #10203A !important; font-size: clamp(0.72rem, 1.85vmin, 0.9rem) !important; font-weight: 800 !important; }
+    .shop-item .price { color: #B45309 !important; font-size: clamp(0.68rem, 1.75vmin, 0.86rem) !important; font-weight: 800 !important; }
+    .shop-item .price img { width: clamp(16px, 3.6vmin, 22px) !important; height: clamp(16px, 3.6vmin, 22px) !important; object-fit: contain !important; vertical-align: middle; }
+    .shop-item .shop-preview { border-radius: 12px !important; overflow: hidden; background: #EAF7FF; display: grid; place-items: center; font-size: clamp(1.1rem, 3vmin, 1.6rem); }
+    .shop-item .shop-preview img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+    .shop-btn-sm {
+      width: 100%; border-radius: 12px !important; font-weight: 900 !important;
+      min-height: clamp(32px, 7vmin, 42px) !important;
+      font-size: clamp(0.68rem, 1.75vmin, 0.84rem) !important; padding: 2px 10px !important;
+    }
+    .shop-btn-sm.buy { background: linear-gradient(180deg, #FFAD24, #FF8A00) !important; color: #071A35 !important; border: 2px solid #FFFFFF !important; box-shadow: 0 3px 0 #C96A00 !important; }
+    .shop-btn-sm.select { background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important; color: #FFFFFF !important; border: 2px solid #FFFFFF !important; box-shadow: 0 3px 0 #05101F !important; }
+    .shop-btn-sm.active { background: #EBFAF2 !important; color: #14805A !important; border: 2px dashed #7BD7AC !important; box-shadow: none !important; }
+    .shop-btn-sm.locked, .shop-btn-sm:disabled { background: #F3F6FA !important; color: #8FA6BF !important; border: 2px dashed #DCE6F0 !important; box-shadow: none !important; }
+
+    /* ═══════════ چیدمان افقی ═══════════ */
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      /* منو: نوار سکه | کاراکتر | عنوان و دکمه‌ها */
+      #menu-scene .menu-container {
+        display: grid !important;
+        grid-template-columns: minmax(112px, 29%) minmax(0, 1fr);
+        grid-template-rows: auto auto auto minmax(0, 1fr);
+        grid-template-areas: "bar bar" "char title" "char sub" "char buttons";
+        align-items: center; justify-items: center;
+        column-gap: clamp(10px, 2.6vmin, 28px); row-gap: clamp(2px, 1vmin, 10px);
+        max-width: none !important; width: 100%; height: 100%;
+        padding: clamp(8px, 1.8vmin, 16px) clamp(12px, 2.6vmin, 26px) !important;
+        text-align: center;
+      }
+      #menu-scene .coin-display {
+        grid-area: bar; justify-self: start; align-self: center;
+        position: static !important; inset: auto !important; margin: 0 !important;
+      }
+      #menu-scene .menu-character {
+        grid-area: char; grid-row: 2 / 5;
+        width: clamp(104px, 30vmin, 210px) !important; height: clamp(104px, 30vmin, 210px) !important; margin: 0 !important;
+      }
+      #menu-scene .menu-character img { width: 100% !important; height: 100% !important; object-fit: contain !important; }
+      #menu-scene .menu-title { grid-area: title; align-self: end; margin: 0 !important; }
+      #menu-scene .menu-subtitle { grid-area: sub; align-self: start; margin: 0 !important; font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; }
+      #menu-scene .menu-buttons { grid-area: buttons; align-self: start; width: 100%; max-width: min(100%, 520px) !important; margin: 0 !important; }
+      #menu-scene .menu-buttons .row { display: flex !important; gap: clamp(6px, 1.4vmin, 12px) !important; }
+      #menu-scene .menu-buttons .row .btn { flex: 1 1 0 !important; min-width: 0 !important; }
+
+      /* انتخاب میوه: شش میوه در یک ردیف */
+      #fruit-select-scene .fruit-select-container {
+        max-width: none !important; width: 100%; height: 100%; max-height: none !important;
+        display: grid !important; grid-template-rows: auto minmax(0, 1fr);
+        grid-template-areas: "head" "grid";
+        padding: clamp(8px, 1.8vmin, 16px) !important; gap: clamp(4px, 1.2vmin, 12px);
+        text-align: center;
+      }
+      #fruit-select-scene .fruit-select-container h2 { grid-area: head; margin: 0 !important; font-size: clamp(1rem, 2.8vmin, 1.4rem) !important; }
+      #fruit-select-scene .fruit-select-grid {
+        grid-area: grid; max-width: none !important; width: 100%; margin: 0 !important;
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(clamp(86px, 12vmin, 140px), 1fr)) !important;
+        gap: clamp(6px, 1.4vmin, 14px) !important;
+        overflow: hidden !important; padding: 0 !important; align-content: center !important;
+      }
+      #fruit-select-scene .fruit-option { padding: clamp(6px, 1.4vmin, 14px) 6px !important; }
+      #fruit-select-scene .fruit-option .fruit-icon { font-size: clamp(1.6rem, 5vmin, 2.8rem) !important; margin-bottom: 2px !important; }
+      #fruit-select-scene .fruit-option .fruit-name { font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; }
+      #fruit-select-scene .fruit-option .fruit-desc { font-size: clamp(0.6rem, 1.5vmin, 0.72rem) !important; }
+
+      /* مقدمه: میوه در یک ستون، نکته‌ها دو ستونه */
+      .intro-container {
+        max-width: none !important; width: 100%; height: 100%; max-height: none !important;
+        display: grid !important;
+        grid-template-columns: minmax(84px, 19%) minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr) auto auto;
+        grid-template-areas: "fruit head" "fruit facts" "fruit fun" "fruit btn";
+        align-items: center; justify-items: center;
+        column-gap: clamp(8px, 2.2vmin, 22px); row-gap: clamp(3px, 1vmin, 10px);
+        padding: clamp(8px, 1.8vmin, 16px) !important; overflow: hidden !important; text-align: center;
+      }
+      .intro-container h2 { grid-area: head; margin: 0 !important; font-size: clamp(0.95rem, 2.6vmin, 1.35rem) !important; }
+      .intro-fruit { grid-area: fruit; margin: 0 !important; font-size: clamp(2.2rem, 8vmin, 3.6rem) !important; }
+      .intro-facts {
+        grid-area: facts; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: clamp(4px, 1vmin, 8px) !important; margin: 0 !important; width: 100%; overflow: hidden;
+      }
+      .intro-fact {
+        padding: clamp(4px, 1vmin, 8px) clamp(6px, 1.4vmin, 12px) !important;
+        font-size: clamp(0.66rem, 1.75vmin, 0.84rem) !important; line-height: 1.5 !important; gap: 8px !important;
+      }
+      .intro-fact .fact-icon { font-size: clamp(0.9rem, 2.4vmin, 1.2rem) !important; }
+      .intro-divider { display: none !important; }
+      .intro-fun-facts {
+        grid-area: fun; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: clamp(4px, 1vmin, 8px) !important; margin: 0 !important; width: 100%; overflow: hidden;
+      }
+      .intro-fun-fact {
+        padding: clamp(4px, 1vmin, 8px) clamp(6px, 1.4vmin, 12px) !important;
+        font-size: clamp(0.64rem, 1.7vmin, 0.8rem) !important; line-height: 1.45 !important; gap: 8px !important;
+      }
+      .intro-fun-fact .ff-icon { font-size: clamp(0.85rem, 2.2vmin, 1.1rem) !important; }
+      .intro-container > .btn { grid-area: btn; width: min(100%, 420px) !important; margin: 0 !important; }
+
+      /* راهنما: کاراکتر | چهار قدم */
+      #help-scene > .glass-card {
+        display: grid !important;
+        grid-template-columns: minmax(84px, 24%) minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        grid-template-areas: "head head" "char steps" "char btn";
+        align-items: center; justify-items: center;
+        column-gap: clamp(8px, 2vmin, 20px); row-gap: clamp(4px, 1.2vmin, 10px);
+        max-width: none !important; width: 100% !important; height: 100%;
+        padding: clamp(8px, 1.8vmin, 16px) !important; text-align: center;
+      }
+      #help-scene > .glass-card > div:first-child { grid-area: head; width: 100% !important; margin: 0 !important; }
+      #help-scene .help-character {
+        grid-area: char; margin: 0 !important;
+        width: clamp(70px, 20vmin, 140px) !important; height: clamp(70px, 20vmin, 140px) !important;
+      }
+      #help-scene .help-steps {
+        grid-area: steps; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: clamp(5px, 1.2vmin, 10px) !important; width: 100%; margin: 0 !important; overflow: hidden;
+      }
+      #help-scene .help-steps .step { padding: clamp(5px, 1.2vmin, 10px) !important; }
+      #help-scene .help-steps .step .text { font-size: clamp(0.7rem, 1.85vmin, 0.88rem) !important; }
+      #help-scene > .glass-card > .btn { grid-area: btn; width: min(100%, 360px) !important; margin: 0 !important; }
+
+      /* فروشگاه: ریل دسته‌ها + کاروسل */
+      #shop-scene .shop-container {
+        display: grid !important;
+        grid-template-columns: clamp(92px, 16%, 155px) minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        grid-template-areas: "tabs head" "tabs stage";
+        column-gap: clamp(8px, 2vmin, 18px); row-gap: clamp(2px, 0.8vmin, 8px);
+        align-items: stretch !important; justify-items: stretch !important;
+        max-width: none !important; width: 100%; height: 100%; max-height: none !important;
+        padding: clamp(8px, 1.8vmin, 16px) clamp(10px, 2.2vmin, 20px) !important;
+      }
+      #shop-scene .shop-header { grid-area: head; margin: 0 0 clamp(2px, 0.8vmin, 6px) !important; align-self: center; }
+      #shop-scene .shop-header h2 { color: #0A1F3D !important; font-size: clamp(0.95rem, 2.6vmin, 1.3rem) !important; }
+      #shop-scene .shop-tabs {
+        grid-area: tabs; flex-direction: column !important; flex-wrap: nowrap !important;
+        width: 100%; height: 100%; justify-content: center; align-items: stretch !important;
+        gap: clamp(6px, 1.2vmin, 12px) !important; padding: clamp(3px, 0.8vmin, 6px) !important; margin: 0 !important;
+        background: #F3F6FA !important; border: 2px solid #DCE6F0 !important; border-radius: 16px !important;
+      }
+      #shop-scene .shop-tab {
+        width: 100% !important; flex: none !important;
+        min-height: clamp(44px, 9.6vmin, 60px) !important;
+        font-size: clamp(0.7rem, 1.8vmin, 0.88rem) !important; font-weight: 900 !important;
+        border-radius: 12px !important; color: #4A6285 !important;
+      }
+      #shop-scene .shop-tab.active {
+        background: linear-gradient(180deg, #FFAD24, #FF8A00) !important;
+        color: #071A35 !important; box-shadow: 0 3px 0 #C96A00 !important;
+      }
+      #shop-scene .loko-shop-stage { grid-area: stage; min-height: 0; }
+
+      /* بازی: آشپزخانه‌ی عمودی وسط کارت */
+      #game-scene { padding-top: clamp(48px, 9.5vmin, 62px) !important; }
+      #game-scene .game-header {
+        position: absolute !important;
+        top: clamp(4px, 1vmin, 8px) !important; left: clamp(4px, 1vmin, 8px) !important; right: clamp(4px, 1vmin, 8px) !important;
+        margin: 0 !important; padding: 4px clamp(8px, 1.6vmin, 14px) !important;
+        background: #FFFFFF !important; border: 2px solid #FFE0B8 !important;
+        border-radius: 14px !important; box-shadow: 0 4px 0 rgba(255, 138, 0, 0.14) !important;
+        color: #10203A !important;
+        -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+        min-height: clamp(36px, 7.4vmin, 46px) !important;
+      }
+      #game-scene .game-header .header-title, #game-scene .game-header span { color: #0A1F3D !important; font-size: clamp(0.74rem, 1.9vmin, 0.92rem) !important; font-weight: 900 !important; }
+      #game-scene .stop-btn {
+        background: #FFFFFF !important; color: #C9453A !important;
+        border: 2px solid #FFC2BB !important; box-shadow: 0 3px 0 #F0C9C4 !important;
+        border-radius: 12px !important; padding: 4px 10px !important;
+      }
+      #game-scene .kitchen-wrapper {
+        flex: 1 1 auto !important; min-height: 0 !important; max-height: 100% !important;
+        height: auto !important; width: auto !important; aspect-ratio: 5 / 6;
+        align-self: center !important; max-width: 100% !important; margin: 0 !important;
+        border-radius: clamp(12px, 2.2vmin, 20px) !important; overflow: hidden !important;
+        box-shadow: 0 10px 22px rgba(3, 14, 30, 0.18) !important;
+      }
+      #game-scene > div:has(#game-speech) {
+        position: absolute !important; top: auto !important;
+        bottom: clamp(6px, 1.4vmin, 12px) !important; left: clamp(6px, 1.4vmin, 12px) !important;
+        transform: none !important; display: flex !important; flex-direction: column !important;
+        align-items: center; gap: 4px; max-width: 24% !important; z-index: 60 !important;
+      }
+      #game-scene > div:has(#game-speech) > img { width: clamp(28px, 7vmin, 44px) !important; }
+      #game-speech { max-width: 100% !important; margin-top: 0 !important; padding: clamp(3px, 0.9vmin, 6px) clamp(6px, 1.4vmin, 10px) !important; }
+      #game-speech p { font-size: clamp(0.6rem, 1.6vmin, 0.75rem) !important; line-height: 1.5 !important; }
+
+      /* سوال: کاراکتر | کارت سوال */
+      #question-scene .question-wrapper {
+        max-width: none !important; width: 100%; height: 100%; padding-top: 0 !important;
+        display: grid !important; grid-template-columns: minmax(74px, 19%) minmax(0, 1fr);
+        grid-template-areas: "char card"; align-items: center;
+        column-gap: clamp(8px, 2.2vmin, 22px); text-align: center;
+      }
+      #question-scene .q-character { grid-area: char; margin: 0 !important; }
+      #question-scene .q-character img { width: clamp(52px, 14vmin, 100px) !important; }
+      #question-scene .question-card {
+        grid-area: card; min-height: 0 !important; height: 100%; max-height: 100%;
+        padding: clamp(10px, 2.2vmin, 20px) !important; border-radius: 20px !important;
+        background: #FFFFFF !important; border: 2px solid #FFE0B8 !important;
+        box-shadow: 0 8px 20px rgba(3, 14, 30, 0.12) !important;
+        justify-content: center !important; overflow: hidden;
+        -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+      }
+      #question-scene .q-text { color: #10203A !important; font-size: clamp(0.85rem, 2.2vmin, 1.05rem) !important; margin-bottom: clamp(6px, 1.4vmin, 14px) !important; line-height: 1.7 !important; }
+      #question-scene .q-number { color: #B45309 !important; font-size: clamp(0.7rem, 1.85vmin, 0.86rem) !important; margin-bottom: 4px !important; }
+      #question-scene .options-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: clamp(6px, 1.4vmin, 12px) !important; }
+      #question-scene .option-btn {
+        min-height: clamp(52px, 11vmin, 86px) !important; padding: clamp(6px, 1.4vmin, 12px) !important;
+        background: #FFFFFF !important; border: 3px solid #FFE0B8 !important; color: #10203A !important;
+        border-radius: 14px !important; box-shadow: none !important;
+      }
+      #question-scene .option-btn .option-icon { font-size: clamp(1.1rem, 3.2vmin, 1.8rem) !important; }
+      #question-scene .option-btn .option-label { font-size: clamp(0.72rem, 1.9vmin, 0.9rem) !important; }
+      #question-scene .option-btn.correct { background: #EBFAF2 !important; border-color: #2ECC71 !important; }
+      #question-scene .option-btn.wrong { background: #FDEDEC !important; border-color: #E8705F !important; }
+      #question-scene .timer-quiz {
+        background: #EAF7FF !important; border: 2px solid #BEE6FF !important; border-radius: 999px !important;
+        padding: 2px 12px !important; margin: clamp(4px, 1vmin, 10px) auto 0 !important; width: max-content;
+      }
+      #question-scene .timer-quiz .timer-number { color: #1B3F70 !important; font-size: clamp(0.8rem, 2.2vmin, 1rem) !important; }
+    }
+
+    /* ═══════════ مودال‌ها و پیام‌ها ═══════════ */
+    .modal-overlay, .celebration-overlay { background: rgba(7, 26, 53, 0.88) !important; }
+    #stop-modal .modal-content, .celebration-box {
+      background: linear-gradient(180deg, #FFFFFF, #FFF9EF) !important;
+      border: 3px solid #FFFFFF !important; border-radius: 22px !important;
+      color: #10203A !important;
+      width: min(94vw, 560px) !important; max-width: min(94vw, 560px) !important;
+      max-height: calc(100% - 16px) !important; overflow: hidden !important;
+      padding: clamp(10px, 2.2vmin, 20px) clamp(12px, 2.6vmin, 24px) !important;
+      box-shadow: 0 18px 40px rgba(3, 14, 30, 0.45) !important;
+      --text-color: #10203A; --text-secondary: #4A6285; --theme-gold: #C96A00;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    }
+    #stop-modal .modal-content h2, .celebration-box h2 {
+      color: #0A1F3D !important; text-shadow: none !important;
+      font-size: clamp(1.05rem, 3vmin, 1.5rem) !important; margin: 0 0 4px !important;
+    }
+    #stop-modal .modal-content p { color: #4A6285 !important; font-size: clamp(0.78rem, 2vmin, 0.95rem) !important; margin: 0 0 clamp(4px, 1vmin, 10px) !important; }
+    .modal-content .modal-buttons { flex-direction: row !important; flex-wrap: wrap !important; gap: clamp(6px, 1.4vmin, 12px) !important; }
+    .modal-content .modal-buttons .btn { flex: 1 1 40% !important; min-width: 0 !important; min-height: clamp(42px, 8.4vmin, 54px) !important; font-size: clamp(0.74rem, 1.9vmin, 0.92rem) !important; margin: 0 !important; }
+    .celebration-box .celeb-char { width: clamp(48px, 12vmin, 90px) !important; height: clamp(48px, 12vmin, 90px) !important; margin: 0 auto clamp(2px, 0.8vmin, 8px) !important; border-width: 3px !important; }
+    .celebration-box .celeb-char img { width: 100% !important; height: 100% !important; object-fit: contain !important; }
+    .celebration-box .celeb-message { color: #10203A !important; font-size: clamp(0.78rem, 2vmin, 0.96rem) !important; line-height: 1.6 !important; margin: 0 0 clamp(4px, 1vmin, 10px) !important; }
+    .celebration-box .celeb-message strong { color: #B45309 !important; }
+    .celebration-box .btn { min-height: clamp(44px, 8.8vmin, 56px) !important; }
+    .toast {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important; color: #FFFFFF !important;
+      border: 2px solid rgba(255, 255, 255, 0.2) !important; border-radius: 14px !important;
+      font-size: clamp(0.72rem, 1.85vmin, 0.9rem) !important;
+      padding: clamp(6px, 1.4vmin, 12px) clamp(10px, 2vmin, 18px) !important;
+    }
+    .toast img { width: clamp(16px, 3.6vmin, 22px) !important; height: clamp(16px, 3.6vmin, 22px) !important; vertical-align: middle; }
+    /* فیدبک پایان سوال‌ها */
+    .answer-feedback { background: #FFFFFF !important; border: 2px solid #FFE0B8 !important; border-radius: 20px !important; }
+    .answer-feedback h2, .answer-feedback h3 { color: #0A1F3D !important; }
+    .answer-feedback .btn { min-height: clamp(44px, 8.8vmin, 56px) !important; }
+    .feedback-char img { width: 100% !important; height: 100% !important; object-fit: contain !important; }
+
+  
+    /* ── kof1g2 delta1 ── */
+    #game-speech {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      color: #FFFFFF !important; border: 2px solid rgba(255, 255, 255, 0.22) !important;
+      border-radius: 14px !important; box-shadow: 0 6px 14px rgba(3, 14, 30, 0.3) !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    }
+    #game-speech p { color: #FFFFFF !important; }
+    #game-speech::after { border-top-color: #0A1F3D !important; }
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #help-scene .help-steps { align-content: center !important; }
+      #help-scene .help-steps .step { align-items: center !important; }
+      #fruit-select-scene .fruit-option .fruit-desc { display: none !important; }
+      .intro-facts, .intro-fun-facts { align-content: start !important; }
+    }
+    @media (orientation: portrait) and (max-aspect-ratio: 3/4) {
+      .intro-container { overflow-y: auto !important; }
+    }
+</style>
 </head>
 <body>
 
@@ -1888,7 +2522,12 @@
                 const d = localStorage.getItem('fruitKitchenThemes');
                 if (d) {
                     const parsed = JSON.parse(d);
-                    return { ownedThemes: parsed.ownedThemes || ['mamooli'], activeTheme: parsed.activeTheme || 'mamooli' };
+                    if (parsed && typeof parsed === 'object') {
+                        const owned = Array.isArray(parsed.ownedThemes) ? parsed.ownedThemes : ['mamooli'];
+                        if (!owned.includes('mamooli')) owned.unshift('mamooli');
+                        const active = typeof parsed.activeTheme === 'string' ? parsed.activeTheme : 'mamooli';
+                        return { ownedThemes: owned, activeTheme: active };
+                    }
                 }
             } catch(e) {}
             return { ownedThemes: ['mamooli'], activeTheme: 'mamooli' };
@@ -2826,5 +3465,176 @@
         window.applyTheme = applyTheme;
         window.renderShop = renderShop;
     </script>
+<script id="loko-viewport">
+    (function () {
+      var root = document.documentElement;
+      function apply() {
+        var vv = window.visualViewport;
+        var h = Math.round(vv ? vv.height : window.innerHeight);
+        var w = Math.round(vv ? vv.width : window.innerWidth);
+        root.style.setProperty('--app-h', h + 'px');
+        root.style.setProperty('--app-w', w + 'px');
+        document.body.classList.toggle('is-landscape', w > h);
+        if (typeof window.__lokoRelayout === 'function') {
+          try { window.__lokoRelayout(); } catch (e) {}
+        }
+      }
+      var raf = 0;
+      function schedule() {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = 0; apply(); });
+      }
+      window.addEventListener('resize', schedule);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(apply, 120); setTimeout(apply, 450);
+      });
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', schedule);
+      document.addEventListener('DOMContentLoaded', apply);
+      window.__lokoRelayout = window.__lokoRelayout || apply;
+      apply();
+    })();
+  </script>
+
+<script id="loko-shop-carousel">
+        (function () {
+            var SEL = '.shop-grid, .shop-items, .shop-content, #shop-grid, #shopItems, #shop-grid-items';
+            function itemSig(el) {
+                var id = el.getAttribute('data-id');
+                if (id) return id;
+                var nm = el.querySelector('.shop-item-name, .name, .shop-card-name, .shop-item-title');
+                return (nm ? nm.textContent : el.textContent).trim().slice(0, 24);
+            }
+
+            function setup(grid) {
+                if (grid.getAttribute('data-loko-shop')) return;
+                grid.setAttribute('data-loko-shop', '1');
+
+                var stage = document.createElement('div');
+                stage.className = 'loko-shop-stage';
+                grid.parentNode.insertBefore(stage, grid);
+                stage.appendChild(grid);
+
+                var prev = document.createElement('button');
+                prev.type = 'button';
+                prev.className = 'loko-shop-nav loko-prev';
+                prev.setAttribute('aria-label', 'محصول قبلی');
+                prev.textContent = '›';
+
+                var next = document.createElement('button');
+                next.type = 'button';
+                next.className = 'loko-shop-nav loko-next';
+                next.setAttribute('aria-label', 'محصول بعدی');
+                next.textContent = '‹';
+
+                stage.appendChild(prev);
+                stage.appendChild(next);
+
+                var idx = 0, lastSig = '';
+
+                function items() {
+                    var out = [], kids = grid.children;
+                    for (var i = 0; i < kids.length; i++) {
+                        if (kids[i].nodeType === 1) out.push(kids[i]);
+                    }
+                    return out;
+                }
+
+                function render() {
+                    var list = items();
+                    if (!list.length) {
+                        stage.setAttribute('data-pos', '0/0');
+                        prev.disabled = true;
+                        next.disabled = true;
+                        return;
+                    }
+                    if (idx > list.length - 1) idx = list.length - 1;
+                    if (idx < 0) idx = 0;
+                    for (var i = 0; i < list.length; i++) {
+                        var hideIt = i !== idx;
+                        list[i].classList.toggle('loko-shop-hidden', hideIt);
+                        if (hideIt) {
+                            list[i].style.setProperty('display', 'none', 'important');
+                        } else {
+                            list[i].style.removeProperty('display');
+                        }
+                    }
+                    prev.disabled = idx <= 0;
+                    next.disabled = idx >= list.length - 1;
+                    var pos = (idx + 1) + '/' + list.length;
+                    if (stage.getAttribute('data-pos') !== pos) stage.setAttribute('data-pos', pos);
+                }
+
+                prev.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); idx--; render(); });
+                next.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); idx++; render(); });
+
+                function refresh() {
+                    var list = items();
+                    var sig = '';
+                    for (var i = 0; i < list.length; i++) sig += itemSig(list[i]) + '|';
+                    if (sig !== lastSig) { lastSig = sig; idx = 0; }
+                    render();
+                }
+
+                try {
+                    new MutationObserver(refresh).observe(grid, { childList: true });
+                } catch (e) { /* بی‌صدا */ }
+
+                refresh();
+                grid.__lokoRefresh = refresh;
+            }
+
+            function init() {
+                var grids = document.querySelectorAll(SEL);
+                for (var i = 0; i < grids.length; i++) setup(grids[i]);
+                refreshAll();
+                setTimeout(refreshAll, 120);
+                setTimeout(refreshAll, 400);
+                setTimeout(refreshAll, 1000);
+            }
+
+            function refreshAll() {
+                var grids = document.querySelectorAll(SEL);
+                for (var i = 0; i < grids.length; i++) {
+                    if (grids[i].__lokoRefresh) grids[i].__lokoRefresh();
+                }
+            }
+
+            window.__lokoRefreshShop = refreshAll;
+            document.addEventListener('click', function (e) {
+                var t = e.target;
+                if (!t || !t.closest) return;
+                if (t.closest('.shop-tabs') || t.closest('.shop-grid') || t.closest('.shop-items') ||
+                    t.closest('.shop-content') || t.closest('.shop-item') || t.closest('.shop-tab')) {
+                    setTimeout(refreshAll, 60);
+                    setTimeout(refreshAll, 260);
+                }
+            }, true);
+
+            window.__lokoInitShop = init;
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+
+
+<script id="loko-theme-bg">
+    /* تصویر پوسته‌ی خریداری‌شده روی پس‌زمینه‌ی صفحه بماند */
+    (function () {
+      var root = document.documentElement;
+      var FALLBACK = 'radial-gradient(circle at 20% 16%, rgba(121,207,255,.24), transparent 55%),' +
+                     'radial-gradient(circle at 84% 86%, rgba(255,138,0,.22), transparent 55%),' +
+                     'linear-gradient(160deg,#071A35,#102B55 58%,#071A35)';
+      function sync() {
+        var img = document.body.style.backgroundImage || '';
+        root.style.setProperty('--loko-theme-image', img && img !== 'none' ? img : FALLBACK);
+      }
+      sync();
+      try { new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ['style', 'class'] }); } catch (e) {}
+      setInterval(sync, 1000);
+    })();
+</script>
 </body>
 </html>
