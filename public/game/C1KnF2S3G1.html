@@ -809,6 +809,55 @@
       }
       #help-modal .btn-modal { grid-area: btn; }
     }
+
+    /* ===== اصلاحیه ۲: سکه‌ی تکراری (ایموجی جایگزین + تصویر روی هم) ===== */
+    .coin-wrap .coin-fb { display: none !important; }
+    .coin-wrap:not(.has-img) .coin-fb { display: flex !important; }
+    .coin-wrap.has-img .coin-fb { display: none !important; }
+    .coin-wrap img { animation: none !important; }
+    .coin-wrap { position: relative; }
+    .coin-wrap .coin-fb { position: absolute; inset: 0; align-items: center; justify-content: center; }
+
+    /* ===== اصلاحیه ۲: دکمه‌ی بازگشت راهنما + ارتفاع شیشه‌ای مودال ===== */
+    #help-modal { padding: 0 !important; }
+    #help-modal .modal-content {
+      height: calc(100% - 12px) !important;
+      max-height: calc(100% - 12px) !important;
+      margin: 6px auto !important;
+    }
+    #help-modal .modal-back-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      width: auto !important; min-width: 0 !important;
+      min-height: clamp(38px, 8vmin, 48px) !important;
+      padding: 0 clamp(12px, 2.2vmin, 18px) !important;
+      border-radius: 999px !important;
+      border: 2px solid #16355E !important;
+      background: #FFFFFF !important;
+      color: #0A1F3D !important;
+      box-shadow: 0 3px 0 #DCE6F0 !important;
+      font-weight: 900 !important;
+      font-size: clamp(0.74rem, 1.85vmin, 0.9rem) !important;
+      cursor: pointer;
+    }
+    #help-modal .modal-back-btn:active { transform: translateY(2px); box-shadow: none !important; }
+
+    #shop-modal .modal-content { height: calc(100% - 16px) !important; max-height: calc(100% - 16px) !important; }
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #help-modal .modal-content {
+        display: grid !important;
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        grid-template-areas: "back head" "steps steps" "btn btn";
+        align-items: center;
+        column-gap: clamp(8px, 2vmin, 16px); row-gap: clamp(4px, 1vmin, 10px);
+      }
+      #help-modal .modal-back-btn { grid-area: back; justify-self: start; align-self: center; }
+      #help-modal .modal-char { display: none !important; }
+      #help-modal .modal-title { grid-area: head; justify-self: start; text-align: right; margin: 0 !important; }
+      #help-modal .help-steps { grid-area: steps; overflow: auto !important; }
+      #help-modal .btn-modal { grid-area: btn; }
+    }
 </style>
 </head>
 <body>
@@ -1572,5 +1621,30 @@
         })();
     </script>
 
+
+<script id="loko-coin-fallback">
+    /* ایموجی جایگزین سکه فقط وقتی تصویر بارگذاری نشده باشد دیده شود */
+    (function () {
+      function mark(img) {
+        var wrap = img.parentElement;
+        if (wrap && wrap.classList.contains('coin-wrap')) wrap.classList.add('has-img');
+      }
+      function scan() {
+        var imgs = document.querySelectorAll('.coin-wrap img');
+        for (var i = 0; i < imgs.length; i++) {
+          var img = imgs[i];
+          if (img.complete && img.naturalWidth > 0) { mark(img); continue; }
+          if (!img.__lokoBound) {
+            img.__lokoBound = true;
+            img.addEventListener('load', function () { mark(this); });
+          }
+        }
+      }
+      scan();
+      document.addEventListener('DOMContentLoaded', scan);
+      setInterval(scan, 1200);
+      try { new MutationObserver(scan).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
+    })();
+</script>
 </body>
 </html>
