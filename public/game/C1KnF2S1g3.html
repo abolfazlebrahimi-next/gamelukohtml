@@ -893,11 +893,11 @@
       transition: width 0.25s linear !important;
     }
     #guideScreen .guide-skip {
-      position: absolute !important;
-      top: clamp(6px, 1.4vmin, 14px) !important;
-      left: clamp(6px, 1.4vmin, 14px) !important;
+      position: static !important;
       z-index: 9;
       display: inline-flex !important; align-items: center; justify-content: center; gap: 6px;
+      justify-self: center !important; align-self: center !important;
+      margin: clamp(2px, 1vmin, 8px) auto 0 !important;
       background: #FFFFFF !important; color: #0A1F3D !important;
       border: 2px solid #16355E !important; border-radius: 999px !important;
       box-shadow: 0 3px 0 #DCE6F0 !important;
@@ -910,9 +910,9 @@
 
     @media (orientation: landscape), (min-aspect-ratio: 1/1) {
       #guideScreen .guide-container {
-        grid-template-columns: minmax(104px, 26%) minmax(0, 1fr) !important;
+        grid-template-columns: minmax(112px, 27%) minmax(0, 1fr) !important;
         grid-template-rows: auto minmax(0, 1fr) auto !important;
-        grid-template-areas: "char badge" "char text" "char bar" !important;
+        grid-template-areas: "char badge" "char text" "skip bar" !important;
         align-items: center;
         column-gap: clamp(12px, 2.8vmin, 30px); row-gap: clamp(4px, 1.2vmin, 12px);
       }
@@ -920,6 +920,14 @@
       #guideScreen .guide-pct { grid-area: badge; justify-self: end; align-self: center; }
       #guideScreen .guide-text { grid-area: text; width: 100%; height: 100%; }
       #guideScreen .guide-progress { grid-area: bar; width: 100%; }
+      #guideScreen .guide-skip { grid-area: skip; margin: 0 auto !important; align-self: end !important; }
+    }
+
+    /* دکمه‌ی رد کردن در حالت عمودی: پایین کارت، وسط‌چین */
+    #guideScreen .guide-skip { width: min(100%, 260px) !important; }
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #guideScreen .guide-skip { width: auto !important; min-width: 0 !important; }
+      #guideScreen .guide-char { align-self: center !important; }
     }
 </style>
 </head>
