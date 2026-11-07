@@ -1905,6 +1905,315 @@
     @media (orientation: portrait) and (max-aspect-ratio: 3/4) {
       .intro-container { overflow-y: auto !important; }
     }
+
+    /* ── kof1g2 beauty ── */
+    /* صفحه: شفق رنگی پشت کارت */
+    html {
+      background-color: #1E1040 !important;
+      background-image: var(--loko-theme-image,
+        radial-gradient(circle at 10% 16%, rgba(255, 128, 92, 0.55), transparent 46%),
+        radial-gradient(circle at 90% 10%, rgba(120, 176, 255, 0.50), transparent 46%),
+        radial-gradient(circle at 82% 90%, rgba(255, 154, 40, 0.50), transparent 50%),
+        radial-gradient(circle at 16% 88%, rgba(46, 213, 168, 0.42), transparent 46%),
+        linear-gradient(155deg, #2A1550 0%, #45235F 42%, #12224A 100%)) !important;
+      background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+        radial-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1.4px);
+      background-size: cover, 26px 26px;
+      opacity: 0.55;
+    }
+
+    /* کارت اصلی: کرمِ گرم با نقش نقطه و هاله‌ی رنگی */
+    .screen {
+      background-image:
+        radial-gradient(rgba(206, 150, 92, 0.13) 1px, transparent 1.6px),
+        radial-gradient(120% 82% at 102% -4%, rgba(255, 168, 84, 0.26), transparent 58%),
+        radial-gradient(96% 74% at -4% 104%, rgba(140, 122, 255, 0.20), transparent 58%),
+        radial-gradient(70% 55% at 92% 96%, rgba(46, 213, 168, 0.16), transparent 60%),
+        linear-gradient(165deg, #FFFEFA 0%, #FFF7EC 44%, #FFEFDD 100%) !important;
+      background-size: 22px 22px, cover, cover, cover, cover !important;
+      background-position: 0 0, center, center, center, center !important;
+      background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat !important;
+      background-color: #FFF7EC !important;
+      border: 3px solid #FFFFFF !important;
+      box-shadow:
+        0 20px 46px rgba(4, 12, 30, 0.48),
+        0 3px 0 rgba(255, 255, 255, 0.55) inset,
+        0 0 0 1px rgba(255, 206, 150, 0.85) inset !important;
+    }
+    /* نوار رنگی بالای کارت */
+    .screen::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: clamp(4px, 1vmin, 7px); z-index: -1; pointer-events: none;
+      background: linear-gradient(90deg, #FF8A00, #FF5C8A 34%, #8E7BFF 66%, #22C7B0);
+      box-shadow: 0 1px 3px rgba(120, 60, 0, 0.25);
+    }
+    /* هاله‌های تزئینی هر صفحه */
+    .screen::before {
+      content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background-image: radial-gradient(closest-side at 20% 55%, rgba(255, 190, 96, 0.30), transparent 100%);
+    }
+    #menu-scene::before {
+      background-image:
+        radial-gradient(closest-side at 24% 58%, rgba(255, 186, 84, 0.42), transparent 100%),
+        radial-gradient(closest-side at 86% 18%, rgba(150, 198, 255, 0.34), transparent 100%);
+    }
+    [id^="intro-"][id$="-scene"]::before,
+    #fruit-select-scene::before {
+      background-image:
+        radial-gradient(closest-side at 16% 50%, rgba(255, 186, 84, 0.34), transparent 100%),
+        radial-gradient(closest-side at 88% 82%, rgba(140, 190, 255, 0.26), transparent 100%);
+    }
+    #help-scene::before {
+      background-image:
+        radial-gradient(closest-side at 22% 50%, rgba(142, 123, 255, 0.26), transparent 100%),
+        radial-gradient(closest-side at 82% 22%, rgba(255, 186, 84, 0.30), transparent 100%);
+    }
+    #shop-scene::before {
+      background-image:
+        radial-gradient(closest-side at 88% 14%, rgba(46, 213, 168, 0.22), transparent 100%),
+        radial-gradient(closest-side at 12% 88%, rgba(255, 170, 90, 0.26), transparent 100%);
+    }
+    #game-scene::before {
+      background-image:
+        radial-gradient(closest-side at 50% 0%, rgba(150, 198, 255, 0.30), transparent 100%),
+        radial-gradient(closest-side at 12% 92%, rgba(255, 178, 92, 0.24), transparent 100%);
+    }
+    #question-scene::before {
+      background-image:
+        radial-gradient(closest-side at 18% 46%, rgba(255, 178, 92, 0.30), transparent 100%),
+        radial-gradient(closest-side at 84% 74%, rgba(140, 122, 255, 0.24), transparent 100%);
+    }
+
+    /* دکمه‌ها: براق‌تر */
+    .btn-start, .btn-primary {
+      background-image: linear-gradient(180deg, #FFC24D 0%, #FF9A1F 46%, #F97E00 100%) !important;
+      box-shadow: 0 5px 0 #C4630A, 0 10px 18px rgba(255, 122, 0, 0.30), inset 0 2px 0 rgba(255, 255, 255, 0.6) !important;
+      letter-spacing: 0.2px;
+    }
+    .btn-secondary {
+      background-image: linear-gradient(180deg, #2A5C9C 0%, #17375F 52%, #0A1F3D 100%) !important;
+      box-shadow: 0 4px 0 #071627, 0 8px 16px rgba(7, 26, 53, 0.28), inset 0 2px 0 rgba(255, 255, 255, 0.28) !important;
+    }
+    .btn-danger {
+      box-shadow: 0 4px 0 #EFC7C2, inset 0 2px 0 rgba(255, 255, 255, 0.8) !important;
+    }
+    .back-btn {
+      background-image: linear-gradient(180deg, #FFFFFF, #F1F6FC) !important;
+      box-shadow: 0 3px 0 #D5E2EF, 0 6px 12px rgba(16, 45, 80, 0.12) !important;
+    }
+
+    /* سکه: طلایی */
+    .coin-display, .shop-coin {
+      background-image: linear-gradient(180deg, #FFE071 0%, #FFC021 55%, #F2A400 100%) !important;
+      background-color: #FFC021 !important;
+      border: 2px solid #FFF3C4 !important;
+      color: #4A2A00 !important;
+      box-shadow: 0 4px 0 #C48000, 0 8px 16px rgba(196, 128, 0, 0.30), inset 0 2px 0 rgba(255, 255, 255, 0.6) !important;
+    }
+    .coin-amount, .shop-coin span { color: #4A2A00 !important; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) !important; }
+
+    /* عنوان منو */
+    .menu-title {
+      background: linear-gradient(135deg, #1B3F70 0%, #E86A00 48%, #FF9A1F 100%) !important;
+      -webkit-background-clip: text !important; background-clip: text !important;
+      -webkit-text-fill-color: transparent !important; color: transparent !important;
+      filter: drop-shadow(0 2px 0 rgba(255, 255, 255, 0.85));
+    }
+    .menu-subtitle { color: #B45309 !important; font-weight: 700 !important; }
+
+    /* آواتار: قاب رنگی درخشان */
+    .menu-character, .help-character {
+      background: radial-gradient(circle at 50% 28%, #FFFFFF 0%, #FFF3DF 58%, #FFE2BE 100%) !important;
+      border: 4px solid #FFFFFF !important;
+      animation: none !important;
+      box-shadow:
+        0 0 0 5px rgba(255, 255, 255, 0.75),
+        0 0 0 9px rgba(255, 154, 31, 0.35),
+        0 14px 30px rgba(220, 116, 20, 0.32),
+        inset 0 -10px 22px rgba(255, 176, 102, 0.35) !important;
+    }
+    #help-scene .help-character { box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.75), 0 0 0 9px rgba(142, 123, 255, 0.32), 0 12px 26px rgba(90, 70, 200, 0.28) !important; }
+    .menu-character img { filter: drop-shadow(0 6px 10px rgba(180, 100, 20, 0.25)); }
+
+    /* کارت میوه‌ها: شش رنگ */
+    #fruit-select-scene .fruit-option {
+      border-width: 3px !important;
+      box-shadow: 0 5px 0 rgba(203, 140, 70, 0.18), 0 10px 18px rgba(160, 100, 30, 0.12) !important;
+    }
+    #fruit-select-scene .fruit-option:nth-child(6n+1) { background-image: linear-gradient(180deg, #FFF6EC, #FFE4C8) !important; border-color: #FFC894 !important; }
+    #fruit-select-scene .fruit-option:nth-child(6n+2) { background-image: linear-gradient(180deg, #EEFBF4, #D5F5E5) !important; border-color: #A9E8CB !important; }
+    #fruit-select-scene .fruit-option:nth-child(6n+3) { background-image: linear-gradient(180deg, #F5F1FF, #E3DAFF) !important; border-color: #C9BBFF !important; }
+    #fruit-select-scene .fruit-option:nth-child(6n+4) { background-image: linear-gradient(180deg, #EEF8FF, #D8ECFF) !important; border-color: #AED8FB !important; }
+    #fruit-select-scene .fruit-option:nth-child(6n+5) { background-image: linear-gradient(180deg, #FFFCEB, #FFF3C6) !important; border-color: #FFDE8A !important; }
+    #fruit-select-scene .fruit-option:nth-child(6n+6) { background-image: linear-gradient(180deg, #FFF2F7, #FFDDEC) !important; border-color: #FFB8D4 !important; }
+    #fruit-select-scene .fruit-option .fruit-icon { filter: drop-shadow(0 5px 7px rgba(130, 70, 20, 0.25)); }
+    #fruit-select-scene .fruit-option .fruit-name { color: #21344F !important; }
+
+    /* معرفی میوه: کارت‌های رنگی */
+    .intro-fact {
+      background-image: linear-gradient(180deg, #FFFFFF, #FFF7EE) !important;
+      border: 1px solid #FFE3C4 !important;
+      box-shadow: 0 4px 0 rgba(203, 140, 70, 0.14) !important;
+    }
+    .intro-fact:nth-child(2n) {
+      background-image: linear-gradient(180deg, #FBF8FF, #F0EAFF) !important;
+      border-color: #DED2FF !important;
+      box-shadow: 0 4px 0 rgba(120, 100, 200, 0.12) !important;
+    }
+    .intro-fact .fact-icon, .intro-fun-fact .ff-icon {
+      display: inline-grid; place-items: center; flex: 0 0 auto;
+      width: clamp(22px, 4.6vmin, 30px); height: clamp(22px, 4.6vmin, 30px);
+      border-radius: 50%; background: #FFFFFF;
+      box-shadow: 0 2px 5px rgba(160, 100, 30, 0.18);
+      font-size: clamp(0.8rem, 2.1vmin, 1.05rem) !important;
+    }
+    .intro-fun-fact {
+      background-image: linear-gradient(135deg, #FFF9E8, #FFF1D6) !important;
+      border: 1px solid #FFE1A8 !important;
+      box-shadow: 0 4px 0 rgba(203, 150, 40, 0.12) !important;
+    }
+    .intro-fun-fact:nth-child(2n) {
+      background-image: linear-gradient(135deg, #EFFAF4, #DCF3E7) !important;
+      border-color: #B7E8CF !important;
+    }
+    .intro-fact .fact-text strong, .intro-fun-fact .ff-text strong { color: #C05600 !important; }
+
+    /* راهنما: قدم‌های رنگی */
+    #help-scene .help-steps .step {
+      background-image: linear-gradient(180deg, #FFFFFF, #FFF6EA) !important;
+      border: 2px solid #FFE3C4 !important;
+      box-shadow: 0 4px 0 rgba(203, 140, 70, 0.14) !important;
+    }
+    #help-scene .help-steps .step:nth-child(2n) {
+      background-image: linear-gradient(180deg, #FFFFFF, #F2EEFF) !important;
+      border-color: #DCD2FF !important;
+      box-shadow: 0 4px 0 rgba(120, 100, 200, 0.12) !important;
+    }
+    #help-scene .help-steps .step .num {
+      background-image: linear-gradient(180deg, #FFB020, #F97316) !important;
+      color: #3A1B00 !important;
+      box-shadow: 0 2px 4px rgba(200, 110, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      font-weight: 900 !important;
+    }
+
+    /* فروشگاه: کارت‌های گرم و تازه */
+    #shop-scene .shop-tabs {
+      background-image: linear-gradient(180deg, #FFFFFF, #EFF4FB) !important;
+      box-shadow: 0 5px 0 rgba(150, 180, 215, 0.35), inset 0 0 0 1px #FFFFFF !important;
+    }
+    #shop-scene .shop-tab:not(.active) { background: #FFFFFF !important; box-shadow: 0 2px 0 #DCE6F0 !important; }
+    #shop-scene .shop-tab.active {
+      background-image: linear-gradient(180deg, #FFC24D, #FF8A00) !important;
+      box-shadow: 0 3px 0 #C4630A, inset 0 2px 0 rgba(255, 255, 255, 0.55) !important;
+    }
+    #shop-scene .shop-item {
+      box-shadow: 0 5px 0 rgba(203, 140, 70, 0.18), 0 12px 22px rgba(160, 100, 30, 0.12) !important;
+      border-width: 3px !important;
+    }
+    #shop-scene .shop-item .shop-preview {
+      background-image: linear-gradient(140deg, #FFE9CC, #E7F3FF 60%, #E9FFF6) !important;
+      box-shadow: inset 0 0 0 1px #FFFFFF;
+    }
+    #shop-scene .shop-item .name { font-weight: 900 !important; }
+    #shop-scene .shop-item .price { background: #FFF7E4; border-radius: 999px; padding: 1px 8px; }
+    #shop-scene .shop-btn-sm.buy, #shop-scene .shop-btn-sm.select {
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25), inset 0 2px 0 rgba(255, 255, 255, 0.5) !important;
+    }
+
+    /* آشپزخانه: قاب رنگی */
+    #game-scene .kitchen-wrapper {
+      border: 4px solid #FFFFFF !important;
+      box-shadow:
+        0 0 0 4px rgba(255, 170, 90, 0.32),
+        0 18px 34px rgba(6, 20, 40, 0.28) !important;
+    }
+    #game-scene .game-header {
+      background-image: linear-gradient(180deg, #FFFFFF, #FFF6E9) !important;
+      box-shadow: 0 4px 0 rgba(203, 140, 70, 0.20), inset 0 1px 0 #FFFFFF !important;
+    }
+    #game-scene .stop-btn { background-image: linear-gradient(180deg, #FFFFFF, #FFEEEC) !important; }
+
+    /* سوال: کارت و گزینه‌های رنگی */
+    #question-scene .question-card {
+      background-image:
+        radial-gradient(120% 70% at 100% 0%, rgba(255, 176, 92, 0.16), transparent 60%),
+        linear-gradient(180deg, #FFFFFF, #FFFAF2) !important;
+      box-shadow: 0 6px 0 rgba(203, 140, 70, 0.16), 0 16px 30px rgba(6, 20, 40, 0.14), inset 0 5px 0 #FFB020 !important;
+      border: 2px solid #FFE3C4 !important;
+    }
+    #question-scene .q-number {
+      background: #FFF3D6; border-radius: 999px; padding: 2px 12px; width: max-content; margin: 0 auto 6px !important;
+      color: #B45309 !important; font-weight: 800 !important;
+    }
+    #question-scene .option-btn {
+      box-shadow: 0 5px 0 rgba(203, 140, 70, 0.18) !important;
+    }
+    #question-scene .option-btn:nth-child(4n+1) { background-image: linear-gradient(180deg, #FFFFFF, #FFF2E0) !important; border-color: #FFCF9B !important; }
+    #question-scene .option-btn:nth-child(4n+2) { background-image: linear-gradient(180deg, #FFFFFF, #EAF8F1) !important; border-color: #A9E8CB !important; }
+    #question-scene .option-btn:nth-child(4n+3) { background-image: linear-gradient(180deg, #FFFFFF, #EFEBFF) !important; border-color: #C9BBFF !important; }
+    #question-scene .option-btn:nth-child(4n+4) { background-image: linear-gradient(180deg, #FFFFFF, #E9F5FF) !important; border-color: #AED8FB !important; }
+    #question-scene .option-btn .option-icon { filter: drop-shadow(0 3px 5px rgba(130, 70, 20, 0.22)); }
+    #question-scene .timer-quiz {
+      background-image: linear-gradient(180deg, #EFF8FF, #DCEFFF) !important;
+      box-shadow: 0 3px 0 rgba(120, 170, 220, 0.30), inset 0 1px 0 #FFFFFF !important;
+    }
+
+    /* مودال‌ها و پیام پایان */
+    #stop-modal .modal-content, .celebration-box {
+      background-image:
+        radial-gradient(120% 70% at 100% 0%, rgba(255, 176, 92, 0.22), transparent 60%),
+        linear-gradient(180deg, #FFFFFF, #FFF7EC) !important;
+      box-shadow: 0 22px 48px rgba(4, 12, 30, 0.5), inset 0 -6px 0 rgba(255, 176, 92, 0.22) !important;
+    }
+    .celebration-box .celeb-char { box-shadow: 0 0 0 4px #FFFFFF, 0 0 0 8px rgba(255, 176, 92, 0.30), 0 10px 22px rgba(200, 110, 20, 0.28) !important; }
+    .answer-feedback {
+      background-image: linear-gradient(180deg, #FFFFFF, #FFF8EE) !important;
+      border: 2px solid #FFE3C4 !important;
+      box-shadow: 0 6px 0 rgba(203, 140, 70, 0.16) !important;
+    }
+    .toast { box-shadow: 0 10px 24px rgba(4, 12, 30, 0.35) !important; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .screen.active { animation: none !important; }
+      .menu-character img, .q-character img, .coin-display img { animation: none !important; }
+    }
+
+    /* ── kof1g2 beauty2 ── */
+    #help-scene .help-steps .step .num { background-color: #FFB020 !important; }
+    .intro-fact .fact-icon, .intro-fun-fact .ff-icon {
+      color: #7A3E00; line-height: 1; overflow: hidden;
+    }
+    /* تزئین خوش‌مزه‌ی منو */
+    #menu-scene .menu-container::before,
+    #menu-scene .menu-container::after {
+      position: absolute; z-index: -1; pointer-events: none;
+      font-size: clamp(22px, 7vmin, 52px); line-height: 1; opacity: 0.22;
+      filter: saturate(1.1);
+    }
+    #menu-scene .menu-container::before { content: '🍓🍊'; top: clamp(2px, 1vmin, 10px); left: 2%; transform: rotate(-12deg); letter-spacing: clamp(2px, 1vmin, 10px); }
+    #menu-scene .menu-container::after { content: '🍇🍎'; bottom: clamp(2px, 1vmin, 10px); right: 2%; transform: rotate(10deg); letter-spacing: clamp(2px, 1vmin, 10px); }
+    #fruit-select-scene .fruit-select-container::before {
+      content: '✨'; position: absolute; z-index: -1; pointer-events: none;
+      top: clamp(0px, 0.4vmin, 6px); left: 3%; font-size: clamp(18px, 5vmin, 38px); opacity: 0.25;
+    }
+    #fruit-select-scene .fruit-select-container::after {
+      content: '✨'; position: absolute; z-index: -1; pointer-events: none;
+      bottom: clamp(0px, 0.4vmin, 6px); right: 3%; font-size: clamp(18px, 5vmin, 38px); opacity: 0.25;
+    }
+    #fruit-select-scene .fruit-select-container { position: relative; }
+    /* لمس‌پذیری */
+    #fruit-select-scene .fruit-option:active,
+    #question-scene .option-btn:active,
+    .shop-btn-sm:active, .btn:active, .back-btn:active {
+      transform: scale(0.965) !important;
+      filter: brightness(0.98);
+    }
+    #fruit-select-scene .fruit-option:active { transform: scale(0.94) !important; }
 </style>
 </head>
 <body>
