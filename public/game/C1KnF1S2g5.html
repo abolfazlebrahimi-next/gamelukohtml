@@ -1977,6 +1977,8 @@ init();
 
             function setup(grid) {
                 if (grid.getAttribute('data-loko-shop')) return;
+                // فقط درونی‌ترین ظرف محصولات کاروسل می‌شود (ظرف والد اگر فرزند ظرف داشته باشد رد می‌شود)
+                if (grid.querySelector('.shop-grid, .shop-items, .shop-content')) return;
                 grid.setAttribute('data-loko-shop', '1');
 
                 var stage = document.createElement('div');
