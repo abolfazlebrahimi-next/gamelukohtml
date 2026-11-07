@@ -770,7 +770,8 @@ body{display:flex;justify-content:center;align-items:center;background:#0c0a14}
       #screen-help .help-card { overflow-y: auto; }
 
       /* فروشگاه: ریل دسته‌ها + کاروسل (مثل بازی‌های مرجع) */
-      #screen-shop { display: flex !important; flex-direction: column !important; }
+      /* فقط وقتی این صفحه فعال است (وگرنه با .screen{display:none} قاطی می‌شود) */
+      #screen-shop.active { display: flex !important; flex-direction: column !important; }
       #screen-shop .top-bar { flex: none; }
       #screen-shop .shop-content {
         display: grid !important; flex: 1 1 auto !important; min-height: 0;
