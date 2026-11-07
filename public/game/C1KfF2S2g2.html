@@ -83,7 +83,8 @@
             -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-touch-callout: none;
         }
 
-        .neon-orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; opacity: 0.4; }
+        body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(125% 95% at 50% 0%, rgba(7, 26, 53, 0) 38%, rgba(4, 16, 31, 0.55) 100%); }
+        .neon-orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; opacity: 0.55; }
         .neon-orb-1 { width: 320px; height: 320px; top: -110px; right: -110px; background: rgba(255, 138, 0, 0.28); animation: orbFloat 8s ease-in-out infinite; }
         .neon-orb-2 { width: 420px; height: 420px; bottom: -160px; left: -160px; background: rgba(121, 207, 255, 0.22); animation: orbFloat 10s ease-in-out infinite reverse; }
         .neon-orb-3 { width: 220px; height: 220px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 173, 36, 0.12); animation: orbFloat 12s ease-in-out infinite; }
