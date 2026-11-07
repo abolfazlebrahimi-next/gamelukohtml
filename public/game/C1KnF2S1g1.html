@@ -2222,12 +2222,17 @@ function renderShop() {
   skinsContainer.innerHTML = '';
   customContainer.innerHTML = '';
   
-  shopItems.skins.forEach(item => skinsContainer.appendChild(createShopItem(item, 'skins')));
-  shopItems.custom.forEach(item => customContainer.appendChild(createShopItem(item, 'custom')));
+  (shopItems.skins || []).forEach(item => {
+    try { skinsContainer.appendChild(createShopItem(item, 'skins')); } catch(e) { console.warn('skin', item && item.id, e); }
+  });
+  (shopItems.custom || []).forEach(item => {
+    try { customContainer.appendChild(createShopItem(item, 'custom')); } catch(e) { console.warn('custom', item && item.id, e); }
+  });
 }
 
 function createShopItem(item, category) {
-  const owned = state.ownedItems[category].includes(item.id);
+  if (!state.ownedItems || !Array.isArray(state.ownedItems[category])) normalizeState();
+  const owned = (state.ownedItems[category] || []).includes(item.id);
   const canAfford = state.coins >= item.price;
   const el = document.createElement('div');
   el.className = 'shop-item' + (owned ? ' owned' : '');
@@ -2273,6 +2278,23 @@ function loadState() {
     }
   } catch(e) {}
   state.paused = false;
+  normalizeState();
+}
+
+/* ذخیره‌ی قدیمی/خراب نباید فروشگاه یا انتخاب مرحله را خراب کند */
+function normalizeState() {
+  if (!state.ownedItems || typeof state.ownedItems !== 'object' || Array.isArray(state.ownedItems)) {
+    state.ownedItems = { skins: ['default'], custom: [] };
+  }
+  if (!Array.isArray(state.ownedItems.skins)) state.ownedItems.skins = ['default'];
+  if (!Array.isArray(state.ownedItems.custom)) state.ownedItems.custom = [];
+  if (!state.ownedItems.skins.length) state.ownedItems.skins = ['default'];
+  state.coins = Number(state.coins) || 0;
+  const total = (typeof levels !== 'undefined' && levels.length) ? levels.length - 1 : 0;
+  const lv = Number(state.currentLevel);
+  state.currentLevel = isFinite(lv) ? Math.max(0, Math.min(total, lv)) : 0;
+  const un = Number(state.unlockedLevel);
+  state.unlockedLevel = isFinite(un) ? Math.max(0, Math.min(total, un)) : 0;
 }
 
 // ===== Event Listeners =====

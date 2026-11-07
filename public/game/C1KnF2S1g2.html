@@ -1213,6 +1213,30 @@ function loadState(){
   state.completedLevels=storage.get('hg_completed',0);
   state.levelStars=storage.get('hg_stars',{});
   state.tutorialSeen=storage.get('hg_tutorial_seen',false);
+  normalizeState();
+}
+/* داده‌های ذخیره‌شده‌ی قدیمی/خراب نباید فروشگاه را خالی کنند */
+function normalizeState(){
+  if(!state.ownedItems || typeof state.ownedItems!=='object' || Array.isArray(state.ownedItems)){
+    state.ownedItems={skins:['skin-default'],customization:[]};
+  }
+  if(!Array.isArray(state.ownedItems.skins)) state.ownedItems.skins=['skin-default'];
+  if(!Array.isArray(state.ownedItems.customization)) state.ownedItems.customization=[];
+  if(!state.ownedItems.skins.length) state.ownedItems.skins=['skin-default'];
+  if(!state.equippedItems || typeof state.equippedItems!=='object' || Array.isArray(state.equippedItems)){
+    state.equippedItems={skin:'skin-default',customization:null};
+  }
+  if(state.equippedItems.skin===undefined||state.equippedItems.skin===null||
+     state.ownedItems.skins.indexOf(state.equippedItems.skin)===-1){
+    state.equippedItems.skin=state.ownedItems.skins[0];
+  }
+  if(state.equippedItems.customization===undefined) state.equippedItems.customization=null;
+  state.coins=Number(state.coins)||0;
+  var ul=Number(state.unlockedLevels);
+  state.unlockedLevels=isFinite(ul)?Math.max(1,Math.min(20,ul)):1;
+  var cl=Number(state.completedLevels);
+  state.completedLevels=isFinite(cl)?Math.max(0,Math.min(20,cl)):0;
+  if(!state.levelStars || typeof state.levelStars!=='object') state.levelStars={};
 }
 function saveState(){
   storage.set('hg_coins',state.coins);
@@ -1445,9 +1469,21 @@ function toPersianNum(n){const m={'0':'۰','1':'۱','2':'۲','3':'۳','4':'۴','
 function updateCoinDisplays(){document.getElementById('coinCount').textContent=toPersianNum(state.coins);document.getElementById('coinCountGame').textContent=toPersianNum(state.coins);document.getElementById('coinCountShop').textContent=toPersianNum(state.coins);const lvl=document.getElementById('coinCountLevels');if(lvl)lvl.textContent=toPersianNum(state.coins)}
 
 // ===== فروشگاه =====
-function renderShop(){['skins','customization'].forEach(cat=>{const el=document.getElementById('shopItems-'+cat);el.innerHTML='';shopItems[cat].forEach(item=>el.appendChild(createShopItem(item,cat)))})}
+function renderShop(){
+  ['skins','customization'].forEach(cat=>{
+    const el=document.getElementById('shopItems-'+cat);
+    if(!el) return;
+    el.innerHTML='';
+    const list=(shopItems&&shopItems[cat])||[];
+    list.forEach(item=>{
+      try{ el.appendChild(createShopItem(item,cat)); }
+      catch(err){ console.warn('shop item failed', cat, item&&item.id, err); }
+    });
+  });
+}
 function createShopItem(item,cat){
-  const owned=state.ownedItems[cat].includes(item.id);
+  if(!state.ownedItems || !Array.isArray(state.ownedItems[cat])) normalizeState();
+  const owned=(state.ownedItems[cat]||[]).includes(item.id);
   const equipped=cat==='skins'?state.equippedItems.skin===item.id:state.equippedItems.customization===item.id;
   const div=document.createElement('div');div.className='shop-item'+(owned?' owned':'')+(equipped?' equipped':'');
   let prev='';

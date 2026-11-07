@@ -3261,37 +3261,48 @@
             if (missingLines.length === 0) return true;
 
             const canvasRect = canvas.getBoundingClientRect();
-            const svgViewBox = svgEl.viewBox.baseVal;
-            const scaleX = canvasRect.width / svgViewBox.width;
-            const scaleY = canvasRect.height / svgViewBox.height;
+            const svgRect = svgEl.getBoundingClientRect();
+            const vb = svgEl.viewBox && svgEl.viewBox.baseVal;
+            const vbW = (vb && vb.width) || 200;
+            const vbH = (vb && vb.height) || 200;
+
+            /* طرح با preserveAspectRatio=meet داخل کادر خودش جا می‌شود
+               (وسط‌چین + نوار خالی چپ/راست یا بالا/پایین)، پس باید همان تبدیل را حساب کرد.
+               قبلاً فقط با عرض بوم مقیاس می‌شد و روی صفحه‌ی پهن، خط نقطه‌چینِ واقعی
+               جای دیگری می‌افتاد و همه‌ی خط‌ها «اشتباه» شمرده می‌شدند. */
+            const scale = Math.min(svgRect.width / vbW, svgRect.height / vbH) || 1;
+            const originX = (svgRect.left - canvasRect.left) + (svgRect.width - vbW * scale) / 2;
+            const originY = (svgRect.top - canvasRect.top) + (svgRect.height - vbH * scale) / 2;
+            const margin = Math.max(24, Math.min(canvasRect.width, canvasRect.height) * 0.08);
+
+            const boxes = [];
+            for (const line of missingLines) {
+                let bbox = null;
+                try { bbox = line.getBBox(); } catch (err) { bbox = null; }
+                if (!bbox) continue;
+                boxes.push({
+                    x1: originX + bbox.x * scale,
+                    y1: originY + bbox.y * scale,
+                    x2: originX + (bbox.x + bbox.width) * scale,
+                    y2: originY + (bbox.y + bbox.height) * scale
+                });
+            }
+            if (!boxes.length) return true;
 
             let hitCount = 0;
             const totalPoints = points.length;
-            
+
             for (const point of points) {
-                let pointHit = false;
-                for (const line of missingLines) {
-                    const bbox = line.getBBox();
-                    
-                    const x1 = bbox.x * scaleX;
-                    const y1 = bbox.y * scaleY;
-                    const x2 = (bbox.x + bbox.width) * scaleX;
-                    const y2 = (bbox.y + bbox.height) * scaleY;
-                    
-                    const margin = 50;
-                    const cx = point.x;
-                    const cy = point.y;
-                    
-                    if (cx >= x1 - margin && cx <= x2 + margin && 
-                        cy >= y1 - margin && cy <= y2 + margin) {
-                        pointHit = true;
+                for (const box of boxes) {
+                    if (point.x >= box.x1 - margin && point.x <= box.x2 + margin &&
+                        point.y >= box.y1 - margin && point.y <= box.y2 + margin) {
+                        hitCount++;
                         break;
                     }
                 }
-                if (pointHit) hitCount++;
             }
 
-            return (hitCount / totalPoints) > 0.3;
+            return (hitCount / Math.max(1, totalPoints)) > 0.3;
         }
 
         function calculateStraightness(points) {
