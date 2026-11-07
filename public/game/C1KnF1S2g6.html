@@ -351,7 +351,7 @@
       animation: none !important;
     }
     .coin-icon-wrapper { width: auto !important; height: auto !important; display: inline-flex !important; }
-    .btn-icon, .back-btn, .btn-back {
+    button.btn-icon, .back-btn, .btn-back {
       width: clamp(42px, 8.6vmin, 54px) !important; height: clamp(42px, 8.6vmin, 54px) !important;
       background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
       border: 2px solid rgba(255, 255, 255, 0.2) !important;
@@ -360,7 +360,9 @@
       display: inline-grid !important; place-items: center;
       padding: 0 !important; flex: none;
     }
-    .btn-icon svg, .back-btn svg, .btn-back svg { width: 55% !important; height: 55% !important; }
+    button.btn-icon svg, .back-btn svg, .btn-back svg { width: 55% !important; height: 55% !important; }
+    svg.btn-icon, .btn svg.btn-icon { width: clamp(16px, 3.6vmin, 22px) !important; height: clamp(16px, 3.6vmin, 22px) !important;
+      background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; }
     /* تیترها */
     .game-title, .menu-title {
       color: var(--loko-ink) !important;
@@ -724,6 +726,36 @@
     .level-box.completed .level-letter,
     .level-box.completed .level-number { color: #1FA870 !important; }
     .level-box .check-icon { font-size: clamp(0.55rem, 1.3vmin, 0.7rem) !important; }
+
+    /* ===== راهنمای صوتی: کاراکتر بزرگ + متن کنارش ===== */
+    #guideScreen .guide-container {
+      display: grid !important;
+      grid-template-columns: minmax(96px, 34%) minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr) auto auto;
+      grid-template-areas: "char text" "char progress" "char skip";
+      column-gap: clamp(10px, 2.8vmin, 30px); row-gap: clamp(3px, 1vmin, 10px);
+      align-items: center; justify-items: center; text-align: center;
+      max-width: min(100%, 980px) !important;
+      padding: clamp(8px, 1.8vmin, 20px) clamp(10px, 2.4vmin, 26px) !important;
+    }
+    #guideScreen .guide-container .guide-char {
+      grid-area: char; align-self: center; margin: 0 !important;
+      width: auto !important; height: 100% !important;
+      max-width: 100% !important; min-width: clamp(88px, 26vmin, 150px);
+      aspect-ratio: 1 / 1;
+    }
+    #guideScreen .guide-container .guide-char img { width: 90% !important; height: 90% !important; object-fit: contain; }
+    #guideScreen .guide-container .guide-text {
+      grid-area: text; min-height: 0 !important; width: 100%;
+      font-size: clamp(0.9rem, 2.2vmin, 1.15rem) !important;
+      line-height: 2 !important; color: var(--loko-ink) !important;
+    }
+    #guideScreen .guide-container .guide-progress { grid-area: progress; width: 100% !important; }
+    #guideScreen .guide-container .guide-skip { grid-area: skip; margin: 0 !important; }
+    @media (max-height: 470px) {
+      #guideScreen .guide-container .guide-text { font-size: clamp(0.78rem, 2.5vmin, 0.95rem) !important; line-height: 1.85 !important; }
+      #guideScreen .guide-container .guide-char { min-width: clamp(84px, 24vmin, 130px); }
+    }
 </style>
 </head>
 <body>

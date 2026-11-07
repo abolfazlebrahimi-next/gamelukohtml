@@ -854,7 +854,7 @@ html, body {
       animation: none !important;
     }
     .coin-icon-wrapper { width: auto !important; height: auto !important; display: inline-flex !important; }
-    .btn-icon, .back-btn, .btn-back {
+    button.btn-icon, .back-btn, .btn-back {
       width: clamp(42px, 8.6vmin, 54px) !important; height: clamp(42px, 8.6vmin, 54px) !important;
       background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
       border: 2px solid rgba(255, 255, 255, 0.2) !important;
@@ -863,7 +863,9 @@ html, body {
       display: inline-grid !important; place-items: center;
       padding: 0 !important; flex: none;
     }
-    .btn-icon svg, .back-btn svg, .btn-back svg { width: 55% !important; height: 55% !important; }
+    button.btn-icon svg, .back-btn svg, .btn-back svg { width: 55% !important; height: 55% !important; }
+    svg.btn-icon, .btn svg.btn-icon { width: clamp(16px, 3.6vmin, 22px) !important; height: clamp(16px, 3.6vmin, 22px) !important;
+      background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; }
     /* تیترها */
     .game-title, .menu-title {
       color: var(--loko-ink) !important;
