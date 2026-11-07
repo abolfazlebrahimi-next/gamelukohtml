@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>نقاش کوچولو - LuKO</title>
     
     <style>
@@ -1461,6 +1461,246 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--theme-border); border-radius: 4px; }
     </style>
+
+    <!-- ============================================================
+         LOKO • لایه ریسپانسیو + چیدمان واقعی لنداسکیپ ۱۶:۹
+         (بدون تغییر در منطق نقاشی، مراحل، امتیاز و ذخیره‌سازی)
+         ============================================================ -->
+    <style id="loko-landscape">
+        :root {
+            --app-h: 100dvh; --app-w: 100vw;
+            --sat: env(safe-area-inset-top, 0px); --sar: env(safe-area-inset-right, 0px);
+            --sab: env(safe-area-inset-bottom, 0px); --sal: env(safe-area-inset-left, 0px);
+            --navy-900: #071A35; --navy-800: #102B55;
+            --loko-orange: #FF8A00; --loko-orange-bright: #FFAD24; --loko-orange-text: #B45309;
+            --loko-surface: #FFF9EF; --loko-surface-2: #FFFFFF; --loko-chip: #EAF5FF;
+            --loko-ink: #102B55; --loko-ink-soft: #4A6285; --loko-sky: #79CFFF; --loko-soft-blue: #DCEFFF;
+            --loko-line: rgba(16, 43, 85, 0.12);
+            --loko-shadow: 0 18px 40px rgba(4, 16, 31, 0.34);
+        }
+
+        /* ---------- پالت: ساختار سرمه‌ای، کارت روشن، اقدام اصلی نارنجی ---------- */
+        :root, body[class*="theme-"] {
+            --primary: var(--loko-orange);
+            --secondary: var(--loko-sky);
+            --gold: var(--loko-orange-bright);
+            --gold-dark: var(--loko-orange-text);
+            --glass-bg: var(--loko-surface);
+            --glass-border: var(--loko-line);
+            --text-color: var(--loko-ink);
+            --text-secondary: var(--loko-ink-soft);
+            --theme-primary: var(--loko-orange);
+            --theme-secondary: var(--loko-sky);
+            --theme-border: rgba(16, 43, 85, 0.14);
+            --theme-glass-bg: var(--loko-surface);
+            --theme-glow: 0 6px 16px rgba(255, 138, 0, 0.22);
+            --modal-border-color: var(--loko-orange-bright);
+            --modal-title-color: var(--loko-orange-text);
+            --modal-btn-bg: linear-gradient(180deg, var(--loko-orange-bright), var(--loko-orange));
+            --modal-btn-color: var(--navy-900);
+            --shadow-xl: 0 18px 40px rgba(4, 16, 31, 0.34);
+            --glow-gold: 0 6px 16px rgba(255, 138, 0, 0.2);
+            --glow-blue: 0 6px 16px rgba(121, 207, 255, 0.2);
+            --glow-purple: 0 6px 16px rgba(121, 207, 255, 0.2);
+            --danger: #C0392B;
+            --success: #157A45;
+        }
+
+        html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+        body {
+            height: var(--app-h, 100dvh);
+            background: radial-gradient(circle at 18% 12%, #1B3F70 0%, #0B2244 48%, #071A35 100%) !important;
+            background-attachment: fixed; background-size: cover;
+            -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+        }
+        .background { opacity: 0.35 !important; }
+        .screen {
+            position: fixed; inset: 0; width: 100%; height: var(--app-h, 100dvh);
+            overflow: hidden; padding: calc(6px + var(--sat)) calc(6px + var(--sar)) calc(6px + var(--sab)) calc(6px + var(--sal));
+        }
+
+        /* ---------- کارت‌های روشن ---------- */
+        .glass-card, .modal-content {
+            background: var(--loko-surface) !important;
+            border: 3px solid rgba(255, 255, 255, 0.9) !important;
+            color: var(--loko-ink) !important;
+            box-shadow: var(--loko-shadow) !important;
+            backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        }
+        .glass-card h2, .modal-content h2, .level-select-header h2, .help-header h2, .shop-header h2 { color: var(--loko-ink) !important; }
+
+        /* ---------- دکمه‌ها ---------- */
+        .btn { min-height: 56px; border-radius: 18px; font-weight: 800; font-size: clamp(0.9rem, 2vmin, 1.05rem); }
+        .btn-primary {
+            background: linear-gradient(180deg, var(--loko-orange-bright), var(--loko-orange)) !important;
+            color: var(--navy-900) !important; border: 3px solid #FFFFFF !important;
+            box-shadow: 0 7px 0 #C96A00, 0 14px 24px rgba(201, 106, 0, 0.3) !important;
+        }
+        .btn-secondary {
+            background: var(--loko-surface-2) !important; color: var(--loko-ink) !important;
+            border: 2px solid var(--loko-line) !important; box-shadow: 0 4px 0 rgba(16, 43, 85, 0.1) !important;
+        }
+        .btn-success {
+            background: linear-gradient(180deg, #7BE3AE, #2FBF71) !important;
+            color: #06301B !important; border: 3px solid #FFFFFF !important;
+            box-shadow: 0 7px 0 #157A45, 0 14px 24px rgba(21, 122, 69, 0.25) !important;
+        }
+        .back-btn, .btn-stop, .tool-btn {
+            background: var(--loko-surface-2) !important;
+            color: var(--loko-ink) !important;
+            border: 2px solid var(--loko-line) !important;
+            box-shadow: 0 3px 0 rgba(16, 43, 85, 0.1) !important;
+        }
+        .back-btn { width: 50px !important; height: 50px !important; }
+        .tool-btn { width: 50px !important; height: 50px !important; }
+        .btn-stop { width: 50px !important; height: 50px !important; color: #B4301B !important; border-color: rgba(233, 83, 59, 0.4) !important; }
+
+        /* ---------- سکه با CSS (تصویر بیت‌مپ ناخوانا) ---------- */
+        .coin-display {
+            background: #FFFFFF !important; border: 2px solid var(--loko-orange-bright) !important;
+            border-radius: 999px !important; padding: 4px 14px !important;
+            box-shadow: 0 3px 0 #E39A1A, 0 8px 16px rgba(255, 138, 0, 0.2) !important;
+            display: inline-flex !important; align-items: center; gap: 8px;
+        }
+        .coin-display img { display: none !important; }
+        .coin-display::before {
+            content: ''; width: 26px; height: 26px; border-radius: 50%; flex: none; display: inline-block; order: 2;
+            background: radial-gradient(circle at 34% 26%, #FFFDF2 0%, #FFE9A3 22%, #FFC93C 52%, #F2A11D 76%, #C97A00 100%);
+            box-shadow: inset 0 -3px 0 rgba(160, 92, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.9), 0 2px 5px rgba(160, 92, 0, 0.35);
+        }
+        .coin-amount {
+            color: var(--navy-800) !important; text-shadow: none !important;
+            font-weight: 900 !important; font-size: clamp(1rem, 2.4vmin, 1.2rem) !important; order: 1;
+        }
+
+        /* ---------- منو ---------- */
+        .menu-title {
+            background: linear-gradient(135deg, var(--navy-800) 20%, var(--loko-orange-text) 100%) !important;
+            -webkit-background-clip: text !important; background-clip: text !important;
+            -webkit-text-fill-color: transparent !important; color: transparent !important;
+            text-shadow: none !important; text-align: start;
+        }
+        .menu-subtitle { color: var(--loko-ink-soft) !important; text-align: start; }
+        .character-frame {
+            background: linear-gradient(180deg, #FFFFFF 0%, #EAF7FF 100%) !important;
+            border: 4px solid var(--loko-orange-bright) !important;
+            box-shadow: 0 14px 26px rgba(16, 43, 85, 0.22) !important;
+        }
+        .character-frame img { filter: drop-shadow(0 10px 12px rgba(16, 43, 85, 0.22)); }
+        .speech-bubble {
+            background: #FFFFFF !important; color: var(--loko-ink) !important;
+            border: 2px solid var(--loko-sky) !important; box-shadow: none !important;
+            animation: none !important;
+        }
+
+        /* ---------- HUD بازی ---------- */
+        .game-header .info .badge {
+            background: #FFFFFF !important; color: var(--loko-ink) !important;
+            border: 2px solid var(--loko-line) !important;
+            font-size: clamp(0.72rem, 1.7vmin, 0.9rem) !important; padding: 6px 12px !important;
+        }
+        .game-header .info .badge.level { color: var(--navy-800) !important; border-color: rgba(255, 138, 0, 0.5) !important; }
+        .game-area {
+            background: linear-gradient(180deg, #0B2244 0%, #071A35 100%) !important;
+            border: 2px solid rgba(121, 207, 255, 0.35) !important;
+        }
+        .drawing-area { background: radial-gradient(circle at 50% 40%, rgba(121, 207, 255, 0.12), transparent 72%) !important; }
+
+        /* ---------- مودال‌ها ---------- */
+        .modal-overlay { background: rgba(7, 26, 53, 0.9) !important; backdrop-filter: none !important; }
+        .modal-content { max-height: min(100%, 92vh); overflow-y: auto; }
+        .modal-content h2 { color: var(--loko-orange-text) !important; }
+
+        /* ============================================================
+           چیدمان افقی
+           ============================================================ */
+        @media (orientation: landscape) {
+
+            /* --- منو: قهرمان | عنوان و اکشن‌ها --- */
+            .menu-container {
+                max-width: min(100%, 1000px) !important;
+                width: 100% !important; max-height: min(100%, 640px);
+                display: grid;
+                grid-template-columns: minmax(150px, 34%) minmax(0, 1fr);
+                grid-template-rows: auto auto minmax(0, 1fr);
+                grid-template-areas: "char title" "char subtitle" "char buttons";
+                align-items: center;
+                gap: clamp(6px, 1.4vmin, 16px) clamp(10px, 2vmin, 24px);
+                padding: clamp(16px, 2.6vmin, 30px) !important;
+                text-align: start;
+            }
+            .menu-title { grid-area: title; font-size: clamp(1.4rem, 4vmin, 2.3rem) !important; margin: 0 !important; }
+            .menu-subtitle { grid-area: subtitle; margin: 0 0 clamp(4px, 1vmin, 10px) !important; font-size: clamp(0.78rem, 1.9vmin, 1rem) !important; }
+            .character-wrapper {
+                grid-area: char; margin: 0 auto !important;
+                width: min(100%, 44vmin, 320px) !important; height: auto !important;
+                aspect-ratio: 1 / 1;
+            }
+            .character-frame { border-radius: 26px !important; }
+            .character-frame img { width: 100% !important; height: 100% !important; }
+            .speech-bubble {
+                top: auto !important; bottom: -10px !important; right: 50% !important;
+                transform: translateX(50%); white-space: nowrap;
+                padding: 4px 12px !important; font-size: clamp(0.64rem, 1.4vmin, 0.8rem) !important;
+            }
+            .menu-buttons { grid-area: buttons; align-self: end; width: 100%; gap: clamp(8px, 1.4vmin, 12px) !important; }
+            .menu-container .coin-display { top: clamp(10px, 1.6vmin, 18px) !important; right: clamp(10px, 1.6vmin, 18px) !important; }
+
+            /* --- انتخاب مرحله --- */
+            .level-select-container {
+                max-width: min(100%, 1040px) !important; max-height: min(100%, 720px) !important;
+                width: 100% !important; padding: clamp(14px, 2.2vmin, 26px) !important;
+            }
+            .level-select-header { margin-bottom: clamp(8px, 1.6vmin, 16px) !important; }
+            .level-grid { grid-template-columns: repeat(8, minmax(0, 1fr)) !important; gap: clamp(6px, 1.1vmin, 12px) !important; }
+
+            /* --- راهنما: متن | تصویر --- */
+            .help-container {
+                max-width: min(100%, 960px) !important; max-height: min(100%, 680px) !important;
+                display: grid !important;
+                grid-template-columns: minmax(0, 40%) minmax(0, 1fr);
+                grid-template-rows: auto minmax(0, 1fr);
+                grid-template-areas: "head head" "char text";
+                align-items: center; gap: clamp(8px, 1.6vmin, 18px) clamp(10px, 2vmin, 24px);
+                padding: clamp(14px, 2.4vmin, 28px) !important; overflow: hidden;
+            }
+            .help-header { grid-area: head; }
+            .help-character { grid-area: char; max-width: 100%; display: flex; align-items: center; justify-content: center; }
+            .help-character img { max-height: min(46vmin, 320px) !important; max-width: 100% !important; width: auto !important; }
+            .help-text { grid-area: text; font-size: clamp(0.85rem, 2.1vmin, 1rem) !important; line-height: 1.9; }
+
+            /* --- فروشگاه --- */
+            .shop-container {
+                max-width: min(100%, 1040px) !important; max-height: min(100%, 720px) !important;
+                width: 100% !important; padding: clamp(12px, 2vmin, 24px) !important;
+                display: flex; flex-direction: column; overflow: hidden !important;
+            }
+            .shop-header { margin-bottom: clamp(8px, 1.4vmin, 14px) !important; }
+            .shop-grid { flex: 1; min-height: 0; overflow-y: auto; grid-template-columns: repeat(auto-fill, minmax(min(150px, 21vw), 1fr)) !important; }
+
+            /* --- بازی: هدر + بوم + فوتر --- */
+            .game-container {
+                max-width: none !important; width: 100% !important; height: 100%;
+                padding: 0 !important; gap: clamp(6px, 1.2vmin, 12px) !important;
+            }
+            .game-header { padding: clamp(6px, 1.2vmin, 12px) clamp(10px, 1.8vmin, 18px) !important; }
+            .game-area { min-height: 0 !important; padding: clamp(6px, 1.2vmin, 14px) !important; border-radius: 18px !important; }
+            .drawing-area { min-height: 0 !important; }
+            .game-footer { padding-top: 0 !important; }
+            .game-footer .btn { min-height: 56px !important; }
+
+            /* --- مودال‌ها --- */
+            .modal-content { max-width: min(94vw, 620px) !important; padding: clamp(14px, 2.4vmin, 26px) !important; }
+            .modal-content h2 { font-size: clamp(1.15rem, 3vmin, 1.6rem) !important; }
+            .modal-buttons { flex-direction: row !important; }
+            .modal-buttons .btn { flex: 1; }
+        }
+
+        @media (orientation: portrait) {
+            .screen { overflow-y: auto; }
+        }
+    </style>
+
 </head>
 <body>
 
@@ -3112,6 +3352,52 @@
         window.setPenSize = setPenSize;
         window.setEraserSize = setEraserSize;
         window.closeAllSizeMenus = closeAllSizeMenus;
+    </script>
+
+    <script id="loko-viewport">
+        (function () {
+            var root = document.documentElement;
+            var lastW = 0, lastH = 0;
+
+            function relayoutCanvas() {
+                try {
+                    var gs = document.getElementById('game-screen');
+                    if (!gs || !gs.classList.contains('active')) return;
+                    if (typeof setupCanvas !== 'function') return;
+                    if (typeof GameState === 'undefined' || !GameState.currentImage) return;
+                    var area = document.getElementById('drawing-area');
+                    if (!area) return;
+                    var w = area.clientWidth, h = area.clientHeight;
+                    if (!w || !h) return;
+                    if (Math.abs(w - lastW) < 2 && Math.abs(h - lastH) < 2) return;
+                    lastW = w; lastH = h;
+                    setupCanvas(GameState.currentImage);
+                } catch (e) { /* بی‌صدا: نقاشی نباید قطع شود */ }
+            }
+
+            function apply() {
+                var vv = window.visualViewport;
+                var h = Math.round(vv ? vv.height : window.innerHeight);
+                var w = Math.round(vv ? vv.width : window.innerWidth);
+                root.style.setProperty('--app-h', h + 'px');
+                root.style.setProperty('--app-w', w + 'px');
+                document.body.classList.toggle('is-landscape', w > h);
+                relayoutCanvas();
+            }
+            var raf = 0;
+            function schedule() {
+                if (raf) return;
+                raf = requestAnimationFrame(function () { raf = 0; apply(); });
+            }
+            window.addEventListener('resize', schedule);
+            window.addEventListener('orientationchange', function () {
+                setTimeout(apply, 120); setTimeout(apply, 450);
+            });
+            if (window.visualViewport) window.visualViewport.addEventListener('resize', schedule);
+            document.addEventListener('DOMContentLoaded', apply);
+            window.__lokoRelayout = apply;
+            apply();
+        })();
     </script>
 </body>
 </html>

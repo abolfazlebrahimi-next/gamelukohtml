@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>کارخانه خط‌های صاف - LOKO</title>
     
     <style>
@@ -1790,6 +1790,312 @@
             animation: confettiFall linear forwards;
         }
     </style>
+
+    <!-- ============================================================
+         LOKO • لایه ریسپانسیو + چیدمان واقعی لنداسکیپ ۱۶:۹
+         (روی استایل‌های اصلی سوار می‌شود و منطق بازی را تغییر نمی‌دهد)
+         ============================================================ -->
+    <style id="loko-landscape">
+        :root {
+            --app-h: 100dvh; --app-w: 100vw;
+            --sat: env(safe-area-inset-top, 0px); --sar: env(safe-area-inset-right, 0px);
+            --sab: env(safe-area-inset-bottom, 0px); --sal: env(safe-area-inset-left, 0px);
+            --navy-900: #071A35; --navy-800: #102B55;
+            --loko-orange: #FF8A00; --loko-orange-bright: #FFAD24; --loko-orange-text: #B45309;
+            --loko-surface: #FFF9EF; --loko-surface-2: #FFFFFF; --loko-chip: #EAF5FF;
+            --loko-ink: #102B55; --loko-ink-soft: #4A6285; --loko-sky: #79CFFF; --loko-soft-blue: #DCEFFF;
+            --loko-line: rgba(16, 43, 85, 0.12);
+            --loko-shadow: 0 18px 40px rgba(4, 16, 31, 0.34);
+        }
+
+        /* ---------- پالت: ساختار سرمه‌ای، کارت روشن، اقدام اصلی نارنجی ---------- */
+        :root, body[class*="theme-"] {
+            --primary: var(--loko-orange);
+            --secondary: var(--loko-sky);
+            --gold: var(--loko-orange-bright);
+            --glass-bg: var(--loko-surface);
+            --glass-border: var(--loko-line);
+            --text-color: var(--loko-ink);
+            --text-secondary: var(--loko-ink-soft);
+            --bg-gradient: radial-gradient(circle at 18% 12%, #1B3F70 0%, #0B2244 48%, #071A35 100%);
+            --button-primary-bg: linear-gradient(180deg, var(--loko-orange-bright), var(--loko-orange));
+            --button-primary-glow: rgba(255, 138, 0, 0.35);
+            --card-border-color: rgba(255, 138, 0, 0.45);
+            --countdown-color: var(--loko-orange-bright);
+            --glow-gold: 0 6px 16px rgba(255, 138, 0, 0.22);
+            --glow-blue: 0 6px 16px rgba(121, 207, 255, 0.22);
+            --shop-item-bg: #FFFFFF;
+            --shop-item-border: var(--loko-line);
+            --shop-item-hover-bg: var(--loko-chip);
+            --shop-item-hover-border: var(--loko-sky);
+            --shop-item-locked-bg: #F1F4F8;
+            --shop-item-locked-border: var(--loko-line);
+            --shop-btn-buy-bg: linear-gradient(180deg, var(--loko-orange-bright), var(--loko-orange));
+            --shop-btn-buy-color: var(--navy-900);
+            --shop-btn-select-bg: var(--loko-chip);
+            --shop-btn-select-color: var(--loko-ink);
+            --shop-btn-active-bg: #E4F8EC;
+            --shop-btn-active-color: #157A45;
+            --shop-btn-locked-bg: #E6ECF3;
+            --shop-btn-locked-color: #8A9BB4;
+            --buy-modal-bg: #FFFFFF;
+            --buy-modal-border: rgba(255, 138, 0, 0.35);
+            --buy-modal-glow: rgba(255, 138, 0, 0.25);
+            --buy-success-title-color: var(--loko-orange-text);
+        }
+
+        /* ---------- پایه: بدون اسکرول/زوم، سازگار با safe-area ---------- */
+        html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+        body {
+            height: var(--app-h, 100dvh);
+            background: var(--bg-gradient); background-attachment: fixed;
+            background-size: cover; background-position: center;
+            color: var(--loko-ink);
+            -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+        }
+        .screen {
+            position: fixed; inset: 0; width: 100%; height: var(--app-h, 100dvh);
+            overflow: hidden;
+            padding: calc(6px + var(--sat)) calc(6px + var(--sar)) calc(6px + var(--sab)) calc(6px + var(--sal));
+        }
+
+        /* ---------- کارت‌های روشن ---------- */
+        .glass-card, .level-select-container, .help-container,
+        .result-content, .buy-success-content, .game-header, .game-progress {
+            background: var(--loko-surface) !important;
+            border: 3px solid rgba(255, 255, 255, 0.9) !important;
+            color: var(--loko-ink) !important;
+            box-shadow: var(--loko-shadow) !important;
+            backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+        }
+
+        /* ---------- دکمه‌ها ---------- */
+        .btn { min-height: 56px; border-radius: 18px; font-weight: 800; font-size: clamp(0.9rem, 2vmin, 1.1rem); }
+        .btn-magic {
+            background: var(--loko-surface-2) !important; color: var(--loko-ink) !important;
+            border: 2px solid var(--loko-line) !important;
+            box-shadow: 0 4px 0 rgba(16, 43, 85, 0.1) !important;
+            text-shadow: none !important;
+        }
+        .btn-magic:hover { background: var(--loko-chip) !important; color: var(--loko-ink) !important; }
+        .btn-magic.btn-large {
+            background: linear-gradient(180deg, var(--loko-orange-bright), var(--loko-orange)) !important;
+            color: var(--navy-900) !important;
+            border: 3px solid #FFFFFF !important;
+            box-shadow: 0 7px 0 #C96A00, 0 14px 24px rgba(201, 106, 0, 0.3) !important;
+        }
+        .btn-magic.btn-large:hover { box-shadow: 0 9px 0 #C96A00, 0 18px 28px rgba(201, 106, 0, 0.34) !important; }
+        .secondary-buttons .btn { min-height: 56px; font-size: clamp(0.85rem, 1.9vmin, 1rem) !important; }
+
+        /* ---------- سکه (تصویر بیت‌مپ خوانا نیست؛ سکه با CSS) ---------- */
+        .coin-display {
+            background: #FFFFFF !important; border: 2px solid var(--loko-orange-bright) !important;
+            border-radius: 999px !important; padding: 4px 14px !important;
+            box-shadow: 0 3px 0 #E39A1A, 0 8px 16px rgba(255, 138, 0, 0.2) !important;
+            display: inline-flex !important; align-items: center; gap: 8px;
+        }
+        .coin-display .coin-icon-img { display: none !important; }
+        .coin-display::before, .coin-reward::before {
+            content: ''; width: 26px; height: 26px; border-radius: 50%; flex: none; display: inline-block;
+            background: radial-gradient(circle at 34% 26%, #FFFDF2 0%, #FFE9A3 22%, #FFC93C 52%, #F2A11D 76%, #C97A00 100%);
+            box-shadow: inset 0 -3px 0 rgba(160, 92, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.9), 0 2px 5px rgba(160, 92, 0, 0.35);
+        }
+        .coin-display::before { order: 2; }
+        .coin-amount {
+            color: var(--navy-800) !important; text-shadow: none !important;
+            font-weight: 900 !important; font-size: clamp(1rem, 2.4vmin, 1.25rem) !important;
+            margin: 0 !important; order: 1;
+        }
+        .coin-reward { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+        .coin-reward img { display: none !important; }
+
+        /* ---------- منوی اصلی ---------- */
+        .menu-container { border-radius: 26px; }
+        .menu-title-banner {
+            background: #FFFFFF !important;
+            border: 2px solid rgba(255, 138, 0, 0.35) !important;
+            box-shadow: none !important;
+            border-radius: 18px; padding: 12px 16px; margin-bottom: 16px;
+        }
+        .game-title {
+            background: linear-gradient(135deg, var(--navy-800) 20%, var(--loko-orange-text) 100%) !important;
+            -webkit-background-clip: text !important; background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            animation: none !important; filter: none !important;
+        }
+        .game-subtitle { color: var(--loko-ink-soft) !important; text-shadow: none !important; }
+        .character-frame {
+            background: linear-gradient(180deg, #FFFFFF 0%, #EAF7FF 100%) !important;
+            border: 4px solid var(--loko-orange-bright) !important;
+            box-shadow: 0 14px 26px rgba(16, 43, 85, 0.22) !important;
+            animation: none !important;
+        }
+        .gamer-img { filter: drop-shadow(0 10px 12px rgba(16, 43, 85, 0.22)) !important; }
+        .speech-bubble-inside {
+            background: #FFFFFF !important; color: var(--loko-ink) !important;
+            border: 2px solid var(--loko-sky) !important; box-shadow: none !important;
+            animation: none !important; font-size: 0.78rem !important;
+        }
+        .speech-bubble-inside::after { border-color: #FFFFFF transparent transparent transparent !important; }
+        .magic-glow { opacity: 0.22 !important; }
+
+        /* ---------- HUD بازی ---------- */
+        .level-badge, .score-badge, .timer-badge {
+            background: #FFFFFF !important; color: var(--loko-ink) !important;
+            border: 2px solid var(--loko-line) !important;
+            font-size: clamp(0.72rem, 1.7vmin, 0.9rem) !important;
+            padding: 5px 12px !important;
+        }
+        .level-badge { border-color: rgba(47, 191, 113, 0.45) !important; }
+        .score-badge { border-color: rgba(233, 83, 59, 0.35) !important; }
+        .timer-badge { border-color: rgba(255, 138, 0, 0.45) !important; }
+        .stop-btn, .close-shop-btn {
+            width: 48px !important; height: 48px !important; border-radius: 14px !important;
+            background: #FFFFFF !important; color: #B4301B !important;
+            border: 2px solid rgba(233, 83, 59, 0.45) !important;
+            box-shadow: 0 4px 12px rgba(233, 83, 59, 0.16) !important;
+        }
+        .belt-label { color: #FFF9EF !important; }
+
+        /* اندازه اقلام نوار نقاله: هرگز کوچک نشود (کوئری‌های ارتفاع/عرض قبلی را باطل می‌کند) */
+        .line-item { width: 56px !important; height: 78px !important; }
+        .line-item svg { width: 26px !important; height: 58px !important; }
+        .progress-bar-bg { background: #D8E8F6 !important; }
+        .progress-text { color: var(--loko-ink-soft) !important; }
+        .flash-text, .float-text { text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55); }
+        .float-text.plus { color: #5BE49B; }
+        .float-text.minus, .float-text.miss { color: #FF9C8A; }
+
+        /* ---------- مودال‌ها ---------- */
+        .result-modal, #buy-success-modal, #countdown-overlay { background: rgba(7, 26, 53, 0.9) !important; backdrop-filter: none !important; }
+        .result-title.gold { color: var(--loko-orange-text) !important; }
+        .countdown-number { color: #FFF9EF !important; text-shadow: 0 0 60px var(--loko-orange-bright) !important; }
+        .countdown-text { color: var(--loko-sky) !important; text-shadow: none !important; }
+
+        /* ============================================================
+           چیدمان افقی (Landscape)
+           ============================================================ */
+        @media (orientation: landscape) {
+
+            /* --- منو: پنل قهرمان | پنل اطلاعات --- */
+            .menu-container {
+                max-width: min(100%, 1040px) !important;
+                max-height: min(100%, 660px);
+                width: 100% !important;
+                display: grid;
+                grid-template-columns: minmax(150px, 34%) minmax(0, 1fr);
+                grid-template-areas: "hero banner" "hero actions";
+                align-items: center;
+                gap: clamp(8px, 1.8vmin, 22px);
+                padding: clamp(16px, 2.6vmin, 30px) !important;
+                overflow: hidden;
+            }
+            .menu-title-banner { grid-area: banner; margin: 0 !important; }
+            .game-title { font-size: clamp(1.35rem, 4vmin, 2.3rem) !important; }
+            .game-subtitle { font-size: clamp(0.78rem, 1.8vmin, 0.98rem) !important; }
+            .character-wrapper {
+                grid-area: hero; margin: 0 auto !important;
+                width: min(100%, 44vmin, 320px) !important; height: auto !important;
+                aspect-ratio: 1 / 1;
+            }
+            .character-frame { border-radius: 26px !important; }
+            .gamer-img { width: 100% !important; height: 100% !important; }
+            .speech-bubble-inside {
+                top: auto !important; bottom: -10px !important; right: 50% !important;
+                transform: translateX(50%); white-space: nowrap;
+                padding: 4px 12px !important; font-size: clamp(0.64rem, 1.4vmin, 0.8rem) !important;
+            }
+            .speech-bubble-inside::after { display: none !important; }
+            .menu-container > div:last-child {
+                grid-area: actions; width: min(100%, 440px); justify-self: center;
+                gap: clamp(8px, 1.4vmin, 12px) !important;
+            }
+            .coin-display {
+                position: absolute !important; top: clamp(10px, 1.6vmin, 18px) !important;
+                right: clamp(10px, 1.6vmin, 18px) !important;
+            }
+
+            /* --- انتخاب مرحله: شبکه پهن --- */
+            .level-select-container {
+                max-width: min(100%, 1040px) !important;
+                max-height: min(100%, 720px) !important;
+                width: 100% !important;
+                padding: clamp(14px, 2.2vmin, 26px) !important;
+            }
+            .level-header { margin-bottom: clamp(8px, 1.6vmin, 16px) !important; }
+            .level-header h2 { font-size: clamp(1.05rem, 2.6vmin, 1.6rem) !important; }
+            .levels-grid {
+                grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+                gap: clamp(6px, 1.1vmin, 12px) !important;
+                padding: 4px !important; align-content: start;
+            }
+            .level-btn { font-size: clamp(0.95rem, 2.1vmin, 1.45rem) !important; border-radius: 14px !important; }
+
+            /* --- فروشگاه: پنل پهن + شبکه کارت --- */
+            #shop-screen .help-container {
+                max-width: min(100%, 1040px) !important;
+                max-height: min(100%, 720px) !important;
+                padding: clamp(12px, 2vmin, 24px) !important;
+                display: flex; flex-direction: column; overflow: hidden !important;
+            }
+            .shop-header { margin-bottom: clamp(8px, 1.4vmin, 14px) !important; }
+            .shop-header h2 { font-size: clamp(1.05rem, 2.6vmin, 1.5rem) !important; }
+            .shop-tabs { margin-bottom: clamp(8px, 1.4vmin, 14px) !important; }
+            .shop-tab-content { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+            .shop-grid { grid-template-columns: repeat(auto-fill, minmax(min(150px, 21vw), 1fr)) !important; }
+
+            /* --- بازی: نوار نقاله + سطل + پیشرفت --- */
+            #game-screen {
+                padding: calc(4px + var(--sat)) calc(4px + var(--sar)) calc(4px + var(--sab)) calc(4px + var(--sal)) !important;
+                justify-content: flex-start !important;
+            }
+            .game-header {
+                max-width: none !important; width: 100% !important;
+                margin-bottom: clamp(4px, 1vmin, 10px) !important;
+                padding: clamp(6px, 1.2vmin, 12px) clamp(10px, 1.8vmin, 18px) !important;
+            }
+            .game-area {
+                max-width: none !important; width: 100% !important; flex: 1;
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) minmax(132px, 22%);
+                grid-template-rows: minmax(0, 1fr) auto;
+                grid-template-areas: "belt bin" "progress bin";
+                gap: clamp(8px, 1.4vmin, 16px);
+                align-items: stretch !important; justify-content: stretch !important;
+                padding: 0 !important; min-height: 0;
+            }
+            .belt-container { grid-area: belt; width: 100% !important; margin: 0 !important; align-self: center; }
+            .belt-label { font-size: clamp(0.72rem, 1.6vmin, 0.95rem) !important; margin-bottom: 6px !important; }
+            .conveyor-belt { height: clamp(84px, 20vh, 112px) !important; }
+            .drop-zone {
+                grid-area: bin; width: 100% !important; height: 100% !important;
+                min-height: 0 !important; margin: 0 !important;
+                background: #FFF9EF !important;
+                border: 3px dashed rgba(121, 207, 255, 0.95) !important;
+                border-radius: 20px !important;
+                box-shadow: 0 10px 24px rgba(4, 16, 31, 0.25);
+                padding: 8px;
+            }
+            .drop-zone .trash-placeholder { color: var(--loko-ink-soft) !important; opacity: 1 !important; font-size: clamp(0.7rem, 1.5vmin, 0.9rem) !important; }
+            .drop-zone .trash-placeholder i { font-size: clamp(1.6rem, 4.4vmin, 2.8rem) !important; }
+            .drop-zone img { max-height: 82% !important; }
+            .game-progress { grid-area: progress; width: 100% !important; margin: 0 !important; }
+
+            /* --- مودال‌ها: افقی و جمع‌وجور --- */
+            .result-content { max-width: min(94vw, 640px) !important; padding: clamp(14px, 2.4vmin, 26px) !important; }
+            .result-emoji-big { font-size: clamp(2.2rem, 6vmin, 3.6rem) !important; }
+            .result-title { font-size: clamp(1.2rem, 3vmin, 1.8rem) !important; }
+            .result-buttons { flex-direction: row !important; }
+            .result-buttons .btn { flex: 1; }
+            .countdown-number { font-size: clamp(3rem, 13vmin, 7rem) !important; }
+            .countdown-text { font-size: clamp(1rem, 3vmin, 1.8rem) !important; }
+        }
+
+        @media (orientation: portrait) {
+            .screen { overflow-y: auto; }
+        }
+    </style>
+
 </head>
 <body>
     <div id="toast-container"></div>
@@ -3387,6 +3693,32 @@
                 e.preventDefault();
             }
         }, { passive: false });
+    </script>
+
+    <script id="loko-viewport">
+        (function () {
+            var root = document.documentElement;
+            function apply() {
+                var vv = window.visualViewport;
+                var h = Math.round(vv ? vv.height : window.innerHeight);
+                var w = Math.round(vv ? vv.width : window.innerWidth);
+                root.style.setProperty('--app-h', h + 'px');
+                root.style.setProperty('--app-w', w + 'px');
+                document.body.classList.toggle('is-landscape', w > h);
+            }
+            var raf = 0;
+            function schedule() {
+                if (raf) return;
+                raf = requestAnimationFrame(function () { raf = 0; apply(); });
+            }
+            window.addEventListener('resize', schedule);
+            window.addEventListener('orientationchange', function () {
+                setTimeout(apply, 120); setTimeout(apply, 450);
+            });
+            if (window.visualViewport) window.visualViewport.addEventListener('resize', schedule);
+            document.addEventListener('DOMContentLoaded', apply);
+            apply();
+        })();
     </script>
 </body>
 </html>
