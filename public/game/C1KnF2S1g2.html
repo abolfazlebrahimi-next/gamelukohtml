@@ -774,9 +774,10 @@ body{display:flex;justify-content:center;align-items:center;background:#0c0a14}
       #screen-shop .top-bar { flex: none; }
       #screen-shop .shop-content {
         display: grid !important; flex: 1 1 auto !important; min-height: 0;
-        grid-template-columns: minmax(0, 1fr) clamp(92px, 16%, 158px);
+        grid-template-columns: clamp(92px, 16%, 158px) minmax(0, 1fr);
         grid-template-rows: minmax(0, 1fr);
-        grid-template-areas: "stage tabs";
+        /* ریل دسته‌ها سمت راست، مثل بقیه‌ی بازی‌ها */
+        grid-template-areas: "tabs stage";
         align-items: stretch; justify-items: stretch;
         column-gap: clamp(8px, 2vmin, 18px) !important;
       }
