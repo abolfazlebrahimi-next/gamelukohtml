@@ -717,15 +717,20 @@
       /* صفحه اصلی: متن | کاراکتر */
       #landing-view .landing-content {
         display: grid !important;
-        grid-template-columns: minmax(0, 1fr) minmax(130px, 30%);
+        grid-template-columns: minmax(112px, 27%) minmax(0, 1fr);
         grid-template-rows: auto minmax(0, 1fr) auto;
-        grid-template-areas: "coin char" "head char" "buttons char";
+        grid-template-areas: "bar bar" "char head" "char buttons";
         align-items: center; justify-items: stretch;
         column-gap: clamp(10px, 2.6vmin, 28px); row-gap: clamp(4px, 1.2vmin, 12px);
         height: 100%; overflow: hidden !important;
         padding: clamp(8px, 1.8vmin, 18px) clamp(10px, 2.4vmin, 24px) !important;
       }
-      #landing-view .coin-display { grid-area: coin; justify-self: start; margin: 0 !important; }
+      #landing-view .coin-display {
+        grid-area: bar; justify-self: start; align-self: center; margin: 0 !important;
+        padding: clamp(3px, 0.9vmin, 7px) clamp(9px, 1.9vmin, 15px) clamp(3px, 0.9vmin, 7px) clamp(6px, 1.2vmin, 10px) !important;
+      }
+      #landing-view .coin-display .coin-wrap { width: clamp(18px, 4vmin, 26px) !important; height: clamp(18px, 4vmin, 26px) !important; }
+      #landing-view .coin-display .coin-amount { font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; }
       #landing-view .header-container { grid-area: head; text-align: right; align-self: center; }
       #landing-view .header-container h1 { font-size: clamp(1.3rem, 4.4vmin, 2.1rem) !important; margin: 0 0 4px !important; }
       #landing-view .header-container p { font-size: clamp(0.78rem, 2vmin, 0.98rem) !important; line-height: 1.6 !important; }
@@ -733,6 +738,7 @@
       #landing-view .loko-character-zone {
         grid-area: char; height: 100%; display: flex !important; flex-direction: column !important;
         justify-content: center; align-items: center; gap: clamp(2px, 0.8vmin, 8px);
+        padding-top: clamp(2px, 1vmin, 10px);
       }
       #landing-view .char-main { width: clamp(88px, 26vmin, 190px) !important; height: clamp(88px, 26vmin, 190px) !important; }
       #landing-view .speech-bubble { max-width: 100% !important; font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; padding: clamp(4px, 1vmin, 9px) clamp(8px, 1.8vmin, 14px) !important; }
@@ -758,7 +764,52 @@
       .level-card { min-height: 44px !important; }
     }
 
-  </style>
+  
+    /* ===== راهنما: تمام‌صفحه با دکمه بازگشت ===== */
+    #help-modal { padding: 0 !important; }
+    #help-modal .modal-content {
+      width: calc(100% - 12px) !important; max-width: none !important;
+      height: calc(var(--app-h, 100dvh) - 12px) !important; max-height: none !important;
+      margin: 6px auto !important; border-radius: clamp(14px, 2.4vmin, 22px) !important;
+      padding: clamp(10px, 2vmin, 18px) clamp(12px, 2.4vmin, 22px) !important;
+      display: flex !important; flex-direction: column !important; gap: clamp(4px, 1vmin, 10px);
+      overflow: hidden !important;
+    }
+    #help-modal .modal-back-btn {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 6px;
+      min-height: clamp(36px, 7.4vmin, 46px) !important; padding: 2px clamp(10px, 2vmin, 16px) !important;
+      border-radius: 12px !important; border: 2px solid #FFFFFF !important;
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important; color: #FFFFFF !important;
+      box-shadow: 0 3px 0 #05101F !important; font-weight: 900 !important;
+      font-size: clamp(0.72rem, 1.8vmin, 0.88rem) !important; cursor: pointer; flex: none;
+    }
+    #help-modal .modal-char { margin: 0 !important; }
+    #help-modal .modal-char .char-wrap { width: clamp(44px, 10vmin, 68px) !important; height: clamp(44px, 10vmin, 68px) !important; }
+    #help-modal .modal-title { margin: 0 !important; }
+    #help-modal .modal-desc { margin: 0 !important; }
+    #help-modal .help-steps { flex: 1 1 auto !important; min-height: 0; overflow: auto !important; margin: 0 !important; }
+    #help-modal .btn-modal { flex: none; width: min(100%, 420px); align-self: center; margin: 0 !important; }
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #help-modal .modal-content {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+        grid-template-rows: auto auto minmax(0, 1fr) auto;
+        grid-template-areas: "back back" "char head" "steps steps" "btn btn";
+        align-items: center; column-gap: clamp(8px, 2vmin, 18px); row-gap: clamp(4px, 1vmin, 10px);
+      }
+      #help-modal .modal-back-btn { grid-area: back; }
+      #help-modal .modal-char { grid-area: char; justify-content: flex-start !important; }
+      #help-modal .modal-title { grid-area: head; } 
+      #help-modal .modal-desc { display: none !important; }
+      #help-modal .help-steps {
+        grid-area: steps; display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        align-content: start;
+      }
+      #help-modal .btn-modal { grid-area: btn; }
+    }
+</style>
 </head>
 <body>
     <div id="app">
@@ -812,7 +863,7 @@
         <!-- ═══ مودال راهنما ═══ -->
         <div id="help-modal" class="modal">
             <div class="modal-content modal-tall">
-                <button class="modal-close" onclick="oceanGame.closeHelp()">✕</button>
+                <button class="modal-back-btn" onclick="oceanGame.closeHelp()">→ بازگشت</button>
                 <div class="modal-char"><span class="char-wrap char-modal" style="width:80px;height:80px"><span class="char-fb">🐙</span><img src="./icons/gamerhi.png" alt="راهنما" onerror="this.remove()"></span></div>
                 <h2 class="modal-title">راهنمای بازی 📖</h2>
                 <p class="modal-desc">با لوکی همراه شو؛ قدم‌به‌قدم!</p>

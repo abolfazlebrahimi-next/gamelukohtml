@@ -1951,6 +1951,144 @@
     .shop-item .shop-btn-sm.locked, .shop-item .shop-btn-sm:disabled { background: rgba(255, 255, 255, 0.06) !important; color: #9FB4CE !important; border: 2px dashed rgba(255, 255, 255, 0.18) !important; box-shadow: none !important; opacity: 1 !important; }
     .shop-item .shop-btn-sm { min-height: clamp(30px, 6.4vmin, 40px) !important; font-size: clamp(0.66rem, 1.65vmin, 0.82rem) !important; border-radius: 10px !important; padding: 2px 10px !important; }
     .shop-item .price { color: #FFE9A3 !important; font-size: clamp(0.68rem, 1.7vmin, 0.84rem) !important; font-weight: 800 !important; }
+
+    /* ====== دور ۸: پوسته‌ی روشن LOKO (هم‌شکل بقیه بازی‌ها) ====== */
+    html {
+      background-color: #071A35 !important;
+      background-image: var(--loko-theme-image,
+        radial-gradient(circle at 20% 16%, rgba(121, 207, 255, 0.24), transparent 55%),
+        radial-gradient(circle at 84% 86%, rgba(255, 138, 0, 0.22), transparent 55%),
+        linear-gradient(160deg, #071A35, #102B55 58%, #071A35)) !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+    }
+    body { background: transparent !important; background-image: none !important; }
+
+    .screen {
+      background-color: #FFFDF8 !important;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.93), rgba(255, 249, 239, 0.95)), var(--loko-theme-image, none) !important;
+      background-size: cover !important;
+      background-position: center !important;
+      border: 3px solid #FFFFFF !important;
+      color: #10203A !important;
+      --text-color: #10203A;
+      --text-secondary: #4A6285;
+      --menu-text-color: #0A1F3D;
+      --menu-text-secondary: #4A6285;
+      --help-text-color: #10203A;
+      --glass-bg: rgba(255, 255, 255, 0.92);
+      --glass-border: #FFE0B8;
+      --gold: #C96A00;
+      --gold-dark: #B96F00;
+      --secondary: #1B6DC1;
+      --dark: #0A1F3D;
+    }
+    #yard-page { background-color: #FFFDF8 !important; }
+
+    .glass-card {
+      background: transparent !important; border: 0 !important;
+      box-shadow: none !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    }
+
+    /* دکمه‌ها */
+    .btn-secondary {
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D) !important;
+      color: #FFFFFF !important;
+      border: 2px solid #FFFFFF !important;
+      box-shadow: 0 4px 0 #05101F !important;
+    }
+    .btn-gold {
+      background: linear-gradient(180deg, #FFAD24, #FF8A00) !important;
+      color: #071A35 !important; border: 2px solid #FFFFFF !important;
+      box-shadow: 0 5px 0 #C96A00 !important;
+    }
+
+    /* عنوان اصلی: گرادیان خوانا روی کارت روشن */
+    .menu-title {
+      background: linear-gradient(135deg, #0A1F3D 0%, #C96A00 55%, #FF8A00 100%) !important;
+      -webkit-background-clip: text !important; background-clip: text !important;
+      -webkit-text-fill-color: transparent !important; color: transparent !important;
+      text-shadow: none !important;
+      font-size: clamp(1.5rem, 5vmin, 2.4rem) !important;
+      line-height: 1.25 !important;
+    }
+    .menu-subtitle { color: #4A6285 !important; }
+
+    /* کارت‌های آزمون و راهنما */
+    .quiz-option {
+      background: #FFFFFF !important; border: 3px solid #FFE0B8 !important;
+      color: #10203A !important; box-shadow: 0 4px 0 rgba(255, 138, 0, 0.14) !important;
+    }
+    .quiz-option.correct { background: #EBFAF2 !important; border-color: #2ECC71 !important; color: #14805A !important; }
+    .quiz-option.wrong { background: #FDEDEC !important; border-color: #E8705F !important; color: #A1372B !important; }
+    .quiz-option.disabled { opacity: 0.9 !important; }
+    .help-steps .step {
+      background: #FFFFFF !important; border: 2px solid #FFE0B8 !important;
+      border-radius: 14px !important; color: #10203A !important;
+      box-shadow: 0 3px 0 rgba(255, 138, 0, 0.1) !important;
+    }
+    .help-container h2, .quiz-container h2, .class-container h2 { color: #B45309 !important; text-shadow: none !important; }
+    .transition-container p, .class-container p { color: #10203A !important; }
+
+    /* سکه‌ها: همیشه اندازه‌ی کوچک و یک‌دست */
+    .coin-display img, .shop-coin img, .coin-chip img,
+    .shop-item .price img, .result-message img, .celeb-message img, .toast img {
+      width: clamp(16px, 3.6vmin, 24px) !important;
+      height: clamp(16px, 3.6vmin, 24px) !important;
+      max-width: clamp(16px, 3.6vmin, 24px) !important;
+      max-height: clamp(16px, 3.6vmin, 24px) !important;
+      object-fit: contain !important; vertical-align: middle;
+      animation: none !important;
+    }
+    .coin-amount { font-size: clamp(0.8rem, 2vmin, 1rem) !important; color: #FFE9A3 !important; }
+
+    /* مدال نتیجه و جشن: روشن و خوانا */
+    .result-overlay, .celebration-overlay { background: rgba(7, 26, 53, 0.88) !important; }
+    .result-box, .celebration-box {
+      background: linear-gradient(180deg, #FFFFFF, #FFF9EF) !important;
+      border: 3px solid #FFFFFF !important;
+      color: #10203A !important;
+      --text-color: #10203A; --text-secondary: #4A6285; --gold: #C96A00; --glass-bg: transparent;
+    }
+    .result-box h2, .celebration-box h2 { color: #0A1F3D !important; text-shadow: none !important; }
+    .result-box .result-message, .celebration-box .celeb-message { color: #10203A !important; }
+    .result-box .result-message strong, .celebration-box .celeb-message strong { color: #B45309 !important; }
+    .result-box .result-char, .celebration-box .celeb-char {
+      border-color: #FF8A00 !important;
+      box-shadow: none !important;
+    }
+    .result-box .result-char img, .celebration-box .celeb-char img {
+      width: 100% !important; height: 100% !important; object-fit: contain !important;
+    }
+
+    /* پنل دوم منو (بریم به حیاط) روی کارت روشن */
+    #home-page .action-buttons {
+      background: linear-gradient(180deg, rgba(255, 253, 248, 0.97), rgba(255, 249, 239, 0.98)) !important;
+    }
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #home-page .menu-container {
+        grid-template-columns: minmax(112px, 29%) minmax(0, 1fr);
+        grid-template-rows: auto auto auto minmax(0, 1fr);
+        grid-template-areas: "bar bar" "char title" "char sub" "char buttons";
+      }
+      #home-page .coin-display {
+        grid-area: bar; justify-self: start; align-self: center; margin: 0 !important;
+        position: static !important;
+        padding: clamp(3px, 0.9vmin, 7px) clamp(9px, 1.9vmin, 15px) clamp(3px, 0.9vmin, 7px) clamp(6px, 1.2vmin, 10px) !important;
+      }
+      #home-page .menu-title { grid-area: title; align-self: end; }
+      #home-page .menu-subtitle {
+        grid-area: sub; display: block !important; margin: 0 !important;
+        align-self: start; font-size: clamp(0.72rem, 1.85vmin, 0.9rem) !important; line-height: 1.5 !important;
+      }
+      #home-page .menu-buttons { grid-area: buttons; align-self: center; }
+      #home-page .menu-character { grid-row: 2 / 5; }
+      #quiz-page .quiz-container { grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); }
+      #help-modal { padding: 0 !important; }
+    }
 </style>
 </head>
 <body>
@@ -2975,6 +3113,10 @@
             GameState.isTracing = false;
             GameState.hasTraced = true;
             removeTraceHandlers();
+            if (!GameState.hasMovedSun) {
+                try { enableSunDrag(); } catch (e) {}
+                setTimeout(() => { showSpeech('حالا خورشید رو بکش تا سایه عوض بشه! ☀️'); }, 600);
+            }
             elements.shadowCanvasContainer.classList.remove('active');
             const hint = document.querySelector('.trace-hint');
             if (hint) {
@@ -2987,7 +3129,13 @@
         }
 
         function checkGameCompletion() {
+            if (GameState.completionScheduled) return;
             if (GameState.hasTraced && GameState.hasMovedSun) {
+                GameState.completionScheduled = true;
+                if (GameState.yardPollTimer) {
+                    clearInterval(GameState.yardPollTimer);
+                    GameState.yardPollTimer = null;
+                }
                 setTimeout(() => {
                     startQuiz();
                 }, 1500);
@@ -3002,6 +3150,17 @@
             GameState.hasMovedSun = false;
             GameState.isTracing = false;
             GameState.isDraggingSun = false;
+            GameState.completionScheduled = false;
+
+            // بازبینی دوره‌ای: هر وقت هر دو کار (کشیدن سایه + جابه‌جایی خورشید) انجام شد، برو سراغ سوال‌ها
+            if (GameState.yardPollTimer) { clearInterval(GameState.yardPollTimer); GameState.yardPollTimer = null; }
+            GameState.yardPollTimer = setInterval(() => {
+                if (GameState.hasTraced && GameState.hasMovedSun) {
+                    clearInterval(GameState.yardPollTimer);
+                    GameState.yardPollTimer = null;
+                    checkGameCompletion();
+                }
+            }, 800);
             
             if (GameState.clockInterval) {
                 clearInterval(GameState.clockInterval);
@@ -3050,8 +3209,11 @@
         // ===== شروع سوالات =====
         function startQuiz() {
             pauseGlobalAudio();
+            if (GameState.yardPollTimer) { clearInterval(GameState.yardPollTimer); GameState.yardPollTimer = null; }
+            if (GameState.clockInterval) { clearInterval(GameState.clockInterval); GameState.clockInterval = null; }
             showPage('quiz-page');
             currentQuizIndex = 0;
+            GameState.runCorrect = 0;
             showQuestion();
             GameState.stats.games++;
             saveData();
@@ -3106,6 +3268,8 @@
             const nextBtn = document.getElementById('result-next-btn');
             const homeBtn = document.getElementById('result-home-btn');
             
+            const isFinalQuestion = isCorrect && (currentQuizIndex + 1 >= QUIZ_QUESTIONS.length);
+
             if (isCorrect) {
                 const currentCoins = GameState.coins;
                 let reward = 0;
@@ -3124,6 +3288,15 @@
                 message.innerHTML = `<strong>جواب درست بود!</strong><br>✨ ${reward} سکه گرفتی!<br>خیلی خوبه که سایه رو یاد گرفتی! 😍`;
                 nextBtn.textContent = 'مرحله بعد';
                 nextBtn.style.display = 'block';
+
+                GameState.runCorrect = (GameState.runCorrect || 0) + 1;
+                if (isFinalQuestion) {
+                    title.textContent = '🎉 بازی تموم شد!';
+                    message.innerHTML = `<strong>آفرین! همه‌ی ${QUIZ_QUESTIONS.length} سوال رو جواب دادی!</strong><br>` +
+                        `✅ جواب درست: ${toPersianNum(GameState.runCorrect)} از ${toPersianNum(QUIZ_QUESTIONS.length)}<br>` +
+                        `🪙 سکه‌های تو: ${toPersianNum(GameState.coins)}`;
+                    nextBtn.textContent = '🔁 بازی دوباره';
+                }
                 
                 GameState.stats.correct++;
                 GameState.stats.learned++;
@@ -3151,6 +3324,7 @@
                     if (currentQuizIndex < QUIZ_QUESTIONS.length) {
                         showQuestion();
                     } else {
+                        backToMenu();
                         showPage('home-page');
                         showToast('🎉 همه سوالات رو با موفقیت پاسخ دادی!', 'success');
                     }
@@ -3162,6 +3336,7 @@
             homeBtn.onclick = () => {
                 overlay.classList.remove('show');
                 resumeGlobalAudio();
+                backToMenu();
                 showPage('home-page');
             };
         }
@@ -3250,6 +3425,7 @@
                 }
                 removeSunDragHandlers();
                 removeTraceHandlers();
+                backToMenu();
                 showPage('home-page');
                 resumeGlobalAudio();
             });
@@ -3419,5 +3595,24 @@
         })();
     </script>
 
+
+<script id="loko-theme-bg">
+    /* تصویر پوسته‌ی خریداری‌شده روی پس‌زمینه‌ی صفحه بماند (کارت روشن روی آن می‌نشیند) */
+    (function () {
+      var root = document.documentElement;
+      var FALLBACK = 'radial-gradient(circle at 20% 16%, rgba(121,207,255,.24), transparent 55%),' +
+                     'radial-gradient(circle at 84% 86%, rgba(255,138,0,.22), transparent 55%),' +
+                     'linear-gradient(160deg,#071A35,#102B55 58%,#071A35)';
+      function sync() {
+        var img = document.body.style.backgroundImage || '';
+        root.style.setProperty('--loko-theme-image', img && img !== 'none' ? img : FALLBACK);
+      }
+      sync();
+      try {
+        new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ['style', 'class'] });
+      } catch (e) {}
+      setInterval(sync, 1000);
+    })();
+</script>
 </body>
 </html>

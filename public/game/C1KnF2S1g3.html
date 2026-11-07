@@ -648,20 +648,26 @@
       /* منو: کاراکتر | عنوان و دکمه‌ها */
       #homeScreen .menu-container {
         display: grid !important;
-        grid-template-columns: minmax(120px, 32%) minmax(0, 1fr);
-        grid-template-rows: auto auto minmax(0, 1fr);
-        grid-template-areas: "char title" "char sub" "char buttons";
+        grid-template-columns: minmax(104px, 29%) minmax(0, 1fr);
+        grid-template-rows: auto auto auto minmax(0, 1fr);
+        grid-template-areas: "bar bar" "char title" "char sub" "char buttons";
         align-items: center; justify-items: center;
         column-gap: clamp(8px, 2.6vmin, 28px); row-gap: clamp(2px, 1vmin, 8px);
         max-width: none !important; width: 100%; height: 100%; position: relative;
-        padding: clamp(10px, 2.2vmin, 20px) clamp(12px, 2.6vmin, 26px) !important;
+        padding: clamp(8px, 1.8vmin, 16px) clamp(10px, 2.4vmin, 24px) !important;
         text-align: center;
       }
-      #homeScreen .coin-display { position: absolute !important; top: 0; right: 0; z-index: 6; }
+      #homeScreen .coin-display {
+        grid-area: bar; position: static !important; inset: auto !important;
+        justify-self: start; align-self: center; margin: 0 !important; z-index: 6;
+        padding: clamp(3px, 0.9vmin, 7px) clamp(9px, 1.9vmin, 15px) clamp(3px, 0.9vmin, 7px) clamp(6px, 1.2vmin, 10px) !important;
+      }
+      #homeScreen .coin-display img { width: clamp(18px, 4vmin, 26px) !important; height: clamp(18px, 4vmin, 26px) !important; }
+      #homeScreen .coin-amount { font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; }
       #homeScreen .menu-character {
         grid-area: char; width: clamp(96px, 30vmin, 200px) !important; height: clamp(96px, 30vmin, 200px) !important; margin: 0 !important;
       }
-      #homeScreen .menu-title { grid-area: title; align-self: end; justify-self: center; margin: 0 !important; }
+      #homeScreen .menu-title { grid-area: title; align-self: end; justify-self: center; margin: 0 !important; line-height: 1.25 !important; }
       #homeScreen .menu-subtitle { grid-area: sub; align-self: start; margin: 0 !important; }
       #homeScreen .menu-buttons { grid-area: buttons; align-self: center; width: 100%; max-width: min(100%, 520px) !important; }
       .menu-buttons .btn { min-height: clamp(44px, 8.8vmin, 58px) !important; }
