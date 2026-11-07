@@ -847,8 +847,8 @@
       #help-modal .modal-content {
         display: grid !important;
         grid-template-columns: auto minmax(0, 1fr);
-        grid-template-rows: auto minmax(0, 1fr) auto;
-        grid-template-areas: "back head" "steps steps" "btn btn";
+        grid-template-rows: auto minmax(0, 1fr);
+        grid-template-areas: "back head" "steps steps";
         align-items: center;
         column-gap: clamp(8px, 2vmin, 16px); row-gap: clamp(4px, 1vmin, 10px);
       }
@@ -858,6 +858,19 @@
       #help-modal .help-steps { grid-area: steps; overflow: auto !important; }
       #help-modal .btn-modal { grid-area: btn; }
     }
+
+    /* ===== اصلاحیه ۳: راهنما فقط با دکمه‌ی بازگشت + اسکرول تمیز ===== */
+    #help-modal .help-steps {
+      overflow-y: auto !important; overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch;
+      padding-inline-end: 4px;
+      scrollbar-width: thin;
+    }
+    #help-modal .help-steps::-webkit-scrollbar { width: 6px; }
+    #help-modal .help-steps::-webkit-scrollbar-thumb { background: #FFC98A; border-radius: 6px; }
+    #help-modal .modal-content { padding-bottom: clamp(8px, 1.6vmin, 14px) !important; }
+    /* در حالت عمودی هم دکمه‌ی پایین لازم نیست */
+    #help-modal .btn-modal { display: none !important; }
 </style>
 </head>
 <body>
@@ -926,7 +939,7 @@
                     <div class="help-step"><div class="help-num">7</div><div><div class="help-step-title">🏁 کِی برنده می‌شم؟</div><div class="help-step-text">وقتی همه «س»های مرحله رو پیدا کنی، برنده‌ای و می‌تونی بری مرحله بعد!</div></div></div>
                     <div class="help-step"><div class="help-num">8</div><div><div class="help-step-title">🪙 سکه و فروشگاه</div><div class="help-step-text">اگه هر ۱۰ مرحله رو کامل کنی، جایزه سکه لوکو می‌گیری! با سکه‌هات توی فروشگاه، تم‌های قشنگ دریا بخر.</div></div></div>
                 </div>
-                <button onclick="oceanGame.closeHelp()" class="btn btn-modal">فهمیدم! بزن بریم 🚀</button>
+
             </div>
         </div>
 
