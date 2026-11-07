@@ -142,27 +142,48 @@
         /* ============================================================
            منو — چیدمان افقی
            ============================================================ */
-        .menu-container {
-            padding: clamp(14px, 3vmin, 32px) clamp(14px, 3vmin, 30px);
-            text-align: center; max-width: min(100%, 420px); width: 100%; max-height: 100%;
-            position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(4px, 1.2vmin, 12px); align-content: center; justify-items: center;
+        /* --- الگوی Split Screen Hero: پنل قهرمان + پنل اطلاعات --- */
+        .menu-stage {
+            display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(8px, 1.6vmin, 18px);
+            width: min(100%, 430px); max-height: 100%; align-items: stretch;
         }
-        .coin-display { position: absolute; top: 15px; left: 15px; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); padding: 6px 16px 6px 12px; border-radius: 30px; border: 2px solid var(--gold); box-shadow: 0 0 30px rgba(255, 201, 60, 0.2), inset 0 0 20px rgba(255, 201, 60, 0.05); z-index: 10; }
-        .coin-display img { width: clamp(20px, 3.2vmin, 28px); height: clamp(20px, 3.2vmin, 28px); object-fit: contain; animation: coinSpin 3s ease-in-out infinite; }
-        .coin-amount { color: var(--gold); font-weight: 800; font-size: clamp(0.8rem, 1.9vmin, 1.1rem); text-shadow: 0 0 20px var(--gold); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
+        .hero-panel {
+            position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: clamp(4px, 1vmin, 10px); padding: clamp(10px, 2vmin, 22px); overflow: hidden; text-align: center;
+        }
+        .hero-aura { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(92%, 260px); aspect-ratio: 1/1; border-radius: 50%; background: radial-gradient(circle, rgba(108, 92, 231, 0.38) 0%, rgba(0, 210, 255, 0.12) 45%, transparent 70%); filter: blur(14px); pointer-events: none; }
+        .hero-name { position: relative; z-index: 1; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; font-size: clamp(0.7rem, 1.9vmin, 1rem); color: var(--gold); background: rgba(0,0,0,0.45); border: 1px solid rgba(255, 201, 60, 0.35); border-radius: 20px; padding: 2px 14px; box-shadow: 0 0 20px rgba(255, 201, 60, 0.15); }
+        .info-panel {
+            position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: clamp(5px, 1.1vmin, 12px); padding: clamp(12px, 2.4vmin, 28px); text-align: center; overflow: hidden;
+        }
+        .coin-display { display: flex; align-items: center; gap: 8px; align-self: flex-start; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); padding: 4px 14px 4px 10px; border-radius: 30px; border: 2px solid var(--gold); box-shadow: 0 0 30px rgba(255, 201, 60, 0.2), inset 0 0 20px rgba(255, 201, 60, 0.05); z-index: 10; }
+        .coin-display img { width: clamp(18px, 2.8vmin, 26px); height: clamp(18px, 2.8vmin, 26px); object-fit: contain; animation: coinSpin 3s ease-in-out infinite; }
+        .coin-amount { color: var(--gold); font-weight: 800; font-size: clamp(0.75rem, 1.8vmin, 1.05rem); text-shadow: 0 0 20px var(--gold); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
         @keyframes coinSpin { 0%, 100% { transform: rotateY(0deg); } 50% { transform: rotateY(180deg); } }
 
-        .menu-title { font-size: clamp(1.35rem, 5.6vmin, 2.4rem); font-weight: 900; margin-bottom: 2px; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; background: linear-gradient(135deg, var(--text-color), var(--gold), var(--neon-blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; text-shadow: 0 0 40px rgba(0, 210, 255, 0.1); line-height: 1.3; }
-        .menu-subtitle { color: var(--text-secondary); font-size: clamp(0.68rem, 1.8vmin, 0.9rem); font-weight: 500; line-height: 1.7; }
-        .menu-character { width: clamp(80px, 20vmin, 150px); height: clamp(80px, 20vmin, 150px); margin: 0 auto; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%); border: 3px solid var(--gold); box-shadow: 0 0 60px rgba(255, 201, 60, 0.25), inset 0 0 60px rgba(255,201,60,0.05); display: flex; align-items: center; justify-content: center; overflow: hidden; animation: framePulse 3s ease-in-out infinite; flex-shrink: 0; }
+        .menu-title { font-size: clamp(1.2rem, 5.2vmin, 2.3rem); font-weight: 900; margin-bottom: 2px; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; background: linear-gradient(135deg, var(--text-color), var(--gold), var(--neon-blue)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; text-shadow: 0 0 40px rgba(0, 210, 255, 0.1); line-height: 1.3; }
+        .menu-subtitle { color: var(--text-secondary); font-size: clamp(0.66rem, 1.75vmin, 0.9rem); font-weight: 500; line-height: 1.7; max-width: 34ch; }
+        .menu-character { position: relative; z-index: 1; width: clamp(84px, 21vmin, 150px); height: clamp(84px, 21vmin, 150px); margin: 0 auto; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.4) 100%); border: 3px solid var(--gold); box-shadow: 0 0 60px rgba(255, 201, 60, 0.25), inset 0 0 60px rgba(255,201,60,0.05); display: flex; align-items: center; justify-content: center; overflow: hidden; animation: framePulse 3s ease-in-out infinite; flex-shrink: 0; }
         @keyframes framePulse { 0%, 100% { box-shadow: 0 0 40px rgba(255, 201, 60, 0.2), 0 0 80px var(--neon-blue); } 50% { box-shadow: 0 0 80px rgba(255, 201, 60, 0.4), 0 0 120px var(--secondary); } }
         .menu-character img { width: 85%; height: 85%; object-fit: contain; animation: float 3s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         .menu-buttons { display: flex; flex-direction: column; gap: clamp(6px, 1.2vmin, 10px); margin-top: 4px; width: 100%; }
-        .menu-buttons .row { display: flex; gap: clamp(6px, 1.2vmin, 10px); width: 100%; }
-        .menu-buttons .row .btn { flex: 1; }
+        /* --- الگوی Bottom Dock: دکمه‌های میان‌بر با آیکن و برچسب --- */
+        .dock { display: flex; gap: clamp(6px, 1.2vmin, 10px); width: 100%; }
+        .dock-btn {
+            flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: clamp(6px, 1.1vmin, 10px) 8px; min-height: clamp(36px, 6.4vmin, 52px);
+            border-radius: clamp(12px, 1.7vmin, 16px); border: 1px solid var(--glass-border);
+            background: var(--btn-secondary-bg); backdrop-filter: blur(12px); color: var(--text-color);
+            font-family: var(--font-family); font-weight: 700; font-size: clamp(0.66rem, 1.7vmin, 0.9rem);
+            cursor: pointer; transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); touch-action: manipulation;
+        }
+        .dock-btn:hover { transform: translateY(-3px); background: var(--btn-secondary-hover); border-color: var(--secondary); box-shadow: 0 0 22px var(--secondary); }
+        .dock-btn:active { transform: scale(0.96); }
+        .dock-icon { font-size: 1.15em; line-height: 1; }
+        .dock-label { line-height: 1.4; }
 
         /* ============================================================
            فروشگاه
@@ -203,6 +224,12 @@
            مراحل
            ============================================================ */
         .levels-container { max-width: min(100%, 440px); width: 100%; padding: clamp(12px, 2.6vmin, 26px) clamp(10px, 2vmin, 20px); text-align: center; max-height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+        .levels-head { display: flex; align-items: center; justify-content: center; gap: 10px; flex-shrink: 0; margin-bottom: clamp(6px, 1.4vmin, 14px); }
+        .levels-head h2 { margin-bottom: 0; }
+        .carousel-nav { display: none; gap: 6px; flex-shrink: 0; }
+        .nav-btn { width: clamp(30px, 4.4vmin, 40px); height: clamp(30px, 4.4vmin, 40px); border-radius: 50%; border: 1px solid var(--glass-border); background: var(--btn-secondary-bg); color: var(--text-color); font-size: clamp(1rem, 2.4vmin, 1.35rem); line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .nav-btn:hover { border-color: var(--secondary); box-shadow: 0 0 20px var(--secondary); transform: scale(1.06); }
+        .nav-btn:active { transform: scale(0.94); }
         .levels-container h2 { color: var(--gold); font-size: clamp(1rem, 3vmin, 1.8rem); font-family: 'Shoor Black', Tahoma, sans-serif; margin-bottom: clamp(6px, 1.4vmin, 14px); text-shadow: 0 0 30px rgba(255, 201, 60, 0.2); flex-shrink: 0; }
         .level-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(5px, 1.1vmin, 9px); margin: clamp(4px, 1vmin, 10px) 0; flex: 1; align-content: start; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 2px; }
         .level-box { aspect-ratio: 1/1; background: var(--card-bg); backdrop-filter: blur(10px); border: 2px solid var(--glass-border); border-radius: clamp(8px, 1.4vmin, 12px); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); color: var(--text-color); position: relative; min-height: 0; font-size: clamp(0.85rem, 2.2vmin, 1.2rem); font-weight: 700; font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; }
@@ -237,6 +264,9 @@
         .game-header .game-title { font-size: clamp(0.6rem, 1.6vmin, 0.85rem); font-weight: 700; color: var(--neon-blue); text-shadow: 0 0 20px var(--secondary); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; line-height: 1.5; }
         .game-header .game-level { font-size: clamp(0.56rem, 1.45vmin, 0.75rem); font-weight: 700; color: var(--text-secondary); background: rgba(255,255,255,0.03); padding: clamp(3px, 0.7vmin, 5px) clamp(8px, 1.6vmin, 12px); border-radius: 20px; border: 1px solid var(--header-border); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; line-height: 1.5; white-space: nowrap; }
         .game-header .target-box { font-size: clamp(0.56rem, 1.45vmin, 0.75rem); font-weight: 700; color: var(--gold); background: rgba(255,255,255,0.03); padding: clamp(3px, 0.7vmin, 5px) clamp(8px, 1.6vmin, 12px); border-radius: 20px; border: 1px solid rgba(255, 201, 60, 0.25); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; line-height: 1.5; white-space: nowrap; }
+
+        .coin-stat { display: flex; align-items: center; justify-content: center; gap: 6px; padding: clamp(3px, 0.7vmin, 5px) clamp(8px, 1.6vmin, 12px); border-radius: 20px; background: rgba(255, 201, 60, 0.08); border: 1px solid rgba(255, 201, 60, 0.3); color: var(--gold); font-weight: 800; font-size: clamp(0.56rem, 1.45vmin, 0.8rem); font-family: 'Shoor Black', 'Shoor', Tahoma, sans-serif; white-space: nowrap; line-height: 1.5; }
+        .coin-stat img { width: clamp(14px, 2.3vmin, 20px); height: clamp(14px, 2.3vmin, 20px); object-fit: contain; }
 
         .stop-btn { width: clamp(30px, 4.8vmin, 40px); height: clamp(30px, 4.8vmin, 40px); border-radius: 50%; border: 2px solid rgba(255, 118, 117, 0.3); background: rgba(255, 118, 117, 0.08); color: var(--danger); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); flex-shrink: 0; position: relative; }
         .stop-btn:hover { transform: rotate(180deg) scale(1.1); border-color: var(--danger); box-shadow: 0 0 40px rgba(255, 118, 117, 0.4); background: rgba(255, 118, 117, 0.15); }
@@ -363,41 +393,39 @@
            ============================================================ */
         @media (orientation: landscape) {
 
-            /* --- منو: کاراکتر | متن و دکمه‌ها --- */
-            .menu-container {
-                max-width: min(100%, 900px);
-                grid-template-columns: minmax(90px, 26%) minmax(0, 1fr);
-                grid-template-areas: "char coin" "char title" "char sub" "char btns";
-                column-gap: clamp(14px, 3.2vmin, 40px); row-gap: clamp(2px, 0.9vmin, 8px);
-                align-items: center; align-content: center; justify-items: center;
-                padding: clamp(12px, 2.8vmin, 28px) clamp(14px, 3vmin, 34px);
-            }
-            .menu-character { grid-area: char; width: clamp(78px, 19vmin, 150px); height: clamp(78px, 19vmin, 150px); }
-            .coin-display { grid-area: coin; position: static; align-self: center; justify-self: center; margin: 0 0 clamp(2px, 0.6vmin, 6px); }
-            .menu-title { grid-area: title; white-space: nowrap; }
-            .menu-subtitle { grid-area: sub; }
-            .menu-buttons { grid-area: btns; flex-direction: row; align-items: stretch; margin-top: clamp(4px, 1.2vmin, 10px); }
-            #startGameBtn { flex: 1.5; }
-            .menu-buttons .row { flex: 1; }
+            /* --- منو: Split Screen Hero (پنل قهرمان | پنل اطلاعات) --- */
+            .menu-stage { width: min(100%, 880px); grid-template-columns: minmax(118px, 33%) minmax(0, 1fr); align-items: stretch; }
+            .hero-panel { padding: clamp(10px, 2.4vmin, 26px); }
+            .menu-character { width: clamp(84px, 22vmin, 165px); height: clamp(84px, 22vmin, 165px); }
+            .info-panel { padding: clamp(12px, 2.6vmin, 30px); }
+            .menu-title { white-space: nowrap; }
 
             /* --- فروشگاه: شبکه پهن --- */
             .shop-container { max-width: min(100%, 980px); }
             .shop-grid { grid-template-columns: repeat(auto-fill, minmax(min(150px, 22vw), 1fr)); }
             .shop-item { min-height: clamp(88px, 20vmin, 150px); }
 
-            /* --- مراحل: یک ردیف افقی --- */
+            /* --- مراحل: کاروسل افقی کارت‌ها --- */
             .levels-container { max-width: min(100%, 980px); }
-            .level-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); align-content: center; }
-            .level-box { max-height: 22vh; }
+            .levels-head { justify-content: space-between; }
+            .carousel-nav { display: flex; }
+            .level-grid {
+                display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-start;
+                overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+                gap: clamp(6px, 1.2vmin, 12px); padding: 4px 2px 8px; scrollbar-width: none; overscroll-behavior-x: contain;
+            }
+            .level-grid::-webkit-scrollbar { height: 4px; }
+            .level-grid::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+            .level-box { flex: 0 0 clamp(78px, 15vmin, 128px); aspect-ratio: 1/1; max-height: none; scroll-snap-align: center; }
 
             /* --- صفحه بازی: پنل اطلاعات کنار زمین بازی --- */
             .game-card {
-                grid-template-columns: minmax(132px, 23%) minmax(0, 1fr);
+                grid-template-columns: minmax(140px, 22%) minmax(0, 1fr);
                 grid-template-rows: minmax(0, 1fr) auto;
-                grid-template-areas: "head board" "feedback board";
+                grid-template-areas: "head board" "feedback feedback";
             }
             .game-header {
-                flex-direction: column; align-items: stretch; justify-content: flex-start;
+                flex-direction: column; align-items: stretch; justify-content: space-between;
                 flex-wrap: nowrap; gap: clamp(4px, 0.9vmin, 9px);
                 padding: clamp(7px, 1.4vmin, 16px); height: 100%; overflow: hidden;
             }
@@ -405,7 +433,7 @@
             /* مرحله و هدف به شکل دو کارت اطلاعاتی که فضای عمودی پنل را پر می‌کنند */
             .game-header .game-level,
             .game-header .target-box {
-                flex: 1 1 0; min-height: 40px; max-height: 140px;
+                flex: 1 1 0; min-height: 40px; max-height: 210px;
                 display: flex; align-items: center; justify-content: center;
                 text-align: center; white-space: normal; overflow: hidden;
                 font-size: clamp(0.72rem, 1.9vmin, 1.05rem);
@@ -415,7 +443,7 @@
             }
             .game-header .game-level { background: rgba(255,255,255,0.04); }
             .game-header .target-box { background: rgba(255, 201, 60, 0.08); box-shadow: inset 0 0 18px rgba(255, 201, 60, 0.06); }
-            .stop-btn { margin-top: auto; align-self: center; }
+            .stop-btn { align-self: center; }
             .instruction-msg { font-size: clamp(0.7rem, 1.7vmin, 0.95rem); padding: clamp(6px, 1.2vmin, 14px); }
 
             /* --- مودال‌ها: چیدمان دو ستونی افقی --- */
@@ -448,12 +476,6 @@
             .guide-container .guide-text { grid-area: text; min-height: 0; font-size: clamp(0.65rem, 1.85vmin, 1.05rem); line-height: 1.9; }
             .guide-container .guide-progress { grid-area: progress; }
             .guide-container .guide-skip { grid-area: skip; }
-        }
-
-        /* موبایل‌های افقی باریک: شبکه مراحل پنج‌ستونه می‌ماند تا خوانا بماند */
-        @media (orientation: landscape) and (max-width: 700px) {
-            .level-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); align-content: start; }
-            .level-box { max-height: none; }
         }
 
         /* ============================================================
@@ -564,23 +586,31 @@
     </div>
 
     <div id="homeScreen" class="screen active">
-        <div class="menu-container glass-card">
-            <div class="coin-display">
-                <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
-                <span class="coin-amount" id="menu-coin-amount">0</span>
-            </div>
-            <div class="menu-character">
-                <img src="./icons/gamer.png" alt="پیکسل" onerror="this.textContent='🧑‍🌾'">
-            </div>
-            <h1 class="menu-title">پیدا کردن اشیا</h1>
-            <p class="menu-subtitle">تو خونه‌ی لوکو اشیایی که صدای «ت» دارن رو پیدا کن!</p>
-            <div class="menu-buttons">
-                <button class="btn btn-start" id="startGameBtn">🚀 شروع بازی</button>
-                <div class="row">
-                    <button class="btn btn-secondary" id="guideBtn">📘 راهنما</button>
-                    <button class="btn btn-secondary" id="shopBtn">🛍️ فروشگاه</button>
+        <div class="menu-stage">
+            <!-- پنل قهرمان: شخصیت بازی -->
+            <section class="hero-panel glass-card">
+                <div class="hero-aura"></div>
+                <div class="menu-character">
+                    <img src="./icons/gamer.png" alt="پیکسل" onerror="this.textContent='🧑‍🌾'">
                 </div>
-            </div>
+                <span class="hero-name">لوکو</span>
+            </section>
+            <!-- پنل اطلاعات: عنوان، توضیح و دکمه‌ها -->
+            <section class="info-panel glass-card">
+                <div class="coin-display">
+                    <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+                    <span class="coin-amount" id="menu-coin-amount">0</span>
+                </div>
+                <h1 class="menu-title">پیدا کردن اشیا</h1>
+                <p class="menu-subtitle">تو خونه‌ی لوکو اشیایی که صدای «ت» دارن رو پیدا کن!</p>
+                <div class="menu-buttons">
+                    <button class="btn btn-start" id="startGameBtn">🚀 شروع بازی</button>
+                    <div class="dock">
+                        <button class="dock-btn" id="guideBtn"><span class="dock-icon">📘</span><span class="dock-label">راهنما</span></button>
+                        <button class="dock-btn" id="shopBtn"><span class="dock-icon">🛍️</span><span class="dock-label">فروشگاه</span></button>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 
@@ -619,7 +649,13 @@
 
     <div id="levelScreen" class="screen">
         <div class="levels-container glass-card">
-            <h2>📚 مراحل</h2>
+            <div class="levels-head">
+                <h2>📚 مراحل</h2>
+                <div class="carousel-nav">
+                    <button class="nav-btn" id="levelPrevBtn" aria-label="مراحل قبلی" title="مراحل قبلی">›</button>
+                    <button class="nav-btn" id="levelNextBtn" aria-label="مراحل بعدی" title="مراحل بعدی">‹</button>
+                </div>
+            </div>
             <div class="level-grid" id="levelGrid"></div>
             <button class="btn btn-secondary" id="backHomeBtn" style="background: rgba(255, 118, 117, 0.1); border-color: rgba(255, 118, 117, 0.3); color: var(--danger);">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
@@ -634,6 +670,10 @@
                 <span class="game-title">🔍 خونه‌ی لوکو</span>
                 <span class="game-level" id="gameLevelDisplay">مرحله ۱</span>
                 <span class="target-box" id="targetDisplay">پیدا کن: ۲</span>
+                <div class="coin-stat" title="سکه‌های تو">
+                    <img src="./icons/coin.png" alt="سکه" onerror="this.textContent='🪙'">
+                    <span id="game-coin-amount">0</span>
+                </div>
                 <button class="stop-btn" id="stopGameBtn" aria-label="توقف بازی" title="توقف بازی">
                     <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
                 </button>
@@ -731,6 +771,9 @@
                 requestAnimationFrame(layoutGameBoard);
                 // بعد از پایان انیمیشن ورود صفحه، اندازه‌ها دوباره دقیق محاسبه می‌شوند
                 setTimeout(layoutGameBoard, 450);
+            } else if (id === 'levelScreen') {
+                requestAnimationFrame(function () { centerCurrentLevel(false); });
+                setTimeout(function () { centerCurrentLevel(false); }, 120);
             }
         }
 
@@ -1084,6 +1127,8 @@
             const coins = parseInt(localStorage.getItem('findMasterCoins')) || 0;
             document.getElementById('menu-coin-amount').textContent = coins;
             document.getElementById('shop-coin-amount').textContent = coins;
+            const gameCoins = document.getElementById('game-coin-amount');
+            if (gameCoins) gameCoins.textContent = coins;
         }
 
         // ============================================================
@@ -1411,6 +1456,37 @@
         }
 
         // ============================================================
+        // 9.5 LEVELS CAROUSEL (کارت‌های افقی)
+        // ============================================================
+        function centerCurrentLevel(smooth) {
+            const grid = document.getElementById('levelGrid');
+            if (!grid || !grid.children.length) return;
+            if (grid.scrollWidth <= grid.clientWidth) return;
+            const current = grid.querySelector('.level-box.current') || grid.children[0];
+            if (current && typeof current.scrollIntoView === 'function') {
+                current.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        function scrollLevels(step) {
+            const grid = document.getElementById('levelGrid');
+            if (!grid || !grid.children.length) return;
+            const boxes = Array.prototype.slice.call(grid.children);
+            const gridRect = grid.getBoundingClientRect();
+            const center = gridRect.left + gridRect.width / 2;
+            let idx = 0, bestDistance = Infinity;
+            boxes.forEach(function (box, i) {
+                const r = box.getBoundingClientRect();
+                const distance = Math.abs((r.left + r.width / 2) - center);
+                if (distance < bestDistance) { bestDistance = distance; idx = i; }
+            });
+            const target = boxes[Math.max(0, Math.min(boxes.length - 1, idx + step))];
+            if (target && typeof target.scrollIntoView === 'function') {
+                target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        // ============================================================
         // 10. INIT
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
@@ -1433,6 +1509,11 @@
             document.getElementById('guideBtn').addEventListener('click', () => startGuide(null, true));
             document.getElementById('shopBtn').addEventListener('click', () => { renderShop(); showScreen('shopScreen'); });
             document.getElementById('backHomeBtn').addEventListener('click', () => showScreen('homeScreen'));
+
+            const levelPrevBtn = document.getElementById('levelPrevBtn');
+            const levelNextBtn = document.getElementById('levelNextBtn');
+            if (levelPrevBtn) levelPrevBtn.addEventListener('click', () => scrollLevels(-1));
+            if (levelNextBtn) levelNextBtn.addEventListener('click', () => scrollLevels(1));
             
             document.getElementById('stopGameBtn').addEventListener('click', () => {
                 if (!isResultShowing) document.getElementById('stopModal').classList.add('show');
