@@ -1923,6 +1923,24 @@
     .modal-content h2, #level-complete-modal .modal-content h2 {
       -webkit-text-fill-color: #0A1F3D !important; background: none !important;
     }
+
+    /* ===== پیش‌نمایش تمِ «پیش فرض» در فروشگاه: آسمان شب + ماه، به‌جای مربع سفید ===== */
+    .shop-item .preview.default-preview {
+      background:
+        radial-gradient(circle at 78% 20%, #FFFFFF 0 1.5px, transparent 2px),
+        radial-gradient(circle at 20% 74%, #FFFFFF 0 1.5px, transparent 2px),
+        radial-gradient(circle at 62% 66%, rgba(255,255,255,0.8) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 88% 62%, rgba(255,255,255,0.7) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 34% 26%, #2E5288 0%, #12305C 46%, #061426 100%) !important;
+      border: 2px solid #FFC93C !important;
+      box-shadow: inset 0 0 18px rgba(121, 207, 255, 0.28), 0 4px 10px rgba(3, 14, 30, 0.28) !important;
+      overflow: hidden !important;
+    }
+    .shop-item .preview.default-preview {
+      font-size: clamp(26px, 7vmin, 44px) !important;
+      line-height: 1 !important;
+      text-shadow: 0 3px 10px rgba(255, 201, 60, 0.55);
+    }
 </style>
 </head>
 <body>
@@ -2730,10 +2748,12 @@
                         btnHtml = `<button class="shop-btn-sm ${canAfford ? 'buy' : 'locked'}" ${canAfford ? `onclick="buyTheme('${theme.id}')"` : 'disabled'}>${canAfford ? '🛒 خرید' : '🔒 قفل'}</button>`;
                     }
 
+                    const isDefaultTheme = theme.price === 0 || theme.id === 'dark';
+                    const previewHtml = isDefaultTheme
+                        ? `<div class="preview default-preview">🌙</div>`
+                        : `<div class="preview"><img src="${theme.img}" alt="${theme.name}" onerror="this.style.display='none'"></div>`;
                     card.innerHTML = `
-                        <div class="preview">
-                            <img src="${theme.img}" alt="${theme.name}" onerror="this.style.display='none'">
-                        </div>
+                        ${previewHtml}
                         <div class="name">${theme.emoji || ''} ${theme.name}</div>
                         <div class="price">
                             ${theme.price > 0 ? `<img src="./icons/coin.png" alt="Coin"> ${theme.price}` : 'رایگان'}

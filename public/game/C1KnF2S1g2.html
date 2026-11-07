@@ -467,6 +467,9 @@ body{display:flex;justify-content:center;align-items:center;background:#0c0a14}
         background-repeat: no-repeat !important;
     }
     .loko-shop-hidden { display: none !important; }
+    /* ظرف محصول تبِ غیرفعال مخفی بماند (وگرنه هر دو تب با هم نمایش داده می‌شوند) */
+    .loko-shop-stage .shop-items:not(.active),
+    .loko-shop-stage .tab-content.hidden { display: none !important; }
     .loko-shop-nav {
         position: absolute; top: 50%; transform: translateY(-50%);
         width: clamp(44px, 6vmin, 56px); height: clamp(44px, 6vmin, 56px);
@@ -766,18 +769,48 @@ body{display:flex;justify-content:center;align-items:center;background:#0c0a14}
       #screen-help .help-content > .help-card:nth-of-type(2) { grid-area: c2; }
       #screen-help .help-card { overflow-y: auto; }
 
-      /* فروشگاه: ریل دسته‌ها + کاروسل */
+      /* فروشگاه: ریل دسته‌ها + کاروسل (مثل بازی‌های مرجع) */
+      #screen-shop { display: flex !important; flex-direction: column !important; }
+      #screen-shop .top-bar { flex: none; }
       #screen-shop .shop-content {
-        display: flex !important; flex-direction: row-reverse !important;
-        align-items: stretch; gap: clamp(8px, 1.8vmin, 16px) !important;
+        display: grid !important; flex: 1 1 auto !important; min-height: 0;
+        grid-template-columns: minmax(0, 1fr) clamp(92px, 16%, 158px);
+        grid-template-rows: minmax(0, 1fr);
+        grid-template-areas: "stage tabs";
+        align-items: stretch; justify-items: stretch;
+        column-gap: clamp(8px, 2vmin, 18px) !important;
       }
       #screen-shop .shop-tabs {
-        flex: 0 0 clamp(90px, 15%, 150px) !important;
+        grid-area: tabs !important;
         flex-direction: column !important; flex-wrap: nowrap !important;
-        justify-content: center !important; height: 100%;
+        width: 100% !important; height: 100%; padding: 0 !important; margin: 0 !important;
+        gap: clamp(6px, 1.2vmin, 12px) !important;
+        justify-content: center !important; align-items: stretch !important;
       }
-      #screen-shop .tab-btn { width: 100% !important; min-height: clamp(42px, 9vmin, 58px); justify-content: center; }
-      #screen-shop .loko-shop-stage { flex: 1 1 auto !important; min-width: 0; height: auto !important; }
+      #screen-shop .tab-btn {
+        width: 100% !important; flex: 0 0 auto !important;
+        min-height: clamp(46px, 10vmin, 64px) !important;
+        flex-direction: column !important; gap: 3px !important;
+        padding: clamp(4px, 1vmin, 8px) 4px !important;
+        font-size: clamp(0.66rem, 1.65vmin, 0.84rem) !important;
+        line-height: 1.3 !important; border-radius: 14px !important;
+      }
+      #screen-shop .tab-btn svg { width: clamp(16px, 3.6vmin, 22px) !important; height: auto !important; }
+      #screen-shop .loko-shop-stage {
+        grid-area: stage !important; flex: 1 1 auto !important;
+        min-width: 0; min-height: 0; height: auto !important;
+        padding: 0 clamp(46px, 6.5vmin, 62px) clamp(4px, 1vmin, 10px) !important;
+      }
+      #screen-shop .loko-shop-stage > .shop-items { height: 100%; }
+      #screen-shop .shop-item {
+        width: min(100%, 360px) !important; max-height: 100%;
+        justify-content: center;
+      }
+      #screen-shop .shop-item .item-preview {
+        width: clamp(64px, 17vh, 118px) !important;
+        height: clamp(64px, 17vh, 118px) !important;
+      }
+      #screen-shop .buy-btn { min-height: clamp(40px, 8vmin, 52px) !important; }
 
       /* مودال‌ها */
       .overlay-buttons { flex-direction: row !important; }

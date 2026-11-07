@@ -1034,6 +1034,10 @@ body {
         background-repeat: no-repeat !important;
     }
     .loko-shop-hidden { display: none !important; }
+    /* ظرف محصول تبِ غیرفعال باید مخفی بماند (وگرنه هر دو تب با هم دیده می‌شوند) */
+    .loko-shop-stage .tab-content.hidden,
+    .loko-shop-stage .shop-items:not(.active),
+    .loko-shop-stage .tab-content[hidden] { display: none !important; }
     .loko-shop-nav {
         position: absolute; top: 50%; transform: translateY(-50%);
         width: clamp(44px, 6vmin, 56px); height: clamp(44px, 6vmin, 56px);
@@ -1687,45 +1691,93 @@ function playSFX(type) {
 
 function generateGrid(level) {
   const { size, letters, words } = level;
-  let attempts = 0;
-  
-  while (attempts < 50) {
-    attempts++;
-    const grid = Array(size).fill(null).map(() => Array(size).fill(null));
-    const placedWords = [];
-    let allPlaced = true;
-    
-    for (const word of words) {
-      let placed = false;
-      let innerAttempts = 0;
-      while (!placed && innerAttempts < 200) {
-        innerAttempts++;
-        const dir = Math.random() < 0.5 ? 'rtl' : 'ttb';
-        const row = Math.floor(Math.random() * size);
-        const col = Math.floor(Math.random() * size);
-        
-        if (canPlace(grid, word, row, col, dir, size)) {
-          place(grid, word, row, col, dir);
-          placedWords.push({ word, row, col, dir });
-          placed = true;
-        }
-      }
-      if (!placed) { allPlaced = false; break; }
+  const dirs = ['rtl', 'ttb'];
+
+  function snapshot(g) {
+    const copy = [];
+    for (let r = 0; r < size; r++) copy.push(g[r].slice());
+    return copy;
+  }
+  function restore(g, snap) {
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) g[r][c] = snap[r][c];
     }
-    
-    if (allPlaced) {
+  }
+  function withinBounds(word, row, col, dir) {
+    const len = word.length;
+    if (dir === 'rtl') return col - (len - 1) >= 0;
+    return row + (len - 1) < size;
+  }
+  /* چیدن بازگشتی: تا جایی که جا باشد همه‌ی کلمه‌ها حتماً در جدول قرار می‌گیرند */
+  function tryPlaceAll(grid, placed, i) {
+    if (i >= words.length) return true;
+    const word = words[i];
+    const spots = [];
+    for (const dir of dirs) {
       for (let r = 0; r < size; r++) {
         for (let c = 0; c < size; c++) {
-          if (grid[r][c] === null) {
-            grid[r][c] = letters[Math.floor(Math.random() * letters.length)];
-          }
+          if (canPlace(grid, word, r, c, dir, size)) spots.push([r, c, dir]);
         }
       }
+    }
+    for (let k = spots.length - 1; k > 0; k--) {
+      const j = Math.floor(Math.random() * (k + 1));
+      const tmp = spots[k]; spots[k] = spots[j]; spots[j] = tmp;
+    }
+    for (const spot of spots) {
+      const snap = snapshot(grid);
+      place(grid, word, spot[0], spot[1], spot[2]);
+      placed.push({ word, row: spot[0], col: spot[1], dir: spot[2] });
+      if (tryPlaceAll(grid, placed, i + 1)) return true;
+      placed.pop();
+      restore(grid, snap);
+    }
+    return false;
+  }
+  function fillBlanks(grid) {
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        if (grid[r][c] === null) {
+          grid[r][c] = letters[Math.floor(Math.random() * letters.length)];
+        }
+      }
+    }
+  }
+
+  for (let attempt = 0; attempt < 40; attempt++) {
+    const grid = Array(size).fill(null).map(() => Array(size).fill(null));
+    const placedWords = [];
+    if (tryPlaceAll(grid, placedWords, 0)) {
+      fillBlanks(grid);
       return { grid, placedWords, size };
     }
   }
-  const grid = Array(size).fill(null).map(() => Array(size).fill(letters[0]));
-  return { grid, placedWords: [], size };
+
+  /* آخرین راه‌حل: چیدن اجباری (اول بدون تداخل، بعد با نادیده گرفتن تداخل)
+     تا هیچ مرحله‌ای بدون کلمه‌هایش شروع نشود */
+  const grid = Array(size).fill(null).map(() => Array(size).fill(null));
+  const placedWords = [];
+  for (const word of words) {
+    const free = [];
+    const loose = [];
+    for (const dir of dirs) {
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (!withinBounds(word, r, c, dir)) continue;
+          loose.push([r, c, dir]);
+          if (canPlace(grid, word, r, c, dir, size)) free.push([r, c, dir]);
+        }
+      }
+    }
+    const pick = free.length ? free[Math.floor(Math.random() * free.length)]
+               : (loose.length ? loose[Math.floor(Math.random() * loose.length)] : null);
+    if (pick) {
+      place(grid, word, pick[0], pick[1], pick[2]);
+      placedWords.push({ word, row: pick[0], col: pick[1], dir: pick[2] });
+    }
+  }
+  fillBlanks(grid);
+  return { grid, placedWords, size };
 }
 
 function canPlace(grid, word, row, col, dir, size) {
@@ -2500,7 +2552,8 @@ window.addEventListener('load', () => {
             document.addEventListener('click', function (e) {
                 var t = e.target;
                 if (!t || !t.closest) return;
-                if (t.closest('.shop-tabs') || t.closest('.shop-grid') || t.closest('.shop-items') ||
+                if (t.closest('.shop-tabs') || t.closest('.tabs') || t.closest('.tab') ||
+                    t.closest('.shop-grid') || t.closest('.shop-items') ||
                     t.closest('.shop-content') || t.closest('.shop-item') || t.closest('.shop-tab')) {
                     setTimeout(refreshAll, 60);
                     setTimeout(refreshAll, 260);
