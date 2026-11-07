@@ -1810,18 +1810,18 @@
 
         /* ---------- پالت: ساختار سرمه‌ای، کارت روشن، اقدام اصلی نارنجی ---------- */
         :root, body[class*="theme-"] {
-            --primary: var(--loko-orange);
-            --secondary: var(--loko-sky);
-            --gold: var(--loko-orange-bright);
-            --glass-bg: var(--loko-surface);
-            --glass-border: var(--loko-line);
-            --text-color: var(--loko-ink);
-            --text-secondary: var(--loko-ink-soft);
+            --primary: var(--loko-orange) !important;
+            --secondary: var(--loko-sky) !important;
+            --gold: var(--loko-orange-bright) !important;
+            --glass-bg: var(--loko-surface) !important;
+            --glass-border: var(--loko-line) !important;
+            --text-color: var(--loko-ink) !important;
+            --text-secondary: var(--loko-ink-soft) !important;
             --bg-gradient: radial-gradient(circle at 18% 12%, #1B3F70 0%, #0B2244 48%, #071A35 100%);
-            --button-primary-bg: linear-gradient(180deg, var(--loko-orange-bright), var(--loko-orange));
-            --button-primary-glow: rgba(255, 138, 0, 0.35);
-            --card-border-color: rgba(255, 138, 0, 0.45);
-            --countdown-color: var(--loko-orange-bright);
+            --button-primary-bg: linear-gradient(180deg, var(--loko-orange-bright), var(--loko-orange)) !important;
+            --button-primary-glow: rgba(255, 138, 0, 0.35) !important;
+            --card-border-color: rgba(255, 138, 0, 0.45) !important;
+            --countdown-color: var(--loko-orange-bright) !important;
             --glow-gold: 0 6px 16px rgba(255, 138, 0, 0.22);
             --glow-blue: 0 6px 16px rgba(121, 207, 255, 0.22);
             --shop-item-bg: #FFFFFF;
@@ -1838,10 +1838,10 @@
             --shop-btn-active-color: #157A45;
             --shop-btn-locked-bg: #E6ECF3;
             --shop-btn-locked-color: #8A9BB4;
-            --buy-modal-bg: #FFFFFF;
-            --buy-modal-border: rgba(255, 138, 0, 0.35);
+            --buy-modal-bg: #FFFFFF !important;
+            --buy-modal-border: rgba(255, 138, 0, 0.35) !important;
             --buy-modal-glow: rgba(255, 138, 0, 0.25);
-            --buy-success-title-color: var(--loko-orange-text);
+            --buy-success-title-color: var(--loko-orange-text) !important;
         }
 
         /* ---------- پایه: بدون اسکرول/زوم، سازگار با safe-area ---------- */
@@ -3912,7 +3912,14 @@
                     if (idx > list.length - 1) idx = list.length - 1;
                     if (idx < 0) idx = 0;
                     for (var i = 0; i < list.length; i++) {
-                        list[i].classList.toggle('loko-shop-hidden', i !== idx);
+                        var hideIt = i !== idx;
+                        list[i].classList.toggle('loko-shop-hidden', hideIt);
+                        // بیمه‌ی دوبل: با استایل درون‌خطی هم پنهان می‌شود
+                        if (hideIt) {
+                            list[i].style.setProperty('display', 'none', 'important');
+                        } else {
+                            list[i].style.removeProperty('display');
+                        }
                     }
                     prev.disabled = idx <= 0;
                     next.disabled = idx >= list.length - 1;
@@ -3936,12 +3943,36 @@
                 } catch (e) { /* بی‌صدا */ }
 
                 refresh();
+                grid.__lokoRefresh = refresh;
             }
 
             function init() {
                 var grids = document.querySelectorAll('.shop-grid, .shop-items');
                 for (var i = 0; i < grids.length; i++) setup(grids[i]);
+                refreshAll();
+                // چند بار دیگر هم چک می‌شود تا هر رندر دیرهنگام بازی هم پوشش داده شود
+                setTimeout(refreshAll, 120);
+                setTimeout(refreshAll, 400);
+                setTimeout(refreshAll, 1000);
             }
+
+            function refreshAll() {
+                var grids = document.querySelectorAll('.shop-grid, .shop-items');
+                for (var i = 0; i < grids.length; i++) {
+                    if (grids[i].__lokoRefresh) grids[i].__lokoRefresh();
+                }
+            }
+
+            window.__lokoRefreshShop = refreshAll;
+            document.addEventListener('click', function (e) {
+                var t = e.target;
+                if (!t || !t.closest) return;
+                if (t.closest('.shop-tabs') || t.closest('.shop-grid') || t.closest('.shop-items') ||
+                    t.closest('.shop-item') || t.closest('.shop-tab')) {
+                    setTimeout(refreshAll, 60);
+                    setTimeout(refreshAll, 260);
+                }
+            }, true);
 
             window.__lokoInitShop = init;
             if (document.readyState === 'loading') {
