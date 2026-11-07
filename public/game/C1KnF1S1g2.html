@@ -1655,6 +1655,27 @@
             background-position: center !important;
             background-repeat: no-repeat !important;
         }
+        /* دایره‌های رنگ قلم به‌صورت دایره بمانند */
+        .loko-shop-stage .shop-grid > * > .preview[style*="border-radius:50%"],
+        .loko-shop-stage .shop-items > * > .preview[style*="border-radius:50%"] {
+            width: clamp(44px, 11vh, 64px) !important;
+            height: clamp(44px, 11vh, 64px) !important;
+            border-radius: 50% !important;
+            margin: 0 auto !important;
+        }
+        /* پوسته‌ی پیش‌فرض: ماه و ستاره به‌شکل مدال گرد روی آسمان سرمه‌ای */
+        .loko-shop-stage .shop-grid > * > .preview.preview-default {
+            background: radial-gradient(circle at 50% 38%, #1B3F70 0%, #0B2244 58%, #071A35 100%) !important;
+            display: grid !important; place-items: center;
+        }
+        .loko-shop-stage .shop-grid > * > .preview.preview-default img {
+            width: auto !important; height: 76% !important; aspect-ratio: 1 / 1;
+            border-radius: 50% !important;
+            object-fit: cover !important; object-position: center !important;
+            background: #FFFFFF;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+        }
         .loko-shop-hidden { display: none !important; }
         .loko-shop-nav {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -2651,7 +2672,7 @@
                     }
 
                     card.innerHTML = `
-                        <div class="preview">
+                        <div class="preview${theme.id === 'dark' ? ' preview-default' : ''}">
                             <img src="${theme.img}" alt="${theme.name}" onerror="this.style.display='none'">
                         </div>
                         <div class="name">${theme.emoji || ''} ${theme.name}</div>
