@@ -1306,7 +1306,98 @@ body {
       .menu-buttons .btn { min-height: 36px !important; }
     }
 
-  </style>
+  
+/* loko-fix3 */
+    /* ===== جدول حروف بزرگ‌تر + کم کردن ستون کلمات ===== */
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #game-screen { grid-template-columns: minmax(0, 1fr) clamp(140px, 22%, 210px) !important; }
+      #game-screen .grid-wrapper { align-items: stretch !important; padding: 0 !important; min-height: 0 !important; }
+      #game-screen .grid {
+        height: auto !important;
+        width: min(100%, calc(var(--app-h, 100dvh) - 150px), 540px) !important;
+        max-width: 100% !important; max-height: 100% !important;
+        aspect-ratio: 1 !important; margin: auto !important;
+        gap: clamp(4px, 0.9vmin, 9px) !important;
+        padding: clamp(8px, 1.7vmin, 15px) !important;
+        border-radius: 22px !important;
+      }
+      #game-screen .grid-cell {
+        font-size: clamp(1.05rem, 3.6vmin, 1.9rem) !important;
+        border-radius: clamp(8px, 1.6vmin, 14px) !important;
+      }
+      /* راهنمای داخل بازی: نوار روشن و بزرگ روی جدول */
+      #tutorial-overlay {
+        background: linear-gradient(180deg, rgba(7, 26, 53, 0.18) 0%, rgba(7, 26, 53, 0.72) 62%) !important;
+        -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+        align-items: flex-end !important; justify-content: center !important;
+        padding: 0 0 clamp(8px, 1.8vmin, 16px) !important;
+        border-radius: 20px !important; overflow: hidden;
+      }
+      #tutorial-overlay .tutorial-text {
+        background: linear-gradient(180deg, #FFFFFF, #FFF4E2) !important;
+        color: #0A1F3D !important;
+        border: 3px solid #FF8A00 !important; border-radius: 16px !important;
+        box-shadow: 0 7px 0 rgba(201, 106, 0, 0.35), 0 14px 30px rgba(3, 14, 30, 0.35) !important;
+        font-size: clamp(0.95rem, 2.7vmin, 1.4rem) !important;
+        line-height: 1.65 !important; font-weight: 800 !important;
+        padding: clamp(8px, 1.8vmin, 16px) clamp(14px, 2.8vmin, 26px) !important;
+        max-width: 94% !important; text-align: center !important;
+        -webkit-text-fill-color: #0A1F3D !important;
+      }
+      #pause-modal .modal-buttons .btn { font-size: clamp(0.78rem, 2vmin, 0.98rem) !important; }
+    }
+
+    /* ===== مودال‌های بزرگ (پایان مرحله / پایان بازی) ===== */
+    .modal-content {
+      width: min(94vw, 620px) !important;
+      max-width: min(94vw, 620px) !important;
+      padding: clamp(14px, 3vmin, 28px) clamp(16px, 3.4vmin, 34px) !important;
+      gap: clamp(6px, 1.6vmin, 14px) !important;
+      border-radius: 24px !important;
+      text-align: center;
+    }
+    .modal-content > div[style*="font-size"] {
+      font-size: clamp(30px, 7vmin, 52px) !important;
+      margin: 0 !important; line-height: 1 !important;
+    }
+    .modal-content h2 { font-size: clamp(1.25rem, 4.2vmin, 2rem) !important; }
+    .modal-content p { font-size: clamp(0.86rem, 2.2vmin, 1.05rem) !important; line-height: 1.6 !important; }
+    .modal-buttons {
+      display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
+      gap: clamp(8px, 1.6vmin, 16px) !important; width: 100% !important; margin: 0 !important;
+    }
+    .modal-buttons .btn {
+      flex: 1 1 0 !important; min-width: 0 !important;
+      min-height: clamp(48px, 9.5vmin, 60px) !important;
+      padding: 4px 8px !important;
+      font-size: clamp(0.88rem, 2.3vmin, 1.1rem) !important;
+      white-space: nowrap !important; line-height: 1.2 !important;
+    }
+    
+    .game-reward-box {
+      margin: 0 !important; padding: clamp(5px, 1.2vmin, 9px) clamp(16px, 3.2vmin, 28px) !important;
+      font-size: clamp(0.95rem, 2.6vmin, 1.25rem) !important; line-height: 1.2 !important;
+    }
+    .game-reward-box .coin-icon {
+      width: clamp(26px, 6vmin, 38px) !important; height: clamp(26px, 6vmin, 38px) !important;
+    }
+    
+    
+  
+    /* یک دکمه‌ی تنها در وسط، نه پهن‌شده در تمام کارت */
+    .modal-content .modal-buttons .btn:only-child,
+    .overlay-content .overlay-buttons .btn:only-child {
+      flex: 0 1 auto !important; min-width: clamp(180px, 42%, 300px) !important; margin: 0 auto !important;
+    }
+
+    /* چیپ جایزه‌ی سکه: بدون هم‌پوشانی */
+    .modal-content .game-reward-box, .game-reward-box {
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
+      gap: clamp(6px, 1.4vmin, 12px) !important; white-space: nowrap !important;
+    }
+    .game-reward-box .coin-icon { margin: 0 !important; }
+    .modal-content h2 { -webkit-text-fill-color: #0A1F3D !important; background: none !important; }
+</style>
 </head>
 <body>
 <audio id="bgm" src="./musics/forest.mp3" loop></audio>

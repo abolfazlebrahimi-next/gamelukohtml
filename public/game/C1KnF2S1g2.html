@@ -803,7 +803,75 @@ body{display:flex;justify-content:center;align-items:center;background:#0c0a14}
       .card { width: clamp(80px, 17vmin, 120px) !important; height: clamp(100px, 22vh, 140px) !important; }
     }
 
-  </style>
+  
+/* loko-fix3 */
+    /* ===== آموزش/راهنمای داخل بازی: کاراکتر | متن ===== */
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      .tutorial-card {
+        display: grid !important;
+        grid-template-columns: minmax(96px, 27%) minmax(0, 1fr) !important;
+        grid-template-areas: "char bubble" "char dots" "char buttons" !important;
+        align-items: center !important; align-self: center !important;
+        column-gap: clamp(10px, 2.4vmin, 26px) !important; row-gap: clamp(5px, 1.3vmin, 12px) !important;
+      }
+      .tutorial-character-area {
+        grid-area: char !important; width: 100% !important; height: 100% !important;
+        min-height: clamp(96px, 26vmin, 190px) !important; align-self: stretch !important;
+      }
+      .tutorial-character-area img { max-height: 100% !important; max-width: 100% !important; }
+      .tutorial-bubble { grid-area: bubble !important; }
+      .tutorial-dots { grid-area: dots !important; justify-content: center !important; margin: 0 !important; }
+      .tutorial-buttons { grid-area: buttons !important; }
+      .tutorial-message { font-size: clamp(0.95rem, 2.6vmin, 1.3rem) !important; min-height: 0 !important; line-height: 1.7 !important; }
+      .tutorial-hint-text { font-size: clamp(0.78rem, 2vmin, 1rem) !important; line-height: 1.6 !important; }
+      .tutorial-skip { top: clamp(6px, 1.4vmin, 12px) !important; left: clamp(6px, 1.4vmin, 12px) !important; padding: 4px 12px !important; font-size: clamp(0.7rem, 1.7vmin, 0.86rem) !important; }
+      #overlayPause .overlay-buttons .btn { font-size: clamp(0.76rem, 1.95vmin, 0.96rem) !important; }
+    }
+
+    /* ===== مودال‌های بزرگ (پایان مرحله / پایان بازی) ===== */
+    .overlay-content, .tutorial-card {
+      width: min(94vw, 620px) !important;
+      max-width: min(94vw, 620px) !important;
+      padding: clamp(14px, 3vmin, 28px) clamp(16px, 3.4vmin, 34px) !important;
+      gap: clamp(6px, 1.6vmin, 14px) !important;
+      border-radius: 24px !important;
+      text-align: center;
+    }
+    .overlay-content, .tutorial-card > div[style*="font-size"] {
+      font-size: clamp(30px, 7vmin, 52px) !important;
+      margin: 0 !important; line-height: 1 !important;
+    }
+    .overlay-title { font-size: clamp(1.25rem, 4.2vmin, 2rem) !important; }
+    .overlay-content p { font-size: clamp(0.86rem, 2.2vmin, 1.05rem) !important; line-height: 1.6 !important; }
+    .overlay-buttons {
+      display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
+      gap: clamp(8px, 1.6vmin, 16px) !important; width: 100% !important; margin: 0 !important;
+    }
+    .overlay-buttons .btn {
+      flex: 1 1 0 !important; min-width: 0 !important;
+      min-height: clamp(48px, 9.5vmin, 60px) !important;
+      padding: 4px 8px !important;
+      font-size: clamp(0.88rem, 2.3vmin, 1.1rem) !important;
+      white-space: nowrap !important; line-height: 1.2 !important;
+    }
+    
+    
+    .tutorial-card { width: min(94vw, 660px) !important; max-width: min(94vw, 660px) !important; }
+
+  
+    /* یک دکمه‌ی تنها در وسط، نه پهن‌شده در تمام کارت */
+    .modal-content .modal-buttons .btn:only-child,
+    .overlay-content .overlay-buttons .btn:only-child {
+      flex: 0 1 auto !important; min-width: clamp(180px, 42%, 300px) !important; margin: 0 auto !important;
+    }
+
+    /* چیپ جایزه‌ی سکه و تیتر تخت (گرادیان متن در عرض کم دیده نمی‌شد) */
+    .coin-reward-box .coin-icon { margin: 0 !important; }
+    .overlay-title, .tutorial-card .overlay-title {
+      -webkit-text-fill-color: #0A1F3D !important; background: none !important;
+      color: #0A1F3D !important;
+    }
+</style>
 </head>
 <body>
 

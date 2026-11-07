@@ -1863,7 +1863,67 @@
       .game-header .info .badge { font-size: 0.56rem !important; padding: 1px 8px !important; }
     }
 
-  </style>
+  
+/* loko-fix3 */
+    /* ===== منوی شروع: کاراکتر بزرگ + حباب خوانا ===== */
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #menu-screen .menu-container { grid-template-columns: minmax(120px, 33%) minmax(0, 1fr) !important; }
+      #menu-screen .character-frame {
+        width: clamp(96px, 30vmin, 215px) !important;
+        height: clamp(96px, 30vmin, 215px) !important;
+        overflow: visible !important; position: relative;
+      }
+      #menu-screen .character-frame img { width: 92% !important; height: 92% !important; }
+      #menu-screen .speech-bubble {
+        position: static !important; white-space: normal !important;
+        max-width: 100% !important; text-align: center; justify-self: center; align-self: center;
+        font-size: clamp(0.82rem, 2.1vmin, 1.05rem) !important; line-height: 1.6 !important;
+        padding: clamp(6px, 1.4vmin, 12px) clamp(12px, 2.6vmin, 22px) !important;
+      }
+      #menu-screen .speech-bubble::after { display: none !important; }
+    }
+    .toast-container { top: clamp(6px, 1.6vmin, 14px) !important; right: clamp(6px, 1.6vmin, 14px) !important; left: auto !important; transform: none !important; }
+
+    /* ===== مودال‌های بزرگ (پایان مرحله / پایان بازی) ===== */
+    .modal-content {
+      width: min(94vw, 620px) !important;
+      max-width: min(94vw, 620px) !important;
+      padding: clamp(14px, 3vmin, 28px) clamp(16px, 3.4vmin, 34px) !important;
+      gap: clamp(6px, 1.6vmin, 14px) !important;
+      border-radius: 24px !important;
+      text-align: center;
+    }
+    .modal-content > div[style*="font-size"] {
+      font-size: clamp(30px, 7vmin, 52px) !important;
+      margin: 0 !important; line-height: 1 !important;
+    }
+    .modal-content h2 { font-size: clamp(1.25rem, 4.2vmin, 2rem) !important; }
+    .modal-content p { font-size: clamp(0.86rem, 2.2vmin, 1.05rem) !important; line-height: 1.6 !important; }
+    .modal-content .modal-buttons {
+      display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important;
+      gap: clamp(8px, 1.6vmin, 16px) !important; width: 100% !important; margin: 0 !important;
+    }
+    .modal-content .modal-buttons .btn {
+      flex: 1 1 0 !important; min-width: 0 !important;
+      min-height: clamp(48px, 9.5vmin, 60px) !important;
+      padding: 4px 8px !important;
+      font-size: clamp(0.88rem, 2.3vmin, 1.1rem) !important;
+      white-space: nowrap !important; line-height: 1.2 !important;
+    }
+    
+    
+  
+    /* یک دکمه‌ی تنها در وسط، نه پهن‌شده در تمام کارت */
+    .modal-content .modal-buttons .btn:only-child,
+    .overlay-content .overlay-buttons .btn:only-child {
+      flex: 0 1 auto !important; min-width: clamp(180px, 42%, 300px) !important; margin: 0 auto !important;
+    }
+#buy-success-modal .modal-content { width: min(94vw, 460px) !important; max-width: min(94vw, 460px) !important; }
+
+    .modal-content h2, #level-complete-modal .modal-content h2 {
+      -webkit-text-fill-color: #0A1F3D !important; background: none !important;
+    }
+</style>
 </head>
 <body>
 
@@ -3631,5 +3691,34 @@
         })();
     </script>
 
+
+    <script>
+    /* حباب گفتگو باید در شبکه‌ی منوی افقی قرار بگیرد، نه داخل دایره‌ی کاراکتر */
+    (function () {
+      function placeBubble() {
+        var menu = document.querySelector('#menu-screen .menu-container');
+        var frame = document.querySelector('#menu-screen .character-frame');
+        var bubble = document.querySelector('#menu-screen .speech-bubble');
+        if (!menu || !frame || !bubble) return;
+        var land;
+        try { land = window.matchMedia ? window.matchMedia('(orientation: landscape), (min-aspect-ratio: 1/1)').matches : (window.innerWidth >= window.innerHeight); }
+        catch (e) { land = window.innerWidth >= window.innerHeight; }
+        if (land) {
+          if (bubble.parentNode !== menu) {
+            var before = menu.querySelector('.menu-buttons');
+            if (before) menu.insertBefore(bubble, before); else menu.appendChild(bubble);
+          }
+        } else if (bubble.parentNode !== frame) {
+          frame.appendChild(bubble);
+        }
+      }
+      placeBubble();
+      setTimeout(placeBubble, 200);
+      setTimeout(placeBubble, 900);
+      window.addEventListener('resize', placeBubble);
+      window.addEventListener('orientationchange', placeBubble);
+      document.addEventListener('click', function () { setTimeout(placeBubble, 0); }, true);
+    })();
+    </script>
 </body>
 </html>
