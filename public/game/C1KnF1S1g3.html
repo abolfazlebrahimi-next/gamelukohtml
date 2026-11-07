@@ -634,6 +634,14 @@ html, body {
       color: #FFF9EF;
       -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
     }
+    /* پوسته‌ی انتخابی روی پس‌زمینه‌ی کل بازی (تصاویر آماده‌ی بازی‌های دیگر) */
+    body {
+      background-image: var(--loko-skin, none), radial-gradient(circle at 18% 12%, #1B3F70 0%, #0B2244 48%, #071A35 100%) !important;
+      background-size: cover, cover !important;
+      background-position: center, center !important;
+      background-repeat: no-repeat, no-repeat !important;
+      background-attachment: fixed, fixed !important;
+    }
     .bg-blob { opacity: 0.18 !important; }
     .screen {
       position: fixed; inset: 0; width: 100%; height: var(--app-h, 100dvh);
@@ -770,6 +778,16 @@ html, body {
     .loko-shop-stage .shop-grid > *, .loko-shop-stage .shop-items > * {
         width: min(100%, 340px); max-height: 100%; margin: 0 auto;
     }
+    .loko-shop-stage .shop-grid > * > :first-child,
+    .loko-shop-stage .shop-items > * > :first-child {
+        flex: none; width: 100% !important;
+        height: clamp(46px, 14vh, 92px) !important;
+        min-height: 46px; max-height: 92px;
+        overflow: hidden; border-radius: 12px;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
     .loko-shop-hidden { display: none !important; }
     .loko-shop-nav {
         position: absolute; top: 50%; transform: translateY(-50%);
@@ -844,8 +862,26 @@ html, body {
         gap: clamp(6px, 1.2vmin, 10px); margin: 0 !important; padding: 6px !important;
         border-radius: 16px; align-self: stretch;
       }
-      #screen-shop .shop-tab { width: 100%; border-radius: 12px !important; }
+      #screen-shop .shop-tabs { align-self: start !important; max-height: 100%; overflow-y: auto; }
+      #screen-shop .shop-tab {
+        width: 100%; flex: 0 0 auto !important; min-height: 52px;
+        border-radius: 12px !important; font-size: clamp(0.72rem, 1.7vmin, 0.88rem) !important;
+      }
       #screen-shop .loko-shop-stage { grid-area: stage; min-height: 0; padding: 0 clamp(46px, 7vmin, 64px) 14px; }
+      #screen-shop .loko-shop-stage .shop-items > * {
+        display: flex !important; flex-direction: column; align-items: center; justify-content: center;
+        gap: clamp(3px, 0.9vmin, 8px) !important;
+        width: min(100%, 330px) !important; max-height: 100% !important; overflow: hidden !important;
+        padding: clamp(8px, 1.6vmin, 14px) !important;
+      }
+      #screen-shop .shop-item-preview {
+        width: 100% !important; aspect-ratio: auto !important;
+        height: clamp(46px, 15vh, 96px) !important; margin-bottom: 0 !important;
+      }
+      #screen-shop .shop-item-preview svg { width: auto !important; height: 78% !important; }
+      #screen-shop .shop-item-name { margin-bottom: 0 !important; font-size: clamp(0.72rem, 1.8vmin, 0.9rem) !important; }
+      #screen-shop .shop-item-price { font-size: clamp(0.72rem, 1.8vmin, 0.9rem) !important; }
+      #screen-shop .shop-item-action { min-height: 44px; margin-top: 2px !important; font-size: clamp(0.7rem, 1.7vmin, 0.85rem) !important; }
 
       /* --- بازی: بوم + ناحیه هدف کنار هم --- */
       #screen-game { padding: calc(4px + var(--sat)) calc(8px + var(--sar)) calc(4px + var(--sab)) calc(8px + var(--sal)) !important; }
@@ -1265,12 +1301,12 @@ const SCURVE_TEMPLATES = [
 // ============ Shop Items ============
 const SHOP_ITEMS = {
   skins: [
-    { id: 'default', name: 'پوسته پیش‌فرض', price: 0, icon: '<rect x="20" y="20" width="60" height="60" rx="8" fill="#6C5CE7"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#00D2FF"/>' },
-    { id: 'ocean', name: 'اقیانوس', price: 8, icon: '<rect x="20" y="20" width="60" height="60" rx="8" fill="#0e7490"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#00D2FF"/>' },
-    { id: 'sunset', name: 'غروب', price: 10, icon: '<rect x="20" y="20" width="60" height="60" rx="8" fill="#FF00A0"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#FFC93C"/>' },
-    { id: 'forest', name: 'جنگل', price: 9, icon: '<rect x="20" y="20" width="60" height="60" rx="8" fill="#065f46"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#00FF9D"/>' },
-    { id: 'rose', name: 'گل سرخ', price: 12, icon: '<rect x="20" y="20" width="60" height="60" rx="8" fill="#9f1239"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#FF7675"/>' },
-    { id: 'galaxy', name: 'کهکشان', price: 15, icon: '<rect x="20" y="20" width="60" height="60" rx="8" fill="#1E1E2F"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#6C5CE7"/>' }
+    { id: 'default', name: 'پیش‌فرض', price: 0, img: '', icon: '<rect x="20" y="20" width="60" height="60" rx="8" fill="#6C5CE7"/><rect x="30" y="30" width="40" height="40" rx="4" fill="#00D2FF"/>' },
+    { id: 'ocean', name: 'ساحل', price: 8, img: './icons/2sahel.jpg', icon: '' },
+    { id: 'sunset', name: 'کویر', price: 10, img: './icons/2byaban.jpg', icon: '' },
+    { id: 'forest', name: 'جنگل', price: 9, img: './icons/2jangal.jpg', icon: '' },
+    { id: 'rose', name: 'باغ', price: 12, img: './icons/2baqh.jpg', icon: '' },
+    { id: 'galaxy', name: 'شهر', price: 15, img: './icons/2shahr.jpg', icon: '' }
   ],
   customization: [
     { id: 'default', name: 'افکت پیش‌فرض', price: 0, icon: '<circle cx="50" cy="50" r="10" fill="#6C5CE7"/>' },
@@ -1894,7 +1930,7 @@ function renderShopItems(tab) {
     else actionBtn = `<button class="shop-item-action locked" disabled>سکه ناکافی</button>`;
     
     el.innerHTML = `
-      <div class="shop-item-preview"><svg viewBox="0 0 100 100">${item.icon}</svg></div>
+      <div class="shop-item-preview"${item.img ? ` style="background-image:url('${item.img}')"` : ''}>${item.img ? '' : `<svg viewBox="0 0 100 100">${item.icon}</svg>`}</div>
       <div class="shop-item-name">${item.name}</div>
       <div class="shop-item-price">${item.price === 0 ? 'رایگان' : `<img src="./icons/coin.png" class="coin-img-mini" alt="LOKO Coin">${item.price}`}</div>
       ${actionBtn}
@@ -2214,5 +2250,33 @@ else init();
             }
         })();
     </script>
+  <script id="loko-skin">
+    (function () {
+      var SKIN_BG = {
+        default: '',
+        ocean: './icons/2sahel.jpg',
+        sunset: './icons/2byaban.jpg',
+        forest: './icons/2jangal.jpg',
+        rose: './icons/2baqh.jpg',
+        galaxy: './icons/2shahr.jpg'
+      };
+      function apply() {
+        try {
+          var id = (typeof state !== 'undefined' && state.activeItems && state.activeItems.skins) || 'default';
+          var src = SKIN_BG[id] || '';
+          document.documentElement.style.setProperty(
+            '--loko-skin',
+            src ? "linear-gradient(rgba(7,26,53,0.55), rgba(7,26,53,0.78)), url('" + src + "')" : 'none'
+          );
+        } catch (e) { /* بی‌صدا */ }
+      }
+      document.addEventListener('DOMContentLoaded', apply);
+      document.addEventListener('click', function (e) {
+        if (e.target && e.target.closest && e.target.closest('#shop-items')) setTimeout(apply, 60);
+      }, true);
+      window.__lokoApplySkin = apply;
+      if (document.readyState !== 'loading') apply();
+    })();
+  </script>
 </body>
 </html>

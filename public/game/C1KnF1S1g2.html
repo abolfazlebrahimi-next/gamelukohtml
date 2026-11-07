@@ -1642,6 +1642,16 @@
         .loko-shop-stage .shop-grid > *, .loko-shop-stage .shop-items > * {
             width: min(100%, 340px); max-height: 100%; margin: 0 auto;
         }
+        .loko-shop-stage .shop-grid > * > :first-child,
+        .loko-shop-stage .shop-items > * > :first-child {
+            flex: none; width: 100% !important;
+            height: clamp(46px, 14vh, 92px) !important;
+            min-height: 46px; max-height: 92px;
+            overflow: hidden; border-radius: 12px;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
         .loko-shop-hidden { display: none !important; }
         .loko-shop-nav {
             position: absolute; top: 50%; transform: translateY(-50%);

@@ -2002,6 +2002,16 @@
         .loko-shop-stage .shop-grid > *, .loko-shop-stage .shop-items > * {
             width: min(100%, 340px); max-height: 100%; margin: 0 auto;
         }
+        .loko-shop-stage .shop-grid > * > :first-child,
+        .loko-shop-stage .shop-items > * > :first-child {
+            flex: none; width: 100% !important;
+            height: clamp(46px, 14vh, 92px) !important;
+            min-height: 46px; max-height: 92px;
+            overflow: hidden; border-radius: 12px;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
         .loko-shop-hidden { display: none !important; }
         .loko-shop-nav {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -2174,13 +2184,18 @@
                 max-width: min(94vw, 620px) !important;
                 padding: clamp(10px, 2vmin, 18px) clamp(12px, 2.4vmin, 22px) !important;
             }
-            .result-emoji-big { font-size: clamp(1.7rem, 4.6vmin, 2.6rem) !important; margin-bottom: 0.1rem !important; animation: none !important; }
-            #result-title { font-size: clamp(1rem, 2.6vmin, 1.45rem) !important; }
-            #result-subtitle { font-size: clamp(0.7rem, 1.6vmin, 0.88rem) !important; margin-bottom: 0.15rem !important; }
-            .result-stat .value { font-size: clamp(1.05rem, 2.5vmin, 1.5rem) !important; }
-            .result-stat .label { font-size: clamp(0.6rem, 1.35vmin, 0.75rem) !important; }
-            .result-stats { margin: 0.3rem 0 0.4rem !important; gap: 0.6rem !important; }
+            .result-emoji-big { font-size: clamp(1.4rem, 4vmin, 2.2rem) !important; margin-bottom: 0.1rem !important; animation: none !important; }
+            #result-title { font-size: clamp(0.95rem, 2.4vmin, 1.35rem) !important; }
+            #result-subtitle { font-size: clamp(0.66rem, 1.5vmin, 0.84rem) !important; margin-bottom: 0.1rem !important; }
+            .win-trash-container { margin-bottom: 2px !important; }
+            .win-trash-img { width: clamp(48px, 11vmin, 76px) !important; height: clamp(48px, 11vmin, 76px) !important; }
+            .result-stat { padding: 0.25rem 0.7rem !important; min-width: 52px !important; border-radius: 10px !important; }
+            .result-stat .value { font-size: clamp(0.95rem, 2.3vmin, 1.35rem) !important; }
+            .result-stat .label { font-size: clamp(0.58rem, 1.3vmin, 0.72rem) !important; }
+            .coin-reward img { width: 34px !important; height: 34px !important; margin: -7px !important; }
+            .result-stats { margin: 0.2rem 0 0.3rem !important; gap: 0.5rem !important; }
             .result-buttons { gap: 8px !important; }
+            .result-buttons .btn { min-height: 56px !important; font-size: clamp(0.78rem, 1.9vmin, 0.95rem) !important; padding: 8px 10px !important; }
             .result-buttons { flex-wrap: wrap; }
             .result-buttons .btn { min-height: 56px; }
 
@@ -2194,6 +2209,9 @@
         }
 
         @media (min-aspect-ratio: 1/1) and (max-height: 500px) {
+            .win-trash-container { display: none !important; }
+            .result-stats { gap: 0.35rem !important; }
+            .result-buttons .btn { min-height: 52px !important; }
             .menu-container { padding: 12px !important; gap: 6px 10px !important; grid-template-columns: minmax(96px, 28%) minmax(0, 1fr) !important; }
             .character-wrapper { width: min(100%, 36vmin, 190px) !important; }
             .speech-bubble-inside { display: none !important; }
