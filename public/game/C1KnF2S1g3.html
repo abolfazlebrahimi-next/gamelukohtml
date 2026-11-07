@@ -798,6 +798,129 @@
     .shop-item .shop-btn-sm.active { background: #EBFAF2 !important; color: #14805A !important; border: 2px dashed #7BD7AC !important; box-shadow: none !important; }
     .shop-item .shop-btn-sm.locked, .shop-item .shop-btn-sm:disabled { background: #F3F6FA !important; color: #8FA6BF !important; border: 2px dashed #DCE6F0 !important; box-shadow: none !important; opacity: 1 !important; }
     .shop-item .price:empty { display: none !important; }
+
+    /* ===== راهنمای صوتی: کارت تازه، موج صوتی، درصد و دکمه‌ی رد کردن ===== */
+    #guideScreen .guide-container {
+      position: relative;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF9EF 100%) !important;
+      border: 3px solid #FFFFFF !important;
+      border-radius: clamp(18px, 3vmin, 28px) !important;
+      box-shadow: 0 16px 36px rgba(3, 14, 30, 0.3), inset 0 0 0 2px #FFE7C7 !important;
+      padding: clamp(10px, 2.2vmin, 22px) !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+      overflow: hidden;
+    }
+    #guideScreen .guide-char {
+      position: relative;
+      border-radius: 50% !important;
+      background: radial-gradient(circle at 50% 38%, #EAF7FF 0%, #FFE9CC 78%) !important;
+      border: 0 !important;
+      box-shadow: 0 0 0 4px #FFFFFF, 0 0 0 7px #FFD79A, 0 12px 24px rgba(3, 14, 30, 0.16) !important;
+      padding: clamp(6px, 1.6vmin, 14px);
+      overflow: visible !important;
+      width: clamp(88px, 24vmin, 176px) !important;
+      height: clamp(88px, 24vmin, 176px) !important;
+      margin: 0 auto;
+    }
+    #guideScreen .guide-char::before {
+      content: ''; position: absolute; inset: -6%; border-radius: 50%;
+      border: 3px solid rgba(255, 138, 0, 0.55);
+      animation: lokoGuidePulse 2.4s ease-out infinite;
+      pointer-events: none;
+    }
+    #guideScreen .guide-char::after {
+      content: '🎧'; position: absolute; bottom: 0; inset-inline-end: 0;
+      width: clamp(22px, 5vmin, 34px); height: clamp(22px, 5vmin, 34px);
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: #FFFFFF; border: 2px solid #FFD79A;
+      box-shadow: 0 4px 10px rgba(3, 14, 30, 0.18);
+      font-size: clamp(11px, 2.6vmin, 17px);
+    }
+    @keyframes lokoGuidePulse {
+      0% { transform: scale(0.92); opacity: 0.85; }
+      70% { transform: scale(1.14); opacity: 0; }
+      100% { transform: scale(1.14); opacity: 0; }
+    }
+    #guideScreen .guide-char img {
+      width: 88% !important; height: 88% !important; object-fit: contain;
+      filter: drop-shadow(0 8px 14px rgba(10, 31, 61, 0.22));
+      animation: lokoGuideFloat 3.4s ease-in-out infinite alternate;
+    }
+    @keyframes lokoGuideFloat { from { transform: translateY(-3px); } to { transform: translateY(4px); } }
+
+    #guideScreen .guide-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: linear-gradient(180deg, #1B3F70, #0A1F3D);
+      color: #FFE9A3 !important;
+      border: 2px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 3px 0 #05101F;
+      border-radius: 999px;
+      padding: clamp(3px, 0.9vmin, 8px) clamp(10px, 2vmin, 16px);
+      font-weight: 900; font-size: clamp(0.7rem, 1.8vmin, 0.88rem); white-space: nowrap;
+    }
+    #guideScreen .guide-pct {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: clamp(40px, 7vmin, 54px);
+      background: #EAF7FF; color: #1B3F70 !important;
+      border: 2px solid #BEE6FF; border-radius: 999px;
+      padding: clamp(2px, 0.8vmin, 6px) clamp(8px, 1.6vmin, 12px);
+      font-weight: 900; font-size: clamp(0.68rem, 1.75vmin, 0.86rem);
+      font-variant-numeric: tabular-nums;
+    }
+    #guideScreen .guide-text {
+      color: #10203A !important;
+      background: #FFFFFF !important;
+      border: 2px solid #FFE0B8 !important;
+      border-radius: clamp(14px, 2.4vmin, 20px) !important;
+      box-shadow: 0 4px 0 rgba(255, 138, 0, 0.12) !important;
+      padding: clamp(8px, 1.8vmin, 18px) clamp(10px, 2.4vmin, 22px) !important;
+      font-size: clamp(0.92rem, 2.5vmin, 1.22rem) !important;
+      line-height: 1.95 !important; font-weight: 800 !important;
+      min-height: 0 !important; overflow-y: auto; text-align: center;
+    }
+    #guideScreen .guide-progress {
+      height: clamp(9px, 1.9vmin, 14px) !important;
+      background: #EEF3FA !important;
+      border-radius: 999px !important;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(10, 31, 61, 0.14) !important;
+      margin: 0 !important;
+    }
+    #guideScreen .guide-progress-bar {
+      background: linear-gradient(90deg, #FFAD24, #FF8A00) !important;
+      border-radius: 999px !important;
+      box-shadow: 0 0 12px rgba(255, 138, 0, 0.55);
+      transition: width 0.25s linear !important;
+    }
+    #guideScreen .guide-skip {
+      position: absolute !important;
+      top: clamp(6px, 1.4vmin, 14px) !important;
+      left: clamp(6px, 1.4vmin, 14px) !important;
+      z-index: 9;
+      display: inline-flex !important; align-items: center; justify-content: center; gap: 6px;
+      background: #FFFFFF !important; color: #0A1F3D !important;
+      border: 2px solid #16355E !important; border-radius: 999px !important;
+      box-shadow: 0 3px 0 #DCE6F0 !important;
+      min-height: clamp(36px, 7.6vmin, 46px) !important;
+      padding: 0 clamp(12px, 2.2vmin, 18px) !important;
+      font-weight: 900 !important; font-size: clamp(0.72rem, 1.85vmin, 0.9rem) !important;
+      cursor: pointer;
+    }
+    #guideScreen .guide-skip:active { transform: translateY(2px); box-shadow: none !important; }
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #guideScreen .guide-container {
+        grid-template-columns: minmax(104px, 26%) minmax(0, 1fr) !important;
+        grid-template-rows: auto minmax(0, 1fr) auto !important;
+        grid-template-areas: "char badge" "char text" "char bar" !important;
+        align-items: center;
+        column-gap: clamp(12px, 2.8vmin, 30px); row-gap: clamp(4px, 1.2vmin, 12px);
+      }
+      #guideScreen .guide-badge { grid-area: badge; justify-self: start; align-self: center; }
+      #guideScreen .guide-pct { grid-area: badge; justify-self: end; align-self: center; }
+      #guideScreen .guide-text { grid-area: text; width: 100%; height: 100%; }
+      #guideScreen .guide-progress { grid-area: bar; width: 100%; }
+    }
 </style>
 </head>
 <body>
@@ -893,6 +1016,8 @@
             <div class="guide-char">
                 <img src="./icons/gamerhi.png" alt="پیکسل" onerror="this.textContent='🧑‍🌾'">
             </div>
+            <div class="guide-badge">🎧 راهنمای صوتی لوکی</div>
+            <div class="guide-pct" id="guidePct">۰٪</div>
             <div class="guide-text" id="guideText">سلام دوست من!<br>به بازی صداها خوش اومدی! 🔊</div>
             <div class="guide-progress">
                 <div class="guide-progress-bar" id="guideProgressBar"></div>
@@ -1767,7 +1892,14 @@
                 window.guideAudio.pause();
                 window.guideAudio.currentTime = 0;
             }
-            showScreen('homeScreen'); // مستقیم به منوی اصلی
+            // اگر راهنما برای شروع مرحله باز شده بود، با «رد کردن» خود مرحله شروع شود
+            if (typeof guideCallbackForFirstLevel === 'function') {
+                const cb = guideCallbackForFirstLevel;
+                guideCallbackForFirstLevel = null;
+                cb();
+                return;
+            }
+            showScreen('homeScreen'); // راهنمای منو → برگشت به منوی اصلی
         }
 
         document.getElementById('guideSkipBtn').addEventListener('click', skipGuide);
@@ -2043,6 +2175,24 @@
         new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ['style', 'class'] });
       } catch (e) {}
       setInterval(sync, 1000);
+    })();
+</script>
+
+<script id="loko-guide-pct">
+    /* درصد پیشرفت راهنمای صوتی */
+    (function () {
+      var fa = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      function faNum(n) { return String(n).replace(/\d/g, function (d) { return fa[+d]; }); }
+      function tick() {
+        var bar = document.getElementById('guideProgressBar');
+        var out = document.getElementById('guidePct');
+        if (!bar || !out) return;
+        var w = parseFloat(bar.style.width) || 0;
+        var txt = faNum(Math.round(w)) + '٪';
+        if (out.textContent !== txt) out.textContent = txt;
+      }
+      setInterval(tick, 300);
+      document.addEventListener('DOMContentLoaded', tick);
     })();
 </script>
 </body>
