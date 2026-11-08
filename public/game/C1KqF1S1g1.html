@@ -130,6 +130,125 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: var(--fon
 .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(30, 30, 47, 0.95); border: 1px solid var(--primary); padding: 12px 24px; border-radius: 50px; z-index: 10001; transition: transform 0.3s; box-shadow: 0 0 20px rgba(108, 92, 231, 0.3); }
 .toast.show { transform: translateX(-50%) translateY(0); }
 </style>
+<style id="loko-landscape">
+
+    :root {
+      --app-h: 100dvh; --app-w: 100vw;
+      --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px); --sar: env(safe-area-inset-right, 0px);
+    }
+    html, body { height: 100%; overflow: hidden !important; }
+    #app { height: var(--app-h, 100dvh) !important; }
+    .app-wrapper { max-width: none !important; }
+    .screen {
+      inset: calc(4px + var(--sat)) calc(4px + var(--sar)) calc(4px + var(--sab)) calc(4px + var(--sal)) !important;
+    }
+    #gameScreen { padding: 0 !important; }
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      .screen { padding: clamp(8px, 1.8vmin, 16px) clamp(12px, 2.4vmin, 24px) !important; overflow: hidden !important; }
+
+      /* ── منو: کاراکتر راست، عنوان و دکمه‌ها چپ ── */
+      #menuScreen {
+        display: grid !important;
+        grid-template-columns: minmax(110px, 27%) minmax(0, 1fr);
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas: "char title" "char speech" "char start" "char cont" "char row";
+        align-content: center; align-items: center; justify-items: center;
+        column-gap: clamp(10px, 2.6vmin, 28px); row-gap: clamp(4px, 1.1vmin, 11px);
+        text-align: center;
+      }
+      #menuScreen .pixel-character {
+        grid-area: char; grid-row: 1 / 6; margin: 0 !important;
+        width: clamp(92px, 26vmin, 185px) !important; height: clamp(92px, 26vmin, 185px) !important;
+      }
+      #menuScreen .game-title { grid-area: title; align-self: end; margin: 0 !important; font-size: clamp(1.35rem, 4.6vmin, 2.3rem) !important; }
+      #menuScreen .speech-bubble {
+        grid-area: speech; margin: 0 !important; max-width: min(100%, 560px);
+        font-size: clamp(0.72rem, 1.9vmin, 0.95rem) !important;
+        padding: clamp(6px, 1.3vmin, 12px) clamp(10px, 2vmin, 18px) !important;
+      }
+      #menuScreen #startBtn { grid-area: start; }
+      #menuScreen #continueBtn { grid-area: cont; }
+      #menuScreen .btn-row { grid-area: row; margin: 0 !important; max-width: min(100%, 420px) !important; }
+      #menuScreen .btn-primary {
+        max-width: min(100%, 420px) !important; width: min(100%, 420px) !important;
+        min-height: clamp(44px, 9vmin, 60px); padding: 6px clamp(16px, 3vmin, 30px) !important;
+        font-size: clamp(0.85rem, 2.2vmin, 1.1rem) !important;
+      }
+      #menuScreen .btn-row .btn-secondary { min-height: clamp(40px, 8vmin, 52px); font-size: clamp(0.7rem, 1.85vmin, 0.9rem) !important; }
+
+      /* ── انتخاب مرحله ── */
+      .level-screen { padding: clamp(36px, 8vmin, 56px) clamp(12px, 2.4vmin, 24px) clamp(8px, 1.8vmin, 16px) !important; }
+      .level-screen h2 { font-size: clamp(0.95rem, 2.6vmin, 1.3rem) !important; margin: 0 0 clamp(3px, 1vmin, 8px) !important; }
+      .level-grid {
+        flex: 1 1 auto; min-height: 0;
+        grid-template-columns: repeat(auto-fit, minmax(clamp(54px, 8.8vmin, 88px), 1fr)) !important;
+        gap: clamp(5px, 1.2vmin, 12px) !important;
+        align-content: center !important; overflow: hidden !important; padding: 0 !important;
+      }
+      .level-card { font-size: clamp(1rem, 3.2vmin, 1.8rem) !important; }
+      .btn-back {
+        top: clamp(6px, 1.6vmin, 14px) !important; right: clamp(6px, 1.6vmin, 14px) !important;
+        padding: 4px clamp(10px, 2vmin, 16px) !important; font-size: clamp(0.62rem, 1.6vmin, 0.8rem) !important;
+        min-height: 32px; display: inline-flex; align-items: center;
+      }
+
+      /* ── فروشگاه ── */
+      .shop-screen { padding: clamp(36px, 8vmin, 56px) clamp(12px, 2.4vmin, 24px) clamp(8px, 1.8vmin, 16px) !important; }
+      .shop-screen h2 { font-size: clamp(0.95rem, 2.6vmin, 1.3rem) !important; margin: 0 0 clamp(3px, 1vmin, 8px) !important; }
+      .shop-tabs { flex: none; align-self: center; width: min(100%, 560px); margin: 0 0 clamp(6px, 1.4vmin, 12px) !important; padding: 3px !important; }
+      .shop-tab { min-height: clamp(32px, 6.8vmin, 42px); font-size: clamp(0.62rem, 1.7vmin, 0.85rem) !important; padding: 4px !important; }
+      .shop-grid {
+        flex: 1 1 auto; min-height: 0;
+        grid-template-columns: repeat(auto-fit, minmax(clamp(84px, 12.5vmin, 140px), 1fr)) !important;
+        gap: clamp(6px, 1.4vmin, 12px) !important; overflow-y: auto !important; align-content: start !important;
+      }
+      .shop-item { padding: clamp(6px, 1.4vmin, 12px) !important; gap: clamp(4px, 1vmin, 8px) !important; }
+      .shop-item-preview { width: clamp(34px, 8vmin, 52px) !important; height: clamp(34px, 8vmin, 52px) !important; }
+      .shop-item-name { font-size: clamp(0.6rem, 1.6vmin, 0.8rem) !important; }
+      .shop-item-price { font-size: clamp(0.6rem, 1.6vmin, 0.8rem) !important; }
+      .shop-item-btn { min-height: clamp(28px, 6vmin, 38px); font-size: clamp(0.58rem, 1.55vmin, 0.78rem) !important; padding: 4px 8px !important; }
+
+      /* ── راهنما ── */
+      #helpScreen { padding: clamp(40px, 9vmin, 58px) clamp(12px, 2.4vmin, 24px) clamp(8px, 1.8vmin, 16px) !important; }
+      #helpScreen h2 { font-size: clamp(0.95rem, 2.6vmin, 1.3rem) !important; margin: 0 0 clamp(4px, 1.2vmin, 10px) !important; }
+      #helpScreen .glass {
+        max-width: min(100%, 780px); margin: 0 auto;
+        padding: clamp(10px, 2.2vmin, 22px) clamp(12px, 2.6vmin, 26px) !important;
+        font-size: clamp(0.72rem, 1.9vmin, 0.96rem) !important; line-height: 1.95 !important;
+        overflow: auto;
+      }
+
+      /* ── بازی: نوار نقاله پایین صفحه ── */
+      #gameScreen .game-top-bar {
+        top: clamp(6px, 1.6vmin, 14px) !important;
+        left: clamp(8px, 1.8vmin, 16px) !important; right: clamp(8px, 1.8vmin, 16px) !important;
+      }
+      .game-timer, .stop-btn { font-size: clamp(0.7rem, 1.9vmin, 0.95rem) !important; padding: 4px clamp(10px, 2vmin, 16px) !important; min-height: 34px; }
+      .conveyor-belt { bottom: clamp(56px, 13vmin, 96px) !important; height: clamp(46px, 11vmin, 74px) !important; }
+      #gameArea { bottom: clamp(112px, 25vmin, 180px) !important; height: clamp(88px, 20vmin, 140px) !important; }
+      .emoji-item { width: clamp(58px, 13vmin, 86px) !important; height: clamp(58px, 13vmin, 86px) !important; border-radius: 14px !important; }
+      .emoji-char { font-size: clamp(24px, 6vmin, 40px) !important; }
+      .emoji-name { font-size: clamp(9px, 2vmin, 12px) !important; }
+
+      /* ── مودال‌ها ── */
+      .modal-card, .tutorial-card {
+        max-width: min(92vw, 560px) !important;
+        padding: clamp(10px, 2.2vmin, 22px) clamp(12px, 2.6vmin, 26px) !important;
+        max-height: calc(100% - 10px); overflow: hidden;
+      }
+      .modal-card .btn, .tutorial-card .btn { min-height: clamp(38px, 8vmin, 50px) !important; }
+      .modal-card h2 { font-size: clamp(0.95rem, 2.8vmin, 1.3rem) !important; margin: 0 0 clamp(2px, 0.8vmin, 6px) !important; }
+      .tutorial-char { width: clamp(44px, 11vmin, 72px) !important; height: clamp(44px, 11vmin, 72px) !important; margin: 0 auto clamp(4px, 1vmin, 10px) !important; }
+      .tutorial-message { font-size: clamp(0.76rem, 2vmin, 0.96rem) !important; margin-bottom: clamp(6px, 1.3vmin, 12px) !important; line-height: 1.6 !important; }
+      .tutorial-hint { font-size: clamp(15px, 4vmin, 24px) !important; margin-bottom: clamp(6px, 1.4vmin, 14px) !important; }
+      .tutorial-dots { margin-bottom: clamp(6px, 1.4vmin, 14px) !important; }
+      .reward-box { padding: clamp(6px, 1.4vmin, 12px) !important; }
+      .toast { top: auto; bottom: clamp(8px, 2vmin, 20px) !important; font-size: clamp(0.68rem, 1.8vmin, 0.9rem) !important; }
+    }
+
+</style>
 </head>
 <body>
 <div id="app">
@@ -667,5 +786,35 @@ loadLokoData();
 document.getElementById('coinCount').textContent = coins;
 document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
 </script>
+<script id="loko-viewport">
+    (function () {
+      var root = document.documentElement;
+      function apply() {
+        var vv = window.visualViewport;
+        var h = Math.round(vv ? vv.height : window.innerHeight);
+        var w = Math.round(vv ? vv.width : window.innerWidth);
+        root.style.setProperty('--app-h', h + 'px');
+        root.style.setProperty('--app-w', w + 'px');
+        document.body.classList.toggle('is-landscape', w > h);
+        if (typeof window.__lokoRelayout === 'function') {
+          try { window.__lokoRelayout(); } catch (e) {}
+        }
+      }
+      var raf = 0;
+      function schedule() {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = 0; apply(); });
+      }
+      window.addEventListener('resize', schedule);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(apply, 120); setTimeout(apply, 450);
+      });
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', schedule);
+      document.addEventListener('DOMContentLoaded', apply);
+      window.__lokoRelayout = window.__lokoRelayout || apply;
+      apply();
+    })();
+  </script>
+
 </body>
 </html>

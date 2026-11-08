@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title> سلام کنیم </title>
     <style>
         @font-face {
@@ -2279,6 +2279,124 @@
     </style>
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+<style id="loko-landscape">
+
+    :root {
+      --app-h: 100dvh; --app-w: 100vw;
+      --sat: env(safe-area-inset-top, 0px); --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px); --sar: env(safe-area-inset-right, 0px);
+    }
+    html, body { height: 100%; overflow: hidden !important; }
+    .screen {
+      inset: calc(4px + var(--sat)) calc(4px + var(--sar)) calc(4px + var(--sab)) calc(4px + var(--sal)) !important;
+    }
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      .screen { padding: clamp(6px, 1.4vmin, 14px) clamp(10px, 2.2vmin, 22px) !important; overflow: hidden !important; }
+      #game-page { padding: 0 !important; }
+
+      /* ── منو ── */
+      #menu-page .menu-container {
+        max-width: none !important; width: 100%; flex: 1 1 auto; min-height: 0;
+        display: grid !important;
+        grid-template-columns: minmax(104px, 26%) minmax(0, 1fr);
+        grid-template-rows: auto auto minmax(0, 1fr);
+        grid-template-areas: "char coins" "char title" "char buttons";
+        align-items: center; justify-items: center;
+        column-gap: clamp(10px, 2.6vmin, 28px); row-gap: clamp(3px, 1vmin, 10px);
+        padding: clamp(8px, 1.8vmin, 18px) !important; text-align: center;
+      }
+      #menu-page .coin-display { grid-area: coins; justify-self: start; position: static !important; inset: auto !important; margin: 0 !important; padding: 3px clamp(8px, 1.8vmin, 14px) !important; }
+      #menu-page .character-wrapper {
+        grid-area: char; grid-row: 1 / 4; margin: 0 !important;
+        width: clamp(92px, 25vmin, 180px) !important; height: clamp(92px, 25vmin, 180px) !important;
+      }
+      #menu-page .menu-title-banner { grid-area: title; margin: 0 !important; width: 100%; max-width: min(100%, 580px); padding: clamp(4px, 1vmin, 10px) clamp(8px, 1.8vmin, 16px) !important; }
+      #menu-page .game-title { font-size: clamp(1.15rem, 4vmin, 2rem) !important; margin: 0 !important; }
+      #menu-page .speech-bubble-inside {
+        top: auto !important; bottom: -8px !important; right: -6px !important;
+        font-size: clamp(0.56rem, 1.5vmin, 0.72rem) !important; padding: 4px 8px !important;
+      }
+      #menu-page .menu-buttons { grid-area: buttons; align-self: start; width: 100%; max-width: min(100%, 580px); margin: 0 !important; gap: clamp(6px, 1.4vmin, 12px) !important; }
+      #menu-page .menu-buttons .btn { width: 100%; min-height: clamp(44px, 9vmin, 60px) !important; font-size: clamp(0.85rem, 2.2vmin, 1.05rem) !important; padding: 6px clamp(12px, 2.4vmin, 22px) !important; }
+      #menu-page .secondary-buttons { gap: clamp(6px, 1.4vmin, 12px) !important; }
+      #menu-page .secondary-buttons .btn { min-height: clamp(38px, 8vmin, 52px) !important; font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; }
+
+      /* ── راهنما (سینمایی) ── */
+      #help-page .help-cinematic-container {
+        display: grid !important;
+        grid-template-columns: minmax(92px, 27%) minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) auto auto auto;
+        grid-template-areas: "char bubble" "char nav" "char dots" "char skip";
+        gap: clamp(4px, 1.2vmin, 12px) clamp(10px, 2.4vmin, 24px) !important;
+        align-items: center; justify-items: center;
+        height: 100%; padding-bottom: 0 !important;
+      }
+      #help-page .gamer-aura-wrapper { grid-area: char; grid-row: 1 / 5; width: clamp(88px, 23vmin, 180px) !important; height: clamp(88px, 23vmin, 180px) !important; }
+      #help-page .help-gamer-img { width: clamp(70px, 18vmin, 132px) !important; }
+      #help-page #help-speech-text {
+        grid-area: bubble; width: 100% !important; max-width: 100% !important;
+        font-size: clamp(0.78rem, 2vmin, 0.98rem) !important; line-height: 1.85 !important;
+        padding: clamp(10px, 2.2vmin, 20px) clamp(12px, 2.6vmin, 24px) !important;
+        min-height: 0 !important; max-height: 100%; overflow: auto;
+      }
+      #help-page .help-speech-bubble::after { display: none !important; }
+      #help-page .help-nav { grid-area: nav; }
+      #help-page #help-dots { grid-area: dots; }
+      #help-page .next-help-btn { padding: clamp(6px, 1.4vmin, 12px) clamp(22px, 5vmin, 40px) !important; font-size: clamp(0.78rem, 2vmin, 1rem) !important; min-height: clamp(40px, 8.4vmin, 54px); }
+      #help-page .skip-help-btn {
+        grid-area: skip; position: static !important; transform: none !important; margin: 0 !important;
+        padding: 6px clamp(12px, 2.6vmin, 20px) !important; font-size: clamp(0.66rem, 1.75vmin, 0.85rem) !important;
+      }
+
+      /* ── فروشگاه ── */
+      #shop-page .shop-container {
+        max-width: none !important; width: 100%; height: 100%; max-height: none !important;
+        display: flex !important; flex-direction: column !important; overflow: hidden !important;
+        padding: clamp(8px, 1.8vmin, 16px) !important;
+      }
+      #shop-page .shop-header { margin-bottom: clamp(4px, 1vmin, 10px) !important; gap: clamp(6px, 1.4vmin, 12px) !important; }
+      #shop-page .shop-header h2 { font-size: clamp(0.95rem, 2.6vmin, 1.3rem) !important; }
+      #shop-page .shop-hint { font-size: clamp(0.62rem, 1.65vmin, 0.82rem) !important; margin-bottom: clamp(4px, 1vmin, 10px) !important; line-height: 1.6 !important; }
+      #shop-page .shop-grid {
+        flex: 1 1 auto; min-height: 0; overflow-y: auto !important; align-content: start !important;
+        grid-template-columns: repeat(auto-fit, minmax(clamp(94px, 14vmin, 150px), 1fr)) !important;
+        gap: clamp(6px, 1.4vmin, 14px) !important;
+      }
+
+      /* ── بازی: شهر و شخصیت‌ها ── */
+      #game-page .game-interface { max-width: none !important; padding: clamp(4px, 1vmin, 10px) !important; }
+      #game-page .game-header { padding: 4px clamp(8px, 1.8vmin, 14px) !important; border-radius: 16px !important; margin-bottom: clamp(4px, 1vmin, 8px) !important; gap: 6px; }
+      #game-page .level-indicator { font-size: clamp(0.7rem, 1.85vmin, 0.9rem) !important; }
+      #game-page .pause-btn { width: clamp(32px, 7vmin, 42px) !important; height: clamp(32px, 7vmin, 42px) !important; }
+      #game-page .character-message { top: clamp(48px, 11vmin, 74px) !important; max-width: min(92%, 420px) !important; }
+      #game-page .message-bubble { font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; padding: clamp(6px, 1.4vmin, 12px) clamp(10px, 2.2vmin, 18px) !important; }
+      #game-page .characters-area { bottom: 26% !important; gap: clamp(8px, 2vmin, 20px) !important; }
+      #game-page .selection-buttons { bottom: clamp(28px, 7vmin, 46px) !important; max-width: min(94%, 520px) !important; gap: clamp(5px, 1.2vmin, 10px) !important; }
+      #game-page .greet-section { bottom: clamp(24px, 6vmin, 40px) !important; }
+      #game-page .greet-btn { min-height: clamp(40px, 8.4vmin, 54px) !important; font-size: clamp(0.78rem, 2vmin, 0.98rem) !important; padding: 6px clamp(16px, 3.4vmin, 30px) !important; }
+      #game-page .progress-bar-container { height: clamp(5px, 1.2vmin, 8px) !important; margin-top: clamp(3px, 1vmin, 8px) !important; }
+
+      /* ── پایان بازی ── */
+      #end-page .result-card { max-width: none !important; width: 100%; flex: 1 1 auto; min-height: 0; padding: clamp(8px, 1.8vmin, 18px) !important; overflow: hidden; }
+      #end-page .trophy { font-size: clamp(1.6rem, 5.4vmin, 3rem) !important; }
+      #end-page .result-title { font-size: clamp(1rem, 3.2vmin, 1.6rem) !important; margin: 0 0 2px !important; }
+      #end-page .result-subtitle { font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; margin: 0 0 clamp(4px, 1vmin, 10px) !important; }
+      #end-page .end-buttons { flex-direction: row !important; flex-wrap: wrap !important; gap: clamp(6px, 1.4vmin, 12px) !important; }
+      #end-page .end-buttons .btn { flex: 1 1 30% !important; min-width: 0 !important; min-height: clamp(40px, 8.4vmin, 54px) !important; font-size: clamp(0.72rem, 1.9vmin, 0.94rem) !important; }
+
+      /* ── مودال‌ها و خرید ── */
+      #exit-modal .modal-content, #reset-modal .modal-content, .congrats-modal {
+        max-width: min(92vw, 560px) !important; padding: clamp(10px, 2.2vmin, 20px) clamp(12px, 2.6vmin, 26px) !important;
+        max-height: calc(100% - 12px); overflow: hidden;
+      }
+      #exit-modal h3, #reset-modal h3, .congrats-modal h2 { font-size: clamp(0.95rem, 2.8vmin, 1.3rem) !important; margin: 0 0 4px !important; }
+      #exit-modal p, #reset-modal p, .congrats-modal p { font-size: clamp(0.74rem, 1.9vmin, 0.92rem) !important; }
+      #exit-modal .modal-buttons, #reset-modal .modal-buttons { flex-direction: row !important; gap: clamp(6px, 1.4vmin, 12px) !important; }
+      #exit-modal .modal-buttons .btn, #reset-modal .modal-buttons .btn { flex: 1 1 0 !important; min-height: clamp(40px, 8.4vmin, 52px) !important; font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; }
+    }
+
+</style>
 </head>
 
 <body>
@@ -3384,6 +3502,36 @@
             }, { passive: false });
         });
     </script>
+<script id="loko-viewport">
+    (function () {
+      var root = document.documentElement;
+      function apply() {
+        var vv = window.visualViewport;
+        var h = Math.round(vv ? vv.height : window.innerHeight);
+        var w = Math.round(vv ? vv.width : window.innerWidth);
+        root.style.setProperty('--app-h', h + 'px');
+        root.style.setProperty('--app-w', w + 'px');
+        document.body.classList.toggle('is-landscape', w > h);
+        if (typeof window.__lokoRelayout === 'function') {
+          try { window.__lokoRelayout(); } catch (e) {}
+        }
+      }
+      var raf = 0;
+      function schedule() {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = 0; apply(); });
+      }
+      window.addEventListener('resize', schedule);
+      window.addEventListener('orientationchange', function () {
+        setTimeout(apply, 120); setTimeout(apply, 450);
+      });
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', schedule);
+      document.addEventListener('DOMContentLoaded', apply);
+      window.__lokoRelayout = window.__lokoRelayout || apply;
+      apply();
+    })();
+  </script>
+
 </body>
 
 </html>
