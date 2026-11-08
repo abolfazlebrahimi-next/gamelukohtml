@@ -1430,6 +1430,97 @@ body {
         font-weight: 800; color: #4A6285; background: rgba(16, 43, 85, 0.08);
         padding: 1px 10px; border-radius: 999px; line-height: 1.7;
     }
+
+    /* ── q4 fix2: full-bleed + منو/فروشگاه/راهنما/بازی منظم ── */
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #app-wrapper {
+        max-width: none !important; width: 100% !important;
+        margin: 0 !important; box-shadow: none !important;
+      }
+      .page { padding: clamp(6px, 1.4vmin, 14px) clamp(12px, 2.6vmin, 26px) !important; }
+
+      /* منو */
+      #menu-page.active { display: flex !important; flex-direction: column; justify-content: center; align-items: stretch; }
+      #menu-page .menu-content {
+        display: grid !important;
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-rows: auto auto minmax(0, 1fr);
+        grid-template-areas: "char header" "char bubble" "char buttons";
+        align-content: center; align-items: center; justify-items: center;
+        width: 100% !important; padding: 0 !important; gap: clamp(4px, 1.2vmin, 12px) clamp(10px, 2.4vmin, 28px);
+      }
+      #menu-page .menu-header { grid-area: header; }
+      #menu-page .speech-bubble { grid-area: bubble; }
+      #menu-page .pixel-character-wrapper { grid-area: char; grid-row: 1 / 4; }
+      #menu-page .menu-buttons { grid-area: buttons; align-self: start; }
+
+      /* فروشگاه */
+      #shop-page.active { display: flex !important; flex-direction: column; justify-content: center; align-items: stretch; }
+      #shop-page .shop-container {
+        display: grid !important;
+        grid-template-columns: clamp(96px, 17%, 176px) minmax(0, 1fr);
+        grid-template-rows: auto minmax(0, 1fr);
+        grid-template-areas: "rail head" "rail stage";
+        align-items: center; width: 100% !important;
+        column-gap: clamp(8px, 2vmin, 18px);
+      }
+      #shop-page .shop-header { grid-area: head; margin: 0 0 4px !important; }
+      #shop-page .shop-tabs { grid-area: rail; }
+      #shop-page .loko-shop-stage { grid-area: stage; }
+
+      /* راهنما */
+      #help-page.active { display: flex !important; flex-direction: column; justify-content: center; align-items: stretch; }
+      #help-page .help-container { max-width: min(96vw, 1000px) !important; width: 100% !important; margin: 0 auto !important; overflow: hidden !important; max-height: 100% !important; }
+      #help-page .help-header { display: flex !important; align-items: center; justify-content: center; gap: clamp(8px, 2vmin, 16px); margin-bottom: clamp(4px, 1.2vmin, 10px) !important; }
+      #help-page .help-header img {
+        width: auto !important; height: clamp(38px, 9.5vmin, 68px) !important;
+        max-height: none !important; object-fit: contain !important; flex: none; margin-bottom: 0 !important;
+      }
+      #help-page .help-header h2 { font-size: clamp(0.95rem, 2.7vmin, 1.35rem) !important; margin: 0 !important; }
+      #help-page .help-steps {
+        display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: clamp(6px, 1.4vmin, 14px) !important; align-content: start; overflow: auto; min-height: 0;
+      }
+      #help-page .help-step { padding: clamp(6px, 1.4vmin, 12px) !important; gap: clamp(6px, 1.4vmin, 12px) !important; align-items: flex-start !important; }
+      #help-page .step-num { width: clamp(22px, 5.2vmin, 32px) !important; height: clamp(22px, 5.2vmin, 32px) !important; font-size: clamp(0.66rem, 1.75vmin, 0.86rem) !important; flex: none; }
+      #help-page .step-content p { font-size: clamp(0.66rem, 1.8vmin, 0.86rem) !important; line-height: 1.65 !important; }
+
+      /* بازی */
+      #game-page.active { display: flex !important; flex-direction: column; justify-content: center; }
+      #game-page .game-container {
+        display: grid !important; height: 100% !important; width: 100% !important;
+        grid-template-columns: minmax(0, 1fr) clamp(132px, 22%, 220px);
+        grid-template-rows: auto minmax(0, 1fr) auto auto;
+        grid-template-areas: "head head" "canvas side" "progress side" "foot foot";
+        gap: clamp(4px, 1.1vmin, 10px) clamp(6px, 1.6vmin, 16px);
+      }
+      #game-page .game-header { grid-area: head; min-width: 0; }
+      #game-page .game-header .game-stats { gap: clamp(4px, 1.2vmin, 10px); }
+      #game-page .stat-box { min-width: 0; }
+      #game-page .color-palette { grid-area: side; align-self: center; max-height: 100%; overflow: auto; }
+      #game-page .canvas-area { grid-area: canvas; min-width: 0; min-height: 0; overflow: hidden; }
+      #game-page .drawing-frame {
+        height: 100% !important; width: auto !important;
+        max-width: 100% !important; max-height: 100% !important;
+        aspect-ratio: 1 !important; margin: 0 auto !important;
+      }
+      #game-page .progress-indicator { grid-area: progress; min-width: 0; }
+      #game-page .game-footer { grid-area: foot; min-width: 0; }
+      #game-page .game-footer button { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    }
+
+
+    /* ── fix3: پالت سمت راست + عرض کاروسل ── */
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #game-page .game-container {
+        grid-template-columns: clamp(132px, 22%, 220px) minmax(0, 1fr) !important;
+        grid-template-areas: "head head" "side canvas" "side progress" "foot foot" !important;
+      }
+      .loko-shop-stage {
+        max-width: min(100%, clamp(360px, 60vmin, 720px)) !important;
+        margin: 0 auto !important; width: 100% !important;
+      }
+    }
 </style>
 </head>
 <body>
