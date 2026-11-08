@@ -2092,6 +2092,74 @@
     }
     .image-display, .cards-container, .image-display .image-label { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
     .card-condition, .card-question { color: #10203A !important; }
+
+    /* ── factory ui2 ── */
+    @keyframes lokoBelt { from { background-position: 0 0; } to { background-position: -64px 0; } }
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      /* جعبه‌ی خوراکی‌ها: هر آیتم بزرگ و خوانا */
+      #game-screen .game-container { grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr) !important; }
+      #game-screen .food-items {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(clamp(58px, 10.5vmin, 96px), 1fr)) !important;
+        gap: clamp(4px, 1.2vmin, 10px) !important;
+        align-content: start !important; justify-content: center !important;
+        overflow-y: auto !important; padding: 2px !important;
+      }
+      #game-screen .food-item {
+        width: 100% !important; height: auto !important; min-height: 0 !important;
+        aspect-ratio: 1 / 1.06 !important;
+        padding: clamp(2px, 0.7vmin, 6px) !important; gap: 1px !important;
+        border-radius: 14px !important; flex-direction: column !important;
+        justify-content: center !important; align-items: center !important; overflow: hidden !important;
+      }
+      #game-screen .food-item .item-emoji { font-size: clamp(1.35rem, 5.2vmin, 2.5rem) !important; line-height: 1.05 !important; }
+      #game-screen .food-item .item-name {
+        display: block !important; max-width: 100%;
+        font-size: clamp(0.46rem, 1.3vmin, 0.66rem) !important; line-height: 1.15 !important;
+        font-weight: 800 !important; color: #6B4A2A !important; text-align: center;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+
+      /* ریل‌ها: نوار نقاله‌ی متحرک با راهنمای «اینجا بنداز» */
+      #game-screen .rails-box { gap: clamp(8px, 2vmin, 18px) !important; }
+      #game-screen .rail {
+        border-radius: clamp(14px, 2.8vmin, 24px) !important;
+        background-image: repeating-linear-gradient(115deg, #FFFDF7 0 14px, #FFE9CC 14px 28px) !important;
+        background-size: 64px 64px !important; background-repeat: repeat !important;
+        animation: lokoBelt 1.5s linear infinite !important;
+        box-shadow: inset 0 5px 12px rgba(190, 130, 60, 0.16), inset 0 -4px 0 rgba(255, 255, 255, 0.9) !important;
+      }
+      #game-screen .rail.healthy {
+        background-image: repeating-linear-gradient(115deg, #F5FDF9 0 14px, #D2F4E2 14px 28px) !important;
+        box-shadow: inset 0 5px 12px rgba(30, 150, 100, 0.14), inset 0 -4px 0 rgba(255, 255, 255, 0.9) !important;
+      }
+      #game-screen .rail.unhealthy {
+        background-image: repeating-linear-gradient(115deg, #FFF8F6 0 14px, #FFDCD4 14px 28px) !important;
+        box-shadow: inset 0 5px 12px rgba(200, 90, 70, 0.14), inset 0 -4px 0 rgba(255, 255, 255, 0.9) !important;
+      }
+      #game-screen .rail::before {
+        content: '◀◀◀'; position: absolute; z-index: 1; pointer-events: none;
+        inset-block-start: 50%; transform: translateY(-50%);
+        inset-inline-end: clamp(6px, 1.4vmin, 16px);
+        font-size: clamp(0.55rem, 1.7vmin, 0.85rem);
+        letter-spacing: 2px; color: rgba(150, 100, 50, 0.32);
+      }
+      #game-screen .rail.healthy::before { color: rgba(20, 140, 90, 0.32); }
+      #game-screen .rail.unhealthy::before { color: rgba(190, 70, 55, 0.30); }
+      #game-screen .rail:empty::after {
+        content: 'اینجا بنداز 👇'; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        display: flex; align-items: center; justify-content: center;
+        font-size: clamp(0.6rem, 1.8vmin, 0.88rem); font-weight: 900;
+        color: #B9885A; opacity: 0.9;
+      }
+      #game-screen .rail .conveyor-item {
+        width: clamp(38px, 8.4vmin, 58px) !important; height: clamp(38px, 8.4vmin, 58px) !important;
+        border-radius: 12px !important; background: #FFFFFF !important;
+        border: 2px solid #FFD9A8 !important;
+        box-shadow: 0 5px 12px rgba(190, 130, 60, 0.28) !important;
+      }
+      #game-screen .rail .conveyor-item .item-emoji { font-size: clamp(1.1rem, 3.6vmin, 1.9rem) !important; }
+    }
 </style>
 </head>
 <body>
