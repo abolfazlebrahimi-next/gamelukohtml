@@ -2396,6 +2396,458 @@
       #exit-modal .modal-buttons .btn, #reset-modal .modal-buttons .btn { flex: 1 1 0 !important; min-height: clamp(40px, 8.4vmin, 52px) !important; font-size: clamp(0.72rem, 1.9vmin, 0.92rem) !important; }
     }
 
+
+    /* ── loko cream ── */
+    .loko-home, .loko-shop, .loko-guide, .loko-end {
+      --glass-bg: #FFFFFF;
+      --glass-border: #FFE0B8;
+      --text-color: #10203A;
+      --text-secondary: #4A6285;
+      --text: #10203A;
+      --text-soft: #3A5170;
+      --text-muted: #6B7E97;
+      --gold: #C96A00;
+      --gold-dark: #8A4A00;
+      --gold-bright: #FFB020;
+      --gold-deep: #C96A00;
+      --gold-text: #FFFFFF;
+      --success: #12855C;
+      --danger: #C9453A;
+      --dark: #0A1F3D;
+      --accent: #FFE7C9;
+      --primary: #1B3F70;
+      --secondary: #0E86C8;
+      --shadow-soft: 0 10px 26px rgba(214, 143, 70, 0.20);
+      --shadow-lg: 0 12px 28px rgba(214, 143, 70, 0.20);
+      --shadow-xl: 0 16px 36px rgba(214, 143, 70, 0.24);
+      --glow-gold: 0 10px 24px rgba(214, 143, 70, 0.26);
+      --glow-purple: 0 10px 24px rgba(214, 143, 70, 0.20);
+      --glow-blue: 0 10px 24px rgba(214, 143, 70, 0.20);
+      color: #10203A !important;
+      background-color: #FFF9F0 !important;
+      background-image:
+        linear-gradient(90deg, #FF8A00 0%, #FF5C8A 26%, #8E7BFF 52%, #22C7B0 78%, #FFC24D 100%),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 240' preserveAspectRatio='none'><path d='M0 118 C 150 58 300 164 460 110 C 620 56 760 156 920 102 C 1060 54 1140 126 1200 102 L1200 240 L0 240 Z' fill='%23FFCF9B' opacity='0.55'/><path d='M0 162 C 180 110 330 204 500 150 C 680 94 830 194 990 140 C 1100 104 1160 160 1200 144 L1200 240 L0 240 Z' fill='%23FFB273' opacity='0.5'/><path d='M0 200 C 220 170 400 226 620 202 C 820 180 980 224 1200 196 L1200 240 L0 240 Z' fill='%23FF9C55' opacity='0.35'/></svg>"),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' preserveAspectRatio='none'><ellipse cx='118' cy='92' rx='96' ry='38' fill='%23FFFFFF' opacity='0.62'/><ellipse cx='188' cy='70' rx='62' ry='34' fill='%23FFFFFF' opacity='0.55'/><ellipse cx='452' cy='88' rx='84' ry='32' fill='%23FFFFFF' opacity='0.5'/><ellipse cx='392' cy='66' rx='52' ry='26' fill='%23FFFFFF' opacity='0.45'/></svg>"),
+        radial-gradient(circle, rgba(255, 184, 138, 0.42) 1.5px, transparent 1.6px),
+        linear-gradient(165deg, #FFFEFA 0%, #FFF8EE 46%, #FFF1E1 100%) !important;
+      background-size: 100% 6px, 145% 30%, 100% 20%, 22px 22px, 100% 100% !important;
+      background-position: top center, bottom center, top center, 0 0, center !important;
+      background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat !important;
+    }
+    .loko-home .menu-bg, .loko-shop .menu-bg, .loko-guide .menu-bg, .loko-end .menu-bg,
+    .loko-home .magic-glow, .loko-home .floating-ingredient,
+    .loko-shop .magic-glow, .loko-guide .magic-glow, .loko-end .magic-glow { display: none !important; }
+
+    /* کارت‌های شیشه‌ای ← شفاف تا اجزا روی پس‌زمینه کارت بنشینند */
+    .loko-home .menu-container, .loko-home .glass-card,
+    .loko-shop .shop-container, .loko-shop .glass-card,
+    .loko-guide .glass-card, .loko-guide .help-speech-bubble {
+      background: #FFFFFF !important;
+      border: 3px solid #FFFFFF !important;
+      box-shadow: 0 14px 30px rgba(214, 143, 70, 0.18) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-radius: 26px !important;
+    }
+    .loko-home .menu-container { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+
+    /* سکه */
+    .coin-display, .coin-pill, .header-coin-display {
+      background: linear-gradient(180deg, #FFD764 0%, #FFB020 100%) !important;
+      border: 3px solid #FFFFFF !important;
+      border-radius: 999px !important;
+      color: #3A2600 !important;
+      box-shadow: 0 4px 0 #C98A00, 0 10px 18px rgba(201, 138, 0, 0.25) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    .coin-display .coin-amount, .coin-pill b, .coin-pill span, .coin-amount, .header-coin-value {
+      color: #3A2600 !important;
+      font-weight: 900 !important;
+    }
+    .coin-icon-img { filter: drop-shadow(0 2px 3px rgba(120, 70, 0, 0.35)); }
+
+    /* دکمه اصلی نارنجی + دکمه‌های دوم navy */
+    .loko-home .btn-primary,
+    .loko-home .menu-buttons > .btn:first-child,
+    .loko-home .menu-buttons > .btn.btn-large,
+    .loko-end .end-buttons .btn:first-child,
+    .loko-guide #next-help-btn, .loko-guide .next-help-btn {
+      background: linear-gradient(180deg, #FFC24D 0%, #FF9A1F 46%, #F97E00 100%) !important;
+      color: #FFFFFF !important;
+      border: 3px solid #FFFFFF !important;
+      border-radius: 18px !important;
+      box-shadow: 0 6px 0 #C4630A, 0 14px 24px rgba(201, 106, 0, 0.28) !important;
+      text-shadow: 0 2px 0 rgba(150, 64, 0, 0.35) !important;
+      font-weight: 900 !important;
+    }
+    .loko-home .btn-secondary,
+    .loko-home .secondary-buttons .btn,
+    .loko-home .btn-row .btn,
+    .loko-shop .btn-secondary,
+    .loko-end .end-buttons .btn,
+    .loko-guide .btn.gold-soft, .loko-guide .skip-help-btn {
+      background: linear-gradient(180deg, #2A5C9C 0%, #17375F 60%, #0A1F3D 100%) !important;
+      color: #FFFFFF !important;
+      border: 3px solid #FFFFFF !important;
+      border-radius: 16px !important;
+      box-shadow: 0 5px 0 #071A35 !important;
+      text-shadow: none !important;
+      font-weight: 800 !important;
+    }
+    .loko-home .btn, .loko-shop .btn, .loko-end .btn, .loko-guide .btn { letter-spacing: 0; }
+    .loko-shop .back-btn, .loko-shop .btn-back, .loko-home .btn-back {
+      background: #FFFFFF !important;
+      border: 3px solid #FFE0B8 !important;
+      color: #1B3F70 !important;
+      border-radius: 999px !important;
+      box-shadow: 0 6px 16px rgba(214, 143, 70, 0.22) !important;
+      font-weight: 900 !important;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .loko-shop .back-btn svg { width: 52%; height: 52%; }
+
+    /* بنر عنوان */
+    .loko-home .menu-title-banner, .loko-home .game-title {
+      background: #FFFFFF !important;
+      border: 3px solid #FFFFFF !important;
+      border-radius: 22px !important;
+      box-shadow: 0 12px 24px rgba(214, 143, 70, 0.18) !important;
+      outline: 2px dashed rgba(230, 152, 82, 0.35) !important;
+      outline-offset: -8px !important;
+      padding: 6px 18px !important;
+    }
+    .loko-home .game-title, .loko-home .menu-title-banner h1 {
+      color: #1B3F70 !important; text-shadow: none !important; filter: none !important;
+    }
+    .loko-home .game-subtitle {
+      background: #FFF3E4 !important; color: #B4640D !important;
+      border: 2px dashed #FFC98F !important; border-radius: 999px !important;
+      padding: 1px 12px !important; margin-top: 4px !important; font-weight: 800 !important;
+      text-shadow: none !important;
+    }
+    .loko-home .speech-bubble, .loko-home .speech-bubble-inside {
+      background: #FFF6EA !important; color: #8A4A12 !important;
+      border: 2px dashed #FFC98F !important; border-radius: 16px !important;
+      box-shadow: none !important; text-shadow: none !important;
+    }
+    .loko-home .speech-bubble-inside::after { border-color: #FFC98F transparent !important; }
+
+    /* کاراکتر: دایره سفید با حلقه خط‌چین */
+    .loko-home .character-wrapper, .loko-home .pixel-character {
+      position: relative !important;
+      background: radial-gradient(circle at 50% 42%, #FFFFFF 0%, #FFF3E2 100%) !important;
+      border: 4px solid #FFFFFF !important;
+      border-radius: 50% !important;
+      box-shadow: 0 14px 30px rgba(214, 143, 70, 0.25), inset 0 0 0 5px rgba(255, 214, 166, 0.5) !important;
+    }
+    .loko-home .character-wrapper::after, .loko-home .pixel-character::after {
+      content: ''; position: absolute; inset: -9px; border-radius: 50%;
+      border: 3px dashed #FFC98F; pointer-events: none;
+    }
+    .loko-home .character-frame {
+      background: transparent !important; border: 0 !important; box-shadow: none !important;
+    }
+    .loko-home .character-wrapper .speech-bubble-inside { position: absolute !important; }
+
+    /* فروشگاه: کارت آیتم + ریل تب‌ها */
+    .loko-shop .shop-item, .loko-shop .shop-card {
+      background: #FFFFFF !important;
+      border: 3px solid #FFD9A8 !important;
+      border-radius: 24px !important;
+      box-shadow: 0 14px 28px rgba(214, 143, 70, 0.16) !important;
+      color: #10203A !important;
+    }
+    .loko-shop .shop-item.active, .loko-shop .shop-item.active-item {
+      border-color: #FFB020 !important;
+      box-shadow: 0 0 0 4px rgba(255, 176, 32, 0.18), 0 14px 28px rgba(214, 143, 70, 0.20) !important;
+    }
+    .loko-shop .shop-item-name, .loko-shop .shop-item-title, .loko-shop .shop-card-name,
+    .loko-shop .shop-item > div:nth-child(2) { color: #1B3F70 !important; font-weight: 900 !important; }
+    .loko-shop .shop-item-price {
+      background: #FFF1E1 !important; color: #B4640D !important;
+      border-radius: 999px !important; padding: 2px 12px !important;
+      font-weight: 800 !important; align-self: center;
+      display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+    }
+    .loko-shop .shop-item-preview {
+      background: #FFF4E6 !important; border-radius: 16px !important;
+      border: 2px solid #FFE7CB !important;
+    }
+    .loko-shop .shop-item-preview > * { width: clamp(30px, 7vmin, 48px) !important; height: clamp(30px, 7vmin, 48px) !important; }
+    .loko-shop .shop-btn, .loko-shop .shop-item-btn {
+      border-radius: 14px !important; font-weight: 900 !important; min-height: 40px !important;
+      border: 2px solid transparent !important; width: 100%;
+    }
+    .loko-shop .shop-btn.buy, .loko-shop .shop-item-btn.buy {
+      background: linear-gradient(180deg, #FFC24D, #FF9A1F) !important; color: #FFFFFF !important;
+      box-shadow: 0 4px 0 #C4630A !important;
+    }
+    .loko-shop .shop-btn.select, .loko-shop .shop-item-btn.select {
+      background: #FFFFFF !important; color: #1B3F70 !important; border: 2px solid #1B3F70 !important;
+    }
+    .loko-shop .shop-btn.active, .loko-shop .shop-btn.active-item,
+    .loko-shop .shop-item-btn.active, .loko-shop .shop-item-btn:disabled {
+      background: #E9F9F0 !important; color: #12855C !important;
+      border: 2px dashed #7ED0A6 !important; box-shadow: none !important; cursor: default;
+    }
+    .loko-shop .shop-tabs {
+      background: #FFFFFF !important; border: 3px solid #FFFFFF !important;
+      border-radius: 22px !important; box-shadow: 0 12px 26px rgba(214, 143, 70, 0.16) !important;
+      padding: 8px !important;
+    }
+    .loko-shop .shop-tab, .loko-shop .tab-btn {
+      background: transparent !important; color: #1B3F70 !important;
+      border: 0 !important; border-radius: 16px !important; font-weight: 900 !important;
+      box-shadow: none !important;
+    }
+    .loko-shop .shop-tab.active, .loko-shop .tab-btn.active {
+      background: linear-gradient(180deg, #FFC24D 0%, #FF9A1F 55%, #F97E00 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 0 #C4630A !important;
+      text-shadow: 0 1px 0 rgba(150, 64, 0, 0.3) !important;
+    }
+    .loko-shop h2, .loko-home h2 { color: #1B3F70 !important; text-shadow: none !important; }
+    .loko-shop .shop-hint, .loko-shop p { color: #6B7E97 !important; }
+
+    /* راهنما */
+    .loko-guide .glass, .loko-guide #help-text, .loko-guide #help-speech-text {
+      background: #FFFFFF !important; color: #10203A !important;
+      border: 3px solid #FFFFFF !important; border-radius: 22px !important;
+      box-shadow: 0 12px 26px rgba(214, 143, 70, 0.16) !important;
+      outline: 2px dashed rgba(230, 152, 82, 0.30) !important; outline-offset: -9px !important;
+    }
+    .loko-guide p, .loko-guide li, .loko-guide h2, .loko-guide h3 { color: #10203A !important; }
+    .loko-guide .help-speech-bubble::after { display: none !important; }
+
+    /* سطح‌ها (نعمت‌یاب) */
+    .loko-home .level-card {
+      background: #FFFFFF !important; border: 2px solid #FFD9A8 !important;
+      color: #1B3F70 !important; border-radius: 16px !important;
+      box-shadow: 0 6px 14px rgba(214, 143, 70, 0.18) !important;
+    }
+    .loko-home .level-card.locked { opacity: 0.45; }
+
+    /* پایان بازی */
+    .loko-end .result-card {
+      background: #FFFFFF !important; border: 3px solid #FFD9A8 !important;
+      border-radius: 28px !important; box-shadow: 0 18px 36px rgba(214, 143, 70, 0.22) !important;
+      position: relative; overflow: hidden;
+    }
+    .loko-end .result-card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect x='30' y='26' width='9' height='15' rx='2' fill='%23FF9F5A' transform='rotate(18 30 26)'/><rect x='150' y='18' width='8' height='13' rx='2' fill='%238E7BFF' transform='rotate(-24 150 18)'/><rect x='300' y='40' width='9' height='14' rx='2' fill='%2322C7B0' transform='rotate(32 300 40)'/><rect x='360' y='120' width='8' height='13' rx='2' fill='%23FF7A8A' transform='rotate(-14 360 120)'/><rect x='60' y='150' width='8' height='13' rx='2' fill='%2322C7B0' transform='rotate(26 60 150)'/><rect x='208' y='96' width='9' height='14' rx='2' fill='%23FFB020' transform='rotate(-30 208 96)'/><circle cx='110' cy='84' r='4' fill='%23FF7A8A'/><circle cx='256' cy='42' r='3.6' fill='%2322C7B0'/><circle cx='332' cy='188' r='4' fill='%238E7BFF'/><circle cx='90' cy='212' r='3.4' fill='%23FFB020'/><circle cx='182' cy='236' r='4' fill='%23FF9F5A'/><circle cx='352' cy='252' r='3.4' fill='%2322C7B0'/></svg>"); background-position: center; background-size: cover; opacity: 0.55;
+    }
+    .loko-end .result-card > * { position: relative; z-index: 1; }
+    .loko-end .result-title, .loko-end h2 { color: #1B3F70 !important; text-shadow: none !important; }
+    .loko-end .result-subtitle, .loko-end #end-message, .loko-end p { color: #4A6285 !important; }
+    .loko-end .stat-cards .glass-card {
+      background: #FFF7EC !important; border: 2px dashed #FFC98F !important;
+      color: #1B3F70 !important; box-shadow: none !important;
+    }
+    .loko-end .stat-cards .glass-card * { color: #1B3F70 !important; }
+    .loko-end .trophy, .loko-end .end-emoji-big {
+      filter: drop-shadow(0 8px 14px rgba(201, 106, 0, 0.28));
+    }
+
+    /* کاروسل فروشگاه */
+    .loko-shop .loko-shop-stage { min-height: 0; }
+    .loko-shop .loko-shop-stage .shop-grid > * { width: min(100%, clamp(228px, 44vmin, 400px)) !important; }
+    .loko-shop .loko-shop-stage::after {
+      background: rgba(23, 55, 95, 0.08); color: #1B3F70; font-weight: 900;
+      padding: 2px 14px; border-radius: 999px;
+    }
+    .loko-shop-nav {
+      background: #FFFFFF !important; color: #C96A00 !important;
+      border: 3px solid #FFE0B8 !important;
+      box-shadow: 0 6px 16px rgba(214, 143, 70, 0.22) !important;
+    }
+    
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+      #shop-page .shop-container {
+        display: flex !important; flex-direction: column !important;
+        height: 100% !important; max-height: none !important;
+        padding: clamp(8px, 1.8vmin, 16px) clamp(10px, 2.2vmin, 20px) !important;
+        gap: clamp(2px, 0.8vmin, 8px);
+      }
+      #shop-page .shop-header { margin-bottom: 0 !important; }
+      #shop-page .shop-hint { margin-bottom: 0 !important; }
+      #shop-page .loko-shop-stage { flex: 1 1 auto; min-height: 0; height: auto !important; }
+      #shop-page .loko-shop-stage .shop-item { padding: clamp(8px, 1.8vmin, 16px) !important; gap: clamp(4px, 1vmin, 9px) !important; }
+      #shop-page .shop-item-icon { font-size: clamp(1.4rem, 5vmin, 2.4rem) !important; }
+      #shop-page .shop-btn { min-height: clamp(34px, 7.4vmin, 44px) !important; font-size: clamp(0.68rem, 1.8vmin, 0.88rem) !important; }
+
+      /* ── فضای بازی: شهر شب + HUD و پیام‌های روشن ── */
+      #game-page .game-header {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border: 2px solid #FFFFFF !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28) !important;
+      }
+      #game-page .level-indicator, #game-page .level-indicator *,
+      #game-page .level-label, #game-page .level-num, #game-page .level-total { color: #10203A !important; text-shadow: none !important; }
+      #game-page .pause-btn { background: #FFFFFF !important; border: 2px solid #FFE0B8 !important; color: #1B3F70 !important; box-shadow: none !important; }
+      #game-page .header-coin-display { border-color: #FFD764 !important; }
+      #game-page .message-bubble {
+        background: #FFFFFF !important; border: 3px solid #FFD9A8 !important;
+        color: #10203A !important; box-shadow: 0 12px 26px rgba(0, 0, 0, 0.32) !important;
+        backdrop-filter: none !important;
+      }
+      #game-page .message-bubble p, #game-page #message-text { color: #10203A !important; }
+      #game-page .character-body {
+        width: clamp(84px, 18vmin, 128px) !important; height: clamp(98px, 21vmin, 148px) !important;
+      }
+      #game-page .character-name {
+        background: #FFFFFF !important; color: #1B3F70 !important;
+        border: 2px solid #FFD9A8 !important; font-weight: 900 !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22) !important;
+      }
+      #game-page .selection-btn {
+        background: #FFFFFF !important; color: #1B3F70 !important;
+        border: 2px solid #FFD9A8 !important; font-weight: 900 !important;
+        min-height: 44px; box-shadow: 0 4px 0 #EBC79A !important; backdrop-filter: none !important;
+      }
+      #game-page .greet-btn {
+        background: linear-gradient(180deg, #FFC24D 0%, #FF9A1F 52%, #F97E00 100%) !important;
+        color: #FFFFFF !important; border: 3px solid #FFFFFF !important;
+        border-radius: 18px !important; box-shadow: 0 6px 0 #C4630A !important;
+        text-shadow: 0 2px 0 rgba(150, 64, 0, 0.32) !important; font-weight: 900 !important;
+      }
+      #game-page .greet-prompt { color: #FFFFFF !important; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6) !important; }
+      #game-page .progress-bar-container {
+        height: 10px !important; background: rgba(255, 255, 255, 0.26) !important;
+        border: 2px solid #FFFFFF !important; border-radius: 999px !important;
+      }
+      #game-page .progress-bar { background: linear-gradient(90deg, #FFC24D, #FF7A00) !important; }
+      #game-page .end-buttons .btn { border-radius: 16px !important; }
+    }
+
+</style>
+<style id="loko-shop-stage-css">
+    .loko-shop-stage {
+        position: relative; width: 100%; height: 100%; min-height: 0;
+        flex: 1 1 auto;
+        display: grid; place-items: center;
+        padding: 0 54px 14px;
+    }
+    .loko-shop-stage .shop-grid,
+    .loko-shop-stage .shop-items,
+    .loko-shop-stage .shop-content {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: minmax(0, 1fr) !important;
+        place-items: center; width: 100%; height: 100%;
+        gap: 0 !important; padding: 0 !important;
+        align-content: center !important;
+        overflow: hidden !important;
+        background: transparent !important;
+        border: 0 !important;
+    }
+    .loko-shop-stage .shop-grid > *,
+    .loko-shop-stage .shop-items > *,
+    .loko-shop-stage .shop-content > * {
+        width: min(100%, 340px); max-height: 100%; margin: 0 auto;
+    }
+    .loko-shop-stage .shop-grid > * > :first-child,
+    .loko-shop-stage .shop-items > * > :first-child,
+    .loko-shop-stage .shop-content > * > :first-child {
+        flex: none; width: 100% !important;
+        height: clamp(46px, 14vh, 92px) !important;
+        min-height: 46px; max-height: 92px;
+        overflow: hidden; border-radius: 12px;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+    }
+    .loko-shop-hidden { display: none !important; }
+    .loko-shop-nav {
+        position: absolute; top: 50%; transform: translateY(-50%);
+        width: clamp(44px, 6vmin, 56px); height: clamp(44px, 6vmin, 56px);
+        border-radius: 50%; border: 3px solid #FFFFFF; cursor: pointer; z-index: 6;
+        display: grid; place-items: center; line-height: 1; padding: 0;
+        font-size: clamp(1.3rem, 3.2vmin, 1.9rem); font-weight: 900;
+        background: linear-gradient(180deg, #FFAD24, #FF8A00); color: #071A35;
+        box-shadow: 0 5px 0 #C96A00, 0 10px 18px rgba(201, 106, 0, 0.3);
+        transition: transform 0.15s ease, opacity 0.2s ease;
+    }
+    .loko-shop-nav:active { transform: translateY(-50%) scale(0.94); }
+    .loko-shop-nav[disabled] { opacity: 0.32; box-shadow: none; cursor: default; }
+    .loko-prev { right: 0; }
+    .loko-next { left: 0; }
+    .loko-shop-stage::after {
+        content: attr(data-pos); position: absolute; bottom: 0; left: 50%;
+        transform: translateX(-50%); font-size: clamp(0.66rem, 1.5vmin, 0.8rem);
+        font-weight: 800; color: #4A6285; background: rgba(16, 43, 85, 0.08);
+        padding: 1px 10px; border-radius: 999px; line-height: 1.7;
+    }
+
+    /* ── cream fixes ── */
+    .loko-home .menu-title-banner .game-title {
+      background: transparent !important; border: 0 !important; box-shadow: none !important;
+      outline: 0 !important; padding: 0 4px !important;
+    }
+    .loko-end .coin-header, .loko-guide .coin-header {
+      background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 !important;
+    }
+
+
+    .loko-shop .shop-item-icon {
+      background: #FFF6EA !important; border-radius: 16px !important;
+      display: grid !important; place-items: center !important;
+      border: 2px solid #FFE7CB !important;
+    }
+    .loko-shop .shop-item > :first-child { border-radius: 16px !important; }
+    .loko-shop .shop-item > :first-child svg { width: clamp(26px, 6vmin, 40px) !important; height: clamp(26px, 6vmin, 40px) !important; }
+
+
+    /* ── cream decor 2 ── */
+    .loko-home, .loko-shop, .loko-guide, .loko-end {
+      background-image:
+        linear-gradient(90deg, #FF8A00 0%, #FF5C8A 26%, #8E7BFF 52%, #22C7B0 78%, #FFC24D 100%),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M7 57 C 20 45 32 33 48 21' stroke='%23F0A45E' stroke-width='3' fill='none' stroke-linecap='round'/><ellipse cx='45' cy='19' rx='10' ry='5.4' fill='%23FF9F5A' transform='rotate(-38 45 19)'/><ellipse cx='29' cy='34' rx='7.6' ry='4.2' fill='%23FFC183' transform='rotate(-40 29 34)'/><circle cx='53' cy='12' r='4.2' fill='%23FF7A8A'/><circle cx='20' cy='47' r='3' fill='%23FFB273'/></svg>"),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M7 57 C 20 45 32 33 48 21' stroke='%23F0A45E' stroke-width='3' fill='none' stroke-linecap='round'/><ellipse cx='45' cy='19' rx='10' ry='5.4' fill='%23FF9F5A' transform='rotate(-38 45 19)'/><ellipse cx='29' cy='34' rx='7.6' ry='4.2' fill='%23FFC183' transform='rotate(-40 29 34)'/><circle cx='53' cy='12' r='4.2' fill='%23FF7A8A'/><circle cx='20' cy='47' r='3' fill='%23FFB273'/></svg>"),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 240' preserveAspectRatio='none'><path d='M0 118 C 150 58 300 164 460 110 C 620 56 760 156 920 102 C 1060 54 1140 126 1200 102 L1200 240 L0 240 Z' fill='%23FFCF9B' opacity='0.55'/><path d='M0 162 C 180 110 330 204 500 150 C 680 94 830 194 990 140 C 1100 104 1160 160 1200 144 L1200 240 L0 240 Z' fill='%23FFB273' opacity='0.5'/><path d='M0 200 C 220 170 400 226 620 202 C 820 180 980 224 1200 196 L1200 240 L0 240 Z' fill='%23FF9C55' opacity='0.35'/></svg>"),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' preserveAspectRatio='none'><ellipse cx='118' cy='92' rx='96' ry='38' fill='%23FFFFFF' opacity='0.62'/><ellipse cx='188' cy='70' rx='62' ry='34' fill='%23FFFFFF' opacity='0.55'/><ellipse cx='452' cy='88' rx='84' ry='32' fill='%23FFFFFF' opacity='0.5'/><ellipse cx='392' cy='66' rx='52' ry='26' fill='%23FFFFFF' opacity='0.45'/></svg>"),
+        radial-gradient(circle, rgba(255, 184, 138, 0.42) 1.5px, transparent 1.6px),
+        linear-gradient(165deg, #FFFEFA 0%, #FFF8EE 46%, #FFF1E1 100%) !important;
+      background-size: 100% 6px, clamp(26px, 6.2vmin, 48px) clamp(26px, 6.2vmin, 48px),
+        clamp(20px, 4.6vmin, 36px) clamp(20px, 4.6vmin, 36px),
+        145% 30%, 100% 20%, 22px 22px, 100% 100% !important;
+      background-position: top center, left clamp(10px, 2.4vmin, 22px) bottom clamp(10px, 2.6vmin, 26px),
+        right clamp(12px, 3vmin, 30px) bottom clamp(46px, 11vmin, 92px),
+        bottom center, top center, 0 0, center !important;
+      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat, no-repeat !important;
+    }
+    .loko-shop, .loko-guide, .loko-end {
+      background-image:
+        linear-gradient(90deg, #FF8A00 0%, #FF5C8A 26%, #8E7BFF 52%, #22C7B0 78%, #FFC24D 100%),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M7 57 C 20 45 32 33 48 21' stroke='%23F0A45E' stroke-width='3' fill='none' stroke-linecap='round'/><ellipse cx='45' cy='19' rx='10' ry='5.4' fill='%23FF9F5A' transform='rotate(-38 45 19)'/><ellipse cx='29' cy='34' rx='7.6' ry='4.2' fill='%23FFC183' transform='rotate(-40 29 34)'/><circle cx='53' cy='12' r='4.2' fill='%23FF7A8A'/><circle cx='20' cy='47' r='3' fill='%23FFB273'/></svg>"),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M7 57 C 20 45 32 33 48 21' stroke='%23F0A45E' stroke-width='3' fill='none' stroke-linecap='round'/><ellipse cx='45' cy='19' rx='10' ry='5.4' fill='%23FF9F5A' transform='rotate(-38 45 19)'/><ellipse cx='29' cy='34' rx='7.6' ry='4.2' fill='%23FFC183' transform='rotate(-40 29 34)'/><circle cx='53' cy='12' r='4.2' fill='%23FF7A8A'/><circle cx='20' cy='47' r='3' fill='%23FFB273'/></svg>"),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 240' preserveAspectRatio='none'><path d='M0 118 C 150 58 300 164 460 110 C 620 56 760 156 920 102 C 1060 54 1140 126 1200 102 L1200 240 L0 240 Z' fill='%23FFCF9B' opacity='0.55'/><path d='M0 162 C 180 110 330 204 500 150 C 680 94 830 194 990 140 C 1100 104 1160 160 1200 144 L1200 240 L0 240 Z' fill='%23FFB273' opacity='0.5'/><path d='M0 200 C 220 170 400 226 620 202 C 820 180 980 224 1200 196 L1200 240 L0 240 Z' fill='%23FF9C55' opacity='0.35'/></svg>"),
+        url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 140' preserveAspectRatio='none'><ellipse cx='118' cy='92' rx='96' ry='38' fill='%23FFFFFF' opacity='0.62'/><ellipse cx='188' cy='70' rx='62' ry='34' fill='%23FFFFFF' opacity='0.55'/><ellipse cx='452' cy='88' rx='84' ry='32' fill='%23FFFFFF' opacity='0.5'/><ellipse cx='392' cy='66' rx='52' ry='26' fill='%23FFFFFF' opacity='0.45'/></svg>"),
+        radial-gradient(circle, rgba(255, 184, 138, 0.42) 1.5px, transparent 1.6px),
+        linear-gradient(165deg, #FFFEFA 0%, #FFF8EE 46%, #FFF1E1 100%) !important;
+    }
+    .loko-home .level-card.current {
+      background: linear-gradient(180deg, #FFC24D 0%, #FF9A1F 100%) !important;
+      color: #FFFFFF !important; border: 3px solid #FFFFFF !important;
+      box-shadow: 0 5px 0 #C4630A !important;
+    }
+    .loko-home .level-card.completed {
+      background: #EFFAF3 !important; color: #12855C !important;
+      border: 2px solid #A9E3C4 !important; box-shadow: none !important;
+    }
+
+    /* ── cream fix: shop container is not a panel ── */
+    .loko-shop .shop-container {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+    .loko-shop .shop-tabs, .loko-shop .shop-item { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 </style>
 </head>
 
@@ -3529,6 +3981,166 @@
       document.addEventListener('DOMContentLoaded', apply);
       window.__lokoRelayout = window.__lokoRelayout || apply;
       apply();
+    })();
+  </script>
+
+<script id="loko-shop-carousel">
+        (function () {
+            var SEL = '.shop-grid, .shop-items, .shop-content, #shop-grid, #shopItems, #shop-grid-items';
+            function itemSig(el) {
+                var id = el.getAttribute('data-id');
+                if (id) return id;
+                var nm = el.querySelector('.shop-item-name, .name, .shop-card-name, .shop-item-title');
+                return (nm ? nm.textContent : el.textContent).trim().slice(0, 24);
+            }
+
+            function setup(grid) {
+                if (grid.getAttribute('data-loko-shop')) return;
+                grid.setAttribute('data-loko-shop', '1');
+
+                var stage = document.createElement('div');
+                stage.className = 'loko-shop-stage';
+                grid.parentNode.insertBefore(stage, grid);
+                stage.appendChild(grid);
+
+                var prev = document.createElement('button');
+                prev.type = 'button';
+                prev.className = 'loko-shop-nav loko-prev';
+                prev.setAttribute('aria-label', 'محصول قبلی');
+                prev.textContent = '›';
+
+                var next = document.createElement('button');
+                next.type = 'button';
+                next.className = 'loko-shop-nav loko-next';
+                next.setAttribute('aria-label', 'محصول بعدی');
+                next.textContent = '‹';
+
+                stage.appendChild(prev);
+                stage.appendChild(next);
+
+                var idx = 0, lastSig = '';
+
+                function items() {
+                    var out = [], kids = grid.children;
+                    for (var i = 0; i < kids.length; i++) {
+                        if (kids[i].nodeType === 1) out.push(kids[i]);
+                    }
+                    return out;
+                }
+
+                function render() {
+                    var list = items();
+                    if (!list.length) {
+                        stage.setAttribute('data-pos', '0/0');
+                        prev.disabled = true;
+                        next.disabled = true;
+                        return;
+                    }
+                    if (idx > list.length - 1) idx = list.length - 1;
+                    if (idx < 0) idx = 0;
+                    for (var i = 0; i < list.length; i++) {
+                        var hideIt = i !== idx;
+                        list[i].classList.toggle('loko-shop-hidden', hideIt);
+                        if (hideIt) {
+                            list[i].style.setProperty('display', 'none', 'important');
+                        } else {
+                            list[i].style.removeProperty('display');
+                        }
+                    }
+                    prev.disabled = idx <= 0;
+                    next.disabled = idx >= list.length - 1;
+                    var pos = (idx + 1) + '/' + list.length;
+                    if (stage.getAttribute('data-pos') !== pos) stage.setAttribute('data-pos', pos);
+                }
+
+                prev.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); idx--; render(); });
+                next.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); idx++; render(); });
+
+                function refresh() {
+                    var list = items();
+                    var sig = '';
+                    for (var i = 0; i < list.length; i++) sig += itemSig(list[i]) + '|';
+                    if (sig !== lastSig) { lastSig = sig; idx = 0; }
+                    render();
+                }
+
+                try {
+                    new MutationObserver(refresh).observe(grid, { childList: true });
+                } catch (e) { /* بی‌صدا */ }
+
+                refresh();
+                grid.__lokoRefresh = refresh;
+                grid.__lokoReset = function () { idx = 0; render(); };
+            }
+
+            function init() {
+                var grids = document.querySelectorAll(SEL);
+                for (var i = 0; i < grids.length; i++) setup(grids[i]);
+                refreshAll();
+                setTimeout(refreshAll, 120);
+                setTimeout(refreshAll, 400);
+                setTimeout(refreshAll, 1000);
+            }
+
+            function refreshAll() {
+                var grids = document.querySelectorAll(SEL);
+                for (var i = 0; i < grids.length; i++) {
+                    if (grids[i].__lokoRefresh) grids[i].__lokoRefresh();
+                }
+            }
+
+            window.__lokoRefreshShop = refreshAll;
+
+      window.__lokoResetShop = function () {
+        var grids = document.querySelectorAll(SEL);
+        for (var i = 0; i < grids.length; i++) { if (grids[i].__lokoReset) grids[i].__lokoReset(); }
+      };
+
+      document.addEventListener('click', function (e) {
+        var t = e.target;
+        if (!t || !t.closest) return;
+        if (t.closest('.shop-tabs') || t.closest('.tab-btn') || t.closest('.shop-tab')) {
+          setTimeout(function () { if (window.__lokoResetShop) window.__lokoResetShop(); }, 60);
+        }
+      }, true);
+
+            document.addEventListener('click', function (e) {
+                var t = e.target;
+                if (!t || !t.closest) return;
+                if (t.closest('.shop-tabs') || t.closest('.shop-grid') || t.closest('.shop-items') ||
+                    t.closest('.shop-content') || t.closest('.shop-item') || t.closest('.shop-tab')) {
+                    setTimeout(refreshAll, 60);
+                    setTimeout(refreshAll, 260);
+                }
+            }, true);
+
+            window.__lokoInitShop = init;
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+
+<script id="loko-screen-classes">
+    (function () {
+      var MAP = [
+        ['menuScreen', 'loko-home'], ['home-page', 'loko-home'], ['menu-page', 'loko-home'],
+        ['levelScreen', 'loko-home'],
+        ['shopScreen', 'loko-shop'], ['shop-screen', 'loko-shop'], ['shop-page', 'loko-shop'],
+        ['helpScreen', 'loko-guide'], ['help-screen', 'loko-guide'], ['help-page', 'loko-guide'],
+        ['end-screen', 'loko-end'], ['end-page', 'loko-end']
+      ];
+      function run() {
+        for (var i = 0; i < MAP.length; i++) {
+          var el = document.getElementById(MAP[i][0]);
+          if (el && el.classList) el.classList.add(MAP[i][1]);
+        }
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+      else run();
+      window.__lokoScreens = run;
     })();
   </script>
 
