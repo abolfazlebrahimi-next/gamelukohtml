@@ -1822,6 +1822,35 @@
         @media (orientation: landscape) {
             .result-modal.show { align-items: center; }
         }
+
+        /* ===== g6 v8: منوی پایان بازی به سبک کارت کرم‌رنگ مرجع G5 ===== */
+        .result-modal .result-content {
+            background: linear-gradient(180deg, #FFFCF4 0%, #FFF3D6 100%) !important;
+            border: 4px solid #FFC24D !important;
+            border-radius: 28px !important;
+            box-shadow: 0 10px 0 #E08A10, 0 18px 40px rgba(0, 0, 0, 0.35) !important;
+            color: #1E4E8C;
+        }
+        .result-modal .result-content h2, .result-modal .result-content .result-title, .result-modal .result-content .celebration-title {
+            color: #1E4E8C !important; font-weight: 900; text-shadow: none !important; margin: 0;
+        }
+        .result-modal .result-content p, .result-modal .result-content .result-subtitle, .result-modal .result-content .result-msg { color: #35557D !important; font-weight: 700; }
+        .result-modal .result-content .result-stat, .result-modal .result-content .celebration-stats {
+            background: #FFFFFF !important; border: 2px solid #DCE9F7 !important; border-radius: 18px !important;
+            box-shadow: 0 4px 0 #E6EEF8; color: #1E4E8C !important;
+        }
+        .result-modal .result-content .result-stat .value, .result-modal .result-content .celebration-stats p { color: #1E4E8C !important; }
+        .result-modal .result-content .result-stat .label { color: #5B6E8C !important; }
+        .result-modal .result-content .btn {
+            width: 100%; min-height: clamp(44px, 7vh, 54px); border-radius: 999px !important; font-weight: 900;
+            background: #FFFFFF !important; color: #1E4E8C !important; border: 3px solid #1E4E8C !important;
+            box-shadow: 0 5px 0 #1E4E8C !important; text-shadow: none !important;
+        }
+        .result-modal .result-content .btn:first-of-type {
+            background: linear-gradient(180deg, #FFC24D 0%, #FF9A1F 55%, #F97E00 100%) !important;
+            color: #fff !important; border: 2px solid #FFE3A0 !important; box-shadow: 0 6px 0 #C4630A !important;
+        }
+        .result-modal .result-content .btn:active { transform: translateY(3px); }
 </style>
 </head>
 <body class="theme-simple">
