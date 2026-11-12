@@ -2226,6 +2226,143 @@
         #success-screen {
             overflow: hidden;
         }
+    
+        /* ===== g8 landscape v1 (round 25): fullscreen, two-zone layouts ===== */
+        @media (orientation: landscape) {
+            .app-container {
+                max-width: 100%;
+                width: 100%;
+                height: 100dvh;
+                max-height: none;
+                min-height: 0;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .screen {
+                max-width: 100%;
+                padding: clamp(8px, 2.5dvh, 20px) clamp(16px, 3vw, 40px);
+            }
+
+            /* Home: character on the right, title and buttons on the left */
+            #home-screen .home-content {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                grid-template-rows: auto minmax(0, 1fr) auto auto;
+                column-gap: clamp(16px, 4vw, 56px);
+                row-gap: clamp(6px, 1.5dvh, 14px);
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                padding: 0;
+            }
+            #home-screen .loko-coin-badge { grid-column: 2; grid-row: 1; justify-self: start; }
+            #home-screen .pixel-character {
+                grid-column: 1; grid-row: 1 / span 3;
+                justify-self: center; align-self: center;
+                width: auto; height: min(72dvh, 340px); max-width: 100%;
+                object-fit: contain;
+            }
+            #home-screen .logo-section { grid-column: 2; grid-row: 2; }
+            #home-screen .menu-buttons-container {
+                grid-column: 2; grid-row: 3;
+                width: 100%; max-width: 440px; justify-self: start;
+            }
+            #home-screen .animals-preview { grid-column: 1 / -1; grid-row: 4; }
+
+            /* Guide: character and bubble on one side, steps on the other */
+            #guide-screen .guide-content {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+                grid-template-rows: auto minmax(0, 1fr) auto auto;
+                column-gap: clamp(16px, 4vw, 56px);
+                row-gap: clamp(6px, 1.5dvh, 14px);
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+            }
+            #guide-screen .back-btn { grid-column: 1 / -1; grid-row: 1; justify-self: start; }
+            #guide-screen h2 { grid-column: 2; grid-row: 2; align-self: end; margin: 0; }
+            #guide-screen .guide-content .pixel-character {
+                grid-column: 1; grid-row: 2; justify-self: center;
+                width: auto !important; height: min(42dvh, 240px) !important;
+                object-fit: contain;
+            }
+            #guide-screen .guide-voice-bubble { grid-column: 1; grid-row: 3; }
+            #guide-screen .guide-steps { grid-column: 2; grid-row: 3 / span 2; }
+            #guide-screen .guide-animals { grid-column: 1; grid-row: 4; }
+
+            /* Shop: one large product at a time, categories/controls on the sides */
+            #shop-screen .loko-modal {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                align-items: stretch;
+                justify-content: stretch;
+                overflow: hidden;
+            }
+            #shop-screen .shop-container {
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                max-height: none;
+                overflow: hidden;
+                display: grid;
+                grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+                row-gap: clamp(4px, 1dvh, 10px);
+                padding: clamp(8px, 2dvh, 18px) clamp(12px, 3vw, 32px);
+                border-radius: 0;
+                border: none;
+            }
+            #shop-screen .shop-header { margin-bottom: 0; }
+            #shop-screen .shop-intro { margin: 0; font-size: 14px; }
+            #shop-screen .shop-grid {
+                display: flex;
+                grid-template-columns: none;
+                gap: clamp(12px, 2vw, 24px);
+                min-height: 0;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                padding: 4px 0;
+            }
+            #shop-screen .shop-grid::-webkit-scrollbar { display: none; }
+            #shop-screen .shop-item {
+                flex: 0 0 min(520px, 78%);
+                height: 100%;
+                min-height: 0;
+                scroll-snap-align: center;
+                justify-content: center;
+                gap: clamp(8px, 2dvh, 16px);
+                padding: clamp(12px, 3dvh, 24px) 20px;
+            }
+            #shop-screen .shop-item-btn { min-height: 44px; }
+            #shop-screen .shop-nav {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+            }
+            #shop-screen .shop-nav button {
+                min-width: 44px;
+                min-height: 44px;
+                border-radius: 999px;
+                border: 2px solid #1d2a5b;
+                background: #fff;
+                color: #1d2a5b;
+                font-size: 22px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+            #shop-screen .shop-count { min-width: 64px; text-align: center; font-weight: 700; }
+            #shop-screen .shop-footer { margin: 0; padding: 0; }
+        }
+        #shop-screen .shop-nav { display: none; }
+        @media (orientation: landscape) {
+            #shop-screen .shop-nav { display: flex; }
+        }
     </style>
 </head>
 <body>
@@ -2490,6 +2627,11 @@
                 </div>
             </div>
             
+            <div class="shop-nav" aria-label="ناوبری فروشگاه">
+                <button type="button" id="shop-prev" aria-label="قبلی">&#8250;</button>
+                <span class="shop-count" id="shop-count">۱/۳</span>
+                <button type="button" id="shop-next" aria-label="بعدی">&#8249;</button>
+            </div>
             <div class="shop-footer">
                 <p>قلم فعلی: <strong id="current-pen-display">ساده</strong></p>
             </div>
@@ -6579,6 +6721,46 @@
     ]
   ]
 };
+        const PERSIAN_NUMBERS_SHOP = ["۱","۲","۳","۴","۵","۶","۷","۸","۹","۱۰"];
+
+        (function initShopCarousel() {
+            const grid = document.querySelector('#shop-screen .shop-grid');
+            const prev = document.getElementById('shop-prev');
+            const next = document.getElementById('shop-next');
+            const count = document.getElementById('shop-count');
+            if (!grid || !prev || !next || !count) return;
+            const items = () => Array.from(grid.querySelectorAll('.shop-item'));
+            // index of the card whose centre is closest to the grid centre (direction-agnostic, works in RTL)
+            function currentIndex() {
+                const list = items();
+                const gr = grid.getBoundingClientRect();
+                const mid = gr.left + gr.width / 2;
+                let best = 0, bestDist = Infinity;
+                list.forEach((el, i) => {
+                    const r = el.getBoundingClientRect();
+                    const d = Math.abs(r.left + r.width / 2 - mid);
+                    if (d < bestDist) { bestDist = d; best = i; }
+                });
+                return best;
+            }
+            function go(i) {
+                const list = items();
+                if (!list.length) return;
+                const target = list[Math.min(Math.max(i, 0), list.length - 1)];
+                target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+            function update() {
+                const list = items();
+                if (!list.length) return;
+                const cur = currentIndex();
+                count.textContent = PERSIAN_NUMBERS_SHOP[cur] + '/' + PERSIAN_NUMBERS_SHOP[list.length - 1];
+            }
+            prev.addEventListener('click', () => go(currentIndex() - 1));
+            next.addEventListener('click', () => go(currentIndex() + 1));
+            grid.addEventListener('scroll', update, { passive: true });
+            window.addEventListener('resize', update);
+            update();
+        })();
     </script>
 </body>
 </html>
