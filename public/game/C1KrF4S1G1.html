@@ -281,6 +281,70 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
   .shape-card svg{max-height:min(46dvh,380px)}
   .opt{min-height:74px}
 }
+
+/* ===== g1 landscape v1 (round 32): full-width landscape layouts ===== */
+@media (orientation: landscape) {
+  #app { max-width: none; width: 100%; }
+  .screen { padding: clamp(8px, 2.5dvh, 18px) clamp(16px, 3vw, 40px); min-height: 100dvh; }
+
+  /* Menu: character on the right, title and buttons on the left */
+  #scr-menu.active {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: clamp(16px, 4vw, 56px);
+    row-gap: clamp(6px, 1.5dvh, 12px);
+    align-items: center;
+  }
+  #scr-menu .logo { grid-column: 2; grid-row: 1; margin: 0; text-align: center; }
+  #scr-menu .tagline { grid-column: 2; grid-row: 2; margin: 0; text-align: center; }
+  #scr-menu .pause-note { grid-column: 2; grid-row: 3; justify-self: stretch; }
+  #scr-menu .hero { grid-column: 1; grid-row: 1 / span 4; width: min(60dvh, 260px); margin: 0 auto; }
+  #scr-menu .menu-actions { grid-column: 2; grid-row: 4; margin: 0; padding: 0; width: 100%; max-width: 360px; justify-self: center; }
+  #scr-menu .btn-xl { min-height: 52px; }
+
+  /* Guide: character and speech on one side, steps on the other */
+  #scr-guide.active, #scr-shop.active { height: 100dvh; overflow: hidden; }
+  #scr-guide.active {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    column-gap: clamp(16px, 4vw, 56px);
+    row-gap: 10px;
+  }
+  #scr-guide .bar { grid-column: 1 / -1; grid-row: 1; margin: 0; }
+  #scr-guide .guide-hero { grid-column: 1; grid-row: 2; flex-direction: column; align-items: center; margin: 0; min-height: 0; overflow-y: auto; }
+  #scr-guide .guide-hero .pic { width: min(40dvh, 170px); }
+  #scr-guide .steps { grid-column: 2; grid-row: 2; min-height: 0; overflow-y: auto; padding-inline-end: 4px; }
+  #scr-guide #btnGuideDone { grid-column: 2; grid-row: 3; margin-top: 0 !important; min-height: 48px; }
+
+  /* Shop: one large skin at a time with arrows and n/total */
+  #scr-shop #pane-skins.tab-pane { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  #scr-shop #skinGrid {
+    display: flex;
+    gap: clamp(12px, 2vw, 24px);
+    flex: 1;
+    min-height: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 4px 0;
+  }
+  #scr-shop #skinGrid::-webkit-scrollbar { display: none; }
+  #scr-shop #skinGrid .item { flex: 0 0 min(340px, 70%); height: 100%; scroll-snap-align: center; display: flex; flex-direction: column; justify-content: center; }
+  #scr-shop .shop-nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 8px; }
+  #scr-shop .shop-nav button {
+    min-width: 44px; min-height: 44px; border-radius: 999px;
+    border: 2px solid #fff; background: rgba(255,255,255,0.12); color: #fff;
+    font-size: 22px; font-weight: 700; cursor: pointer;
+  }
+  #scr-shop .shop-count { min-width: 64px; text-align: center; font-weight: 700; }
+
+  /* Levels: wide grid, two rows of five */
+  #scr-levels .lv-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 760px; width: 100%; margin: 0 auto; }
+}
+/* Portrait keeps its layout; the shop arrows only exist in landscape */
+.shop-nav { display: none; }
 </style>
 </head>
 <body data-skin="night">
@@ -357,6 +421,11 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
     <div class="tab-pane" id="pane-skins">
       <p class="shop-hint">با هر پوسته، رنگ و حال‌وهوای کل بازی عوض می‌شه!</p>
       <div class="items" id="skinGrid"></div>
+      <div class="shop-nav" aria-label="ناوبری فروشگاه">
+        <button type="button" id="shop-prev" aria-label="قبلی">&#8250;</button>
+        <span class="shop-count" id="shop-count">۱/۱</span>
+        <button type="button" id="shop-next" aria-label="بعدی">&#8249;</button>
+      </div>
     </div>
     <div class="tab-pane hidden" id="pane-custom">
       <div class="preview-box">
@@ -417,6 +486,45 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
 </div>
 <div id="toast" role="status"></div>
 
+<script>
+(function initShopCarousel() {
+  const grid = document.getElementById('skinGrid');
+  const prev = document.getElementById('shop-prev');
+  const next = document.getElementById('shop-next');
+  const count = document.getElementById('shop-count');
+  if (!grid || !prev || !next || !count) return;
+  const FA = ['۱','۲','۳','۴','۵','۶','۷','۸','۹','۱۰','۱۱','۱۲'];
+  const items = () => Array.from(grid.querySelectorAll('.item'));
+  function currentIndex() {
+    const list = items();
+    const gr = grid.getBoundingClientRect();
+    const mid = gr.left + gr.width / 2;
+    let best = 0, bestDist = Infinity;
+    list.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - mid);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    return best;
+  }
+  function go(i) {
+    const list = items();
+    if (!list.length) return;
+    list[Math.min(Math.max(i, 0), list.length - 1)].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+  function update() {
+    const list = items();
+    if (!list.length) return;
+    count.textContent = FA[currentIndex()] + '/' + FA[list.length - 1];
+  }
+  prev.addEventListener('click', () => go(currentIndex() - 1));
+  next.addEventListener('click', () => go(currentIndex() + 1));
+  grid.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  new MutationObserver(update).observe(grid, { childList: true });
+  update();
+})();
+</script>
 <script>
 'use strict';
 /* =============== ابزارها =============== */
