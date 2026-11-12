@@ -720,6 +720,26 @@ body {
   #screen-shop .shop-count { min-width: 64px; text-align: center; font-weight: 700; }
   #screen-shop.active .shop-nav { display: flex; }
 
+  /* Shop: prev and next sit on each side of the centred product */
+  #screen-shop.active {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) 56px;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    row-gap: clamp(6px, 1.5dvh, 12px);
+    height: 100dvh;
+    overflow: hidden;
+  }
+  #screen-shop > .top-bar, #screen-shop > .shop-tabs { grid-column: 1 / -1; }
+  #screen-shop.active .shop-nav { display: contents; }
+  #screen-shop #shop-prev { grid-column: 1; grid-row: 3; align-self: center; justify-self: center; }
+  #screen-shop #shop-next { grid-column: 3; grid-row: 3; align-self: center; justify-self: center; }
+  #screen-shop #shop-count { grid-column: 2; grid-row: 4; justify-self: center; }
+  #screen-shop .shop-items.active { grid-column: 2; grid-row: 3; height: auto; min-height: 0; padding-inline: max(0px, calc(50% - 170px)); }
+  #screen-shop .shop-item { flex: 0 0 340px; }
+  #screen-shop .shop-item .item-preview { width: min(30dvh, 170px); height: min(30dvh, 170px); padding: 8px; }
+  #screen-shop .shop-item .item-preview img { object-fit: contain; }
+  #screen-shop .shop-item .item-name { font-size: clamp(15px, 2.6dvh, 18px); }
+
   /* Gameplay: scene uses the full height */
   #screen-game .game-stage { min-height: 0; }
   #screen-game .story-scene { gap: clamp(8px, 2dvh, 18px); }

@@ -364,6 +364,41 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
   }
   #scr-shop .shop-count { min-width: 64px; text-align: center; font-weight: 700; }
 
+  /* Shop: prev and next on each side of the centred product (skins and hats) */
+  #scr-shop #pane-skins.tab-pane:not(.hidden) {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) 56px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    row-gap: clamp(6px, 1.5dvh, 12px);
+  }
+  #scr-shop #pane-skins .shop-hint { grid-column: 1 / -1; grid-row: 1; margin: 0; }
+  #scr-shop #pane-skins .shop-nav { display: contents; }
+  #scr-shop #skinGrid { grid-column: 2; grid-row: 2; }
+  #scr-shop #shop-prev { grid-column: 1; grid-row: 2; align-self: center; justify-self: center; }
+  #scr-shop #shop-next { grid-column: 3; grid-row: 2; align-self: center; justify-self: center; }
+  #scr-shop #shop-count { grid-column: 2; grid-row: 3; justify-self: center; }
+  #scr-shop #skinGrid { padding-inline: max(0px, calc(50% - 170px)); }
+  #scr-shop #skinGrid .item { flex: 0 0 340px; }
+  #scr-shop #skinGrid .item .sw { height: min(24dvh, 120px); }
+
+  #scr-shop #pane-custom.tab-pane:not(.hidden) {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) 56px minmax(0, 1.6fr) 56px;
+    grid-template-rows: minmax(0, 1fr) auto;
+    column-gap: clamp(8px, 1.5vw, 20px);
+    row-gap: clamp(6px, 1.5dvh, 12px);
+  }
+  #scr-shop #pane-custom .preview-box { grid-column: 1; grid-row: 1; }
+  #scr-shop #pane-custom .shop-hint { grid-column: 1; grid-row: 2; }
+  #scr-shop #pane-custom .shop-nav { display: contents; }
+  #scr-shop #hat-prev { grid-column: 2; grid-row: 1; align-self: center; justify-self: center; }
+  #scr-shop #hatGrid { grid-column: 3; grid-row: 1; }
+  #scr-shop #hat-next { grid-column: 4; grid-row: 1; align-self: center; justify-self: center; }
+  #scr-shop #hat-count { grid-column: 3; grid-row: 2; justify-self: center; }
+  #scr-shop #hatGrid { padding-inline: max(0px, calc(50% - 170px)); }
+  #scr-shop #hatGrid .item { flex: 0 0 340px; }
+  #scr-shop #hatGrid .hat-thumb { width: min(30dvh, 160px); height: min(22dvh, 110px); }
+
   /* Gameplay: shape on the left, question and answers on the right, no scrolling */
   #scr-game.active { height: 100dvh; overflow: hidden; }
   #scr-game .stage {
