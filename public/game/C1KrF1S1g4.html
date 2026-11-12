@@ -2248,6 +2248,51 @@
             #levels-grid .level-btn .lv-tag { display: none; }
         }
     </style>
+
+    <style id="hungry-v3">
+        /* فروشگاه: عنوان دسته‌ها سمت راست (ستون راست)، جنس وسط، قیمت زیر جنس */
+        #shop-screen .sh-layout {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: clamp(150px, 24%, 230px) minmax(0, 1fr);
+            gap: clamp(12px, 2.4vw, 28px);
+            align-items: stretch;
+        }
+        #shop-screen .shop-tabs {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            gap: 10px;
+        }
+        #shop-screen .shop-tab {
+            min-height: 52px;
+            padding: 12px 16px;
+            text-align: right;
+            justify-content: flex-start;
+            border-radius: 18px;
+            font-size: clamp(0.95rem, 2.6vh, 1.15rem);
+        }
+        #shop-screen .shop-tab.active {
+            background: linear-gradient(135deg, #FFB020, #FF8A00);
+            color: #3B1F00;
+            border-color: #FFE7A3;
+        }
+        #shop-screen .sh-main {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1.4vh, 12px);
+            min-height: 0;
+        }
+        #shop-screen .sh-main .sh-stage { flex: 1; }
+        @media (orientation: portrait) {
+            #shop-screen .sh-layout { grid-template-columns: minmax(0, 1fr); }
+            #shop-screen .shop-tabs { flex-direction: row; flex-wrap: wrap; }
+            #shop-screen .shop-tab { flex: 1 1 auto; min-height: 44px; }
+        }
+    </style>
 </head>
 
 <body>
@@ -2671,11 +2716,11 @@
                 const owned = this.isItemOwned(activeCategory, item.id);
                 const canBuy = !owned && coins >= item.price;
 
-                let html = '<div class="shop-tabs">';
+                let html = '<div class="sh-layout"><div class="shop-tabs">';
                 for (const [cat, name] of Object.entries(categoryNames)) {
                     html += `<button class="shop-tab ${cat === activeCategory ? 'active' : ''}" data-category="${cat}">${name}</button>`;
                 }
-                html += '</div>';
+                html += '</div><div class="sh-main">';
 
                 html += `
                 <div class="sh-stage" id="sh-stage">
@@ -2692,7 +2737,7 @@
                     </div>
                     <button class="sh-arrow sh-next" data-dir="1" aria-label="بعدی">‹</button>
                 </div>
-                <div class="sh-counter">${idx + 1}/${total}</div>`;
+                <div class="sh-counter">${idx + 1}/${total}</div></div></div>`;
 
                 container.innerHTML = html;
 

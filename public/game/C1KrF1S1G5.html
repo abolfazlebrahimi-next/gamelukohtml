@@ -520,6 +520,8 @@
             .main-container {
                 max-width: none;
                 width: 100%;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
                 height: 100dvh;
                 min-height: 0;
                 border-radius: 0;
@@ -541,10 +543,10 @@
             }
 
             /* صفحه اصلی: شخصیت راست، متن و دکمه‌ها چپ */
-            .landing-screen {
+            .landing-screen:not(.hidden) {
                 flex: 1;
                 height: 100%;
-                display: grid !important;
+                display: grid;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
                 grid-template-rows: auto auto auto auto auto;
                 align-content: center;
