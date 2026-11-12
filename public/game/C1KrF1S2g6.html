@@ -1716,7 +1716,38 @@
             #menu-screen .menu-container > .character-wrapper { width: clamp(130px, 50vh, 220px); height: clamp(130px, 50vh, 220px); }
             #game-screen .option-btn { min-height: 44px; }
         }
-    </style>
+    
+        /* ===== g6 v4: رفع برش عناصر (اول صفحه بالا، بدون align-content:center) ===== */
+        #level-select-screen { justify-content: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        #level-select-screen > .help-container { margin: auto; height: auto; max-height: none; flex: none; }
+        #level-select-screen .levels-grid {
+            grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+            align-content: start;
+            overflow: visible;
+            max-height: none;
+            flex: none;
+            padding: 6px;
+            gap: 10px;
+        }
+        #level-select-screen .level-btn {
+            aspect-ratio: auto;
+            height: auto;
+            min-height: 64px;
+            padding: 8px 4px;
+            font-size: clamp(1.2rem, 3.4vh, 1.6rem);
+        }
+
+        #shop-screen > .help-container {{ margin: auto; height: auto; max-height: none; }}
+        #shop-screen .shop-tab-content {{ height: auto; min-height: 0; overflow: visible; }}
+        #shop-screen .lk-car {{ min-height: 0; height: auto; }}
+        #shop-screen .lk-car > .shop-grid {{ align-content: start; min-height: 0; }}
+        @media (orientation: landscape) {{
+            #shop-screen > .help-container {{ height: auto; grid-template-rows: auto auto; }}
+            #shop-screen .shop-tab-content {{ height: auto; }}
+            #shop-screen .shop-tab-content.active {{ display: flex; flex-direction: column; }}
+            #shop-screen .lk-car {{ height: auto; }}
+        }}
+</style>
 </head>
 <body class="theme-simple">
     <audio id="help-audio" src="./musics/6.mp3" preload="auto"></audio>

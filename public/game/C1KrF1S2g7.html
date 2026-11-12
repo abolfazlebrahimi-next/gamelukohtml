@@ -508,7 +508,32 @@
             #game-screen .game-container { gap: 4px; padding: 4px; }
             #celebration-screen .celebration-stats p { margin: 4px 0; font-size: 14px; }
         }
-    </style>
+    
+        /* ===== g7 v4: رفع برش عناصر (اول صفحه بالا، بدون align-content:center) ===== */
+        #level-select-screen { justify-content: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        #level-select-screen > .level-select-container { margin: auto; height: auto; max-height: none; flex: none; }
+        #level-select-screen .levels-grid {
+            grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+            align-content: start;
+            overflow: visible;
+            max-height: none;
+            flex: none;
+            padding: 6px;
+            gap: 10px;
+        }
+        #level-select-screen .level-btn {
+            aspect-ratio: auto;
+            height: auto;
+            min-height: 64px;
+            padding: 8px 4px;
+            font-size: clamp(1.2rem, 3.4vh, 1.6rem);
+        }
+
+        #level-select-screen .level-select-container { width: 100%; max-width: min(900px, 96vw); }
+        @media (orientation: landscape) {
+            #level-select-screen .levels-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+        }
+</style>
 </head>
 <body>
     <audio id="bg-music" loop preload="auto"></audio>
