@@ -641,6 +641,91 @@ body {
   width: 50px; height: 50px; opacity: 0.9;
   transform: scale(1.2) translate(-50%, -50%);
 }
+
+/* Portrait keeps the grid; the shop arrows only exist in landscape */
+#screen-shop .shop-nav { display: none; }
+
+/* ===== f3 landscape v1 (round 31): full-width landscape layouts ===== */
+@media (orientation: landscape) {
+  .app-wrapper { max-width: none; width: 100%; box-shadow: none; }
+  .screen { padding: clamp(8px, 2.5dvh, 18px) clamp(16px, 3vw, 40px); }
+
+  /* Menu: character on the right, title and buttons on the left */
+  #screen-menu .main-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+    align-items: center;
+    justify-items: center;
+    column-gap: clamp(16px, 4vw, 56px);
+    row-gap: clamp(6px, 1.8dvh, 14px);
+    width: 100%;
+  }
+  #screen-menu .game-title { grid-column: 2; grid-row: 1; margin: 0; font-size: clamp(30px, 7dvh, 52px); }
+  #screen-menu .speech-bubble { grid-column: 2; grid-row: 2; }
+  #screen-menu .main-character { grid-column: 1; grid-row: 1 / span 4; width: min(60dvh, 240px); height: min(60dvh, 240px); }
+  #screen-menu #start-btn { grid-column: 2; grid-row: 3; width: 100%; max-width: 340px; min-height: 52px; }
+  #screen-menu .button-row { grid-column: 2; grid-row: 4; max-width: 340px; }
+  #screen-menu .button-row .btn { min-height: 48px; }
+
+  /* Levels: wide grid, two rows of eight */
+  #screen-levels .levels-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: clamp(8px, 1.5vw, 14px);
+    flex: 1;
+    min-height: 0;
+    align-content: center;
+    overflow-y: auto;
+  }
+
+  /* Guide: character on the right, steps on the left */
+  #screen-guide .main-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: clamp(16px, 4vw, 56px);
+    overflow-y: auto;
+  }
+  #screen-guide .main-content > img { grid-column: 1; grid-row: 1 / span 2; width: min(40dvh, 160px) !important; height: min(40dvh, 160px) !important; justify-self: center; }
+  #screen-guide .main-content > h3 { grid-column: 2; grid-row: 1; margin: 0; }
+  #screen-guide .main-content > div { grid-column: 2; grid-row: 2; }
+
+  /* Shop: one large product at a time with arrows and n/total */
+  #screen-shop .shop-items.active {
+    display: flex;
+    grid-template-columns: none;
+    gap: clamp(12px, 2vw, 24px);
+    flex: 1;
+    min-height: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 4px 0;
+  }
+  #screen-shop .shop-items.active::-webkit-scrollbar { display: none; }
+  #screen-shop .shop-item {
+    flex: 0 0 min(340px, 70%);
+    height: 100%;
+    scroll-snap-align: center;
+    justify-content: center;
+  }
+  #screen-shop .shop-item .item-preview { height: min(34dvh, 180px); }
+  #screen-shop .shop-nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 8px; }
+  #screen-shop .shop-nav button {
+    min-width: 44px; min-height: 44px; border-radius: 999px;
+    border: 2px solid #ffffff; background: rgba(255,255,255,0.12); color: #fff;
+    font-size: 22px; font-weight: 700; cursor: pointer;
+  }
+  #screen-shop .shop-count { min-width: 64px; text-align: center; font-weight: 700; }
+  #screen-shop.active .shop-nav { display: flex; }
+
+  /* Gameplay: scene uses the full height */
+  #screen-game .game-stage { min-height: 0; }
+  #screen-game .story-scene { gap: clamp(8px, 2dvh, 18px); }
+  #screen-game .farmers-area { margin-bottom: 0; gap: clamp(12px, 3vw, 30px); }
+  #screen-game .farmer-img { width: auto !important; height: min(44dvh, 210px) !important; }
+}
 </style>
 </head>
 <body>
@@ -738,6 +823,11 @@ body {
       <button class="shop-tab active" data-tab="skins">پوسته‌ها</button>
     </div>
     <div class="shop-items active" id="shop-skins"></div>
+    <div class="shop-nav" aria-label="ناوبری فروشگاه">
+      <button type="button" id="shop-prev" aria-label="قبلی">&#8250;</button>
+      <span class="shop-count" id="shop-count">۱/۱</span>
+      <button type="button" id="shop-next" aria-label="بعدی">&#8249;</button>
+    </div>
   </section>
 
   <!-- Game Screen -->
@@ -783,6 +873,45 @@ body {
   <div class="toast" id="toast"></div>
 </div>
 
+<script>
+(function initShopCarousel() {
+  const grid = document.getElementById('shop-skins');
+  const prev = document.getElementById('shop-prev');
+  const next = document.getElementById('shop-next');
+  const count = document.getElementById('shop-count');
+  if (!grid || !prev || !next || !count) return;
+  const FA = ['۱','۲','۳','۴','۵','۶','۷','۸','۹','۱۰','۱۱','۱۲','۱۳','۱۴','۱۵','۱۶'];
+  const items = () => Array.from(grid.querySelectorAll('.shop-item'));
+  function currentIndex() {
+    const list = items();
+    const gr = grid.getBoundingClientRect();
+    const mid = gr.left + gr.width / 2;
+    let best = 0, bestDist = Infinity;
+    list.forEach((el, i) => {
+      const r = el.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - mid);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    return best;
+  }
+  function go(i) {
+    const list = items();
+    if (!list.length) return;
+    list[Math.min(Math.max(i, 0), list.length - 1)].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+  function update() {
+    const list = items();
+    if (!list.length) return;
+    count.textContent = FA[currentIndex()] + '/' + FA[list.length - 1];
+  }
+  prev.addEventListener('click', () => go(currentIndex() - 1));
+  next.addEventListener('click', () => go(currentIndex() + 1));
+  grid.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  new MutationObserver(update).observe(grid, { childList: true });
+  update();
+})();
+</script>
 <script>
 const STATE = {
   coins: 0,
