@@ -506,7 +506,227 @@
             .heart { width:22px; height:22px; }
             .chip { font-size:.78em; padding:6px 11px; }
         }
-    </style>
+    
+        /* ===== g5 landscape v2: تمام‌صفحه افقی، بدون ستون ۴۸۰px ===== */
+        @media (orientation: landscape) {
+            html, body { height: 100%; }
+            body {
+                display: block;
+                padding: 0;
+                min-height: 0;
+                height: 100dvh;
+                overflow: hidden;
+            }
+            .main-container {
+                max-width: none;
+                width: 100%;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                height: 100dvh;
+                min-height: 0;
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                display: flex;
+                flex-direction: column;
+            }
+            .game-header { flex-shrink: 0; padding: clamp(6px, 1.4vh, 12px) clamp(12px, 2.4vw, 28px); }
+            .game-content {
+                flex: 1;
+                min-height: 0;
+                min-height: 0;
+                width: 100%;
+                padding: clamp(8px, 1.8vh, 18px) clamp(12px, 2.4vw, 28px);
+                gap: 0;
+                align-items: stretch;
+                overflow-y: auto;
+            }
+
+            /* صفحه اصلی: شخصیت راست، متن و دکمه‌ها چپ */
+            .landing-screen:not(.hidden) {
+                flex: 1;
+                height: 100%;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+                grid-template-rows: auto auto auto auto auto;
+                align-content: center;
+                align-items: center;
+                justify-items: center;
+                gap: clamp(6px, 1.6vh, 14px) clamp(16px, 3vw, 44px);
+            }
+            .landing-screen > .pixel-character { grid-column: 1; grid-row: 1 / span 5; }
+            .landing-screen > :nth-child(1) { grid-column: 2; grid-row: 1; }
+            .landing-screen > .speech-bubble { grid-column: 2; grid-row: 2; }
+            .landing-screen > .landing-story { grid-column: 2; grid-row: 3; }
+            .landing-screen > #btnStart { grid-column: 2; grid-row: 4; }
+            .landing-screen > .secondary-row { grid-column: 2; grid-row: 5; }
+            .landing-screen .pixel-character img { width: clamp(140px, 44vh, 280px); height: auto; }
+            .landing-screen .hero-title { font-size: clamp(1.3rem, 4.4vh, 2.1rem); }
+            .landing-screen .landing-story { font-size: clamp(0.72rem, 1.9vh, 0.9rem); line-height: 1.7; }
+            .landing-screen .btn-start { min-height: clamp(48px, 8vh, 60px); }
+
+            /* انتخاب مرحله: ۵ ستون، پُرِ صفحه */
+            .level-screen.active { flex: 1; height: 100%; justify-content: center; }
+            .level-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(8px, 1.8vh, 16px); max-width: 980px; }
+            .level-card { padding: clamp(8px, 1.8vh, 16px) 8px; }
+            .lv-num { font-size: clamp(1.3rem, 4.4vh, 2.1rem); }
+            .section-title { font-size: clamp(1rem, 3vh, 1.35rem); }
+
+            /* بازی: میوه‌ها سمت چپ، پنل‌ها سمت راست */
+            .game-screen.active {
+                flex: 1;
+                height: 100%;
+                min-height: 0;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) clamp(240px, 28vw, 360px);
+                grid-template-rows: auto minmax(0, 1fr) auto auto;
+                gap: clamp(8px, 1.6vh, 14px) clamp(12px, 2vw, 24px);
+                align-items: stretch;
+                justify-items: stretch;
+            }
+            .game-screen > .topbar { grid-column: 1 / -1; grid-row: 1; }
+            .game-screen > .fruits-area {
+                grid-column: 1;
+                grid-row: 2 / span 3;
+                min-height: 0;
+                height: 100%;
+                align-content: center;
+                padding: clamp(10px, 2vh, 18px);
+            }
+            .game-screen > .fruits-area.grid-layout {
+                grid-template-columns: repeat(auto-fill, minmax(clamp(56px, 12vh, 96px), 1fr));
+                gap: clamp(8px, 1.6vh, 16px);
+            }
+            .game-screen > .character-message { grid-column: 2; grid-row: 2; align-self: center; max-width: 100%; }
+            .game-screen > .counter-panel { grid-column: 2; grid-row: 3; justify-self: center; }
+            .game-screen > .pro-mode-input { grid-column: 2; grid-row: 4; }
+            .fruit-svg { width: clamp(44px, 11vh, 84px); height: clamp(44px, 11vh, 84px); }
+            .fruit-label { font-size: clamp(0.6rem, 1.6vh, 0.8rem); }
+
+            /* پنجره‌ها: گسترده‌تر و دوستونه برای فروشگاه */
+            .modal { max-width: min(860px, 94vw); max-height: 92dvh; }
+            .shop-items { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        }
+
+        @media (orientation: landscape) and (max-height: 520px) {
+            .landing-screen .speech-bubble { font-size: 0.78rem; padding: 6px 14px; }
+            .landing-screen .btn { min-height: 44px; padding: 8px 18px; }
+            .landing-screen .pixel-character img { width: clamp(110px, 40vh, 200px); }
+            .game-header h1 { font-size: 0.95em; }
+            .game-screen > .counter-panel { padding: 6px 16px; }
+        }
+    
+        /* ===== g5 v3 result modals: لندسکیپ دو‌ستونه، بدون اسکرول برای دکمه‌ها ===== */
+        @media (orientation: landscape) {
+            .modal-overlay { padding: clamp(6px, 1.5vh, 14px); }
+            .modal.center-modal {
+                display: grid;
+                grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+                align-items: center;
+                gap: clamp(6px, 1.4vh, 14px) clamp(16px, 3vw, 36px);
+                width: min(900px, 94vw);
+                max-width: min(900px, 94vw);
+                max-height: 94dvh;
+                overflow-y: auto;
+                padding: clamp(14px, 2.6vh, 26px) clamp(16px, 2.6vw, 30px);
+                text-align: right;
+            }
+            .modal.center-modal > .modal-char {
+                grid-column: 1;
+                grid-row: 1 / -1;
+                width: clamp(120px, 42vh, 230px);
+                height: clamp(120px, 42vh, 230px);
+                margin: 0 auto;
+            }
+            .modal.center-modal > :not(.modal-char) { grid-column: 2; }
+            .modal.center-modal h2 { text-align: right; margin-bottom: 0; font-size: clamp(1.1rem, 3.6vh, 1.6rem); }
+            .modal.center-modal .stars-row { justify-content: flex-start; }
+            .modal.center-modal .star { width: clamp(30px, 6.5vh, 44px); height: clamp(30px, 6.5vh, 44px); }
+            .modal.center-modal .result-msg { line-height: 1.6; margin: 0; }
+            .modal.center-modal .result-score { margin: 0; }
+            .modal.center-modal .btn { width: 100%; min-height: clamp(44px, 7vh, 54px); }
+            .modal.center-modal > .btn + .btn { margin-top: 0; }
+            .modal.center-modal #completeCoinChip { justify-self: start; }
+        }
+    
+        /* ===== g5 v4: کارت نتیجه کرم‌رنگ (مثل مودال برد صفحهٔ مرجع) ===== */
+        .modal.center-modal {
+            background: linear-gradient(180deg, #FFFCF4 0%, #FFF3D6 100%);
+            border: 4px solid #FFC24D;
+            border-radius: 28px;
+            box-shadow: 0 10px 0 #E08A10, 0 18px 40px rgba(0, 0, 0, 0.35);
+            padding: clamp(14px, 2.6vh, 26px) clamp(16px, 2.6vw, 28px);
+            gap: clamp(6px, 1.4vh, 12px);
+            max-width: min(640px, 94vw);
+        }
+        .modal.center-modal h2 {
+            color: #1E4E8C;
+            font-weight: 900;
+            font-size: clamp(1.15rem, 3.8vh, 1.7rem);
+            margin: 0;
+        }
+        .modal.center-modal .stars-row { justify-content: center; gap: 8px; }
+        .modal.center-modal .star {
+            width: clamp(34px, 7vh, 52px);
+            height: clamp(34px, 7vh, 52px);
+            filter: drop-shadow(0 3px 0 #B86E00);
+        }
+        .modal.center-modal .result-msg { color: #35557D; margin: 0; font-weight: 700; }
+        .res-tiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            width: 100%;
+        }
+        .res-tile {
+            background: #FFFFFF;
+            border: 2px solid #DCE9F7;
+            border-radius: 18px;
+            padding: 10px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 0 #E6EEF8;
+        }
+        .res-label { color: #5B6E8C; font-size: 0.9rem; font-weight: 700; }
+        .res-val { color: #1E4E8C; font-size: clamp(1.1rem, 3.4vh, 1.5rem); font-weight: 900; direction: ltr; }
+        .modal.center-modal #completeCoinChip {
+            background: #FFFFFF;
+            border: 2px solid #FFC24D;
+            border-radius: 18px;
+            box-shadow: 0 4px 0 #F5D58A;
+            padding: 8px 14px;
+            color: #B86E00;
+            font-weight: 900;
+        }
+        .modal.center-modal .btn {
+            min-height: clamp(44px, 7vh, 54px);
+            border-radius: 999px;
+            font-weight: 900;
+            width: 100%;
+        }
+        .modal.center-modal .btn-primary {
+            background: linear-gradient(180deg, #FFC24D 0%, #FF9A1F 55%, #F97E00 100%);
+            color: #fff;
+            border: 2px solid #FFE3A0;
+            box-shadow: 0 6px 0 #C4630A;
+            text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+        }
+        .modal.center-modal .btn-secondary {
+            background: #FFFFFF;
+            color: #1E4E8C;
+            border: 3px solid #1E4E8C;
+            box-shadow: 0 5px 0 #1E4E8C;
+        }
+        .modal.center-modal .btn:active { transform: translateY(3px); }
+        .modal.center-modal .modal-char { width: clamp(90px, 18vh, 140px); height: clamp(90px, 18vh, 140px); }
+        @media (orientation: landscape) {
+            .modal.center-modal { max-width: min(860px, 94vw); }
+            .modal.center-modal .res-tiles { grid-column: 2; }
+            .modal.center-modal .btn { font-size: clamp(0.95rem, 2.8vh, 1.1rem); }
+        }
+</style>
 </head>
 <body data-theme="default">
 
@@ -648,7 +868,7 @@
                 <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
             </div>
             <p class="result-msg" id="winMsg"></p>
-            <p class="result-score">⭐ امتیاز جلسه: <span id="winScore">۰</span></p>
+            <div class="res-tiles"><div class="res-tile"><span class="res-label">امتیاز جلسه</span><span class="res-val" id="winScore">۰</span></div><div class="res-tile"><span class="res-label">میوه‌ها</span><span class="res-val" id="winFruits">۰</span></div></div>
             <button class="btn btn-primary" id="btnNextLevel">▶️ مرحله بعد</button>
             <button class="btn btn-secondary" id="btnWinLevels">انتخاب مرحله</button>
             <button class="btn btn-secondary" id="btnWinMenu">صفحه اصلی</button>
@@ -682,7 +902,7 @@
                 <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
             </div>
             <p class="result-msg">قبیله حالا بلده بشماره! تو قهرمان این ماجرا هستی!</p>
-            <p class="result-score">⭐ امتیاز کل این بازی: <span id="completeScore">۰</span></p>
+            <div class="res-tiles"><div class="res-tile"><span class="res-label">امتیاز کل</span><span class="res-val" id="completeScore">۰</span></div></div>
             <div class="coin-reward-chip reward-anim" id="completeCoinChip">
                 <img src="./icons/coin.png" alt="سکه لوکو">
                 <span id="completeCoinText">+۱۰ سکه لوکو</span>
@@ -1621,6 +1841,8 @@
                     spawnConfetti(20);
                     const ws = document.getElementById('winScore');
                     if (ws) ws.textContent = toFa(this.sessionScore);
+                    const wf = document.getElementById('winFruits');
+                    if (wf) wf.textContent = toFa(this.totalFruits);
                     const wm = document.getElementById('winMsg');
                     if (wm) wm.textContent = `همه ${toFa(this.totalFruits)} تا میوه شمرده شد! قبیله حالا می‌داند «${toFa(this.totalFruits)}» یعنی چندتا!`;
                     this._renderStars('winStars', stars);
