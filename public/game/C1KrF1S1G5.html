@@ -615,6 +615,39 @@
             .game-header h1 { font-size: 0.95em; }
             .game-screen > .counter-panel { padding: 6px 16px; }
         }
+    
+        /* ===== g5 v3 result modals: لندسکیپ دو‌ستونه، بدون اسکرول برای دکمه‌ها ===== */
+        @media (orientation: landscape) {
+            .modal-overlay { padding: clamp(6px, 1.5vh, 14px); }
+            .modal.center-modal {
+                display: grid;
+                grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+                align-items: center;
+                gap: clamp(6px, 1.4vh, 14px) clamp(16px, 3vw, 36px);
+                width: min(900px, 94vw);
+                max-width: min(900px, 94vw);
+                max-height: 94dvh;
+                overflow-y: auto;
+                padding: clamp(14px, 2.6vh, 26px) clamp(16px, 2.6vw, 30px);
+                text-align: right;
+            }
+            .modal.center-modal > .modal-char {
+                grid-column: 1;
+                grid-row: 1 / -1;
+                width: clamp(120px, 42vh, 230px);
+                height: clamp(120px, 42vh, 230px);
+                margin: 0 auto;
+            }
+            .modal.center-modal > :not(.modal-char) { grid-column: 2; }
+            .modal.center-modal h2 { text-align: right; margin-bottom: 0; font-size: clamp(1.1rem, 3.6vh, 1.6rem); }
+            .modal.center-modal .stars-row { justify-content: flex-start; }
+            .modal.center-modal .star { width: clamp(30px, 6.5vh, 44px); height: clamp(30px, 6.5vh, 44px); }
+            .modal.center-modal .result-msg { line-height: 1.6; margin: 0; }
+            .modal.center-modal .result-score { margin: 0; }
+            .modal.center-modal .btn { width: 100%; min-height: clamp(44px, 7vh, 54px); }
+            .modal.center-modal > .btn + .btn { margin-top: 0; }
+            .modal.center-modal #completeCoinChip { justify-self: start; }
+        }
     </style>
 </head>
 <body data-theme="default">

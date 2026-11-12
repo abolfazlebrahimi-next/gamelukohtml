@@ -1566,6 +1566,156 @@
             0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
             100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
         }
+    
+        /* ===== lk v3: کاروسل فروشگاه (یک آیتم در هر لحظه + n/total + فلش‌ها) ===== */
+        .lk-car {
+            display: grid;
+            grid-template-columns: 46px minmax(0, 1fr) 46px;
+            grid-template-rows: minmax(0, 1fr) auto;
+            direction: rtl;
+            gap: 8px;
+            align-items: center;
+            min-height: 0;
+            width: 100%;
+        }
+        .lk-car > .shop-grid {
+            grid-column: 2;
+            grid-row: 1;
+            grid-template-columns: minmax(0, 1fr);
+            min-height: 0;
+            padding: 0;
+            overflow: visible;
+            align-content: center;
+        }
+        .lk-car > .shop-grid > [hidden] { display: none !important; }
+        .lk-car > .shop-grid > * { width: min(100%, 380px); justify-self: center; }
+        .lk-nav {
+            grid-row: 1;
+            width: 46px;
+            height: 46px;
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 50%;
+            padding: 0;
+            border: 2px solid rgba(255, 240, 200, 0.8);
+            background: linear-gradient(180deg, #FFE28A, #FF9A1F);
+            color: #3B1F00;
+            font-size: 1.7rem;
+            font-weight: 900;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #8a4a05, 0 8px 18px rgba(0, 0, 0, 0.35);
+        }
+        .lk-nav:active { transform: translateY(3px); box-shadow: 0 2px 0 #8a4a05; }
+        .lk-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+        .lk-prev { grid-column: 1; }
+        .lk-next { grid-column: 3; }
+        .lk-count {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            text-align: center;
+            font-weight: 900;
+            font-size: 1rem;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        /* ===== g6 v3 landscape: تمام‌صفحه، بدون ستون ۴۸۰px، همه‌چیز در یک صفحه ===== */
+        @media (orientation: landscape) {
+            html, body { height: 100%; overflow: hidden; }
+            .screen { padding: clamp(8px, 1.8vh, 18px) clamp(12px, 2.4vw, 28px); }
+
+            /* منوی اصلی: شخصیت راست، عنوان و دکمه‌ها چپ */
+            #menu-screen .menu-container {
+                max-width: none;
+                width: 100%;
+                height: 100%;
+                max-height: none;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                grid-template-rows: auto minmax(0, 1fr) auto;
+                align-items: center;
+                justify-items: center;
+                gap: clamp(8px, 2vh, 20px) clamp(16px, 3vw, 40px);
+                padding: clamp(16px, 4vh, 40px) clamp(16px, 3vw, 36px);
+            }
+            #menu-screen .menu-container > .menu-title-banner { grid-column: 2; grid-row: 1; width: 100%; margin: 0; }
+            #menu-screen .menu-container > .character-wrapper { grid-column: 1; grid-row: 1 / span 3; width: clamp(170px, 54vh, 340px); height: clamp(170px, 54vh, 340px); margin: 0; }
+            #menu-screen .menu-container > div:last-child { grid-column: 2; grid-row: 3; width: 100%; }
+            #menu-screen .btn { min-height: clamp(44px, 8vh, 60px); }
+
+            /* انتخاب مرحله: ۶ ستون، بدون اسکرول در حالت معمول */
+            #level-select-screen .help-container { max-width: none; width: 100%; height: 100%; max-height: none; display: flex; flex-direction: column; }
+            #level-select-screen .levels-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); flex: 1; min-height: 0; align-content: center; gap: clamp(6px, 1.4vh, 12px); overflow-y: auto; }
+            #level-select-screen .level-btn { min-height: 44px; height: clamp(54px, 12.5vh, 96px); aspect-ratio: auto; }
+
+            /* راهنما: تمام‌صفحه، شخصیت و حباب کنار هم */
+            #help-screen .help-cinematic-container { flex-direction: row; height: 100%; width: 100%; gap: clamp(20px, 5vw, 80px); }
+            #help-screen .gamer-aura-wrapper { width: clamp(170px, 60vh, 320px); height: clamp(170px, 60vh, 320px); }
+            #help-screen .help-gamer-img { width: 88%; height: 88%; }
+            #help-screen .help-speech-bubble { max-width: min(440px, 42vw); font-size: clamp(1rem, 3vh, 1.35rem); }
+            #help-screen .skip-help-btn { min-height: 44px; bottom: clamp(12px, 3vh, 28px); }
+
+            /* فروشگاه: دسته‌ها ستون راست، کاروسل وسط */
+            #shop-screen .help-container {
+                max-width: none !important;
+                max-height: none !important;
+                width: 100%;
+                height: 100%;
+                display: grid !important;
+                grid-template-columns: clamp(150px, 24%, 230px) minmax(0, 1fr);
+                grid-template-rows: auto minmax(0, 1fr);
+                gap: clamp(10px, 2vh, 20px) clamp(14px, 2.4vw, 28px);
+            }
+            #shop-screen .shop-header { grid-column: 1 / -1; grid-row: 1; }
+            #shop-screen .shop-tabs { grid-column: 1; grid-row: 2; flex-direction: column; flex-wrap: nowrap; margin: 0; align-self: start; }
+            #shop-screen .tab-btn { min-height: 52px; text-align: right; }
+            #shop-screen .shop-tab-content { grid-column: 2; grid-row: 2; min-height: 0; height: 100%; }
+            #shop-screen .shop-tab-content.active { display: flex; flex-direction: column; }
+            #shop-screen .lk-car { flex: 1; height: 100%; }
+
+            /* بازی: هدر بالا، صحنه و گزینه‌ها دو ستون */
+            #game-screen .game-header { width: 100%; max-width: none; }
+            #game-screen .game-area {
+                flex: 1;
+                min-height: 0;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                align-items: center;
+                gap: clamp(10px, 2vw, 24px);
+            }
+            #game-screen .sequence-display { grid-column: 1; min-height: 0; }
+            #game-screen .question-area { grid-column: 2; min-height: 0; }
+            #game-screen .options-container { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(8px, 1.6vh, 16px); justify-items: center; }
+            #game-screen .option-btn { font-size: clamp(2rem, 7vh, 3.2rem); padding: clamp(6px, 1.4vh, 14px); min-width: 0; width: 100%; max-width: 200px; min-height: 56px; }
+
+            /* پنجره‌های نتیجه و پاور آپ: شخصیت/آیکن راست، متن و دکمه چپ */
+            .result-modal .result-content {
+                display: grid;
+                grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+                align-items: center;
+                gap: clamp(6px, 1.4vh, 14px) clamp(16px, 3vw, 36px);
+                width: min(860px, 94vw);
+                max-width: min(860px, 94vw);
+                max-height: 94dvh;
+                overflow-y: auto;
+                text-align: right;
+                padding: clamp(14px, 2.6vh, 26px) clamp(16px, 2.6vw, 30px);
+            }
+            .result-modal .result-content > :first-child { grid-column: 1; grid-row: 1 / -1; text-align: center; }
+            .result-modal .result-content > :not(:first-child) { grid-column: 2; }
+            .result-modal .result-content .btn { width: 100%; min-height: clamp(44px, 7vh, 54px); }
+            .result-modal .result-content .result-stats { justify-content: flex-start; }
+            .result-modal .result-content .result-buttons { flex-direction: column; }
+        }
+
+        @media (orientation: landscape) and (max-height: 520px) {
+            #menu-screen .menu-container > .character-wrapper { width: clamp(130px, 50vh, 220px); height: clamp(130px, 50vh, 220px); }
+            #game-screen .option-btn { min-height: 44px; }
+        }
     </style>
 </head>
 <body class="theme-simple">
@@ -1657,10 +1807,10 @@
                 <button class="tab-btn" onclick="showShopTab('themes', this)">🎨 پوسته‌ها</button>
             </div>
             <div id="tab-instruments" class="shop-tab-content active">
-                <div class="shop-grid" id="shop-grid"></div>
+                <div class="lk-car" data-for="shop-grid"><button type="button" class="lk-nav lk-prev" aria-label="قبلی">›</button><div class="shop-grid" id="shop-grid"></div><button type="button" class="lk-nav lk-next" aria-label="بعدی">‹</button><div class="lk-count">0/0</div></div>
             </div>
             <div id="tab-themes" class="shop-tab-content">
-                <div class="shop-grid" id="themes-grid"></div>
+                <div class="lk-car" data-for="themes-grid"><button type="button" class="lk-nav lk-prev" aria-label="قبلی">›</button><div class="shop-grid" id="themes-grid"></div><button type="button" class="lk-nav lk-next" aria-label="بعدی">‹</button><div class="lk-count">0/0</div></div>
             </div>
         </div>
     </div>
@@ -2806,6 +2956,45 @@
                 setTimeout(() => toast.remove(), 500);
             }, 3000);
         }
+    
+        /* lk v3: کاروسل فروشگاه */
+        (function () {
+            var cars = [];
+            function sync(car) {
+                var grid = document.getElementById(car.dataset.for);
+                if (!grid) return;
+                var items = Array.prototype.slice.call(grid.children);
+                var n = items.length;
+                if (car.idx >= n) car.idx = Math.max(0, n - 1);
+                items.forEach(function (el, i) { el.hidden = (i !== car.idx); });
+                car.count.textContent = n ? (car.idx + 1) + '/' + n : '0/0';
+                car.prev.disabled = n < 2;
+                car.next.disabled = n < 2;
+                var shown = grid.style.display !== 'none';
+                car.style.display = shown ? '' : 'none';
+            }
+            document.querySelectorAll('.lk-car').forEach(function (car) {
+                var grid = document.getElementById(car.dataset.for);
+                if (!grid) return;
+                car.idx = 0;
+                car.prev = car.querySelector('.lk-prev');
+                car.next = car.querySelector('.lk-next');
+                car.count = car.querySelector('.lk-count');
+                car.prev.addEventListener('click', function () {
+                    var n = grid.children.length; if (n < 2) return;
+                    car.idx = (car.idx - 1 + n) % n; sync(car);
+                });
+                car.next.addEventListener('click', function () {
+                    var n = grid.children.length; if (n < 2) return;
+                    car.idx = (car.idx + 1) % n; sync(car);
+                });
+                new MutationObserver(function () { sync(car); }).observe(grid, { childList: true });
+                new MutationObserver(function () { sync(car); }).observe(grid, { attributes: true, attributeFilter: ['style'] });
+                cars.push(car);
+                sync(car);
+            });
+            window.LKCarSync = function () { cars.forEach(sync); };
+        })();
     </script>
 </body>
 </html>
