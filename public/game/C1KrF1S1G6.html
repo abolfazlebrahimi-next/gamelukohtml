@@ -726,6 +726,93 @@
             .modal.center-modal .res-tiles { grid-column: 2; }
             .modal.center-modal .btn { font-size: clamp(0.95rem, 2.8vh, 1.1rem); }
         }
+        /* ===== g5 v5: مودال‌های پایان مرحله بدون برش، همه دکمه‌ها دیده شوند ===== */
+        .modal-overlay { overflow-y: auto; }
+        .modal-overlay > .modal.center-modal { margin: auto; }
+        @media (orientation: landscape) {
+            .modal.center-modal { padding: 10px 18px; gap: 6px; }
+            .modal.center-modal h2 { margin: 0; font-size: clamp(1rem, 4.4vh, 1.4rem); }
+            .modal.center-modal .stars-row { gap: 6px; margin: 0; }
+            .modal.center-modal .star { width: clamp(24px, 6vh, 34px); height: clamp(24px, 6vh, 34px); }
+            .modal.center-modal .res-tiles { gap: 6px; }
+            .modal.center-modal .res-tile { padding: 4px 6px; }
+            .modal.center-modal .res-val { font-size: clamp(1rem, 3.6vh, 1.25rem); }
+            .modal.center-modal .btn { min-height: 44px; padding: 6px 12px; }
+            .modal.center-modal .btn + .btn { margin-top: 0; }
+            .modal.center-modal .modal-char { width: clamp(64px, 17vh, 96px); height: clamp(64px, 17vh, 96px); }
+            .modal.center-modal .result-msg { font-size: 0.9rem; line-height: 1.4; }
+        }
+        @media (orientation: portrait) {
+            .modal.center-modal .stars-row { margin: 0; }
+            .modal.center-modal .btn { min-height: 48px; }
+        }
+
+        /* ===== g5 v6: فروشگاه سه‌ناحیه‌ای (دسته‌ها راست، محصول بزرگ وسط، قبلی/بعدی) ===== */
+        .shop-layout { display:flex; flex-direction:column; gap:10px; margin-top:6px; min-height:0; }
+        .shop-cats { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+        .shop-cat {
+            min-height:44px; padding:8px 16px; border-radius:999px; cursor:pointer;
+            background:#fff; color:#1E4E8C; border:3px solid #1E4E8C; box-shadow:0 4px 0 #1E4E8C;
+            font-weight:900; font-size:.95rem; white-space:nowrap;
+        }
+        .shop-cat.active { background:linear-gradient(180deg,#FFC24D,#FF9A1F 55%,#F97E00); color:#fff; border-color:#FFE3A0; box-shadow:0 5px 0 #C4630A; }
+        .lk-car { display:grid; grid-template-columns:52px minmax(0,1fr) 52px; grid-template-rows:auto auto; align-items:center; gap:8px; direction:rtl; min-width:0; }
+        .lk-car > .shop-items { grid-column:2; grid-row:1; display:block; margin:0; min-width:0; }
+        .lk-car > .shop-items > [hidden] { display:none !important; }
+        .lk-car > .shop-items > .shop-card {
+            flex-direction:column; text-align:center; gap:10px; padding:clamp(12px,2.6vh,22px);
+            width:min(100%,400px); margin:0 auto; animation:lkIn .35s ease;
+        }
+        @keyframes lkIn { from { opacity:0; transform:translateX(18px); } to { opacity:1; transform:none; } }
+        .lk-car > .shop-items > .shop-card .swatch { width:100%; height:clamp(90px,24vh,190px); border-radius:18px; }
+        .lk-car > .shop-items > .shop-card .shop-info { width:100%; }
+        .lk-car > .shop-items > .shop-card .shop-action { width:100%; }
+        .lk-car > .shop-items > .shop-card .shop-action .btn { width:100%; min-height:48px; }
+        .lk-nav {
+            grid-row:1; width:52px; height:52px; min-width:44px; min-height:44px; border-radius:50%; padding:0;
+            border:2px solid rgba(255,240,200,.85); background:linear-gradient(180deg,#FFE28A,#FF9A1F); color:#3B1F00;
+            font-size:1.7rem; font-weight:900; line-height:1; display:flex; align-items:center; justify-content:center;
+            cursor:pointer; box-shadow:0 5px 0 #8a4a05;
+        }
+        .lk-nav:active { transform:translateY(3px); box-shadow:0 2px 0 #8a4a05; }
+        .lk-nav:disabled { opacity:.35; cursor:not-allowed; }
+        .lk-prev { grid-column:1; } .lk-next { grid-column:3; }
+        .lk-count { grid-column:1 / -1; grid-row:2; text-align:center; font-weight:900; color:#fff; letter-spacing:1px; }
+        @media (orientation: landscape) {
+            #shopModal { padding:0; }
+            #shopModal > .modal {
+                width:100vw; max-width:none; height:100dvh; max-height:none; border-radius:0; box-sizing:border-box;
+                padding:clamp(8px,2vh,16px) clamp(12px,2.4vw,28px); display:flex; flex-direction:column;
+            }
+            #shopModal .shop-layout {
+                flex:1; min-height:0; display:grid; grid-template-columns:minmax(150px,24%) minmax(0,1fr);
+                gap:clamp(10px,2.4vw,26px); align-items:center;
+            }
+            #shopModal .shop-cats { flex-direction:column; flex-wrap:nowrap; justify-content:flex-start; align-self:center; }
+            #shopModal .shop-cat { width:100%; text-align:right; }
+            #shopModal .lk-car { height:100%; grid-template-rows:minmax(0,1fr) auto; }
+            #shopModal .lk-car > .shop-items { align-self:center; }
+            #shopModal .lk-nav { align-self:center; }
+            #shopModal .lk-count { align-self:end; }
+        }
+        #shopModal .shop-cats { display:flex; }
+
+        /* ===== g5 v7: راهنما تمام‌صفحه در افقی (شخصیت چپ، مراحل راست با اسکرول داخلی) ===== */
+        @media (orientation: landscape) {
+            #guideModal { padding: 0; }
+            #guideModal > .modal {
+                width: 100vw; max-width: none; height: 100dvh; max-height: none; border-radius: 0;
+                box-sizing: border-box; display: grid;
+                grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr);
+                grid-template-rows: auto minmax(0, 1fr);
+                column-gap: clamp(16px, 3vw, 40px); row-gap: 8px; align-items: center;
+                padding: clamp(14px, 3vh, 28px) clamp(16px, 3vw, 40px); overflow: hidden;
+            }
+            #guideModal .guide-char { grid-column: 1; grid-row: 1 / span 2; width: clamp(120px, 42vh, 280px); height: clamp(120px, 42vh, 280px); margin: 0 auto; }
+            #guideModal h2 { grid-column: 2; grid-row: 1; margin: 0; text-align: right; }
+            #guideModal .guide-steps { grid-column: 2; grid-row: 2; min-height: 0; max-height: 100%; overflow-y: auto; }
+            #guideModal .guide-step { padding: clamp(6px, 1.4vh, 12px) clamp(10px, 1.6vw, 16px); }
+        }
 </style>
 </head>
 <body data-theme="default">
@@ -829,7 +916,17 @@
                 <span>سکه‌های تو: <span id="shopBalance">0</span></span>
             </div>
             <p style="text-align:center;font-size:.78em;">تم‌های بازی را بخر و عوض کن! سکه می‌گیری با کامل‌کردن هر ۱۰ مرحله.</p>
-            <div class="shop-items" id="shopItems"></div>
+            <div class="shop-layout">
+                <nav class="shop-cats" aria-label="دسته‌ها">
+                    <button type="button" class="shop-cat active">🎨 پوسته‌ها</button>
+                </nav>
+                <div class="lk-car" data-for="shopItems">
+                    <button type="button" class="lk-nav lk-prev" aria-label="قبلی">›</button>
+                    <div class="shop-items" id="shopItems"></div>
+                    <button type="button" class="lk-nav lk-next" aria-label="بعدی">‹</button>
+                    <div class="lk-count">0/0</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1928,6 +2025,45 @@
         document.querySelectorAll('.btn, .mute-btn, .stop-btn').forEach(addRipple);
         const game = new TribeCountingGame();
         LokoSync.init();
+    
+        /* lk v3: کاروسل فروشگاه */
+        (function () {
+            var cars = [];
+            function sync(car) {
+                var grid = document.getElementById(car.dataset.for);
+                if (!grid) return;
+                var items = Array.prototype.slice.call(grid.children);
+                var n = items.length;
+                if (car.idx >= n) car.idx = Math.max(0, n - 1);
+                items.forEach(function (el, i) { el.hidden = (i !== car.idx); });
+                car.count.textContent = n ? (car.idx + 1) + '/' + n : '0/0';
+                car.prev.disabled = n < 2;
+                car.next.disabled = n < 2;
+                var shown = grid.style.display !== 'none';
+                car.style.display = shown ? '' : 'none';
+            }
+            document.querySelectorAll('.lk-car').forEach(function (car) {
+                var grid = document.getElementById(car.dataset.for);
+                if (!grid) return;
+                car.idx = 0;
+                car.prev = car.querySelector('.lk-prev');
+                car.next = car.querySelector('.lk-next');
+                car.count = car.querySelector('.lk-count');
+                car.prev.addEventListener('click', function () {
+                    var n = grid.children.length; if (n < 2) return;
+                    car.idx = (car.idx - 1 + n) % n; sync(car);
+                });
+                car.next.addEventListener('click', function () {
+                    var n = grid.children.length; if (n < 2) return;
+                    car.idx = (car.idx + 1) % n; sync(car);
+                });
+                new MutationObserver(function () { sync(car); }).observe(grid, { childList: true });
+                new MutationObserver(function () { sync(car); }).observe(grid, { attributes: true, attributeFilter: ['style'] });
+                cars.push(car);
+                sync(car);
+            });
+            window.LKCarSync = function () { cars.forEach(sync); };
+        })();
     </script>
 </body>
 </html>
