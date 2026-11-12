@@ -1868,6 +1868,386 @@
             font-display: swap;
         }
     </style>
+    <style id="hungry-v2">
+        /* ===== hungry v2: انتخاب مرحله، فروشگاه کاروسلی، بازی فول‌اسکرین لندسکیپ ===== */
+
+        /* --- انتخاب مرحله: مسیر مدالی --- */
+        #level-select-screen {
+            background:
+                radial-gradient(1000px 600px at 50% -15%, rgba(124, 92, 255, 0.35), transparent 60%),
+                radial-gradient(800px 500px at 100% 110%, rgba(255, 160, 40, 0.2), transparent 60%),
+                rgba(12, 10, 24, 0.96);
+        }
+        #level-select-screen .level-select-content {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: min(1000px, 96vw);
+            max-height: 96dvh;
+            padding: clamp(16px, 3.4vh, 32px) clamp(16px, 3vw, 36px) clamp(14px, 2.8vh, 26px);
+            border-radius: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(10px, 2.2vh, 20px);
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03)), rgba(20, 16, 40, 0.72);
+            border: 2px solid rgba(255, 214, 102, 0.45);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 40px rgba(255, 201, 60, 0.15);
+        }
+        #level-select-screen .level-select-content::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) 1px, transparent 1.6px);
+            background-size: 26px 26px;
+            opacity: 0.07;
+            pointer-events: none;
+        }
+        .lv-head { display: flex; flex-direction: column; align-items: center; gap: 4px; position: relative; }
+        .lv-kicker {
+            font-size: clamp(0.68rem, 1.8vh, 0.84rem);
+            font-weight: 800;
+            color: #FFE7A3;
+            background: rgba(255, 201, 60, 0.14);
+            border: 1px solid rgba(255, 201, 60, 0.45);
+            padding: 4px 14px;
+            border-radius: 999px;
+        }
+        .level-select-content h1 {
+            margin: 0;
+            font-size: clamp(1.5rem, 4.8vh, 2.3rem);
+            font-weight: 900;
+            text-shadow: none;
+            background: linear-gradient(180deg, #FFF6D0, #FFB020);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.35));
+        }
+        .lv-progress { width: min(100%, 560px); display: flex; flex-direction: column; gap: 6px; align-items: center; position: relative; }
+        .lv-progress-bar {
+            width: 100%; height: 12px; border-radius: 999px; overflow: hidden;
+            background: rgba(0, 0, 0, 0.35); border: 1.5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .lv-progress-bar span {
+            display: block; height: 100%; border-radius: 999px;
+            background: linear-gradient(90deg, #FFD35C, #FF9F1C);
+            box-shadow: 0 0 12px rgba(255, 190, 50, 0.6);
+            transition: width 0.6s ease;
+        }
+        .lv-progress-txt { font-size: 0.8rem; font-weight: 700; color: rgba(255, 255, 255, 0.8); }
+
+        #levels-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: clamp(12px, 3vh, 26px) clamp(8px, 2vw, 24px);
+            width: 100%;
+            margin: 0;
+            justify-items: center;
+            position: relative;
+        }
+        #levels-grid .level-btn {
+            width: min(100%, clamp(88px, 17vh, 140px));
+            aspect-ratio: 1;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            position: relative;
+            color: #3B1F00;
+            background: radial-gradient(circle at 30% 25%, #FFFFFF 0%, #FFE7A3 18%, #FFB020 58%, #C96A00 100%);
+            border: 4px solid #FFF3C4;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25), 0 0 0 6px rgba(255, 201, 60, 0.18), 0 12px 28px rgba(0, 0, 0, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-family: inherit;
+        }
+        #levels-grid .level-btn .lv-num {
+            font-size: clamp(1.3rem, 4.2vh, 2.3rem);
+            font-weight: 900;
+            line-height: 1;
+            text-shadow: 0 2px 0 rgba(255, 255, 255, 0.5);
+        }
+        #levels-grid .level-btn .lv-tag {
+            font-size: clamp(0.6rem, 1.6vh, 0.78rem);
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 999px;
+            background: rgba(59, 31, 0, 0.85);
+            color: #FFE7A3;
+            white-space: nowrap;
+        }
+        #levels-grid .level-btn:not(.locked):hover { transform: translateY(-4px) scale(1.06); }
+        #levels-grid .level-btn:not(.locked):active { transform: translateY(4px); box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25); }
+        #levels-grid .level-btn.completed {
+            color: #06321F;
+            background: radial-gradient(circle at 30% 25%, #E9FFF4, #7CF5B8 30%, #1FB57E 70%, #0E6B4A);
+        }
+        #levels-grid .level-btn.completed .lv-tag { background: rgba(6, 50, 31, 0.85); color: #B9FFD9; }
+        #levels-grid .level-btn.locked {
+            color: #fff;
+            opacity: 0.75;
+            cursor: not-allowed;
+            background: radial-gradient(circle at 30% 25%, #6B6B85, #3A3A52 60%, #22222F);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        #levels-grid .level-btn.locked .lv-tag { background: rgba(0, 0, 0, 0.4); color: rgba(255, 255, 255, 0.7); }
+        #levels-grid .level-btn.current { animation: lvPulse 1.8s ease-in-out infinite; }
+        @keyframes lvPulse {
+            0%, 100% { box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25), 0 0 0 6px rgba(255, 201, 60, 0.18), 0 0 20px rgba(255, 201, 60, 0.4); }
+            50% { box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25), 0 0 0 12px rgba(255, 201, 60, 0.08), 0 0 42px rgba(255, 201, 60, 0.85); }
+        }
+        #levels-grid .level-btn:not(:nth-child(5n))::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: clamp(10px, 2.6vw, 34px);
+            border-top: 3px dashed rgba(255, 214, 102, 0.55);
+            pointer-events: none;
+        }
+        #levels-grid .level-star {
+            position: absolute;
+            top: -8px; right: -6px;
+            font-size: clamp(1rem, 3vh, 1.4rem);
+            transform: rotate(12deg);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+        }
+
+        /* --- فروشگاه: کاروسل یک‌آیتمی --- */
+        #shop-screen { padding: clamp(8px, 2vh, 20px); }
+        #shop-screen .shop-content {
+            width: 100%;
+            max-width: min(980px, 96vw);
+            max-height: 96dvh;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(8px, 1.8vh, 16px);
+            padding: clamp(14px, 2.6vh, 26px) clamp(16px, 3vw, 34px);
+            border-radius: 30px;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03)), rgba(22, 16, 44, 0.85);
+            border: 2px solid rgba(255, 214, 102, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        #shop-screen .shop-header { margin-bottom: 0; }
+        #shop-screen .shop-header h1 { text-align: right; }
+        #shop-screen .shop-tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-start; }
+        #shop-screen .shop-tab { min-height: 44px; }
+        #shop-screen .shop-coins { align-self: flex-start; }
+        #sh-stage, #shop-screen .sh-stage {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: clamp(52px, 7vw, 72px) minmax(0, 1fr) clamp(52px, 7vw, 72px);
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+        }
+        .sh-arrow {
+            width: clamp(52px, 7vw, 72px);
+            height: clamp(52px, 7vw, 72px);
+            border-radius: 50%;
+            padding: 0;
+            border: 2px solid rgba(255, 230, 150, 0.7);
+            background: radial-gradient(circle at 35% 30%, #FFE28A, #FF9A1F 60%, #C4630A);
+            color: #3B1F00;
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #8a4a05, 0 10px 24px rgba(0, 0, 0, 0.4);
+            transition: transform 0.15s ease;
+        }
+        .sh-arrow:hover { transform: scale(1.06); }
+        .sh-arrow:active { transform: translateY(4px); box-shadow: 0 2px 0 #8a4a05; }
+        .sh-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(8px, 1.8vh, 16px);
+            min-height: clamp(260px, 50vh, 400px);
+            padding: clamp(14px, 3vh, 28px) clamp(14px, 2.5vw, 26px);
+            border-radius: 26px;
+            background: radial-gradient(circle at 50% 35%, rgba(255, 214, 102, 0.18), transparent 60%), rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 214, 102, 0.35);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 14px 40px rgba(0, 0, 0, 0.35);
+        }
+        .sh-card.is-owned { border-color: rgba(124, 245, 184, 0.6); }
+        .sh-name {
+            align-self: stretch;
+            text-align: right;
+            font-size: clamp(1.05rem, 3vh, 1.4rem);
+            font-weight: 900;
+            color: #FFE7A3;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed rgba(255, 214, 102, 0.35);
+        }
+        .sh-icon {
+            font-size: clamp(4rem, 16vh, 9rem);
+            line-height: 1;
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+            animation: shIconFloat 3s ease-in-out infinite;
+        }
+        @keyframes shIconFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .sh-price {
+            display: flex; align-items: center; gap: 8px;
+            font-size: clamp(1.1rem, 3.2vh, 1.5rem);
+            font-weight: 900;
+            color: #FFD35C;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1.5px solid rgba(255, 214, 102, 0.4);
+            padding: 6px 18px;
+            border-radius: 999px;
+        }
+        .sh-price .shop-coin-icon { width: 24px; height: 24px; }
+        .sh-badge {
+            background: linear-gradient(90deg, #7CF5B8, #1FB57E);
+            color: #06321F;
+            font-weight: 900;
+            padding: 6px 18px;
+            border-radius: 999px;
+        }
+        .sh-buy {
+            min-width: min(260px, 100%);
+            min-height: 52px;
+            padding: 10px 28px;
+            border: none;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: clamp(1rem, 2.8vh, 1.2rem);
+            font-weight: 900;
+            color: #3B1F00;
+            background: linear-gradient(180deg, #FFE28A, #FFB020 55%, #F08A00);
+            box-shadow: 0 6px 0 #9A4D00, 0 10px 20px rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+        }
+        .sh-buy:active { transform: translateY(4px); box-shadow: 0 2px 0 #9A4D00; }
+        .sh-buy:disabled {
+            background: linear-gradient(180deg, #6B6B85, #3A3A52);
+            color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 0 #1b1b28;
+            cursor: not-allowed;
+        }
+        .sh-counter {
+            text-align: center;
+            font-size: clamp(0.95rem, 2.6vh, 1.2rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        /* --- بازی: حالت انتخاب و غذا دادن --- */
+        #game-screen .fantasy-message { white-space: normal; max-width: 92%; text-align: center; }
+        #game-screen[data-phase="guess"] .food-menu { opacity: 0.55; filter: saturate(0.5); }
+        #game-screen[data-phase="guess"] .food-item-draggable { pointer-events: none; }
+        #game-screen[data-phase="feed"] .game-plate { box-shadow: 0 0 0 3px rgba(255, 214, 102, 0.55), 0 4px 15px rgba(0, 0, 0, 0.25); }
+        #game-screen.has-tap .game-plate { animation: plateHint 0.9s ease-in-out infinite; }
+        @keyframes plateHint {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(255, 214, 102, 0.55); }
+            50% { box-shadow: 0 0 0 9px rgba(255, 214, 102, 0.2), 0 0 24px rgba(255, 201, 60, 0.7); }
+        }
+        .food-item-draggable.tap-on {
+            border-color: var(--gold);
+            transform: scale(1.08);
+            box-shadow: 0 0 0 3px var(--gold), 0 0 18px rgba(255, 201, 60, 0.6);
+        }
+        #game-screen .food-item-draggable { min-height: 44px; min-width: 44px; }
+
+        @media (orientation: landscape) {
+            html, body { overflow: hidden; }
+            #game-screen.screen.active {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) clamp(230px, 27vw, 340px);
+                grid-template-rows: auto minmax(0, 1fr);
+                grid-template-areas: "head head" "scene food";
+                gap: clamp(6px, 1.2vmin, 12px);
+                padding: clamp(6px, 1.4vmin, 14px);
+                overflow: hidden;
+                align-items: stretch;
+                justify-content: stretch;
+            }
+            #game-screen .game-header {
+                grid-area: head;
+                max-width: none;
+                margin: 0;
+                padding: clamp(6px, 1.2vmin, 10px) clamp(10px, 2vw, 20px);
+            }
+            #game-screen .game-scene {
+                grid-area: scene;
+                flex: none;
+                min-height: 0;
+                max-width: none;
+                margin: 0;
+                width: auto;
+                padding: clamp(30px, 6vmin, 52px) clamp(8px, 2vw, 24px) clamp(8px, 2vmin, 20px);
+                align-items: center;
+                justify-content: space-evenly;
+                border-radius: var(--radius-lg);
+                background: var(--bg-glass);
+                border: 1.5px solid var(--border-glass);
+                box-shadow: var(--shadow-md);
+            }
+            #game-screen .game-monster { padding: clamp(4px, 1vmin, 10px); }
+            #game-screen .monster.big { width: clamp(64px, 25vh, 170px); height: auto; }
+            #game-screen .game-plate {
+                width: clamp(50px, 16vh, 110px);
+                height: clamp(50px, 16vh, 110px);
+                margin-top: calc(-1 * clamp(10px, 3vh, 20px));
+            }
+            #game-screen .monster-name { margin-top: 6px; font-size: clamp(0.7rem, 2vh, 1rem); }
+            #game-screen .food-count { font-size: clamp(0.66rem, 1.8vh, 0.95rem); }
+            #game-screen .fantasy-message { font-size: clamp(0.8rem, 2.4vh, 1.1rem); top: clamp(4px, 1vh, 10px); }
+
+            #game-screen .food-menu {
+                grid-area: food;
+                max-width: none;
+                width: auto;
+                margin: 0;
+                min-height: 0;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                border-radius: var(--radius-lg);
+                border-bottom: 1.5px solid var(--border-glass);
+                padding: clamp(8px, 1.6vmin, 14px);
+            }
+            #game-screen .menu-title { font-size: clamp(0.72rem, 2vh, 0.95rem); margin-bottom: 6px; }
+            #game-screen .food-source {
+                flex: 1;
+                min-height: 0;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                align-content: center;
+                gap: clamp(5px, 1vmin, 10px);
+                padding: clamp(6px, 1.2vmin, 10px);
+            }
+            #game-screen .food-source .food-item-draggable:last-child:nth-child(odd) { grid-column: 1 / -1; }
+            #game-screen .food-item-draggable {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 8px;
+                padding: clamp(4px, 1vmin, 8px) clamp(8px, 1.4vw, 12px);
+            }
+            #game-screen .food-item-draggable svg { width: clamp(26px, 6.4vmin, 46px); height: clamp(26px, 6.4vmin, 46px); }
+            #game-screen .food-name { margin: 0; font-size: clamp(0.7rem, 1.9vh, 0.92rem); color: var(--dark); }
+            #game-screen .drag-hint { margin-top: 4px; font-size: clamp(0.6rem, 1.5vh, 0.74rem); }
+        }
+
+        @media (max-height: 520px) and (orientation: landscape) {
+            .sh-card { min-height: 190px; gap: 6px; padding: 10px 16px; }
+            .sh-icon { font-size: 3.2rem; }
+            .sh-buy { min-height: 44px; padding: 8px 22px; }
+            .level-select-content { gap: 8px; padding: 12px 18px; }
+            #levels-grid { gap: 10px 14px; }
+            #levels-grid .level-btn .lv-tag { display: none; }
+        }
+    </style>
 </head>
 
 <body>
@@ -1925,7 +2305,8 @@
     <!-- LEVEL SELECT SCREEN -->
     <div id="level-select-screen" class="screen">
         <div class="level-select-content">
-            <h1>🎮 انتخاب مرحله</h1>
+            <div class="lv-head"><span class="lv-kicker">🗺️ مسیر ماجراجویی</span><h1>انتخاب مرحله</h1></div>
+            <div class="lv-progress" id="lv-progress"></div>
             <div class="levels-grid" id="levels-grid"></div>
             <button id="back-from-levels" class="back-btn"><span>🏠 بازگشت به خانه</span></button>
         </div>
@@ -2268,9 +2649,11 @@
             }
 
             renderShop(category) {
-                if (category) this.activeShopCategory = category;
+                if (category) {
+                    if (category !== this.activeShopCategory) this.shopIndex = 0;
+                    this.activeShopCategory = category;
+                }
                 const activeCategory = this.activeShopCategory || 'themes';
-
                 const container = this.elements.shopContainer;
                 if (!container) return;
 
@@ -2279,76 +2662,70 @@
                     medals: '🏅 مدال‌ها',
                     powers: '⚡ قدرت‌ها'
                 };
-
-                // Initialize carousel state per category
-                if (!this.shopCarouselIndex) this.shopCarouselIndex = {};
-                if (!(activeCategory in this.shopCarouselIndex)) {
-                    this.shopCarouselIndex[activeCategory] = 0;
-                }
-                let idx = this.shopCarouselIndex[activeCategory];
                 const items = this.shopData[activeCategory];
+                const total = items.length;
+                if (typeof this.shopIndex !== 'number' || this.shopIndex < 0 || this.shopIndex >= total) this.shopIndex = 0;
+                const idx = this.shopIndex;
+                const item = items[idx];
                 const coins = this.loadCoins();
-
-                // Build vertical category sidebar + carousel layout (RTL: sidebar on right)
-                let html = '<div class="shop-carousel-layout">';
-                html += '<div class="shop-categories-col">';
-                for (const [cat, name] of Object.entries(categoryNames)) {
-                    const parts = name.split(' ');
-                    const iconPart = parts[0];
-                    const textPart = parts.slice(1).join(' ');
-                    html += `<button class="shop-cat-tab ${cat === activeCategory ? 'active' : ''}" data-category="${cat}"><span class="shop-cat-icon">${iconPart}</span><span class="shop-cat-text">${textPart}</span></button>`;
-                }
-                html += '</div>';
-
-                // Carousel area with nav arrows
-                html += '<div class="shop-carousel-area">';
-                html += '<button class="shop-nav-arrow shop-nav-prev" data-dir="prev" ' + (idx <= 0 ? 'disabled' : '') + '>‹</button>';
-                html += '<div class="shop-carousel-stage">';
-                const item = items[idx] || items[0];
                 const owned = this.isItemOwned(activeCategory, item.id);
                 const canBuy = !owned && coins >= item.price;
-                html += `<div class="shop-single-card">`;
-                html += `<div class="shop-card-preview"><span class="shop-card-icon">${item.icon}</span></div>`;
-                html += `<div class="shop-card-name">${item.name}</div>`;
-                if (owned) {
-                    html += `<div class="shop-card-badge owned">✅ فعال</div>`;
-                } else {
-                    html += `<div class="shop-card-price"><img src="./icons/coin.png" class="shop-coin-icon" onerror="this.style.display='none'"> ${item.price} سکه</div>`;
-                    html += `<button class="shop-card-buy-btn" data-category="${activeCategory}" data-item="${item.id}" ${!canBuy ? 'disabled' : ''}>${canBuy ? 'خرید' : 'سکه کافی نیست'}</button>`;
+
+                let html = '<div class="shop-tabs">';
+                for (const [cat, name] of Object.entries(categoryNames)) {
+                    html += `<button class="shop-tab ${cat === activeCategory ? 'active' : ''}" data-category="${cat}">${name}</button>`;
                 }
-                html += `</div>`;
-                html += `<div class="shop-carousel-pos">${idx + 1}/${items.length}</div>`;
-                html += '</div>';
-                html += '<button class="shop-nav-arrow shop-nav-next" data-dir="next" ' + (idx >= items.length - 1 ? 'disabled' : '') + '>›</button>';
                 html += '</div>';
 
-                html += '</div>';
+                html += `
+                <div class="sh-stage" id="sh-stage">
+                    <button class="sh-arrow sh-prev" data-dir="-1" aria-label="قبلی">›</button>
+                    <div class="sh-card ${owned ? 'is-owned' : ''}">
+                        <div class="sh-name">${item.name}</div>
+                        <div class="sh-icon">${item.icon}</div>
+                        ${owned
+                            ? '<div class="sh-badge">✅ دارم</div>'
+                            : `<div class="sh-price"><img src="./icons/coin.png" class="shop-coin-icon" onerror="this.style.display='none'"> ${item.price}</div>`}
+                        ${owned
+                            ? ''
+                            : `<button class="sh-buy" data-category="${activeCategory}" data-item="${item.id}" ${canBuy ? '' : 'disabled'}>${canBuy ? 'خرید' : 'سکه کافی نیست'}</button>`}
+                    </div>
+                    <button class="sh-arrow sh-next" data-dir="1" aria-label="بعدی">‹</button>
+                </div>
+                <div class="sh-counter">${idx + 1}/${total}</div>`;
 
                 container.innerHTML = html;
 
-                container.querySelectorAll('.shop-cat-tab').forEach(tab => {
+                container.querySelectorAll('.shop-tab').forEach(tab => {
                     tab.addEventListener('click', () => {
                         this.renderShop(tab.dataset.category);
                     });
                 });
 
-                container.querySelectorAll('.shop-card-buy-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        this.purchaseItem(btn.dataset.category, btn.dataset.item);
+                container.querySelectorAll('.sh-arrow').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const dir = parseInt(btn.dataset.dir);
+                        this.shopIndex = (idx + dir + total) % total;
+                        this.renderShop();
                     });
                 });
 
-                container.querySelectorAll('.shop-nav-arrow').forEach(btn => {
+                const stage = container.querySelector('#sh-stage');
+                let touchX = null;
+                stage.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+                stage.addEventListener('touchend', (e) => {
+                    if (touchX === null) return;
+                    const dx = e.changedTouches[0].clientX - touchX;
+                    touchX = null;
+                    if (Math.abs(dx) < 40) return;
+                    this.shopIndex = (idx + (dx < 0 ? 1 : -1) + total) % total;
+                    this.renderShop();
+                });
+
+                container.querySelectorAll('.sh-buy').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        const dir = btn.dataset.dir;
-                        if (dir === 'prev' && idx > 0) {
-                            this.shopCarouselIndex[activeCategory] = idx - 1;
-                        } else if (dir === 'next' && idx < items.length - 1) {
-                            this.shopCarouselIndex[activeCategory] = idx + 1;
-                        }
-                        this.renderShop();
+                        this.purchaseItem(btn.dataset.category, btn.dataset.item);
                     });
                 });
             }
@@ -2487,15 +2864,24 @@
                 if (!container) return;
 
                 const maxUnlocked = parseInt(localStorage.getItem('maxUnlockedLevel') || '1');
+                const done = Math.max(0, Math.min(10, maxUnlocked - 1));
+                const prog = document.getElementById('lv-progress');
+                if (prog) {
+                    prog.innerHTML = `<div class="lv-progress-bar"><span style="width:${done * 10}%"></span></div>
+                        <span class="lv-progress-txt">${done} از ۱۰ مرحله کامل شده</span>`;
+                }
 
                 let html = '';
                 for (let i = 1; i <= 10; i++) {
                     const locked = i > maxUnlocked;
                     const completed = i < maxUnlocked;
+                    const current = i === maxUnlocked;
+                    const tag = locked ? 'قفل' : completed ? 'کامل شد' : 'بازی کن';
                     html += `
-                        <button class="level-btn ${locked ? 'locked' : ''} ${completed ? 'completed' : ''}"
-                                data-level="${i}" ${locked ? 'disabled' : ''}>
-                            ${locked ? '🔒' : i}
+                        <button class="level-btn ${locked ? 'locked' : ''} ${completed ? 'completed' : ''} ${current ? 'current' : ''}"
+                                data-level="${i}" ${locked ? 'disabled' : ''} aria-label="مرحله ${i}">
+                            <span class="lv-num">${locked ? '🔒' : i}</span>
+                            <span class="lv-tag">${tag}</span>
                             ${completed ? '<span class="level-star">⭐</span>' : ''}
                         </button>`;
                 }
@@ -2582,6 +2968,40 @@
                 });
 
                 this.setupTouchDrag();
+                this.setupTapFeed();
+            }
+
+            clearTapFood() {
+                this.state.tapFood = null;
+                const gs = document.getElementById('game-screen');
+                if (gs) gs.classList.remove('has-tap');
+                document.querySelectorAll('.food-item-draggable.tap-on').forEach(el => el.classList.remove('tap-on'));
+            }
+
+            setupTapFeed() {
+                document.querySelectorAll('.food-source .food-item-draggable').forEach(item => {
+                    item.addEventListener('click', () => {
+                        if (this.state.gamePhase !== 'feed') return;
+                        const turnOn = !item.classList.contains('tap-on');
+                        this.clearTapFood();
+                        if (turnOn) {
+                            item.classList.add('tap-on');
+                            this.state.tapFood = parseInt(item.dataset.food);
+                            document.getElementById('game-screen').classList.add('has-tap');
+                            const hungryName = this.state.hungryMonster === 0 ? 'خال خالی' : 'غول مالو';
+                            this.elements.fantasyMsg.innerHTML = `<p>👆 حالا روی بشقاب ${hungryName} بزن</p>`;
+                        }
+                    });
+                });
+                document.querySelectorAll('.drop-zone').forEach(zone => {
+                    zone.addEventListener('click', (e) => {
+                        if (this.state.gamePhase !== 'feed' || !this.state.tapFood) return;
+                        e.stopPropagation();
+                        const idx = parseInt(zone.dataset.index);
+                        this.clearTapFood();
+                        this.handleFoodDrop(idx, 1);
+                    });
+                });
             }
 
             setupTouchDrag() {
@@ -2844,15 +3264,21 @@
                 this.renderFood(this.elements.gameFood2, this.state.plates[1]);
                 this.updateFoodCounts();
 
+                this.clearTapFood();
+                document.getElementById('game-screen').dataset.phase = this.state.gamePhase;
+                const menuTitle = this.elements.foodMenu.querySelector('.menu-title');
+                if (menuTitle) {
+                    menuTitle.textContent = this.state.gamePhase === 'guess'
+                        ? '🔒 اول حدس بزن کدوم گرسنه‌تره'
+                        : '🍽️ غذا رو بگیر و بکش روی بشقاب (یا بزن و بعد بشقاب)';
+                }
                 if (this.state.gamePhase === 'guess') {
                     this.elements.fantasyMsg.innerHTML = '<p>🧙‍♂️ کدوم یکی گرسنه‌تره؟</p>';
-                    this.elements.foodMenu.style.display = 'none';
                 } else {
                     const hungryName = this.state.hungryMonster === 0 ? 'خال خالی' : 'غول مالو';
                     this.elements.fantasyMsg.innerHTML = `
                         <p>🍽️ به ${hungryName} غذا بده!</p>
                         <p style="font-size: 0.7rem; margin-top: 5px;">💡 بشقاب‌ها رو برابر کن!</p>`;
-                    this.elements.foodMenu.style.display = 'block';
                 }
 
                 this.elements.monster1.classList.remove('selected', 'correct', 'wrong');
