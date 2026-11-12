@@ -1239,6 +1239,322 @@
         }
 
     </style>
+
+    <style id="landscape-enhanced">
+        /* ════════════════════════════════════════════════════════════
+           چیدمان لنداسکیپ حرفه‌ای + بهبود فضای بازی
+           Enhanced Landscape Layout + Wider Play Space
+           ════════════════════════════════════════════════════════════ */
+
+        @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+
+            /* ── تنظیمات کلی: کل عرض ── */
+            .screen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: none;
+                width: 100% !important;
+                max-width: none !important;
+                height: 100% !important;
+                padding: clamp(8px, 2vmin, 20px) clamp(20px, 4vmin, 50px) !important;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* ── منوی خوش‌آمدگویی: چیدمان دو ستونی ── */
+            #welcomeScreen .welcome-content {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto auto;
+                grid-template-areas:
+                    "title character"
+                    "subtitle character"
+                    "buttons character";
+                align-items: center;
+                justify-items: center;
+                gap: clamp(10px, 2vmin, 24px) clamp(30px, 5vmin, 60px);
+                max-width: 1000px;
+                width: 100%;
+                margin-top: 0 !important;
+            }
+            #welcomeScreen .welcome-title {
+                grid-area: title;
+                font-size: clamp(2rem, 5vmin, 3.5rem) !important;
+                margin: 0 !important;
+                justify-self: end;
+            }
+            #welcomeScreen .welcome-subtitle {
+                grid-area: subtitle;
+                font-size: clamp(1rem, 2.2vmin, 1.4rem) !important;
+                margin: 0 !important;
+                justify-self: end;
+            }
+            #welcomeScreen .pixel-container {
+                grid-area: character;
+                justify-self: start;
+                margin: 0 !important;
+            }
+            #welcomeScreen .hunter-character {
+                width: clamp(140px, 22vmin, 200px) !important;
+                height: clamp(140px, 22vmin, 200px) !important;
+            }
+            #welcomeScreen .speech-bubble {
+                font-size: clamp(0.85rem, 1.8vmin, 1.05rem) !important;
+                padding: 8px 18px !important;
+                top: -50px !important;
+            }
+            #welcomeScreen .menu-buttons {
+                grid-area: buttons;
+                justify-self: stretch;
+                width: 100% !important;
+                max-width: 480px !important;
+                gap: 12px !important;
+            }
+            #welcomeScreen .primary-btn {
+                font-size: clamp(1.2rem, 2.6vmin, 1.6rem) !important;
+                padding: 14px 20px !important;
+                min-height: 56px !important;
+            }
+            #welcomeScreen .small-buttons {
+                gap: 14px !important;
+            }
+            #welcomeScreen .secondary-btn,
+            #welcomeScreen .tertiary-btn {
+                font-size: clamp(0.95rem, 2vmin, 1.15rem) !important;
+                padding: 12px 16px !important;
+                min-height: 50px !important;
+            }
+            #welcomeScreen .top-bar {
+                padding: 0 clamp(20px, 4vmin, 50px) !important;
+            }
+
+            /* ── صفحه راهنما: بهتر و گسترده‌تر ── */
+            #tutorialScreen .tutorial-content {
+                display: grid !important;
+                grid-template-columns: auto 1fr;
+                grid-template-rows: auto auto auto auto;
+                grid-template-areas:
+                    "title title"
+                    "char text"
+                    "progress progress"
+                    "buttons buttons";
+                max-width: 700px !important;
+                max-height: 90vh;
+                padding: clamp(20px, 3vmin, 35px) clamp(25px, 3.5vmin, 40px) !important;
+                gap: clamp(10px, 2vmin, 18px) clamp(20px, 3vmin, 30px);
+                align-items: center;
+            }
+            #tutorialScreen h2 { grid-area: title; margin: 0 !important; font-size: clamp(1.4rem, 3vmin, 2rem) !important; }
+            #tutorialScreen .tutorial-character { grid-area: char; margin: 0 !important; width: clamp(110px, 16vmin, 150px) !important; height: clamp(110px, 16vmin, 150px) !important; }
+            #tutorialScreen .tutorial-text-container { grid-area: text; margin: 0 !important; min-height: 100px; }
+            #tutorialScreen .tutorial-text { font-size: clamp(1rem, 2.2vmin, 1.2rem) !important; line-height: 1.8 !important; }
+            #tutorialScreen .tutorial-progress { grid-area: progress; margin: 0 !important; }
+            #tutorialScreen .tutorial-buttons { grid-area: buttons; margin-top: 4px !important; }
+
+            /* ── فروشگاه: چیدمان دو ستونی ── */
+            #shopScreen .shop-content {
+                max-width: 700px !important;
+                max-height: 88vh;
+                padding: clamp(20px, 3vmin, 35px) !important;
+            }
+            #shopScreen .shop-items {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(10px, 1.6vmin, 16px) !important;
+            }
+            #shopScreen .shop-item {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 8px !important;
+                padding: 14px !important;
+            }
+            #shopScreen .shop-item-info { width: 100%; }
+            #shopScreen .shop-item-icon { font-size: 2.5rem !important; }
+            #shopScreen .shop-item-name { font-size: clamp(0.85rem, 1.7vmin, 1rem) !important; }
+            #shopScreen .shop-item-desc { font-size: 0.75rem !important; }
+
+            /* ── انتخاب مرحله: ۵ کارت در یک ردیف ── */
+            #levelSelectScreen .level-select-content {
+                max-width: 800px !important;
+                padding: clamp(20px, 3vmin, 35px) !important;
+            }
+            #levelSelectScreen .levels-container {
+                display: grid !important;
+                grid-template-columns: repeat(5, 1fr) !important;
+                gap: clamp(10px, 1.6vmin, 18px) !important;
+                margin-bottom: 18px !important;
+            }
+            #levelSelectScreen .level-item.full-width {
+                grid-column: auto !important;
+                text-align: center;
+            }
+            #levelSelectScreen .level-card {
+                padding: clamp(14px, 2vmin, 22px) 8px !important;
+                gap: 8px !important;
+            }
+            #levelSelectScreen .level-icon { font-size: clamp(2rem, 4.5vmin, 3rem) !important; }
+            #levelSelectScreen .level-name { font-size: clamp(0.78rem, 1.6vmin, 0.95rem) !important; }
+
+            /* ════════════════════════════════════════════════════════════
+               صفحه بازی: چیدمان گسترده و حرفه‌ای
+               عدد سمت چپ + گزینه‌ها سمت راست (کنار هم)
+               ════════════════════════════════════════════════════════════ */
+            #gameScreen .game-header {
+                padding: clamp(8px, 1.5vmin, 14px) clamp(16px, 3vmin, 28px) !important;
+                background: rgba(0, 0, 0, 0.6) !important;
+                border-bottom: 2px solid var(--gold) !important;
+            }
+            #gameScreen .game-header .level-indicator,
+            #gameScreen .game-header .timer-container {
+                font-size: clamp(0.85rem, 2vmin, 1.1rem) !important;
+                padding: 6px 16px !important;
+            }
+            #gameScreen .stop-btn {
+                width: clamp(38px, 5vmin, 48px) !important;
+                height: clamp(38px, 5vmin, 48px) !important;
+            }
+            #gameScreen .star {
+                font-size: clamp(1.1rem, 2.4vmin, 1.4rem) !important;
+            }
+
+            #gameScreen .game-content {
+                display: grid !important;
+                grid-template-columns: auto 1fr;
+                grid-template-rows: auto 1fr;
+                grid-template-areas:
+                    "hint hint"
+                    "target items";
+                align-items: center;
+                justify-items: center;
+                width: 100% !important;
+                max-width: 1000px !important;
+                height: 100%;
+                padding: clamp(10px, 2vmin, 20px) !important;
+                gap: clamp(12px, 2.2vmin, 24px) clamp(30px, 5vmin, 60px) !important;
+            }
+            #gameScreen .game-hint {
+                grid-area: hint;
+                font-size: clamp(0.85rem, 1.9vmin, 1.05rem) !important;
+                padding: 8px 22px !important;
+                max-width: none !important;
+                width: auto !important;
+            }
+            #gameScreen .question-container {
+                grid-area: target;
+                justify-self: end;
+                margin-right: clamp(20px, 3vmin, 40px);
+            }
+            #gameScreen .target-number {
+                width: clamp(110px, 16vmin, 160px) !important;
+                height: clamp(110px, 16vmin, 160px) !important;
+                border-width: 5px !important;
+            }
+            #gameScreen .number-sticker-img {
+                width: clamp(75px, 11vmin, 110px) !important;
+                height: clamp(75px, 11vmin, 110px) !important;
+            }
+            #gameScreen .question-label {
+                font-size: clamp(0.85rem, 1.9vmin, 1.05rem) !important;
+                padding: 6px 18px !important;
+                margin-top: 6px !important;
+            }
+            #gameScreen .items-container {
+                grid-area: items;
+                justify-self: start;
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: clamp(10px, 1.8vmin, 18px) !important;
+                padding: 10px 0 !important;
+                max-width: clamp(380px, 50vmin, 480px) !important;
+                width: 100%;
+            }
+            #gameScreen .game-item {
+                padding: clamp(12px, 1.6vmin, 18px) 10px !important;
+                min-height: clamp(75px, 12vmin, 100px) !important;
+                border-width: 3px !important;
+                border-radius: 18px !important;
+            }
+            #gameScreen .item-display {
+                font-size: clamp(1.6rem, 3.4vmin, 2.2rem) !important;
+                gap: 3px !important;
+            }
+            #gameScreen .item-emoji-single {
+                font-size: clamp(1.6rem, 3.4vmin, 2.2rem) !important;
+            }
+            #gameScreen .item-name {
+                font-size: clamp(0.78rem, 1.6vmin, 0.95rem) !important;
+            }
+
+            /* ── صفحات پایان/توقف: کارت بزرگ‌تر ── */
+            .pause-content,
+            .game-over-content,
+            .victory-content,
+            .level-result-content {
+                max-width: 480px !important;
+                padding: clamp(25px, 4vmin, 40px) clamp(30px, 4vmin, 45px) !important;
+            }
+            .pause-icon,
+            .game-over-icon,
+            .trophy {
+                font-size: clamp(3rem, 6vmin, 4.5rem) !important;
+            }
+            .game-over-content h2,
+            .victory-content h2,
+            .level-result-content h2,
+            .pause-content h2 {
+                font-size: clamp(1.4rem, 3vmin, 2rem) !important;
+            }
+            .final-star,
+            .victory-star,
+            .result-star {
+                font-size: clamp(2rem, 4.5vmin, 3rem) !important;
+            }
+            .coins-earned {
+                font-size: clamp(1rem, 2.2vmin, 1.2rem) !important;
+            }
+            .game-over-btn,
+            .victory-btn,
+            .result-btn,
+            .pause-btn {
+                font-size: clamp(0.95rem, 2vmin, 1.15rem) !important;
+                padding: 14px 20px !important;
+                min-height: 52px !important;
+            }
+
+            /* ── کوچک‌ترین لنداسکیپ‌ها ── */
+            @media (max-height: 500px) {
+                #welcomeScreen .hunter-character {
+                    width: clamp(110px, 30vmin, 160px) !important;
+                    height: clamp(110px, 30vmin, 160px) !important;
+                }
+                #gameScreen .target-number {
+                    width: clamp(90px, 22vmin, 130px) !important;
+                    height: clamp(90px, 22vmin, 130px) !important;
+                }
+                #gameScreen .number-sticker-img {
+                    width: clamp(60px, 15vmin, 90px) !important;
+                    height: clamp(60px, 15vmin, 90px) !important;
+                }
+                #gameScreen .game-item {
+                    min-height: clamp(60px, 18vmin, 85px) !important;
+                }
+                .pause-content,
+                .game-over-content,
+                .victory-content,
+                .level-result-content {
+                    padding: 18px 25px !important;
+                }
+            }
+        }
+
+        /* فونت fallback */
+        @font-face {
+            font-family: 'Shoor Fallback';
+            src: local('Tahoma'), local('Arial');
+            font-display: swap;
+        }
+    </style>
 </head>
 
 <body>
@@ -1916,6 +2232,23 @@
             });
         }
 
+        // ==================== پس‌زمینه‌های تم ====================
+        const themeBackgrounds = {
+            1: './icons/bg_nature.png',
+            2: './icons/bg_space.png',
+            3: './icons/bg_ocean.png',
+            4: './icons/bg_farm.png',
+            5: './icons/bg_forest.png'
+        };
+
+        function applyThemeBackground(level) {
+            const bg = document.querySelector('#gameBackground .bg-sky');
+            const imgUrl = themeBackgrounds[level] || themeBackgrounds[1];
+            if (bg) {
+                bg.style.setProperty('background', `url('${imgUrl}') center/cover no-repeat`, 'important');
+            }
+        }
+
         // ==================== بازی ====================
         function startGame(level) {
             gameState.currentLevel = level;
@@ -1928,6 +2261,9 @@
             document.getElementById('currentLevelNum').textContent = level;
             document.getElementById('timerDisplay').textContent = formatTime(gameState.timeLeft);
             document.querySelectorAll('.star').forEach(s => s.classList.remove('earned'));
+
+            // Apply theme background based on level
+            applyThemeBackground(level);
 
             showScreen('game');
             generateQuestion();

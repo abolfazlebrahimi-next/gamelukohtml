@@ -786,6 +786,412 @@
       }
     }
 </style>
+
+<style id="landscape-enhanced">
+    /* ════════════════════════════════════════════════════════════
+       بهبود یافته: چیدمان لنداسکیپ حرفه‌ای + فضای بازی گسترده
+       Enhanced Landscape Layout + Wider Play Space
+       حیوان‌ها سمت چپ (بزرگ‌تر) + سینی غذا سمت راست (عمودی)
+       ════════════════════════════════════════════════════════════ */
+
+    @media (orientation: landscape), (min-aspect-ratio: 1/1) {
+
+      /* ── تنظیمات کلی ── */
+      .app-wrapper {
+        max-width: none !important;
+        width: 100% !important;
+        height: var(--app-h, 100dvh) !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+      }
+
+      /* ── منو: چیدمان بهتر با فضای گسترده ── */
+      #screen-menu.active {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        padding: clamp(8px, 2vmin, 20px) clamp(20px, 4vmin, 50px) !important;
+      }
+      #screen-menu .menu-container {
+        display: grid !important;
+        grid-template-columns: auto minmax(0, 1.4fr);
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas: "coins coins" "char banner" "char cta" "char quick";
+        align-content: center;
+        align-items: center;
+        justify-items: stretch;
+        width: 100% !important;
+        max-width: 1100px !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        gap: clamp(6px, 1.6vmin, 16px) clamp(16px, 3vmin, 40px);
+      }
+      #screen-menu .menu-top-info {
+        grid-area: coins;
+        justify-self: stretch !important;
+        margin: 0 !important;
+        width: 100%;
+        padding: 0 !important;
+        justify-content: flex-start !important;
+      }
+      #screen-menu .banner-title {
+        grid-area: banner;
+        width: 100%;
+        max-width: none !important;
+        justify-self: stretch !important;
+      }
+      #screen-menu .banner-main { padding: 6px 20px !important; }
+      #screen-menu .banner-title .title {
+        font-size: clamp(1.3rem, 3.8vmin, 2.2rem) !important;
+      }
+      #screen-menu .banner-title .subtitle {
+        font-size: clamp(0.7rem, 1.7vmin, 0.9rem) !important;
+      }
+      #screen-menu .portrait-frame {
+        grid-area: char;
+        grid-row: 2 / 5;
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 8px !important;
+        justify-self: center !important;
+        width: clamp(110px, 22vmin, 180px) !important;
+      }
+      #screen-menu .portrait-ring {
+        width: clamp(100px, 20vmin, 160px) !important;
+        height: clamp(100px, 20vmin, 160px) !important;
+      }
+      #screen-menu .pixel-img {
+        width: clamp(78px, 16vmin, 130px) !important;
+        height: clamp(78px, 16vmin, 130px) !important;
+      }
+      #screen-menu .pixel-bubble {
+        font-size: clamp(0.65rem, 1.5vmin, 0.85rem) !important;
+        padding: 6px 12px !important;
+        max-width: clamp(140px, 24vmin, 220px) !important;
+        text-align: center;
+      }
+      #screen-menu .btn-cta {
+        grid-area: cta;
+        width: 100%;
+        max-width: none !important;
+        min-height: clamp(48px, 9vmin, 62px) !important;
+        font-size: clamp(1rem, 2.5vmin, 1.25rem) !important;
+        padding: 10px 18px !important;
+        justify-self: stretch !important;
+      }
+      #screen-menu .quick-actions {
+        grid-area: quick;
+        width: 100%;
+        max-width: none !important;
+        margin: 0 !important;
+        gap: clamp(8px, 1.8vmin, 16px) !important;
+        justify-self: stretch !important;
+      }
+      #screen-menu .quick-actions .btn-secondary {
+        min-height: clamp(44px, 8.5vmin, 56px) !important;
+        font-size: clamp(0.85rem, 2vmin, 1rem) !important;
+        padding: 8px 14px !important;
+      }
+
+      /* ════════════════════════════════════════════════════════════
+         صفحه بازی: چیدمان نهایی و بهبود یافته
+         حیوان‌ها سمت چپ (بزرگ‌تر) + سینی غذا سمت راست (عمودی)
+         ════════════════════════════════════════════════════════════ */
+      #screen-game .game-wrapper {
+        display: grid !important;
+        grid-template-columns: 1fr clamp(140px, 22%, 200px);
+        grid-template-rows: auto auto 1fr;
+        grid-template-areas:
+          "header header"
+          "instruction instruction"
+          "animals foods";
+        padding: clamp(6px, 1.2vmin, 12px) !important;
+        gap: clamp(4px, 1vmin, 10px) !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      #screen-game .game-header {
+        grid-area: header;
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: 2px solid #FFFFFF !important;
+        border-radius: 16px !important;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) !important;
+        padding: 8px 16px !important;
+      }
+      #screen-game .game-header * { color: #1B3F70 !important; }
+      #screen-game .level-badge {
+        background: linear-gradient(180deg, #FFC24D, #FF9A1F) !important;
+        color: #FFFFFF !important;
+        font-size: clamp(0.7rem, 1.7vmin, 0.9rem) !important;
+        padding: 4px 12px !important;
+      }
+      #screen-game .timer-display,
+      #screen-game .errors-display {
+        font-size: clamp(0.85rem, 2vmin, 1.05rem) !important;
+      }
+
+      #screen-game .instruction-banner {
+        grid-area: instruction;
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: 2px solid #FFFFFF !important;
+        border-radius: 14px !important;
+        color: #10203A !important;
+        font-size: clamp(0.78rem, 1.9vmin, 1rem) !important;
+        padding: 6px 16px !important;
+        margin: 0 !important;
+      }
+      #screen-game .instruction-banner .highlight {
+        color: #C96A00 !important;
+        text-shadow: none !important;
+      }
+
+      /* Animals zone - left side, bigger cards */
+      #screen-game .animals-zone {
+        grid-area: animals;
+        display: flex !important;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: clamp(8px, 1.5vmin, 16px) !important;
+        gap: clamp(10px, 2vmin, 22px) !important;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(8px);
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        min-height: 0;
+        align-content: center;
+      }
+      #screen-game .animal-slot {
+        flex: 1 1 clamp(120px, 19%, 180px) !important;
+        max-width: clamp(160px, 24vmin, 200px) !important;
+        min-width: 0 !important;
+        height: auto !important;
+      }
+      #screen-game .animal-card {
+        padding: clamp(10px, 1.6vmin, 18px) 8px !important;
+        gap: 6px !important;
+        border-radius: 18px !important;
+        border-width: 3px !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: none !important;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25) !important;
+      }
+      #screen-game .animal-img {
+        width: clamp(48px, 11vmin, 82px) !important;
+        height: clamp(48px, 11vmin, 82px) !important;
+      }
+      #screen-game .animal-name {
+        font-size: clamp(0.72rem, 1.7vmin, 0.92rem) !important;
+        color: #1B3F70 !important;
+        font-weight: 900 !important;
+      }
+      #screen-game .food-plate { min-height: 16px !important; }
+      #screen-game .food-given { width: 16px !important; height: 16px !important; }
+      #screen-game .hunger-bar-wrap {
+        height: 6px !important;
+        margin-top: 3px !important;
+        background: rgba(0,0,0,0.1) !important;
+      }
+      #screen-game .wants-food,
+      #screen-game .fed-check {
+        width: 24px !important;
+        height: 24px !important;
+        top: -6px !important;
+        right: -6px !important;
+        border-width: 3px !important;
+      }
+      #screen-game .wants-food .svg-icon,
+      #screen-game .fed-check .svg-icon { width: 14px !important; height: 14px !important; }
+      #screen-game .speech-bubble {
+        font-size: clamp(0.62rem, 1.5vmin, 0.8rem) !important;
+        top: -38px !important;
+        padding: 5px 12px !important;
+      }
+
+      /* Foods zone - RIGHT side panel */
+      #screen-game .foods-zone {
+        grid-area: foods;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        padding: 0 !important;
+        flex-shrink: 0 !important;
+      }
+      #screen-game .foods-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: clamp(6px, 1.2vmin, 12px) !important;
+        padding: clamp(10px, 1.6vmin, 16px) !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: 2px solid #FFFFFF !important;
+        border-radius: 18px !important;
+        backdrop-filter: none !important;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25) !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        justify-content: center !important;
+        justify-items: center;
+      }
+      #screen-game .food-item { gap: 4px !important; }
+      #screen-game .food-emoji-wrap {
+        width: clamp(42px, 7vmin, 64px) !important;
+        height: clamp(42px, 7vmin, 64px) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important;
+      }
+      #screen-game .food-name {
+        font-size: clamp(0.62rem, 1.4vmin, 0.78rem) !important;
+        color: #1B3F70 !important;
+        font-weight: 800 !important;
+      }
+
+      #screen-game #intro-overlay { padding: clamp(8px, 1.8vmin, 16px) !important; }
+      #screen-game .intro-bubble {
+        font-size: clamp(0.82rem, 2vmin, 1rem) !important;
+        padding: 10px 18px !important;
+        max-width: 400px !important;
+      }
+      #screen-game .intro-pixel-img {
+        max-height: clamp(64px, 14vmin, 110px) !important;
+        width: auto !important;
+      }
+
+      /* ════════════════════════════════════════════════════════════
+         صفحه پایان: چیدمان گسترده
+         ════════════════════════════════════════════════════════════ */
+      #screen-complete .complete-card {
+        display: grid !important;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "img title"
+          "img stars"
+          "stats stats"
+          "coins coins"
+          "next menu";
+        align-items: center;
+        justify-items: center;
+        max-width: min(94vw, 760px) !important;
+        padding: clamp(14px, 2.4vmin, 26px) clamp(16px, 2.6vmin, 28px) !important;
+        gap: clamp(6px, 1.2vmin, 12px) clamp(16px, 3vmin, 28px) !important;
+      }
+      #screen-complete .end-game-img {
+        grid-area: img;
+        max-height: clamp(72px, 16vmin, 120px) !important;
+        width: auto !important;
+        justify-self: center;
+      }
+      #screen-complete #complete-title {
+        grid-area: title;
+        font-size: clamp(1.1rem, 3.2vmin, 1.8rem) !important;
+        justify-self: start;
+        text-align: right;
+      }
+      #screen-complete #complete-stars {
+        grid-area: stars;
+        font-size: clamp(1.2rem, 3.6vmin, 2rem) !important;
+        justify-self: start;
+      }
+      #screen-complete #complete-stars svg {
+        width: clamp(28px, 5vmin, 44px) !important;
+        height: clamp(28px, 5vmin, 44px) !important;
+      }
+      #screen-complete .complete-stats {
+        grid-area: stats;
+        display: flex !important;
+        gap: clamp(10px, 2.5vmin, 28px) !important;
+        width: 100%;
+        justify-content: center;
+      }
+      #screen-complete .complete-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        flex: 1;
+        max-width: 160px;
+      }
+      #screen-complete .complete-stat .val {
+        font-size: clamp(1.1rem, 2.6vmin, 1.5rem) !important;
+      }
+      #screen-complete .complete-stat .lbl {
+        font-size: clamp(0.65rem, 1.5vmin, 0.82rem) !important;
+      }
+      #screen-complete #coins-earned-text {
+        grid-area: coins;
+        font-size: clamp(0.85rem, 2vmin, 1.05rem) !important;
+        padding: 10px 24px !important;
+      }
+      #screen-complete #btn-next { grid-area: next; width: 100%; }
+      #screen-complete .btn-menu-back { grid-area: menu; width: 100%; }
+      #screen-complete .btn-complete {
+        min-height: clamp(44px, 8.5vmin, 56px) !important;
+        font-size: clamp(0.85rem, 2vmin, 1rem) !important;
+        padding: 8px 14px !important;
+      }
+
+      /* فروشگاه: کاروسل بهتر */
+      #screen-shop .game-wrapper {
+        display: flex !important;
+        flex-direction: column;
+        padding: clamp(6px, 1.2vmin, 12px) !important;
+        gap: clamp(6px, 1.2vmin, 12px) !important;
+      }
+      #screen-shop .game-header {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border: 2px solid #FFFFFF !important;
+        border-radius: 16px !important;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22) !important;
+        padding: 8px 16px !important;
+      }
+      #screen-shop .game-header * { color: #1B3F70 !important; }
+      #screen-shop .level-badge {
+        font-size: clamp(0.72rem, 1.7vmin, 0.9rem) !important;
+        padding: 4px 12px !important;
+        background: linear-gradient(180deg, #FFC24D, #FF9A1F) !important;
+        color: #FFFFFF !important;
+      }
+      #screen-shop #shop-items-grid {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+      #screen-shop .shop-item-card {
+        padding: clamp(10px, 1.6vmin, 18px) !important;
+        max-height: 100% !important;
+        height: auto !important;
+        max-width: clamp(280px, 38vmin, 420px) !important;
+        margin: 0 auto !important;
+      }
+      #screen-shop .shop-item-preview {
+        height: clamp(80px, 16vmin, 140px) !important;
+        border-radius: 14px !important;
+      }
+      #screen-shop .shop-item-card > div:nth-child(2) {
+        font-size: clamp(0.78rem, 1.8vmin, 1rem) !important;
+      }
+
+      .loko-shop-stage {
+        max-width: min(100%, clamp(380px, 50vmin, 680px)) !important;
+        margin: 0 auto !important;
+      }
+      .loko-shop-nav {
+        width: clamp(40px, 5.5vmin, 56px) !important;
+        height: clamp(40px, 5.5vmin, 56px) !important;
+        font-size: clamp(1.2rem, 2.8vmin, 1.8rem) !important;
+      }
+
+      #countdown-overlay .countdown-num {
+        font-size: clamp(80px, 22vmin, 180px) !important;
+      }
+    }
+</style>
 </head>
 <body>
 
