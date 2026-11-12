@@ -1868,6 +1868,15 @@
             .result-modal .result-content .btn { min-height: 44px; padding: 6px 12px; margin: 0; }
             .result-modal .result-content > div[style*="flex-direction"] { gap: 6px !important; }
         }
+
+        /* ===== g6 v10: کارت محصول فروشگاه در ارتفاع کم کامل دیده شود ===== */
+        @media (orientation: landscape) and (max-height: 560px) {
+            #shop-screen .theme-shop-item { padding: 8px 10px; gap: 6px; max-height: 100%; }
+            #shop-screen .theme-preview-card { height: clamp(44px, 13vh, 96px); }
+            #shop-screen .theme-shop-name { font-size: 0.95rem; }
+            #shop-screen .theme-shop-price { font-size: 0.85rem; }
+            #shop-screen .theme-shop-btn { min-height: 44px; padding: 6px 12px; }
+        }
 </style>
 </head>
 <body class="theme-simple">
