@@ -533,6 +533,22 @@
         @media (orientation: landscape) {
             #level-select-screen .levels-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
         }
+
+        /* ===== g7 v5: صفحهٔ پایان مرحله بدون برش (scroll-safe) ===== */
+        #celebration-screen { justify-content: flex-start; overflow-y: auto; }
+        #celebration-screen .celebration-content { margin: auto; }
+        #celebration-screen .celebration-content .btn { min-height: 48px; }
+
+        /* ===== g7 v6: پایان مرحله در افقی جا می‌شود (فشرده) ===== */
+        @media (orientation: landscape) {
+            #celebration-screen .celebration-content { gap: 6px 22px; padding: 12px 22px; }
+            #celebration-screen .celebration-content > * { margin-top: 0; margin-bottom: 0; }
+            #celebration-screen .rabbit-celebration img { height: clamp(90px, 30vh, 200px); }
+            #celebration-screen .celebration-title { font-size: clamp(1.4rem, 6vh, 2.4rem); }
+            #celebration-screen .celebration-stats { padding: 6px 14px; }
+            #celebration-screen .celebration-stats p { margin: 2px 0; font-size: clamp(12px, 2.4vh, 15px); }
+            #celebration-screen .celebration-content .btn { min-height: 44px; margin: 0; }
+        }
 </style>
 </head>
 <body>

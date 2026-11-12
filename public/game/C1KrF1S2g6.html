@@ -1747,6 +1747,81 @@
             #shop-screen .shop-tab-content.active {{ display: flex; flex-direction: column; }}
             #shop-screen .lk-car {{ height: auto; }}
         }}
+
+        /* ===== g6 v5: صفحهٔ بازی تمام‌صفحه و بدون اسکرول معمولی (بدون سقف ۵۰۰px) ===== */
+        #game-screen { justify-content: flex-start; overflow: hidden; padding: clamp(6px, 1.4vh, 14px) clamp(10px, 2vw, 24px); }
+        #game-screen .game-header { width: 100%; max-width: none; flex: none; }
+        #game-screen .game-area {
+            flex: 1 1 auto;
+            min-height: 0;
+            width: 100%;
+            max-width: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(8px, 2.2vh, 2rem);
+            overflow: visible;
+        }
+        #game-screen .sequence-display {
+            min-height: 0;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(4px, 1.2vh, 12px);
+            padding: 0;
+        }
+        #game-screen .sequence-item { gap: clamp(2px, 0.6vh, 6px); }
+        #game-screen .instrument-icon {
+            font-size: clamp(1.7rem, 8vh, 3.4rem);
+            padding: clamp(4px, 1.4vh, 14px);
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #game-screen .arrow-icon { font-size: clamp(1.1rem, 3.4vh, 2rem); }
+        #game-screen .question-area { width: 100%; min-height: 0; }
+        #game-screen .question-text { font-size: clamp(1rem, 3vh, 1.3rem); margin-bottom: clamp(6px, 1.6vh, 1.5rem); }
+        #game-screen .options-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: clamp(8px, 1.8vh, 16px);
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto;
+            justify-items: stretch;
+        }
+        #game-screen .option-btn {
+            font-size: clamp(1.6rem, 7vh, 3rem);
+            padding: clamp(4px, 1.2vh, 14px);
+            min-height: 52px;
+            width: 100%;
+            min-width: 0;
+        }
+        @media (orientation: landscape) {
+            #game-screen .game-area {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+                grid-template-rows: auto;
+                align-items: center;
+                column-gap: clamp(12px, 3vw, 40px);
+                row-gap: 0;
+            }
+            #game-screen .sequence-display { grid-column: 1; flex-wrap: wrap; }
+            #game-screen .question-area { grid-column: 2; }
+        }
+
+        /* ===== g6 v6: منوهای سه‌دکمه‌ای بدون برش (scroll-safe centring) ===== */
+        .result-modal { overflow-y: auto; padding: clamp(8px, 2vh, 20px); box-sizing: border-box; }
+        .result-modal.show { align-items: flex-start; }
+        .result-modal .result-content { margin: auto; max-height: none; }
+        .result-modal .result-content .btn { min-height: 48px; }
+        @media (orientation: landscape) {
+            .result-modal.show { align-items: center; }
+        }
 </style>
 </head>
 <body class="theme-simple">

@@ -726,6 +726,27 @@
             .modal.center-modal .res-tiles { grid-column: 2; }
             .modal.center-modal .btn { font-size: clamp(0.95rem, 2.8vh, 1.1rem); }
         }
+
+        /* ===== g5 v5: مودال‌های پایان مرحله بدون برش، همه دکمه‌ها دیده شوند ===== */
+        .modal-overlay { overflow-y: auto; }
+        .modal-overlay > .modal.center-modal { margin: auto; }
+        @media (orientation: landscape) {
+            .modal.center-modal { padding: 10px 18px; gap: 6px; }
+            .modal.center-modal h2 { margin: 0; font-size: clamp(1rem, 4.4vh, 1.4rem); }
+            .modal.center-modal .stars-row { gap: 6px; margin: 0; }
+            .modal.center-modal .star { width: clamp(24px, 6vh, 34px); height: clamp(24px, 6vh, 34px); }
+            .modal.center-modal .res-tiles { gap: 6px; }
+            .modal.center-modal .res-tile { padding: 4px 6px; }
+            .modal.center-modal .res-val { font-size: clamp(1rem, 3.6vh, 1.25rem); }
+            .modal.center-modal .btn { min-height: 44px; padding: 6px 12px; }
+            .modal.center-modal .btn + .btn { margin-top: 0; }
+            .modal.center-modal .modal-char { width: clamp(64px, 17vh, 96px); height: clamp(64px, 17vh, 96px); }
+            .modal.center-modal .result-msg { font-size: 0.9rem; line-height: 1.4; }
+        }
+        @media (orientation: portrait) {
+            .modal.center-modal .stars-row { margin: 0; }
+            .modal.center-modal .btn { min-height: 48px; }
+        }
 </style>
 </head>
 <body data-theme="default">
