@@ -578,6 +578,15 @@
             color: #fff !important; border: 2px solid #FFE3A0 !important; box-shadow: 0 6px 0 #C4630A !important;
         }
         #celebration-screen .celebration-content .btn:active { transform: translateY(3px); }
+
+        /* ===== g7 v7: کارت‌های فروشگاه در ارتفاع کم کامل دیده شوند (همه تب‌ها) ===== */
+        @media (orientation: landscape) and (max-height: 560px) {
+            #shop-screen .shop-grid > * { padding: 8px 10px; gap: 4px; }
+            #shop-screen .shop-item-img { height: clamp(36px, 11vh, 70px); }
+            #shop-screen .theme-preview-card, #shop-screen .house-preview { height: clamp(36px, 11vh, 70px); }
+            #shop-screen .shop-item-name { font-size: 0.95rem; }
+            #shop-screen .shop-btn { min-height: 44px; padding: 6px 12px; }
+        }
 </style>
 </head>
 <body>
