@@ -319,7 +319,31 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
   #scr-guide #btnGuideDone { grid-column: 2; grid-row: 3; margin-top: 0 !important; min-height: 48px; }
 
   /* Shop: one large skin at a time with arrows and n/total */
-  #scr-shop #pane-skins.tab-pane { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  #scr-shop #pane-skins.tab-pane:not(.hidden) { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+  #scr-shop #pane-custom.tab-pane:not(.hidden) {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    column-gap: clamp(16px, 3vw, 40px);
+    align-items: center;
+    flex: 1; min-height: 0;
+  }
+  #scr-shop #pane-custom .preview-box { grid-column: 1; grid-row: 1 / span 2; width: min(34dvh, 170px); margin: 0 auto; align-self: center; }
+  #scr-shop #pane-custom .shop-hint { grid-column: 1; grid-row: 3; margin: 0; text-align: center; }
+  #scr-shop #hatGrid {
+    grid-column: 2; grid-row: 1 / span 2;
+    display: flex;
+    gap: clamp(12px, 2vw, 24px);
+    height: 100%;
+    min-height: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 4px 0;
+  }
+  #scr-shop #hatGrid::-webkit-scrollbar { display: none; }
+  #scr-shop #hatGrid .item { flex: 0 0 min(300px, 70%); height: 100%; scroll-snap-align: center; display: flex; flex-direction: column; justify-content: center; }
+  #scr-shop #pane-custom .shop-nav { grid-column: 2; grid-row: 3; }
   #scr-shop #skinGrid {
     display: flex;
     gap: clamp(12px, 2vw, 24px);
@@ -339,6 +363,25 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
     font-size: 22px; font-weight: 700; cursor: pointer;
   }
   #scr-shop .shop-count { min-width: 64px; text-align: center; font-weight: 700; }
+
+  /* Gameplay: shape on the left, question and answers on the right, no scrolling */
+  #scr-game.active { height: 100dvh; overflow: hidden; }
+  #scr-game .stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-content: center;
+    align-items: center;
+    column-gap: clamp(16px, 4vw, 56px);
+    row-gap: clamp(6px, 1.5dvh, 12px);
+    min-height: 0;
+  }
+  #scr-game .qdots { margin: 6px 0 0; }
+  #scr-game .shape-card { grid-column: 1; grid-row: 1 / span 3; min-height: 0; }
+  #scr-game .shape-card svg { max-height: min(62dvh, 360px); }
+  #scr-game .q-line { grid-column: 2; grid-row: 1; margin: 0; }
+  #scr-game .opts { grid-column: 2; grid-row: 2; margin-top: 0; }
+  #scr-game .fb { grid-column: 2; grid-row: 3; }
 
   /* Levels: wide grid, two rows of five */
   #scr-levels .lv-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 760px; width: 100%; margin: 0 auto; }
@@ -434,6 +477,11 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
       </div>
       <p class="shop-hint">برای کبریت‌خان کلاه بذار تا منحصربه‌فرد شه!</p>
       <div class="items" id="hatGrid"></div>
+      <div class="shop-nav" aria-label="ناوبری کلاه‌ها">
+        <button type="button" id="hat-prev" aria-label="قبلی">&#8250;</button>
+        <span class="shop-count" id="hat-count">۱/۱</span>
+        <button type="button" id="hat-next" aria-label="بعدی">&#8249;</button>
+      </div>
     </div>
   </section>
 
@@ -487,11 +535,11 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
 <div id="toast" role="status"></div>
 
 <script>
-(function initShopCarousel() {
-  const grid = document.getElementById('skinGrid');
-  const prev = document.getElementById('shop-prev');
-  const next = document.getElementById('shop-next');
-  const count = document.getElementById('shop-count');
+function initShopCarousel(gridId, prevId, nextId, countId) {
+  const grid = document.getElementById(gridId);
+  const prev = document.getElementById(prevId);
+  const next = document.getElementById(nextId);
+  const count = document.getElementById(countId);
   if (!grid || !prev || !next || !count) return;
   const FA = ['۱','۲','۳','۴','۵','۶','۷','۸','۹','۱۰','۱۱','۱۲'];
   const items = () => Array.from(grid.querySelectorAll('.item'));
@@ -523,7 +571,9 @@ svg.interactive .corner{pointer-events:auto;cursor:pointer}
   window.addEventListener('resize', update);
   new MutationObserver(update).observe(grid, { childList: true });
   update();
-})();
+}
+initShopCarousel('skinGrid', 'shop-prev', 'shop-next', 'shop-count');
+initShopCarousel('hatGrid', 'hat-prev', 'hat-next', 'hat-count');
 </script>
 <script>
 'use strict';

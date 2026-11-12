@@ -725,6 +725,37 @@ body {
   #screen-game .story-scene { gap: clamp(8px, 2dvh, 18px); }
   #screen-game .farmers-area { margin-bottom: 0; gap: clamp(12px, 3vw, 30px); }
   #screen-game .farmer-img { width: auto !important; height: min(44dvh, 210px) !important; }
+
+  /* Fruit-sorting scene: bags on the left, fruit box on the right, nothing below the fold */
+  #screen-game .math-scene {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-rows: auto auto auto auto;
+    align-items: center;
+    justify-items: center;
+    column-gap: clamp(16px, 4vw, 48px);
+    row-gap: clamp(4px, 1.2dvh, 10px);
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    align-content: center;
+  }
+  #screen-game .bags-row { grid-column: 1; grid-row: 1; gap: clamp(8px, 2vw, 20px); }
+  #screen-game .arrow-down { grid-column: 1; grid-row: 2; width: 22px; height: min(5dvh, 30px); margin: 0; }
+  #screen-game .math-scene > .bag-container { grid-column: 1; grid-row: 3; }
+  #screen-game .progress-indicator { grid-column: 1; grid-row: 4; }
+  #screen-game .bag { width: min(17dvh, 100px); height: min(22dvh, 115px); }
+  #screen-game .bag-label { font-size: clamp(10px, 1.6dvh, 12px); }
+  #screen-game .fruit-box {
+    grid-column: 2; grid-row: 1 / span 4;
+    align-self: stretch;
+    min-height: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    align-content: center;
+    padding: clamp(8px, 1.5dvh, 12px);
+  }
+  #screen-game .fruit-item { width: min(9dvh, 48px); height: min(9dvh, 48px); }
 }
 </style>
 </head>
