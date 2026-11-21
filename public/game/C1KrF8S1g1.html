@@ -340,6 +340,82 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+/* Shop carousel: full-width title rail on the right, one centered product, side arrows. */
+#screen-shop { align-items:stretch; }
+.shop-coins-row { flex:none; }
+.shop-layout {
+  direction:rtl; display:grid; grid-template-columns:minmax(108px,31%) minmax(0,1fr);
+  gap:12px; width:100%; max-width:440px; flex:1; min-height:0; align-items:stretch;
+}
+.shop-tabs-panel { display:flex; flex-direction:column; min-width:0; min-height:0; gap:8px; }
+.shop-tabs-title {
+  color:var(--neon-blue); font-size:15px; font-weight:900; text-align:right;
+  padding:8px 10px; border:1px solid rgba(0,210,255,.42); border-radius:12px;
+  background:rgba(0,210,255,.1); flex:none;
+}
+.shop-tabs {
+  display:flex; flex:1; min-height:0; flex-direction:column; align-items:stretch; gap:7px;
+  overflow-x:hidden; overflow-y:auto; padding:2px;
+}
+.shop-tab {
+  flex:0 0 auto; width:100%; min-width:0; min-height:42px; height:auto; padding:7px 8px;
+  border:1px solid rgba(255,255,255,.2); border-radius:12px;
+  background:rgba(255,255,255,.08); color:rgba(255,255,255,.82);
+  font:700 13px/1.35 var(--font); text-align:right; white-space:normal; overflow-wrap:anywhere;
+  cursor:pointer; transition:background .16s ease,border-color .16s ease,color .16s ease;
+}
+.shop-tab.active { color:#fff; background:rgba(108,92,231,.32); border-color:var(--neon-blue); box-shadow:0 0 12px rgba(0,210,255,.18); }
+.shop-carousel { position:relative; display:flex; align-items:center; justify-content:center; min-width:0; min-height:280px; }
+.shop-carousel-content {
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  width:100%; max-width:340px; min-width:0; padding:0 42px;
+}
+.shop-items { display:flex; width:100%; max-width:none; min-width:0; justify-content:center; gap:0; overflow:visible; }
+.shop-item {
+  width:100%; max-width:280px; min-width:0; min-height:300px; padding:14px;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22);
+  border-radius:18px; box-shadow:0 10px 24px rgba(0,0,0,.25);
+}
+.shop-item.owned { border-color:var(--success); }
+.shop-item.equipped { border:2px solid var(--gold); box-shadow:0 0 18px rgba(255,201,60,.25); }
+.shop-item-preview { width:100%; height:clamp(130px,25vh,190px); flex:none; background:rgba(0,0,0,.22); }
+.shop-item-preview img { object-fit:contain; padding:6px; }
+.shop-item-name { font-size:clamp(15px,3.4vw,19px); line-height:1.4; overflow-wrap:anywhere; }
+.shop-item-price { min-height:22px; }
+.shop-counter { color:rgba(255,255,255,.82); font-size:13px; font-weight:900; text-align:center; }
+.shop-nav {
+  position:absolute; z-index:3; top:50%; transform:translateY(-50%);
+  width:40px; height:40px; display:grid; place-items:center; padding:0;
+  border:2px solid var(--neon-blue); border-radius:50%; background:rgba(30,30,47,.94);
+  color:#fff; font:900 26px/1 var(--font); cursor:pointer;
+  box-shadow:0 5px 14px rgba(0,0,0,.25); transition:transform .15s ease,opacity .15s ease,background .15s ease;
+}
+#shop-prev { right:0; }
+#shop-next { left:0; }
+.shop-nav:hover:not(:disabled) { transform:translateY(-50%) scale(1.06); background:rgba(108,92,231,.62); }
+.shop-nav:disabled { opacity:.32; cursor:default; box-shadow:none; }
+@media (max-width:420px) {
+  #screen-shop { padding:12px 12px 28px; }
+  .shop-layout { grid-template-columns:minmax(100px,35%) minmax(0,1fr); gap:7px; }
+  .shop-tabs-title { padding:7px 6px; font-size:13px; }
+  .shop-tabs { gap:5px; }
+  .shop-tab { min-height:40px; padding:6px 5px; font-size:11px; }
+  .shop-carousel { min-height:250px; }
+  .shop-carousel-content { padding:0 27px; gap:6px; }
+  .shop-item { min-height:260px; padding:10px 8px; gap:7px; }
+  .shop-item-preview { height:clamp(105px,20vh,150px); }
+  .shop-item-name { font-size:14px; }
+  .shop-item-price { font-size:13px; }
+  .shop-nav { width:30px; height:30px; font-size:20px; }
+  .shop-counter { font-size:11px; }
+}
+@media (max-width:340px) {
+  .shop-layout { grid-template-columns:minmax(92px,37%) minmax(0,1fr); gap:5px; }
+  .shop-tab { font-size:10px; }
+  .shop-carousel-content { padding-inline:24px; }
+  .shop-nav { width:26px; height:26px; font-size:18px; }
+}
 </style>
 </head>
 <body>
@@ -456,7 +532,20 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
       </div>
     </div>
     
-    <div class="shop-items" id="shop-items"></div>
+    <div class="shop-layout">
+      <aside class="shop-tabs-panel">
+        <div class="shop-tabs-title">پس‌زمینه‌ها</div>
+        <nav class="shop-tabs" id="shop-tabs" aria-label="انتخاب پس‌زمینه"></nav>
+      </aside>
+      <div class="shop-carousel" aria-label="محصولات فروشگاه">
+        <button class="shop-nav" id="shop-prev" type="button" aria-label="پس‌زمینه قبلی" title="قبلی">›</button>
+        <div class="shop-carousel-content">
+          <div class="shop-items" id="shop-items" aria-live="polite"></div>
+          <div class="shop-counter" id="shop-counter" aria-live="polite">۱ از ۸</div>
+        </div>
+        <button class="shop-nav" id="shop-next" type="button" aria-label="پس‌زمینه بعدی" title="بعدی">‹</button>
+      </div>
+    </div>
   </section>
   
   <!-- ============ GAME ============ -->
@@ -652,6 +741,8 @@ const BACKGROUNDS = [
   { id:'lava', name:'آتشفشان', img:'./icons/atashfeshan.png', price:14 },
   { id:'candy', name:'آبنبات', img:'./icons/abnabat.png', price:15 }
 ];
+
+let shopIndex = 0;
 
 // ============ UTILS ============
 function toPersianNum(n) {
@@ -988,37 +1079,73 @@ function selectAnswer(selected, correct, btn) {
 // ============ SHOP ============
 function renderShop() {
   const container = document.getElementById('shop-items');
-  container.innerHTML = '';
-  
-  BACKGROUNDS.forEach(item => {
-    const owned = state.ownedBackgrounds.includes(item.id);
-    const equipped = state.equippedBackground === item.id;
-    
-    const el = document.createElement('div');
-    el.className = `shop-item ${owned ? 'owned' : ''} ${equipped ? 'equipped' : ''}`;
-    
-    let btnHtml = '';
-    if (equipped) {
-      btnHtml = `<button class="btn-buy equipped">فعال شد</button>`;
-    } else if (owned) {
-      btnHtml = `<button class="btn-buy owned" data-equip="${item.id}">انتخاب</button>`;
-    } else {
-      btnHtml = `<button class="btn-buy" data-buy="${item.id}" ${state.coins < item.price ? 'disabled' : ''}>خرید</button>`;
-    }
-    
-    el.innerHTML = `
-      <div class="shop-item-preview"><img src="${item.img}" alt="${item.name}"></div>
-      <div class="shop-item-name">${item.name}</div>
-      <div class="shop-item-price">
-        ${item.price > 0 ? `<img src="./icons/coin.png" alt="coin"> ${toPersianNum(item.price)}` : 'رایگان'}
-      </div>
-      ${btnHtml}
-    `;
-    container.appendChild(el);
-  });
-  
-  container.querySelectorAll('[data-buy]').forEach(btn => btn.addEventListener('click', () => buyItem(btn.dataset.buy)));
-  container.querySelectorAll('[data-equip]').forEach(btn => btn.addEventListener('click', () => equipItem(btn.dataset.equip)));
+  const tabs = document.getElementById('shop-tabs');
+  const counter = document.getElementById('shop-counter');
+  const items = BACKGROUNDS;
+  if (!items.length) {
+    container.innerHTML = '';
+    tabs.innerHTML = '';
+    counter.textContent = '۰ از ۰';
+    document.getElementById('shop-prev').disabled = true;
+    document.getElementById('shop-next').disabled = true;
+    return;
+  }
+
+  shopIndex = Math.max(0, Math.min(shopIndex, items.length - 1));
+  const item = items[shopIndex];
+  const owned = state.ownedBackgrounds.includes(item.id);
+  const equipped = state.equippedBackground === item.id;
+  const el = document.createElement('div');
+  el.className = `shop-item ${owned ? 'owned' : ''} ${equipped ? 'equipped' : ''}`;
+
+  let btnHtml = '';
+  if (equipped) {
+    btnHtml = `<button class="btn-buy equipped" disabled>فعال شد</button>`;
+  } else if (owned) {
+    btnHtml = `<button class="btn-buy owned" data-equip="${item.id}">انتخاب</button>`;
+  } else {
+    btnHtml = `<button class="btn-buy" data-buy="${item.id}" ${state.coins < item.price ? 'disabled' : ''}>خرید</button>`;
+  }
+
+  el.innerHTML = `
+    <div class="shop-item-preview"><img src="${item.img}" alt="پیش‌نمایش ${item.name}"></div>
+    <div class="shop-item-name">${item.name}</div>
+    <div class="shop-item-price">
+      ${item.price > 0 ? `<img src="./icons/coin.png" alt="سکه"> ${toPersianNum(item.price)}` : 'رایگان'}
+    </div>
+    ${btnHtml}
+  `;
+  container.replaceChildren(el);
+  tabs.innerHTML = items.map((entry, index) => `
+    <button class="shop-tab ${index === shopIndex ? 'active' : ''}" type="button"
+      data-shop-index="${index}" aria-current="${index === shopIndex ? 'true' : 'false'}">${entry.name}</button>
+  `).join('');
+
+  tabs.querySelectorAll('[data-shop-index]').forEach(button => button.addEventListener('click', () => {
+    const index = Number(button.dataset.shopIndex);
+    if (index === shopIndex) return;
+    shopIndex = index;
+    initAudio();
+    playClickSound();
+    renderShop();
+  }));
+  counter.textContent = `${toPersianNum(shopIndex + 1)} از ${toPersianNum(items.length)}`;
+  document.getElementById('shop-prev').disabled = shopIndex === 0;
+  document.getElementById('shop-next').disabled = shopIndex === items.length - 1;
+
+  const buyButton = container.querySelector('[data-buy]');
+  const equipButton = container.querySelector('[data-equip]');
+  if (buyButton) buyButton.addEventListener('click', () => buyItem(item.id));
+  if (equipButton) equipButton.addEventListener('click', () => equipItem(item.id));
+}
+
+function moveShop(delta) {
+  const next = Math.max(0, Math.min(shopIndex + delta, BACKGROUNDS.length - 1));
+  if (next === shopIndex) return;
+  shopIndex = next;
+  initAudio();
+  playClickSound();
+  renderShop();
 }
 
 function buyItem(id) {
@@ -1070,6 +1197,9 @@ function init() {
     showScreen('shop');
   });
   
+  document.getElementById('shop-prev').addEventListener('click', () => moveShop(-1));
+  document.getElementById('shop-next').addEventListener('click', () => moveShop(1));
+
   document.getElementById('btn-guide').addEventListener('click', () => {
     initAudio();
     playClickSound();
