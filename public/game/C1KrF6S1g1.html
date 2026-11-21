@@ -569,6 +569,7 @@ body::after {
     <div class="overlay-icon" id="overlay-icon"></div>
     <h2 class="overlay-title" id="overlay-title"></h2>
     <div id="overlay-content"></div>
+    <button class="btn btn-secondary overlay-btn" id="overlay-resume" style="display:none;">ادامه بازی</button>
     <button class="btn btn-secondary overlay-btn" id="overlay-next">مرحله بعد</button>
     <button class="btn btn-secondary overlay-btn" id="overlay-restart">شروع مجدد</button>
     <button class="btn btn-secondary overlay-btn" id="overlay-home">خانه</button>
@@ -689,7 +690,8 @@ const state = {
   unlockedLevels: parseInt(localStorage.getItem('loko_unlocked')) || 1,
   timerInterval: null,
   timeLeft: 30,
-  isPaused: false
+  isPaused: false,
+  answerResolved: false
 };
 
 // ==================== Levels Config ====================
@@ -1153,6 +1155,9 @@ function startTimer(duration) {
 function stopTimer() { clearInterval(state.timerInterval); }
 
 function handleTimeOut() {
+  if (state.answerResolved) return;
+  state.answerResolved = true;
+  document.getElementById('pause-btn').disabled = true;
   stopTimer(); playError();
   document.querySelectorAll('.option-btn').forEach(b => b.style.pointerEvents = 'none');
   showActionOverlay('timeup');
@@ -1166,6 +1171,11 @@ async function startLevel(levelIndex) {
   showScreen('game-screen');
   
   const level = levels[levelIndex];
+  if (!level) { showScreen('level-select-menu'); return; }
+  state.answerResolved = false;
+  const pauseBtn = document.getElementById('pause-btn');
+  pauseBtn.disabled = true;
+  pauseBtn.setAttribute('aria-label', 'پاسخ دادن به داستان را تمام کن تا بازی شروع شود');
   const story = level.story;
   
   document.getElementById('options-container').innerHTML = '';
@@ -1182,6 +1192,8 @@ async function startLevel(levelIndex) {
   await typeText(story.question, 'narration-text');
   showOptions(story);
   startTimer(level.time);
+  pauseBtn.disabled = false;
+  pauseBtn.setAttribute('aria-label', 'توقف بازی');
 }
 
 function showOptions(story) {
@@ -1199,6 +1211,9 @@ function showOptions(story) {
 }
 
 function handleAnswer(selected, story, btn) {
+  if (state.answerResolved) return;
+  state.answerResolved = true;
+  document.getElementById('pause-btn').disabled = true;
   stopTimer(); playClick();
   const isCorrect = selected === story.answer;
   document.querySelectorAll('.option-btn').forEach(b => b.style.pointerEvents = 'none');
@@ -1221,9 +1236,11 @@ function showActionOverlay(type) {
   const contentEl = document.getElementById('overlay-content');
   const nextBtn = document.getElementById('overlay-next');
   const restartBtn = document.getElementById('overlay-restart');
+  const resumeBtn = document.getElementById('overlay-resume');
   
   nextBtn.style.display = 'none';
   restartBtn.style.display = 'block';
+  resumeBtn.style.display = type === 'pause' ? 'block' : 'none';
   
   if (type === 'complete') {
     iconEl.innerHTML = icons.trophy;
@@ -1246,7 +1263,7 @@ function showActionOverlay(type) {
   } else if (type === 'failed') {
     iconEl.innerHTML = ''; titleEl.textContent = 'پاسخ اشتباه بود'; titleEl.style.color = 'var(--danger)'; contentEl.innerHTML = '';
   } else if (type === 'pause') {
-    iconEl.innerHTML = icons.pause; titleEl.textContent = 'توقف بازی'; titleEl.style.color = 'var(--neon-blue)'; contentEl.innerHTML = ''; nextBtn.style.display = 'none';
+    iconEl.innerHTML = icons.pause; titleEl.textContent = 'توقف بازی'; titleEl.style.color = 'var(--neon-blue)'; contentEl.innerHTML = ''; nextBtn.style.display = 'none'; restartBtn.style.display = 'block';
   }
   overlay.classList.add('show');
 }
@@ -1283,10 +1300,19 @@ function init() {
   document.querySelectorAll('.back-btn').forEach(btn => {
     if (btn.id !== 'pause-btn') btn.onclick = () => { playClick(); showScreen(btn.dataset.target); };
   });
-  document.getElementById('pause-btn').onclick = () => { playClick(); stopTimer(); state.isPaused = true; showActionOverlay('pause'); };
+  document.getElementById('pause-btn').onclick = () => {
+    if (state.answerResolved || state.isPaused || document.getElementById('pause-btn').disabled) return;
+    playClick(); stopTimer(); state.isPaused = true; showActionOverlay('pause');
+  };
+  document.getElementById('overlay-resume').onclick = () => {
+    playClick();
+    document.getElementById('action-overlay').classList.remove('show');
+    state.isPaused = false;
+    startTimer(state.timeLeft);
+  };
   document.getElementById('overlay-next').onclick = () => { playClick(); document.getElementById('action-overlay').classList.remove('show'); startLevel(state.currentLevel + 1); };
-  document.getElementById('overlay-restart').onclick = () => { playClick(); document.getElementById('action-overlay').classList.remove('show'); startLevel(state.currentLevel); };
-  document.getElementById('overlay-home').onclick = () => { playClick(); document.getElementById('action-overlay').classList.remove('show'); renderLevels(); showScreen('level-select-menu'); };
+  document.getElementById('overlay-restart').onclick = () => { playClick(); stopTimer(); document.getElementById('action-overlay').classList.remove('show'); startLevel(state.currentLevel); };
+  document.getElementById('overlay-home').onclick = () => { playClick(); stopTimer(); state.isPaused = false; document.getElementById('action-overlay').classList.remove('show'); renderLevels(); showScreen('level-select-menu'); };
   document.addEventListener('click', () => initAudio(), { once: true });
 }
 

@@ -805,7 +805,7 @@
             <div class="guide-text" id="guideText">سلام دوست من!<br>من پیکسل هستم، یک ماجراجو که عاشق شکل‌های هندسیه!</div>
             <div class="help-actions">
                 <div class="guide-progress"><div class="guide-progress-bar" id="guideProgressBar"></div></div>
-                <button class="guide-skip" id="guideSkipBtn">⏭️ رد کردن</button>
+                <button class="guide-skip" id="guideSkipBtn" type="button" aria-label="رد کردن راهنما">⏭️ رد کردن راهنما</button>
             </div>
         </div>
     </div>
@@ -1566,7 +1566,8 @@ function startGuide(callback, fromMenu) {
     if (isGuidePlaying) return;
     isGuidePlaying = true;
     guideCallback = fromMenu ? null : callback;
-    $('#guideSkipBtn').style.display = fromMenu ? 'block' : 'none';
+    // راهنما هم از منو و هم قبل از مرحله قابل رد کردن است.
+    $('#guideSkipBtn').style.display = 'inline-flex';
     showScreen('guideScreen');
     try {
         window.guideAudio = new Audio('musics/pixel10.mp3');
