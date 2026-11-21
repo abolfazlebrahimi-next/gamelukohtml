@@ -1036,6 +1036,136 @@ body {
 }
 
 </style>
+<style>
+/* Responsive refinement: predictable HUD, roomy play area, clearer controls */
+.screen { min-width:0; }
+.app,.game-app,.card,.modal-card,.shop-modal-card,.shop-item-card { min-width:0; }
+#landingScreen { overflow-y:auto; overscroll-behavior:contain; }
+#landingScreen .app { width:min(100%,540px); gap:clamp(9px,1.8vh,14px); }
+#landingScreen .guide-wrap { width:100%; }
+#landingScreen .bubble { max-width:min(100%,360px); }
+#landingScreen .stage-info-row { gap:8px; }
+#landingScreen .stage-info-meta { text-align:right; }
+#gameScreen {
+  overflow:hidden;
+  padding:max(6px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));
+}
+#gameScreen .game-app { height:100%; min-height:0; gap:clamp(5px,1.1vh,9px); }
+#gameScreen .hud {
+  display:grid;
+  grid-template-columns:38px repeat(4,minmax(0,1fr)) 38px 38px;
+  align-items:center; gap:5px; flex-wrap:nowrap; padding:5px 7px;
+  flex:none; min-width:0;
+}
+#gameScreen .hud .spacer { display:none; }
+#gameScreen .hud-chip {
+  justify-content:center; min-width:0; min-height:38px;
+  gap:4px; padding:4px 5px; white-space:nowrap; overflow:hidden;
+  font-size:clamp(.68rem,1.9vw,.82rem); line-height:1.15;
+}
+#gameScreen .hud-chip svg { width:16px !important; height:16px !important; flex:none; }
+#backBtn svg,#helpBtn svg { stroke:#102B55 !important; }
+#musicOffIco { stroke:#4A6285 !important; }
+#bgLayer .star { opacity:.3 !important; animation-duration:5s !important; }
+#bgLayer .bg-orb { opacity:.22; animation-duration:16s; }
+#bgLayer .cloud-dark { opacity:.05; }
+#gameScreen .icon-btn { width:36px; height:36px; padding:0; }
+#gameScreen .progress-wrap { flex:none; height:24px; }
+#gameScreen .stage { flex:1 1 0; min-height:0; overflow:hidden; }
+#gameScreen .balloon-unit { min-width:0; }
+#gameScreen #groundZone { flex:none; min-height:clamp(62px,11vh,88px); }
+#gameScreen .ground-label { text-align:center; line-height:1.35; }
+#gameScreen .ground-label svg { flex:none; }
+.shop-modal-card { width:min(100%,520px); max-height:min(90dvh,740px); padding:clamp(12px,3vw,20px); }
+.shop-grid { grid-template-columns:repeat(2,minmax(0,1fr)); max-height:min(48dvh,400px); }
+.shop-item-card { min-width:0; }
+.shop-item-name { text-align:center; line-height:1.45; overflow-wrap:anywhere; }
+.shop-item-btn { min-width:0; white-space:nowrap; }
+
+@media (max-width:380px) {
+  #gameScreen { padding:max(4px,env(safe-area-inset-top)) max(4px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left)); }
+  #gameScreen .game-app { gap:5px; }
+  #gameScreen .hud { grid-template-columns:30px repeat(4,minmax(0,1fr)) 30px 30px; gap:3px; padding:4px; }
+  #gameScreen .hud-chip { min-height:34px; gap:3px; padding:3px 2px; font-size:.68rem; }
+  #gameScreen .hud-chip svg { width:14px !important; height:14px !important; }
+  #gameScreen #hudTime svg { display:none; }
+  #gameScreen .icon-btn { width:30px; height:30px; border-radius:9px; }
+  #gameScreen .progress-wrap { height:21px; }
+  #gameScreen .progress-text { font-size:.64rem; }
+  #gameScreen .stage { gap:0; padding-inline:1px; }
+  #gameScreen .stage[data-count="5"] .balloon-svg { width:clamp(42px,12.1vw,60px); }
+  #gameScreen .stage[data-count="5"] .basket { width:clamp(30px,8.1vw,42px); }
+  #gameScreen .stage[data-count="5"] .weights-rail { max-width:50px; }
+  #gameScreen .stage[data-count="5"] .weight { width:clamp(16px,4.8vw,22px); height:clamp(16px,4.8vw,22px); }
+  #gameScreen .stage[data-count="5"] .slot-hint { font-size:.5rem; }
+  #gameScreen #groundZone { min-height:58px; padding:5px; }
+  .shop-modal-card { padding:11px 9px; }
+  .shop-grid { gap:7px; max-height:44dvh; }
+  .shop-item-preview { width:68px; height:68px; }
+  .shop-item-name { font-size:.74rem; }
+  .shop-item-btn { min-height:36px; font-size:.72rem; }
+}
+
+@media (orientation:landscape) and (max-height:560px) {
+  #landingScreen { overflow-y:auto; }
+  #landingScreen .app {
+    height:100%; max-width:900px; padding:2px 0; gap:6px 14px;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    grid-template-rows:auto minmax(0,1fr) auto;
+    align-items:center;
+  }
+  #landingScreen .hero { min-width:0; padding:8px; }
+  #landingScreen .game-title { font-size:clamp(1.1rem,3.5vw,1.7rem); }
+  #landingScreen .guide-wrap { min-width:0; }
+  #landingScreen .stage-info-card { min-width:0; padding:8px 10px; }
+  #landingScreen .modal-actions { min-width:0; }
+  #landingScreen .btn-row { gap:6px; }
+  #landingScreen .btn { min-height:40px; padding-inline:8px; font-size:.8rem; }
+  #landingScreen .btn-gold { min-height:45px; }
+  #gameScreen { padding:max(4px,env(safe-area-inset-top)) max(5px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(5px,env(safe-area-inset-left)); }
+  #gameScreen .game-app { gap:5px; }
+  #gameScreen .hud { grid-template-columns:34px repeat(4,minmax(48px,68px)) 34px 34px; justify-content:space-between; gap:5px; padding:4px 6px; }
+  #gameScreen .hud-chip { min-height:32px; font-size:.72rem; }
+  #gameScreen .icon-btn { width:32px; height:32px; }
+  #gameScreen .progress-wrap { height:20px; }
+  #gameScreen .progress-text { font-size:.66rem; }
+  #gameScreen .stage { padding:2px 4px; gap:clamp(4px,1.3vw,14px); }
+  #gameScreen .stage[data-count="4"] .balloon-svg { width:clamp(42px,9vh,68px); }
+  #gameScreen .stage[data-count="4"] .basket { width:clamp(34px,7vh,48px); }
+  #gameScreen .stage[data-count="5"] .balloon-svg { width:clamp(36px,8vh,56px); }
+  #gameScreen .stage[data-count="5"] .basket { width:clamp(28px,6vh,40px); }
+  #gameScreen .stage[data-count="5"] .weights-rail { max-width:48px; min-height:20px; }
+  #gameScreen .stage[data-count="5"] .weight { width:clamp(14px,3.2vh,20px); height:clamp(14px,3.2vh,20px); }
+  #gameScreen .stage[data-count="5"] .slot-hint { font-size:.45rem; padding:1px 3px; }
+  #gameScreen #groundZone { min-height:46px; padding:4px; }
+  #gameScreen #groundZone .weight { width:24px; height:24px; }
+}
+@media (orientation:landscape) and (max-height:340px) {
+  #gameScreen { overflow-y:auto; }
+  #gameScreen .game-app { min-height:300px; }
+  #gameScreen .stage { min-height:140px; }
+  #landingScreen .app { min-height:300px; }
+}
+@media (orientation:landscape) and (max-width:380px) {
+  #gameScreen .hud { grid-template-columns:28px repeat(4,minmax(0,1fr)) 28px 28px; gap:2px; padding:3px; }
+  #gameScreen .hud-chip { min-height:28px; font-size:.62rem; gap:2px; padding:2px; }
+  #gameScreen .hud-chip svg { width:12px !important; height:12px !important; }
+  #gameScreen #hudTime svg { display:none; }
+  #gameScreen .icon-btn { width:26px; height:26px; }
+  #gameScreen .stage[data-count="5"] .slot-hint { font-size:.42rem; }
+}
+@media (max-height:620px) and (orientation:portrait) {
+  #landingScreen { justify-content:flex-start; }
+  #landingScreen .app { margin-block:auto; }
+  #gameScreen { overflow-y:auto; }
+  #gameScreen .stage { min-height:190px; }
+  #gameScreen .game-app { min-height:560px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  #bgLayer .star,#bgLayer .bg-orb,#bgLayer .cloud-dark { animation:none !important; }
+}
+
+</style>
 </head>
 <body>
 
