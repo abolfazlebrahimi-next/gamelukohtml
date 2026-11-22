@@ -113,6 +113,25 @@ html,body{height:100%;overflow:hidden;font-family:'Tahoma','Geneva','Verdana',sa
 .answer-btn.wrong .symbol,.answer-btn.wrong .symbol-label{color:#fff}
 .answer-btn:disabled{opacity:.5;cursor:not-allowed}
 .answer-btn.tutorial-target{box-shadow: 0 0 0 4px var(--gold), 0 0 20px var(--gold-glow); animation: btnPulse 1s infinite alternate;}
+
+/* Keep the visual left/right order consistent with the comparison logic. */
+.game-area{direction:ltr}
+.food-side{position:relative;padding-top:32px}
+.food-side::before{
+  position:absolute;top:5px;left:8px;right:8px;text-align:center;
+  font-size:12px;font-weight:800;color:var(--accent);direction:rtl;
+}
+#foodLeft::before{content:"سمت چپ"}
+#foodRight::before{content:"سمت راست"}
+.comparison-guide{
+  position:absolute;top:2px;left:16px;right:16px;z-index:8;
+  padding:5px 12px;border:1px solid var(--border);border-radius:100px;
+  background:rgba(5,20,40,.72);color:var(--text);font-size:12px;font-weight:700;
+  text-align:center;direction:rtl;pointer-events:none;
+}
+.answer-bar{direction:ltr}
+.answer-btn{direction:rtl}
+.answer-btn .symbol-label{line-height:1.25;text-align:center}
 @keyframes btnPulse { from { transform: scale(1); } to { transform: scale(1.05); } }
 @keyframes pulseSuccess{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
@@ -271,7 +290,7 @@ audio{display:none}
   .food-side {
     width:32%; max-width:min(330px,32vw); min-height:0;
     max-height:calc(100dvh - 150px); overflow-y:auto; gap:clamp(4px,1vh,10px);
-    padding:clamp(8px,1.8vh,16px);
+    padding:clamp(8px,1.8vh,16px); padding-top:clamp(28px,4vh,36px);
   }
   .food-item { width:clamp(24px,6vh,44px); height:clamp(24px,6vh,44px); }
   .comparison-zone { width:clamp(62px,12vh,88px); }
@@ -310,7 +329,7 @@ audio{display:none}
   #gameScreen .game-top-bar { min-height:40px; padding:4px 10px; }
   #gameScreen .icon-btn { width:30px; height:30px; }
   #gameScreen .game-area { top:max(46px,calc(env(safe-area-inset-top) + 40px)); bottom:70px; padding-inline:10px; }
-  #gameScreen .food-side { max-height:calc(100dvh - 118px); padding:6px; gap:3px; }
+  #gameScreen .food-side { max-height:calc(100dvh - 118px); padding:6px; padding-top:24px; gap:3px; }
   #gameScreen .food-item { width:clamp(22px,6vh,30px); height:clamp(22px,6vh,30px); }
   #gameScreen .comparison-zone,
   #gameScreen .comparison-slot { width:clamp(54px,12vh,70px); height:clamp(54px,12vh,70px); }
@@ -388,27 +407,28 @@ audio{display:none}
         </div>
       </header>
       <div class="game-area">
-        <div class="food-side" id="foodLeft"></div>
-        <div class="comparison-zone">
+        <div class="comparison-guide" role="note">تعداد خوراکی‌های سمت چپ را با سمت راست مقایسه کن</div>
+        <div class="food-side" id="foodLeft" aria-label="خوراکی‌های سمت چپ"></div>
+        <div class="comparison-zone" aria-label="علامت مقایسه">
           <div class="comparison-slot" id="comparisonSlot">
             <span class="slot-placeholder">؟</span>
           </div>
         </div>
-        <div class="food-side" id="foodRight"></div>
+        <div class="food-side" id="foodRight" aria-label="خوراکی‌های سمت راست"></div>
       </div>
       <div class="fish-container" id="fishContainer"></div>
       <div class="answer-bar">
         <button class="answer-btn" data-symbol=">">
           <span class="symbol">&gt;</span>
-          <span class="symbol-label">بزرگتر</span>
+          <span class="symbol-label">چپ بیشتر</span>
         </button>
         <button class="answer-btn" data-symbol="=">
           <span class="symbol">=</span>
-          <span class="symbol-label">مساوی</span>
+          <span class="symbol-label">برابر</span>
         </button>
         <button class="answer-btn" data-symbol="<">
           <span class="symbol">&lt;</span>
-          <span class="symbol-label">کوچکتر</span>
+          <span class="symbol-label">چپ کمتر</span>
         </button>
       </div>
       <div class="tutorial-overlay" id="tutorialOverlay" style="display:none">
