@@ -316,6 +316,116 @@ body.fx-bubble .wordbox{border-radius:999px;border-width:1.5px;
   .wordbox{font-size:1.35rem}
   .level-grid{gap:1.1rem}
 }
+
+
+/* ================= چیدمان افقی: منو، مرحله‌ها، بازی، فروشگاه و راهنما ================= */
+@media (orientation: landscape) {
+  html, body { width:100%; height:100%; overflow:hidden; }
+  .screen {
+    position:fixed; inset:0; width:100vw; height:100vh; height:100dvh; min-height:0;
+    max-width:none; margin:0; overflow:hidden;
+    padding:max(8px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  }
+
+  /* منو: کاراکتر سمت راست، عنوان و دکمه‌ها در ستون کناری */
+  #scr-home { display:none; grid-template-columns:minmax(130px,.75fr) minmax(0,1.25fr); grid-template-rows:auto auto minmax(0,1fr); align-items:center; justify-items:center; gap:4px clamp(12px,3vw,38px); padding:clamp(38px,8vh,58px) 7vw 12px; text-align:center; }
+  #scr-home.active { display:grid; }
+  #scr-home .logo { grid-column:2; grid-row:1; font-size:clamp(24px,6vh,46px); line-height:1.2; }
+  #scr-home .tagline { grid-column:2; grid-row:2; margin:0; font-size:clamp(12px,2vh,15px); }
+  #scr-home .speech { grid-column:1; grid-row:1; align-self:end; margin:0; max-width:100%; padding:7px 12px; font-size:clamp(12px,2vh,15px); }
+  #scr-home .mascot { grid-column:1; grid-row:2 / 4; align-self:start; width:clamp(90px,30vh,190px); margin:4px auto 0; }
+  #scr-home .menu-actions { grid-column:2; grid-row:3; align-self:start; width:min(100%,460px); margin:4px 0 0; gap:8px; }
+  #scr-home .menu-actions .btn { min-height:clamp(40px,9vh,54px); padding:6px 12px; font-size:clamp(13px,2.3vh,17px); }
+  #scr-home .menu-row { gap:8px; }
+  #scr-home .menu-row .btn { flex:1; }
+
+  /* انتخاب مرحله: ۳۰ مرحله در چند ستون فشرده و با اسکرول محدود */
+  #scr-levels { align-items:stretch; padding-top:max(10px,env(safe-area-inset-top)); padding-bottom:10px; }
+  #scr-levels .scr-head { max-width:none; min-height:42px; margin:0 0 2px; }
+  #scr-levels .scr-head h2, #scr-shop .scr-head h2, #scr-help .scr-head h2 { font-size:clamp(18px,3.4vh,26px); }
+  #scr-levels .scr-sub { margin:0 0 4px; font-size:clamp(11px,1.8vh,14px); }
+  #scr-levels .level-grid { flex:1; min-height:0; grid-template-columns:repeat(10,minmax(0,1fr)); grid-auto-rows:minmax(0,1fr); align-content:start; gap:clamp(4px,.9vw,10px); overflow-y:auto; padding:3px 2px 8px; }
+  #scr-levels .level-card { min-width:0; min-height:clamp(54px,15vh,72px); padding:4px 2px; gap:1px; border-radius:12px; }
+  #scr-levels .level-card:nth-child(even) { margin-top:0; }
+  #scr-levels .level-card .lv-num { font-size:clamp(16px,3.2vh,24px); }
+  #scr-levels .level-card .lv-cat { font-size:clamp(8px,1.3vh,11px); line-height:1.15; text-align:center; }
+  #scr-levels .lv-stars { gap:0; margin-top:0; }
+  #scr-levels .lv-stars svg { width:clamp(9px,1.5vh,13px); height:clamp(9px,1.5vh,13px); }
+
+  /* بازی: هدف/زمان‌سنج در پنل کناری و واژه‌های قابل لمس در ناحیهٔ بزرگ */
+  #scr-game { display:none; grid-template-columns:minmax(0,1fr) minmax(170px,28%); grid-template-rows:auto 14px auto minmax(0,1fr); align-items:stretch; gap:clamp(6px,1.4vh,12px) clamp(10px,2vw,22px); padding:max(8px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left)); }
+  #scr-game.active { display:grid; }
+  #scr-game .game-top { grid-column:1 / -1; grid-row:1; min-height:40px; margin:0; gap:10px; }
+  #scr-game .game-title { font-size:clamp(15px,2.8vh,21px); }
+  #scr-game .timer-wrap { grid-column:2; grid-row:2; align-self:center; height:14px; }
+  #scr-game .target-line { grid-column:2; grid-row:3; align-self:center; justify-content:flex-start; flex-wrap:wrap; margin:0; font-size:clamp(12px,2vh,15px); line-height:1.5; }
+  #scr-game .word-area { grid-column:1; grid-row:2 / 5; min-width:0; min-height:0; align-content:center; align-items:center; justify-content:center; gap:clamp(6px,1.3vw,14px); overflow-y:auto; padding:8px; }
+  #scr-game .wordbox { max-width:100%; padding:clamp(8px,1.8vh,14px) clamp(10px,2vw,22px); font-size:clamp(15px,3.2vh,24px); }
+  #scr-game #comboChip { min-width:3rem; font-size:clamp(11px,1.8vh,14px); }
+
+  /* فروشگاه: آیتم‌ها در دو ستون، کنترل خرید و دسته‌بندی بدون خروج از صفحه */
+  #scr-shop { align-items:stretch; padding-top:max(10px,env(safe-area-inset-top)); padding-bottom:10px; }
+  #scr-shop .scr-head { max-width:none; min-height:42px; margin:0 0 4px; }
+  #scr-shop .tabs { flex:none; margin:4px 0 8px; }
+  #scr-shop #shopList { flex:1; min-height:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-content:start; gap:8px; overflow-y:auto; padding:2px 3px 8px; }
+  #scr-shop .shop-item { min-width:0; min-height:clamp(82px,20vh,112px); gap:clamp(6px,1vw,12px); padding:8px 10px; margin:0; }
+  #scr-shop .shop-info b { font-size:clamp(12px,2vh,15px); }
+  #scr-shop .shop-info small { font-size:clamp(10px,1.6vh,12px); line-height:1.5; }
+  #scr-shop .swatch { width:clamp(36px,8vh,48px); height:clamp(36px,8vh,48px); }
+  #scr-shop .btn-buy, #scr-shop .btn-equip, #scr-shop .btn-owned { padding:6px 9px; font-size:clamp(10px,1.6vh,13px); }
+
+  /* راهنما: مراحل در دو ستون قابل پیمایش */
+  #scr-help { align-items:stretch; }
+  #scr-help .scr-head { max-width:none; min-height:42px; margin:0 0 4px; }
+  #scr-help .help-hero { flex:none; margin:2px 0 8px; }
+  #scr-help .help-hero .himg { width:clamp(54px,13vh,84px); }
+  #scr-help .help-bubble { padding:7px 11px; font-size:clamp(11px,1.8vh,14px); line-height:1.6; }
+  #scr-help .steps { flex:1; min-height:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-content:start; gap:8px; overflow-y:auto; padding:2px 3px 10px; }
+  #scr-help .step { min-width:0; padding:8px; gap:8px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; }
+  #scr-help .step:not(:last-child)::before { display:none; }
+  #scr-help .step-num { width:32px; height:32px; border-radius:10px; }
+  #scr-help .step-num svg { width:17px; height:17px; }
+  #scr-help .step-body { min-width:0; padding:0; }
+  #scr-help .step-body b { margin-bottom:2px; font-size:clamp(11px,1.7vh,14px); }
+  #scr-help .step-body p { font-size:clamp(10px,1.55vh,12px); line-height:1.55; }
+  #scr-help .demo-row { gap:4px; margin:5px 0 2px; }
+  #scr-help .wordbox.demo { padding:4px 8px; font-size:clamp(10px,1.5vh,12px); }
+  #scr-help .demo-cap { font-size:10px; }
+
+  /* پنجره‌های توقف و نتیجه */
+  .overlay { padding:8px; overflow-y:auto; }
+  .panel { width:min(92vw,640px); max-width:640px; max-height:calc(100dvh - 16px); overflow-y:auto; padding:clamp(12px,2.5vh,22px) clamp(16px,3vw,28px); }
+  .panel-title { font-size:clamp(20px,4vh,28px); margin-bottom:4px; }
+  .panel-sub { font-size:clamp(12px,2vh,15px); margin-bottom:8px; line-height:1.5; }
+  .panel-actions { flex-direction:row; flex-wrap:wrap; gap:8px; }
+  .panel-actions .btn { flex:1; min-width:120px; min-height:40px; padding:7px 10px; font-size:clamp(11px,1.8vh,14px); }
+  .res-mascot { width:clamp(52px,13vh,82px); margin:0 auto 4px; }
+  .res-stars { margin-bottom:4px; }
+  .res-star, .res-star:nth-child(2) { width:clamp(32px,8vh,48px); height:clamp(32px,8vh,48px); }
+  .res-coins { margin-bottom:6px; padding:5px 12px; }
+  #toastEl { bottom:calc(.5rem + env(safe-area-inset-bottom)); }
+}
+
+@media (orientation:landscape) and (max-height:420px) {
+  #scr-home { padding-top:34px; gap:2px 14px; }
+  #scr-home .mascot { width:clamp(76px,25vh,100px); }
+  #scr-home .menu-actions { gap:5px; }
+  #scr-home .menu-actions .btn { min-height:34px; }
+  #scr-levels .scr-head, #scr-shop .scr-head, #scr-help .scr-head { min-height:34px; }
+  #scr-levels .level-grid { gap:4px; }
+  #scr-levels .level-card { min-height:52px; }
+  #scr-game { grid-template-rows:auto 12px auto minmax(0,1fr); gap:5px 10px; }
+  #scr-game .game-top { min-height:34px; }
+  #scr-game .word-area { gap:5px; padding:4px; }
+  #scr-game .wordbox { padding:6px 9px; font-size:clamp(13px,3vh,18px); }
+  #scr-shop #shopList { gap:5px; }
+  #scr-shop .shop-item { min-height:70px; padding:5px 7px; }
+  #scr-help .help-hero { margin:0 0 4px; }
+  #scr-help .steps { gap:5px; }
+  #scr-help .step { padding:5px; }
+  .panel { padding:9px 12px; }
+  .panel-actions .btn { min-height:34px; }
+}
 </style>
 </head>
 <body data-screen="home">
@@ -798,7 +908,27 @@ function telEnd(done){const c=telemetry.cur;if(!c)return;
   telemetry.cur=null;}
 
 /* ---------------- ناوبری ---------------- */
+let landscapeHintShown=false;
+function showLandscapeHint(){
+  if(landscapeHintShown)return;
+  landscapeHintShown=true;
+  toast('برای نمایش افقی بهتر، دستگاه را بچرخانید','good');
+}
+function requestLandscapeMode(){
+  if(!window.matchMedia||!window.matchMedia('(orientation: portrait)').matches||
+     !window.matchMedia('(pointer: coarse)').matches)return;
+  const orientation=window.screen&&window.screen.orientation;
+  if(orientation&&typeof orientation.lock==='function'){
+    try{
+      const result=orientation.lock('landscape');
+      if(result&&typeof result.catch==='function')result.catch(showLandscapeHint);
+      return;
+    }catch(_){/* Unsupported browsers fall back to a rotate-device hint. */}
+  }
+  showLandscapeHint();
+}
 function show(name){
+  if(name!=='home')requestLandscapeMode();
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   $('#scr-'+name).classList.add('active');
   document.body.dataset.screen=name;
