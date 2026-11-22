@@ -477,13 +477,14 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
   #screen-game { align-items:stretch; overflow:hidden; padding:0; }
   #screen-game .game-area {
     display:grid; grid-template-columns:minmax(0,1fr) minmax(120px,24%);
-    grid-template-rows:32px minmax(0,1fr); align-items:stretch; gap:8px 12px;
+    grid-template-rows:40px minmax(0,1fr); align-items:stretch; gap:6px 12px;
     width:100%; height:100%; min-height:0; flex:1 1 auto;
     padding:max(42px,calc(env(safe-area-inset-top) + 36px)) max(12px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
   }
   #screen-game .game-instruction {
-    grid-column:1 / -1; grid-row:1; align-self:center; padding:4px 10px; font-size:12px;
+    grid-column:1 / -1; grid-row:1; align-self:center; flex-wrap:nowrap; padding:4px 10px; font-size:12px;
   }
+  #screen-game .game-instruction-text { flex:1 1 auto; }
   #screen-game .game-stage {
     grid-column:1; grid-row:2; width:100%; height:100%; min-width:0; min-height:0;
     align-items:center; justify-content:center; gap:clamp(8px,2vw,28px); padding:4px;
@@ -558,10 +559,22 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
 #screen-game .source-food-item svg { display:block; width:100%; height:100%; object-fit:contain; }
 #screen-game .game-instruction {
   position:relative; z-index:5; flex:none; width:100%; padding:6px 10px;
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px 10px;
   border:1px solid rgba(255,255,255,.28); border-radius:12px;
   background:rgba(30,30,47,.84); color:#fff; font-size:13px; font-weight:700;
   line-height:1.35; text-align:center; direction:rtl;
 }
+#screen-game .game-instruction-text { flex:1 1 100%; }
+#screen-game .guide-audio-btn,
+#screen-game .guide-skip-btn {
+  min-height:32px; padding:4px 11px; border:1px solid rgba(255,255,255,.28);
+  border-radius:10px; color:#fff; font:700 12px/1.2 var(--font); cursor:pointer;
+}
+#screen-game .guide-audio-btn { background:rgba(0,210,255,.2); }
+#screen-game .guide-skip-btn { background:rgba(255,255,255,.1); }
+#screen-game .guide-audio-btn:active,
+#screen-game .guide-skip-btn:active { transform:scale(.96); }
+#screen-game .game-instruction.dismissed { display:none; }
 #screen-game .column-area { padding:5px 4px; }
 #screen-game .animal-area { max-width:48%; min-width:0; }
 #screen-game .animal-container { height:auto; max-width:100%; }
@@ -716,7 +729,11 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
     </button>
     
     <div class="game-area">
-      <div class="game-instruction" role="note">قد حیوان را با ارتفاع ستون خوراکی‌ها مقایسه کن؛ غذاها را بکش تا هم‌قد شوند.</div>
+      <div class="game-instruction" id="game-instruction" role="note">
+        <span class="game-instruction-text" id="game-instruction-text">قد حیوان را با ارتفاع ستون خوراکی‌ها مقایسه کن؛ غذاها را بکش تا هم‌قد شوند.</span>
+        <button class="guide-audio-btn" id="guide-audio-btn" type="button" aria-label="پخش راهنمای صوتی">🔊 راهنمای صوتی</button>
+        <button class="guide-skip-btn" id="guide-skip-btn" type="button">⏭ رد کردن</button>
+      </div>
       <div class="game-stage">
         <div class="animal-area" aria-label="حیوان برای مقایسهٔ قد">
           <div class="animal-container">
@@ -906,7 +923,59 @@ function toPersianNum(n) {
   return String(n).split('').map(d => persianDigits[parseInt(d)] || d).join('');
 }
 
+function requestLandscapeLock() {
+  if (!window.matchMedia('(orientation:portrait)').matches) return;
+  const orientation = window.screen && window.screen.orientation;
+  if (!orientation || typeof orientation.lock !== 'function') {
+    showToast('برای نمایش افقی، دستگاه را بچرخانید.', 'info', 3000);
+    return;
+  }
+  const lock = () => orientation.lock('landscape').catch(() => {
+    showToast('برای نمایش افقی، دستگاه را بچرخانید.', 'info', 3000);
+  });
+  if (document.fullscreenElement) {
+    lock();
+  } else if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().then(lock).catch(() => {
+      lock();
+      showToast('برای نمایش افقی، دستگاه را بچرخانید.', 'info', 3000);
+    });
+  } else {
+    lock();
+  }
+}
+
+function stopGuideAudio() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+}
+
+function playGuideAudio() {
+  if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
+    showToast('پخش راهنمای صوتی در این مرورگر پشتیبانی نمی‌شود.', 'info', 3000);
+    return;
+  }
+  stopGuideAudio();
+  const utterance = new SpeechSynthesisUtterance(document.getElementById('game-instruction-text').textContent);
+  utterance.lang = 'fa-IR';
+  utterance.rate = 0.9;
+  window.speechSynthesis.speak(utterance);
+}
+
+function skipGameGuide() {
+  stopGuideAudio();
+  document.getElementById('game-instruction').classList.add('dismissed');
+}
+
 function showScreen(name) {
+  if (name !== 'game') {
+    stopGuideAudio();
+    if (window.screen && window.screen.orientation && typeof window.screen.orientation.unlock === 'function') {
+      try { window.screen.orientation.unlock(); } catch(e) {}
+    }
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(`screen-${name}`).classList.add('active');
   state.currentScreen = name;
@@ -977,6 +1046,7 @@ function renderLevels() {
         initAudio();
         playClickSound();
         state.currentLevel = index;
+        requestLandscapeLock();
         loadLevel(index);
         showScreen('game');
       });
@@ -1375,6 +1445,8 @@ function equipItem(id) {
 // ============ INIT & EVENTS ============
 function init() {
   updateCoinDisplay();
+  document.getElementById('guide-audio-btn').addEventListener('click', playGuideAudio);
+  document.getElementById('guide-skip-btn').addEventListener('click', skipGameGuide);
   
   document.getElementById('btn-start').addEventListener('click', () => {
     initAudio();
