@@ -469,6 +469,133 @@
             .countdown-number { font-size: 14rem; }
             .countdown-number.go-text { font-size: 8rem; }
         }
+
+
+        /* Landscape-first layouts for home, levels, shop, guide, and the emoji puzzle. */
+        @media (orientation: landscape) {
+            html, body { width: 100%; height: 100%; overflow: hidden; }
+            .page { width: 100vw; height: 100vh; height: 100dvh; padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); overflow: hidden; }
+
+            /* Home: character on one side, start and navigation controls together on the other. */
+            #homePage { justify-content: stretch; }
+            #homePage .menu-container {
+                direction: ltr; display: grid; grid-template-columns: minmax(130px, .75fr) minmax(0, 1.25fr);
+                grid-template-rows: auto auto auto minmax(0, auto); align-items: center; justify-items: center;
+                gap: 4px clamp(12px, 2.5vw, 32px); width: 100%; max-width: 1200px; height: 100%; max-height: none;
+                margin: auto; padding: 34px clamp(14px, 4vw, 56px) 12px;
+            }
+            #homePage .coin-display { top: 6px; left: 10px; padding: 4px 10px; }
+            #homePage .menu-character { grid-column: 1; grid-row: 1 / 5; width: clamp(100px, 32vh, 220px); height: clamp(100px, 32vh, 220px); margin: 0; }
+            #homePage .welcome-box { grid-column: 2; grid-row: 1; margin: 0 auto 4px; padding: 6px 12px; font-size: clamp(12px, 2vh, 16px); }
+            #homePage .menu-title { grid-column: 2; grid-row: 2; align-self: end; font-size: clamp(24px, 6vh, 48px); line-height: 1.2; margin: 0; direction: rtl; }
+            #homePage #homeStartBtn { grid-column: 2; grid-row: 3; width: min(100%, 440px); min-height: clamp(40px, 9vh, 54px); margin: 3px 0; padding: 6px 14px; font-size: clamp(14px, 2.5vh, 19px); }
+            #homePage .row-buttons { grid-column: 2; grid-row: 4; width: min(100%, 440px); gap: 8px; margin: 0; direction: rtl; }
+            #homePage .row-buttons .btn { min-height: clamp(38px, 8vh, 48px); margin: 0; padding: 5px 10px; font-size: clamp(12px, 2vh, 15px); }
+
+            /* Level picker: all 30 stages remain in the scrollable panel; ten columns cut down scrolling. */
+            #levelPage { padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left)); }
+            #levelPage > .menu-container { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 4px; width: 100%; max-width: 1100px !important; height: 100%; max-height: none; min-height: 0; padding: 10px 18px; }
+            #levelPage .menu-title { font-size: clamp(18px, 3.5vh, 28px) !important; margin: 0 0 2px !important; }
+            #levelPage > .menu-container > p { margin: 0; }
+            #levelPage .level-grid-container { width: 100%; max-width: none; max-height: none; min-height: 0; overflow-y: auto; padding: 4px; }
+            #levelPage .level-grid { grid-template-columns: repeat(10, minmax(0, 1fr)); gap: clamp(5px, 1vh, 10px); }
+            #levelPage .level-box { min-width: 0; aspect-ratio: 1; }
+            #levelPage .level-box .level-number { font-size: clamp(16px, 3vh, 24px); }
+            #levelPage #levelBackBtn { width: min(100%, 300px); min-height: 38px; margin: 4px auto 0 !important; padding: 5px 12px; }
+
+            /* Shop: tabs remain reachable alongside a wide catalog. */
+            #shopPage { padding: 8px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left)); }
+            #shopPage .shop-container {
+                display: grid; grid-template-columns: minmax(110px, 17%) minmax(0, 1fr); grid-template-rows: 42px minmax(0, 1fr);
+                gap: 8px 12px; width: 100%; max-width: 1400px; height: 100%; max-height: none; min-height: 0; padding: 10px 14px; margin: auto;
+            }
+            #shopPage .shop-header { grid-column: 1 / -1; grid-row: 1; margin: 0; }
+            #shopPage .shop-header h2 { flex: 1; text-align: center; font-size: clamp(17px, 3vh, 24px); }
+            #shopPage .shop-tabs { grid-column: 1; grid-row: 2; align-self: start; margin: 0; flex-wrap: wrap; }
+            #shopPage .shop-tab { min-width: 100%; min-height: 40px; padding: 7px; font-size: clamp(11px, 1.8vh, 14px); }
+            #shopPage .shop-grid { grid-column: 2; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: clamp(5px, 1vw, 10px); min-width: 0; min-height: 0; overflow-y: auto; padding: 2px; }
+            #shopPage .shop-item { min-width: 0; min-height: 0; padding: clamp(5px, 1.2vh, 10px) 5px; gap: 3px; }
+            #shopPage .shop-item .shop-item-preview { height: clamp(30px, 8vh, 58px); flex: 0 0 auto; }
+            #shopPage .shop-item .shop-item-name { max-width: 100%; font-size: clamp(9px, 1.5vh, 12px); line-height: 1.2; }
+            #shopPage .shop-item .shop-item-price { font-size: clamp(9px, 1.4vh, 11px); }
+            #shopPage .shop-btn-sm { min-height: 28px; margin-top: 0; padding: 4px; font-size: clamp(9px, 1.4vh, 11px); }
+
+            /* Game: square puzzle and its answer tray share the screen instead of stacking. */
+            #gamePage { align-items: stretch; justify-content: flex-start !important; padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)) !important; height: 100dvh; }
+            #gamePage .game-header { max-width: none; min-height: 42px; padding: 5px 12px; margin-bottom: 6px; flex: 0 0 auto; }
+            #gamePage .game-header h2 { font-size: clamp(14px, 2.6vh, 19px); }
+            #gamePage .game-header .header-info { gap: clamp(6px, 1.5vw, 16px); font-size: clamp(10px, 1.8vh, 13px); }
+            #gamePage .grid-container {
+                display: grid; grid-template-columns: minmax(0, 1fr) minmax(130px, .58fr); grid-template-rows: minmax(0, 1fr) auto;
+                align-items: stretch; gap: clamp(8px, 1.5vw, 18px); width: 100%; max-width: 1400px; height: calc(100dvh - 78px); min-height: 0; margin: 0 auto;
+            }
+            #gamePage .sudoku-grid { grid-column: 1; grid-row: 1 / 3; align-self: center; justify-self: center; width: auto; height: min(100%, calc(100dvh - 88px)); max-width: 100%; max-height: 100%; min-width: 0; min-height: 0; aspect-ratio: 1 / 1; gap: clamp(3px, .7vh, 6px); padding: clamp(4px, 1vh, 9px); }
+            #gamePage .grid-cell { min-width: 0; min-height: 0; border-radius: clamp(5px, 1.2vh, 12px); font-size: clamp(18px, 5vh, 42px); }
+            #gamePage .emoji-tray { grid-column: 2; grid-row: 1; align-content: center; align-self: stretch; max-width: none; min-width: 0; min-height: 0; gap: clamp(5px, 1vw, 12px); overflow-y: auto; padding: 8px; }
+            #gamePage .tray-item { font-size: clamp(22px, 5.5vh, 42px); min-width: clamp(38px, 8vh, 58px); min-height: clamp(38px, 8vh, 58px); padding: 4px; }
+            #gamePage #checkBtn { grid-column: 2; grid-row: 2; width: 100%; max-width: none !important; min-height: 42px; margin: 0 !important; padding: 6px 10px; font-size: clamp(13px, 2vh, 16px); }
+
+            /* Tutorial overlay uses a horizontal reading area with always-visible skip/time controls. */
+            #screen-guide { padding: 10px max(14px, env(safe-area-inset-right)) 10px max(14px, env(safe-area-inset-left)); }
+            #screen-guide .guide-container {
+                direction: ltr; display: grid; grid-template-columns: minmax(72px, 16%) minmax(0, 1fr) minmax(90px, 15%);
+                grid-template-rows: minmax(0, 1fr) 5px auto; gap: 8px 14px; width: 100%; max-width: 1200px; height: min(100%, 520px); max-height: 100%; min-height: 0; padding: 12px 16px; margin: auto;
+            }
+            #screen-guide .pixel-wrap { grid-column: 1; grid-row: 1 / 4; align-self: center; width: clamp(68px, 18vh, 130px); height: clamp(68px, 18vh, 130px); margin: 0; }
+            #screen-guide .speech-bubble { grid-column: 2 / 4; grid-row: 1; align-self: stretch; display: flex; align-items: center; min-width: 0; min-height: 0; overflow-y: auto; margin: 0; padding: 10px 14px; }
+            #screen-guide .speech-text { min-height: 0; font-size: clamp(13px, 2.6vh, 21px); line-height: 1.6; }
+            #screen-guide .progress-wrap { grid-column: 2; grid-row: 2; width: 100%; margin: 0; }
+            #screen-guide .time-indicator { grid-column: 3; grid-row: 2; align-self: center; margin: 0; font-size: clamp(10px, 1.7vh, 13px); }
+            #screen-guide .btn-skip { grid-column: 3; grid-row: 3; min-height: 36px; padding: 5px 8px; font-size: clamp(11px, 1.7vh, 14px); }
+
+            /* Dialog controls stay on-screen in landscape, including short-height phones. */
+            .modal-overlay { padding: 8px; overflow-y: auto; }
+            .modal-box { width: min(92vw, 680px); max-width: 680px; max-height: calc(100dvh - 16px); overflow-y: auto; padding: clamp(12px, 2.5vh, 22px); }
+            .modal-title { font-size: clamp(19px, 4vh, 28px); margin-bottom: 3px; }
+            .modal-text { font-size: clamp(12px, 2vh, 15px); margin-bottom: 6px; line-height: 1.45; }
+            .modal-box .btn { min-height: 38px; padding: 6px 10px; font-size: clamp(11px, 1.7vh, 14px); margin: 2px 0 !important; }
+            .stop-modal .modal-box .stop-options { flex-direction: row; gap: 6px; margin-top: 6px; }
+            .stop-modal .modal-box .stop-options .btn { flex: 1; min-width: 0; min-height: 38px; padding: 4px; font-size: clamp(10px, 1.5vh, 12px); }
+            #winModal .modal-box { display: grid; grid-template-columns: minmax(65px, 100px) repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto auto; align-items: center; gap: 6px 10px; }
+            #winModal .happy-gamer { grid-column: 1; grid-row: 1 / 4; width: clamp(55px, 13vh, 90px); height: clamp(55px, 13vh, 90px); margin: 0; }
+            #winModal .modal-title, #winModal .modal-text { grid-column: 2 / 5; margin: 0; }
+            #winModal .modal-title { grid-row: 1; }
+            #winModal .modal-text { grid-row: 2; }
+            #winModal .modal-box > .btn { grid-row: 3; min-width: 0; }
+            #winModal #winNextBtn { grid-column: 2; }
+            #winModal #winRestartBtn { grid-column: 3; }
+            #winModal #winHomeBtn { grid-column: 4; }
+            .countdown-number { font-size: clamp(64px, 28vh, 170px); }
+            .countdown-number.go-text { font-size: clamp(48px, 18vh, 110px); }
+            .countdown-label { font-size: clamp(14px, 3vh, 22px); margin-top: 6px; }
+            #toast-container { top: 8px; width: min(92vw, 450px); }
+        }
+
+        @media (orientation: landscape) and (max-height: 420px) {
+            #homePage .menu-container { padding: 30px 20px 8px; gap: 2px 14px; }
+            #homePage .menu-character { width: clamp(82px, 25vh, 112px); height: clamp(82px, 25vh, 112px); }
+            #homePage .menu-title { font-size: clamp(21px, 6vh, 30px); }
+            #homePage .welcome-box { padding: 4px 8px; margin-bottom: 2px; }
+            #homePage .btn { min-height: 34px !important; }
+            #levelPage > .menu-container { padding: 6px 10px; gap: 2px; }
+            #levelPage .level-grid { gap: 4px; }
+            #levelPage .level-box .level-number { font-size: clamp(14px, 3.2vh, 19px); }
+            #levelPage #levelBackBtn { min-height: 32px; }
+            #shopPage .shop-container { grid-template-rows: 36px minmax(0, 1fr); padding: 7px 9px; gap: 5px 8px; }
+            #shopPage .shop-item { padding: 3px; gap: 2px; }
+            #shopPage .shop-item .shop-item-preview { height: clamp(24px, 7vh, 34px); }
+            #shopPage .shop-btn-sm { min-height: 24px; }
+            #gamePage .game-header { min-height: 36px; padding: 3px 8px; margin-bottom: 4px; }
+            #gamePage .grid-container { height: calc(100dvh - 62px); gap: 6px; grid-template-columns: minmax(0, 1fr) minmax(110px, .5fr); }
+            #gamePage .sudoku-grid { height: min(100%, calc(100dvh - 68px)); }
+            #gamePage .tray-item { min-width: 34px; min-height: 34px; }
+            #screen-guide .guide-container { padding: 7px 10px; gap: 5px 9px; }
+            #screen-guide .pixel-wrap { width: clamp(58px, 16vh, 72px); height: clamp(58px, 16vh, 72px); }
+            #screen-guide .speech-bubble { padding: 6px 9px; }
+            #screen-guide .speech-text { font-size: clamp(12px, 2.6vh, 16px); }
+            .modal-box { padding: 9px 12px; }
+            .stop-modal .modal-box .stop-options .btn { min-height: 32px; }
+        }
     </style>
 </head>
 <body>
@@ -744,7 +871,28 @@
         
         let guideState = { isPlaying: false, currentIndex: -1, startTime: 0, rafId: null, useFallback: false, audio: null, isFirstTimeFlow: false };
 
+        let landscapeHintShown = false;
+        function showLandscapeHint() {
+            if (landscapeHintShown) return;
+            landscapeHintShown = true;
+            showToast('برای نمایش افقی بهتر، دستگاه را بچرخانید.', 'blue');
+        }
+        function requestLandscapeMode() {
+            if (!window.matchMedia || !window.matchMedia('(orientation: portrait)').matches ||
+                !window.matchMedia('(pointer: coarse)').matches) return;
+            const orientation = window.screen && window.screen.orientation;
+            if (orientation && typeof orientation.lock === 'function') {
+                try {
+                    const result = orientation.lock('landscape');
+                    if (result && typeof result.catch === 'function') result.catch(showLandscapeHint);
+                    return;
+                } catch (e) { /* Fall back to the rotate-device hint on unsupported browsers. */ }
+            }
+            showLandscapeHint();
+        }
+
         function showGuide(isFirstTime) {
+            requestLandscapeMode();
             guideState.isPlaying = true; 
             guideState.currentIndex = -1; 
             guideState.useFallback = false;
@@ -1009,6 +1157,7 @@
             setTimeout(() => { t.classList.add('fade-out'); setTimeout(() => t.remove(), 350); }, 2500);
         }
         function showPage(pageId) {
+            if (pageId !== 'homePage') requestLandscapeMode();
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             if (pageId === 'levelPage') { renderLevelGrid(); updateCoinDisplay(); }
