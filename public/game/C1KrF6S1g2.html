@@ -1307,6 +1307,38 @@ body {
   #gameScreen .stage[data-count="5"] .balloon-svg { width:clamp(26px,5vh,38px); }
 }
 
+/* Remove the information-heavy HUD row; keep only compact game controls. */
+#gameScreen .game-app { position:relative; }
+#gameScreen .hud {
+  position:absolute; z-index:30; top:0; left:0; right:0; height:32px;
+  display:block; margin:0; padding:0; border:0; border-radius:0;
+  background:transparent; box-shadow:none; backdrop-filter:none; pointer-events:none;
+}
+#gameScreen .hud-chip,#gameScreen .hud > .spacer { display:none !important; }
+#gameScreen .hud .icon-btn {
+  position:absolute; top:0; width:30px; height:30px; padding:0;
+  background:#fff; border:1.5px solid rgba(16,43,85,.16); box-shadow:0 2px 7px rgba(16,43,85,.12);
+  pointer-events:auto;
+}
+#backBtn { right:0; }
+#musicToggle { left:36px; }
+#muteBtn { left:0; }
+#gameScreen .progress-wrap { width:calc(100% - 80px); margin:4px auto 0; height:22px; flex:none; }
+@media (max-width:380px) {
+  #gameScreen .hud { height:27px; }
+  #gameScreen .hud .icon-btn { width:26px; height:26px; }
+  #musicToggle { left:32px; }
+  #gameScreen .progress-wrap { width:calc(100% - 68px); margin-top:3px; height:20px; }
+}
+@media (max-height:620px) and (orientation:portrait) {
+  #gameScreen .game-app { padding-top:0; }
+  #gameScreen .stage { min-height:clamp(270px,48vh,320px); }
+}
+@media (orientation:landscape) and (max-height:560px) {
+  #gameScreen .game-app { padding-top:0; }
+  #gameScreen .stage { min-height:230px; }
+}
+
 </style>
 </head>
 <body>
