@@ -309,8 +309,6 @@ button:focus-visible{outline:3px solid rgba(var(--neon-rgb),.8);outline-offset:2
   #scr-shop .sitem small { font-size:clamp(9px,1.4vh,11px); line-height:1.4; }
   #scr-shop .mini { width:clamp(32px,7vh,46px); height:clamp(32px,7vh,46px); }
   #scr-shop .sbtn { min-height:30px; padding:5px; font-size:clamp(10px,1.5vh,12px); }
-  #scr-shop .wrap > div:last-child { grid-column:1; grid-row:3; margin:0!important; align-self:end; }
-  #scr-shop .wrap > div:last-child .btn { min-height:38px; padding:5px; }
   #scr-shop .shop-item { min-height:112px; flex-direction:column; justify-content:center; text-align:center; gap:5px; margin:0; padding:9px; }
   #scr-shop .shop-item .info b { font-size:clamp(11px,1.7vh,14px); }
   #scr-shop .shop-item .info small { font-size:clamp(9px,1.4vh,11px); }
@@ -408,6 +406,84 @@ button:focus-visible{outline:3px solid rgba(var(--neon-rgb),.8);outline-offset:2
   #scr-final .stars { margin:4px 0; }
   #scr-final .stars .st { width:30px;height:30px; }
   #scr-final .reward { margin:4px auto 7px; padding:7px 12px; }
+}
+
+
+/* فروشگاه تازه: سربرگ، دسته‌ها و کارت‌های محصول با چیدمان قابل‌پیش‌بینی */
+#scr-shop { overflow-y:auto; }
+#scr-shop .wrap { display:flex; flex-direction:column; width:min(100%,1040px); min-height:100%; gap:14px; margin-inline:auto; padding:14px clamp(14px,3vw,30px) calc(18px + env(safe-area-inset-bottom)); }
+#scr-shop .page-head { flex:none; padding:4px 0 8px; }
+#scr-shop .page-head h2 { font-size:clamp(22px,4vw,30px); }
+#scr-shop .shop-intro { display:flex; align-items:center; gap:12px; padding:12px 16px; border:1px solid rgba(var(--neon-rgb),.35); border-radius:18px; background:linear-gradient(115deg,rgba(var(--neon-rgb),.17),rgba(255,255,255,.045)); box-shadow:0 8px 22px rgba(0,0,0,.2); }
+#scr-shop .shop-sparkle { display:grid; place-items:center; width:40px;height:40px; flex:none; border-radius:13px; background:rgba(255,201,60,.15); color:var(--gold); font-size:25px; }
+#scr-shop .shop-intro b,#scr-shop .shop-intro small { display:block; }
+#scr-shop .shop-intro b { font-size:clamp(14px,2vw,17px); }
+#scr-shop .shop-intro small { margin-top:2px; color:#aab0d0; font-size:clamp(11px,1.7vw,13px); line-height:1.6; }
+#scr-shop .tabs { display:flex; gap:8px; width:100%; margin:0; padding:5px; border-radius:16px; }
+#scr-shop .tab { min-height:46px; border:1px solid transparent; }
+#scr-shop .tab.active { box-shadow:0 4px 14px rgba(255,201,60,.18); }
+#scr-shop #tab-skins,#scr-shop #tab-items { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); align-content:start; gap:12px; min-width:0; min-height:0; padding:2px; }
+#scr-shop #tab-skins.hidden,#scr-shop #tab-items.hidden { display:none!important; }
+#scr-shop .shop-item { display:grid; grid-template-columns:52px minmax(0,1fr); grid-template-rows:auto auto; align-items:center; gap:4px 12px; min-width:0; min-height:100px; margin:0; padding:12px; border-radius:18px; background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035)); transition:transform .18s,border-color .18s,box-shadow .18s; }
+#scr-shop .shop-item:hover { transform:translateY(-2px); border-color:rgba(255,201,60,.48); box-shadow:0 12px 28px rgba(0,0,0,.3); }
+#scr-shop .shop-item > .chip,#scr-shop .shop-item > .mini-pix { grid-column:1; grid-row:1 / 3; justify-self:center; width:48px; height:48px; }
+#scr-shop .shop-item > .chip { border-radius:14px; }
+#scr-shop .shop-item > .mini-pix { display:grid; place-items:center; }
+#scr-shop .shop-item .info { grid-column:2; grid-row:1; min-width:0; overflow-wrap:anywhere; }
+#scr-shop .shop-item .info b { font-size:clamp(13px,1.8vw,15px); }
+#scr-shop .shop-item .info small { display:block; margin-top:2px; font-size:12px; }
+#scr-shop .buy-btn { grid-column:2; grid-row:2; justify-self:start; min-height:32px; padding:5px 11px; font-size:12px; }
+#scr-shop .buy-btn.on { border-color:rgba(0,184,148,.55); }
+#scr-final .final-panel { position:relative; overflow:hidden; width:min(100%,620px); padding:clamp(20px,4vw,34px); border:1px solid rgba(255,201,60,.4); background:radial-gradient(circle at 50% 0,rgba(255,201,60,.16),transparent 38%),linear-gradient(145deg,rgba(108,92,231,.18),rgba(30,30,47,.97) 58%,rgba(255,201,60,.08)); box-shadow:0 24px 70px rgba(0,0,0,.55),0 0 45px rgba(255,201,60,.1); }
+#scr-final .final-kicker { display:flex; justify-content:center; align-items:center; gap:7px; width:max-content; max-width:100%; margin:0 auto 7px; padding:6px 13px; border:1px solid rgba(255,201,60,.35); border-radius:999px; background:rgba(255,201,60,.10); color:#ffe28a; font-size:13px; font-weight:900; }
+#scr-final .final-kicker span { font-size:18px; }
+#scr-final .final-panel > h2 { margin:2px 0 5px; font-size:clamp(25px,5vw,36px); line-height:1.35; }
+#scr-final .final-panel > .sub { max-width:38ch; margin:0 auto 6px; line-height:1.8; }
+#scr-final .final-panel #fnChar { width:clamp(82px,17vw,128px); }
+#scr-final .final-panel #fnStars { margin:7px 0; }
+#scr-final .final-panel #fnInfo { margin:3px auto 8px; }
+#scr-final .final-panel .reward { min-height:48px; margin:3px auto 12px; }
+#scr-final .final-panel .btn { min-height:46px; border-radius:15px; }
+#scr-final .final-panel #btnAgain { box-shadow:0 6px 0 var(--gold-dark),0 12px 22px rgba(255,168,0,.2); }
+@media (orientation:landscape) {
+  #scr-shop .wrap { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:44px auto 48px minmax(0,1fr); gap:8px 14px; min-height:0; }
+  #scr-shop .page-head { grid-column:1;grid-row:1; }
+  #scr-shop .shop-intro { grid-column:1;grid-row:2; padding:7px 12px; }
+  #scr-shop .shop-sparkle { width:34px;height:34px; }
+  #scr-shop .tabs { grid-column:1;grid-row:3; }
+  #scr-shop #tab-skins,#scr-shop #tab-items { grid-column:1;grid-row:4; grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); overflow-y:auto; }
+  #scr-shop .shop-item { min-height:88px; }
+  #scr-final .final-panel { display:grid; grid-template-columns:minmax(90px,.48fr) minmax(0,1.52fr); grid-template-rows:repeat(8,auto); align-items:center; gap:4px 20px; width:min(100%,960px); }
+  #scr-final .final-kicker { grid-column:2;grid-row:1; }
+  #scr-final .final-panel #fnChar { grid-column:1;grid-row:1 / 9; align-self:center; justify-self:center; width:clamp(90px,22vh,164px); margin:0; }
+  #scr-final .final-panel > h2 { grid-column:2;grid-row:2; }
+  #scr-final .final-panel > .sub { grid-column:2;grid-row:3; }
+  #scr-final .final-panel #fnStars { grid-column:2;grid-row:4; }
+  #scr-final .final-panel #fnInfo { grid-column:2;grid-row:5; }
+  #scr-final .final-panel .reward { grid-column:2;grid-row:6; }
+  #scr-final .final-panel #btnAgain { grid-column:2;grid-row:7; }
+  #scr-final .final-panel > [data-nav] { grid-column:2;grid-row:8; }
+}
+@media (max-width:600px) {
+  #scr-shop .wrap { gap:11px; padding:12px 14px calc(18px + env(safe-area-inset-bottom)); }
+  #scr-shop .shop-intro { padding:10px 12px; }
+  #scr-shop #tab-skins,#scr-shop #tab-items { grid-template-columns:1fr; }
+  #scr-shop .shop-item { min-height:84px; }
+  #scr-shop .shop-item:hover { transform:none; }
+  #scr-final .final-panel { padding:20px 15px; }
+}
+@media (orientation:landscape) and (max-height:520px) {
+  #scr-shop .wrap { grid-template-rows:36px auto 40px minmax(0,1fr); gap:5px 10px; }
+  #scr-shop .shop-intro { padding:4px 10px; }
+  #scr-shop .shop-intro small { font-size:10px; }
+  #scr-shop .shop-item { min-height:76px; padding:7px 9px; }
+  #scr-final .final-panel { gap:2px 12px; padding:8px 14px; }
+  #scr-final .final-panel #fnChar { width:clamp(52px,16vh,72px); }
+  #scr-final .final-kicker { padding:3px 10px; font-size:11px; margin-bottom:2px; }
+  #scr-final .final-panel > h2 { font-size:clamp(19px,4vh,25px); }
+  #scr-final .final-panel > .sub,#scr-final .final-panel #fnInfo { font-size:11px; }
+  #scr-final .final-panel .reward { min-height:32px; margin:1px auto 4px; padding:4px 10px; font-size:14px; }
+  #scr-final .final-panel .btn { min-height:30px; padding:4px 10px; }
 }
 
 </style>
@@ -521,13 +597,13 @@ button:focus-visible{outline:3px solid rgba(var(--neon-rgb),.8);outline-offset:2
       <h2>فروشگاه</h2>
       <div class="coin-display small"><img src="./icons/coin.png" alt="سکه" data-fb="coin"><span id="coinsShop">۰</span></div>
     </header>
-    <div class="tabs">
-      <button class="tab active" data-tab="skins"><svg class="ic" style="width:19px;height:19px"><use href="#i-palette"/></svg> پوسته‌ها</button>
-      <button class="tab" data-tab="items"><svg class="ic" style="width:19px;height:19px"><use href="#i-hat"/></svg> شخصی‌سازی</button>
+    <div class="shop-intro"><span class="shop-sparkle" aria-hidden="true">✦</span><span><b>ظاهر تازه برای پولی!</b><small>پوسته یا وسیله‌ات را انتخاب کن و با سکه‌ها شخصی‌سازی کن.</small></span></div>
+    <div class="tabs" role="tablist" aria-label="دسته‌های فروشگاه">
+      <button class="tab active" data-tab="skins" role="tab" aria-selected="true"><svg class="ic" style="width:19px;height:19px"><use href="#i-palette"/></svg> پوسته‌ها</button>
+      <button class="tab" data-tab="items" role="tab" aria-selected="false"><svg class="ic" style="width:19px;height:19px"><use href="#i-hat"/></svg> شخصی‌سازی</button>
     </div>
-    <div id="tab-skins"></div>
-    <div id="tab-items" class="hidden"></div>
-    <div style="margin-top:14px"><button class="btn" data-nav="scr-menu"><svg class="ic"><use href="#i-home"/></svg> بازگشت به منو</button></div>
+    <div id="tab-skins" role="tabpanel" aria-label="پوسته‌ها"></div>
+    <div id="tab-items" class="hidden" role="tabpanel" aria-label="شخصی‌سازی"></div>
   </div>
 </section>
 
@@ -570,7 +646,8 @@ button:focus-visible{outline:3px solid rgba(var(--neon-rgb),.8);outline-offset:2
 
 <!-- ================= پایان بازی (جایزهٔ سکه) ================= -->
 <section id="scr-final" class="screen">
-  <div class="wrap"><div class="panel">
+  <div class="wrap"><div class="panel final-panel">
+    <div class="final-kicker"><span aria-hidden="true">🏆</span> جشن پایان بازی</div>
     <div class="panel-char" id="fnChar"></div>
     <h2>همهٔ مرحله‌ها تمام شد!</h2>
     <p class="sub">تو همهٔ ۱۲ مرحلهٔ گل‌شمار را بردی. قهرمان شمردنی!</p>
@@ -1093,7 +1170,7 @@ document.addEventListener('click',function(e){
   save.muted=!save.muted;persist();updateMute();
   toast(save.muted?'صدا خاموش شد':'صدا روشن شد')});
  $$('.tab').forEach(function(t){t.addEventListener('click',function(){
-  $$('.tab').forEach(function(x){x.classList.toggle('active',x===t)});
+  $$('.tab').forEach(function(x){x.classList.toggle('active',x===t);x.setAttribute('aria-selected',x===t?'true':'false')});
   $('#tab-skins').classList.toggle('hidden',t.dataset.tab!=='skins');
   $('#tab-items').classList.toggle('hidden',t.dataset.tab!=='items')})});
  $('#scr-shop').addEventListener('click',function(e){

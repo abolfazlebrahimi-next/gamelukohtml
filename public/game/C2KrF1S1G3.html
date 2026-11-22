@@ -670,6 +670,21 @@
       #rewardModal .modal-actions { flex-direction:column; }
       #rewardModal .modal-actions .btn { width:100%; }
     }
+    @media (orientation:portrait) {
+      #landingScreen.active { display:flex; align-items:center; justify-content:center; overflow-y:auto; }
+      #landingScreen .landing-wrap { position:relative; display:grid; grid-template-columns:1fr; grid-template-rows:auto auto auto auto auto; align-content:center; justify-items:stretch; gap:clamp(9px,2vh,14px); width:min(100%,620px); min-height:min(760px,calc(100dvh - 24px)); margin:auto; padding:54px clamp(8px,3vw,18px) 16px; }
+      #landingScreen #coinDisplay { position:absolute; top:7px; left:8px; z-index:5; padding:5px 11px; }
+      #landingScreen .logo { grid-column:1; grid-row:1; width:100%; min-height:76px; }
+      #landingScreen .logo-text { font-size:clamp(25px,7vw,36px); }
+      #landingScreen .hero-zone { grid-column:1; grid-row:2; width:100%; padding:8px 12px; }
+      #landingScreen .speech-bubble { max-width:100%; font-size:clamp(13px,3.6vw,16px); }
+      #landingScreen .pixel-character { height:clamp(92px,17vh,138px); padding:6px 0 0; }
+      #landingScreen .gamer-img { width:auto; height:100%; }
+      #landingScreen #startBtn { grid-column:1; grid-row:3; width:100%; min-height:50px; }
+      #landingScreen .btn-row { grid-column:1; grid-row:4; width:100%; }
+      #landingScreen .btn-row .btn { min-height:46px; }
+      #landingScreen .tiny { grid-column:1; grid-row:5; width:100%; }
+    }
     @media (orientation:landscape) and (max-height:520px) {
       #landingScreen .landing-wrap { min-height:0; padding:44px 24px 8px; gap:6px 18px; }
       #landingScreen .hero-zone { flex-direction:row; gap:10px; }

@@ -1513,7 +1513,7 @@
 
         /* Responsive guide and polished result / completion panels. */
         #guideScreen { overflow-y:auto; }
-        #guideScreen .guide-container { position:relative; display:grid; grid-template-columns:minmax(92px,150px) minmax(0,1fr); grid-template-rows:auto minmax(72px,1fr) auto 5px auto; gap:10px 18px; width:min(100%,820px); min-height:min(72vh,520px); max-height:calc(100dvh - 24px); margin:auto; padding:58px clamp(16px,3vw,30px) clamp(16px,3vw,30px); }
+        #guideScreen .guide-container { position:relative; display:grid; grid-template-columns:minmax(92px,150px) minmax(0,1fr); grid-template-rows:auto minmax(72px,1fr) auto 5px auto; gap:10px 18px; width:min(100%,820px); max-width:820px; min-height:min(72vh,520px); max-height:calc(100dvh - 24px); margin:auto; padding:58px clamp(16px,3vw,30px) clamp(16px,3vw,30px); }
         #guideScreen .guide-heading { grid-column:1 / -1; grid-row:1; color:var(--gold); font-size:clamp(17px,3vw,24px); font-weight:900; }
         #guideScreen .guide-char { grid-column:1; grid-row:2 / 6; align-self:center; width:clamp(82px,16vw,132px); height:clamp(82px,16vw,132px); margin:0; }
         #guideScreen .guide-text { grid-column:2; grid-row:2; align-self:stretch; display:flex; align-items:center; justify-content:center; margin:0; font-size:clamp(15px,2vw,19px); line-height:1.8; }
@@ -1530,7 +1530,7 @@
         #guideScreen .guide-skip { grid-column:2; grid-row:5; justify-self:end; min-height:44px; padding:8px 18px; background:linear-gradient(135deg,#FFC93C,#f59e0b); color:#302000; font-weight:900; }
         #guideScreen .guide-container > .btn { position:absolute; top:12px; inset-inline-start:12px; width:auto; min-height:38px; margin:0!important; padding:5px 12px; }
         .result-modal { padding:clamp(12px,4vw,28px); }
-        .result-modal .modal-content { width:min(100%,620px); max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(18px,4vw,30px); border-radius:28px; }
+        .result-modal .modal-content { width:min(100%,620px); max-width:620px; max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(18px,4vw,30px); border-radius:28px; }
         .result-modal .result-icon { width:clamp(76px,15vh,118px); height:clamp(76px,15vh,118px); margin:0 auto 8px; }
         .result-modal .result-title { font-size:clamp(23px,4vw,34px); margin:4px 0 8px; }
         .result-modal .result-desc { max-width:44ch; margin:0 auto 12px; line-height:1.8; }
@@ -1538,7 +1538,7 @@
         .result-modal .result-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
         .result-modal .result-options .btn { min-height:46px; margin:0; }
         .celebration-modal { padding:clamp(12px,4vw,28px); }
-        .celebration-modal .modal-content { width:min(100%,480px); max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(20px,4vw,34px); border-radius:28px; }
+        .celebration-modal .modal-content { width:min(100%,480px); max-width:480px; max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(20px,4vw,34px); border-radius:28px; }
         .celebration-modal .celeb-icon { width:clamp(82px,16vh,124px); height:clamp(82px,16vh,124px); }
         .celebration-modal .celeb-title { font-size:clamp(23px,4vw,32px); }
         .celebration-modal .btn { min-height:48px; }
