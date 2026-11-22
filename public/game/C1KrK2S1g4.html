@@ -916,7 +916,7 @@
                 guideState.startTime = Date.now(); 
             }
 
-            document.getElementById('skipBtn').style.display = isFirstTime ? 'none' : 'block';
+            document.getElementById('skipBtn').style.display = 'block';
             
             guideState.rafId = requestAnimationFrame(guideLoop);
         }
@@ -982,7 +982,16 @@
             if (guideState.rafId) cancelAnimationFrame(guideState.rafId);
             if (guideState.audio) guideState.audio.pause();
             document.getElementById('screen-guide').classList.remove('active');
-            showPage('homePage');
+            document.getElementById('pixelWrap').classList.remove('talking', 'happy');
+            document.getElementById('pixelWrap').classList.add('idle');
+            if (guideState.isFirstTimeFlow) {
+                showCountdown(() => {
+                    loadLevel();
+                    showPage('gamePage');
+                });
+            } else {
+                showPage('homePage');
+            }
         };
 
         // ===== GAME LOGIC =====
