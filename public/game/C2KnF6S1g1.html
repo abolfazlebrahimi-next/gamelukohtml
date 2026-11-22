@@ -1510,7 +1510,58 @@
             #gameScreen .game-header { padding:2px 6px; }
         }
 
-    </style>
+
+        /* Responsive guide and polished result / completion panels. */
+        #guideScreen { overflow-y:auto; }
+        #guideScreen .guide-container { position:relative; display:grid; grid-template-columns:minmax(92px,150px) minmax(0,1fr); grid-template-rows:auto minmax(72px,1fr) auto 5px auto; gap:10px 18px; width:min(100%,820px); min-height:min(72vh,520px); max-height:calc(100dvh - 24px); margin:auto; padding:58px clamp(16px,3vw,30px) clamp(16px,3vw,30px); }
+        #guideScreen .guide-heading { grid-column:1 / -1; grid-row:1; color:var(--gold); font-size:clamp(17px,3vw,24px); font-weight:900; }
+        #guideScreen .guide-char { grid-column:1; grid-row:2 / 6; align-self:center; width:clamp(82px,16vw,132px); height:clamp(82px,16vw,132px); margin:0; }
+        #guideScreen .guide-text { grid-column:2; grid-row:2; align-self:stretch; display:flex; align-items:center; justify-content:center; margin:0; font-size:clamp(15px,2vw,19px); line-height:1.8; }
+        #guideScreen .guide-example { grid-column:2; grid-row:3; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+        #guideScreen .guide-example-card { display:flex; align-items:center; gap:10px; min-width:0; padding:9px 12px; border:1px solid rgba(255,255,255,.14); border-radius:14px; background:rgba(255,255,255,.05); text-align:right; }
+        #guideScreen .guide-example-card.is-target { border-color:rgba(0,184,148,.48); background:rgba(0,184,148,.10); }
+        #guideScreen .guide-example-card.is-distractor { border-color:rgba(255,118,117,.34); }
+        #guideScreen .guide-wave { display:grid; place-items:center; width:38px; height:38px; flex:none; border-radius:11px; background:rgba(255,255,255,.1); color:var(--gold); font-size:25px; font-weight:900; }
+        #guideScreen .guide-example-card.is-target .guide-wave { color:#74f0c8; }
+        #guideScreen .guide-example-card b,#guideScreen .guide-example-card small { display:block; }
+        #guideScreen .guide-example-card b { font-size:clamp(10px,1.5vw,13px); }
+        #guideScreen .guide-example-card small { margin-top:2px; color:var(--text-secondary); font-size:clamp(9px,1.3vw,11px); }
+        #guideScreen .guide-progress { grid-column:2; grid-row:4; margin:0; align-self:center; }
+        #guideScreen .guide-skip { grid-column:2; grid-row:5; justify-self:end; min-height:44px; padding:8px 18px; background:linear-gradient(135deg,#FFC93C,#f59e0b); color:#302000; font-weight:900; }
+        #guideScreen .guide-container > .btn { position:absolute; top:12px; inset-inline-start:12px; width:auto; min-height:38px; margin:0!important; padding:5px 12px; }
+        .result-modal { padding:clamp(12px,4vw,28px); }
+        .result-modal .modal-content { width:min(100%,620px); max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(18px,4vw,30px); border-radius:28px; }
+        .result-modal .result-icon { width:clamp(76px,15vh,118px); height:clamp(76px,15vh,118px); margin:0 auto 8px; }
+        .result-modal .result-title { font-size:clamp(23px,4vw,34px); margin:4px 0 8px; }
+        .result-modal .result-desc { max-width:44ch; margin:0 auto 12px; line-height:1.8; }
+        .result-modal .modal-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:12px 0 16px; }
+        .result-modal .result-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+        .result-modal .result-options .btn { min-height:46px; margin:0; }
+        .celebration-modal { padding:clamp(12px,4vw,28px); }
+        .celebration-modal .modal-content { width:min(100%,480px); max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(20px,4vw,34px); border-radius:28px; }
+        .celebration-modal .celeb-icon { width:clamp(82px,16vh,124px); height:clamp(82px,16vh,124px); }
+        .celebration-modal .celeb-title { font-size:clamp(23px,4vw,32px); }
+        .celebration-modal .btn { min-height:48px; }
+        @media (orientation:landscape) and (max-height:420px) {
+            #guideScreen .guide-container { min-height:0; padding:48px 12px 10px; gap:5px 10px; }
+            #guideScreen .guide-example-card { padding:5px 7px; }
+            #guideScreen .guide-wave { width:30px;height:30px;font-size:20px; }
+            #guideScreen .guide-text { padding:7px 9px; font-size:13px; line-height:1.5; }
+        }
+        @media (max-width:560px) {
+            #guideScreen .guide-container { grid-template-columns:1fr; grid-template-rows:auto auto minmax(70px,1fr) auto 5px auto; gap:9px; min-height:0; max-height:none; padding:58px 16px 16px; }
+            #guideScreen .guide-heading { grid-column:1; grid-row:1; }
+            #guideScreen .guide-char { grid-column:1; grid-row:2; width:82px; height:82px; justify-self:center; }
+            #guideScreen .guide-text { grid-column:1; grid-row:3; }
+            #guideScreen .guide-example { grid-column:1; grid-row:4; }
+            #guideScreen .guide-progress { grid-column:1; grid-row:5; }
+            #guideScreen .guide-skip { grid-column:1; grid-row:6; justify-self:stretch; }
+            #guideScreen .guide-example-card { padding:8px; gap:6px; }
+            .result-modal .result-options { grid-template-columns:1fr; }
+            .result-modal .modal-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+        }
+
+</style>
 </head>
 <body>
 
@@ -1602,7 +1653,12 @@
             <div class="guide-char">
                 <img src="./icons/gamerhi.png" alt="راهنما" onerror="this.textContent='🧜‍♀️'">
             </div>
-            <div class="guide-text" id="guideText">سلام! من پری دریایی هستم. بیا بهت یاد بدم چطور شکارچی نشانه س باشی! 🌊</div>
+            <div class="guide-heading">تمرین نمونه، قدم‌به‌قدم</div>
+            <div class="guide-text" id="guideText">سلام! من پیکسل هستم؛ بیا راه بازی را یاد بگیریم.</div>
+            <div class="guide-example" aria-label="موج شبیه حرف سین را لمس کن و به شکل‌های دیگر دست نزن">
+                <div class="guide-example-card is-target"><span class="guide-wave">س</span><span><b>شبیه «س» است</b><small>یک بار لمسش کن ✓</small></span></div>
+                <div class="guide-example-card is-distractor"><span class="guide-wave">〰</span><span><b>شبیه «س» نیست</b><small>رد شو، لمس نکن</small></span></div>
+            </div>
             <div class="guide-progress"><div class="guide-progress-bar" id="guideProgressBar"></div></div>
             <button class="guide-skip" id="guideSkipBtn">⏭️ رد کردن</button>
             <button class="btn btn-secondary" onclick="oceanGame.closeGuide()" style="margin-top:10px;">بازگشت</button>
@@ -1983,7 +2039,6 @@
             showGuideForFirstTime() {
                 this.startMusicOnInteraction();
                 showScreen('guideScreen');
-                document.getElementById('guideSkipBtn').style.display = 'none';
                 this.startGuide(false);
                 this.playGuideAudio('pixel2.mp3');
             },
@@ -2036,10 +2091,10 @@
 
             guideScripts: [
                 { start: 0, end: 4, text: 'سلام به شکارچی کوچولوی دریایی! من پیکسل هستم!' },
-                { start: 4, end: 16, text: 'به بازی شکارچی نشانه "سین" خوش اومدی! اینجا قراره توی یه دنیای جادویی زیر آب، دنبال شکل‌های قشنگ "س" بگردی و اونها رو پیدا کنی!' },
-                { start: 16, end: 24.5, text: 'اول نگاه کن! توی صفحه بازی، یه عالمه شکل‌های مختلف میبینی. بعضی از این شکل‌ها، شبیه حرف "س" هستن!' },
-                { start: 24.5, end: 38, text: 'بعد تشخیص بده! با دقت به هر شکل نگاه کن. فقط اونایی که شبیه "س" هستن رو باید انتخاب کنی. شکل‌های دیگه، دشمن‌های بازی هستن که نباید روشون کلیک کنی!' },
-                { start: 38, end: 48, text: 'وقتی شکل "س" رو پیدا کردی، روش کلیک کن. اگه درست انتخاب کرده باشی، یه صدای خوشگل میشنوی و اون شکل سبز میشه!' },
+                { start: 4, end: 16, text: 'به بازی شکارچی نشانه «سین» خوش اومدی! اینجا قراره توی یه دنیای جادویی زیر آب، دنبال شکل‌های قشنگ «س» بگردی و اونها رو پیدا کنی!' },
+                { start: 16, end: 24.5, text: 'اول نگاه کن! توی صفحه بازی، یه عالمه شکل‌های مختلف می‌بینی. بعضی از این شکل‌ها، شبیه حرف «س» هستن!' },
+                { start: 24.5, end: 38, text: 'بعد تشخیص بده! با دقت به هر شکل نگاه کن. فقط اونایی که شبیه «س» هستن رو باید انتخاب کنی. شکل‌های دیگه، دشمن‌های بازی هستن که نباید روشون کلیک کنی!' },
+                { start: 38, end: 48, text: 'وقتی شکل «س» رو پیدا کردی، روش کلیک کن. اگه درست انتخاب کرده باشی، یه صدای خوشگل می‌شنوی و اون شکل سبز می‌شه!' },
                 { start: 48, end: 55, text: 'موفق باشی دوست من!' }
             ],
 
@@ -2048,20 +2103,18 @@
                 const progressBar = document.getElementById('guideProgressBar');
                 const skipBtn = document.getElementById('guideSkipBtn');
                 
-                if (fromMenu) {
-                    skipBtn.style.display = 'block';
-                    skipBtn.onclick = () => {
-                        if (this.guideInterval) {
-                            clearInterval(this.guideInterval);
-                            this.guideInterval = null;
-                        }
-                        this.stopGuideAudio();
-                        this.closeGuide();
-                    };
-                } else {
-                    skipBtn.style.display = 'none';
-                }
-                
+                skipBtn.style.display = 'inline-flex';
+                skipBtn.onclick = () => {
+                    if (this.guideInterval) {
+                        clearInterval(this.guideInterval);
+                        this.guideInterval = null;
+                    }
+                    this.stopGuideAudio();
+                    progressBar.style.width = '0%';
+                    this.closeGuide();
+                    if (!fromMenu) this.startCountdown(1);
+                };
+
                 this.guideStartTime = Date.now();
                 let lastIndex = -1;
                 this.guideInterval = setInterval(() => {
@@ -2472,14 +2525,19 @@
 
                 if (isWin) {
                     iconImg.src = 'icons/happy gamer.png';
-                    title.textContent = '🎉 آفرین!';
-                    title.className = 'result-title win';
-                    desc.textContent = 'همه‌ی نشانه‌های «س» رو با موفقیت پیدا کردی!';
                     const nextLevel = this.level < this.totalLevels ? this.level + 1 : null;
-                    options.innerHTML = `
-                        ${nextLevel ? `<button class="btn btn-next" onclick="oceanGame.goToNextLevel(${nextLevel})">🚀 مرحله بعد</button>` : '<button class="btn btn-next" onclick="oceanGame.goToNextLevel(1)">🏆 بازی کامل شد! شروع مجدد</button>'}
-                        <button class="btn btn-retry" onclick="oceanGame.restartCurrentLevel()">🔄 شروع مجدد</button>
-                        <button class="btn btn-quit-result" onclick="oceanGame.closeResultAndQuit()">🚪 خروج به منو</button>
+                    title.textContent = nextLevel ? '🎉 آفرین!' : '🏆 قهرمانِ همهٔ مرحله‌ها!';
+                    title.className = 'result-title win';
+                    desc.textContent = nextLevel
+                        ? 'همه‌ی نشانه‌های «س» رو پیدا کردی؛ آماده‌ای برای مرحلهٔ بعد؟'
+                        : '۱۵ مرحله را با موفقیت تمام کردی؛ جای افتخار دارد!';
+                    options.innerHTML = nextLevel ? `
+                        <button class="btn btn-next" onclick="oceanGame.goToNextLevel(${nextLevel})">🚀 مرحله بعد</button>
+                        <button class="btn btn-retry" onclick="oceanGame.restartCurrentLevel()">🔄 تکرار مرحله</button>
+                        <button class="btn btn-quit-result" onclick="oceanGame.closeResultAndQuit()">🏠 منوی اصلی</button>
+                    ` : `
+                        <button class="btn btn-next" onclick="oceanGame.goToNextLevel(1)">🎮 بازی دوباره از اول</button>
+                        <button class="btn btn-quit-result" onclick="oceanGame.closeResultAndQuit()">🏠 بازگشت به منو</button>
                     `;
                 } else {
                     iconImg.src = 'icons/sad gamer.png';
