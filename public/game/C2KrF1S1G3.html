@@ -697,6 +697,36 @@
       #helpModal .help-tip { margin:4px 0; }
     }
 
+
+    /* پایان دوره، هم‌سبک با کارت جایزهٔ بازی ساعت‌خوانی */
+    #rewardModal { align-items:center; padding:clamp(12px,4vw,28px); }
+    #rewardModal .reward-sheet { position:relative; width:min(100%,620px); max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(18px,4vw,32px); border:1px solid rgba(255,201,60,.48); border-radius:30px; background:radial-gradient(circle at 50% 0,rgba(255,201,60,.15),transparent 42%),rgba(30,30,47,.97); box-shadow:0 24px 80px rgba(0,0,0,.62),0 0 50px rgba(255,201,60,.12); }
+    #rewardModal .reward-character .gamer-img { width:clamp(70px,13vh,100px); height:clamp(70px,13vh,100px); }
+    #rewardModal .complete-badge { display:grid; place-items:center; width:clamp(48px,9vh,68px); height:clamp(48px,9vh,68px); margin:0 auto 5px; border:1px solid rgba(255,201,60,.42); border-radius:20px; background:linear-gradient(145deg,rgba(255,201,60,.24),rgba(108,92,231,.2)); box-shadow:0 8px 24px rgba(255,201,60,.12); font-size:clamp(27px,5vh,40px); }
+    #rewardModal h3 { margin:4px 0 4px; font-size:clamp(22px,4vw,32px); line-height:1.4; }
+    #rewardModal .complete-subtitle { max-width:40ch; margin:0 auto 12px; color:var(--muted); font-size:clamp(13px,2vw,16px); line-height:1.8; }
+    #rewardModal .reward-row { min-height:50px; margin:8px 0; padding:10px 16px; }
+    #rewardModal .coin-bonus { border-color:rgba(255,201,60,.42); background:linear-gradient(110deg,rgba(255,201,60,.16),rgba(255,168,0,.08)); }
+    #rewardModal .coin-bonus .reward-value { font-size:1.15rem; }
+    #rewardModal .modal-actions .btn { min-height:48px; border-radius:15px; }
+    #rewardModal #claimHomeBtn { box-shadow:0 7px 18px rgba(108,92,231,.22); }
+    @media (max-width:560px) {
+      #rewardModal .reward-sheet { padding:20px 16px; }
+      #rewardModal .reward-row { gap:7px; padding:9px 11px; }
+      #rewardModal .modal-actions { flex-direction:column; }
+      #rewardModal .modal-actions .btn { width:100%; }
+    }
+    @media (orientation:landscape) and (max-height:500px) {
+      #rewardModal .reward-sheet { padding:10px 20px; }
+      #rewardModal .reward-character { display:none; }
+      #rewardModal .complete-badge { width:42px;height:42px;font-size:26px;margin-bottom:2px; }
+      #rewardModal h3 { font-size:22px;margin:1px 0; }
+      #rewardModal .complete-subtitle { margin:0 auto 4px; }
+      #rewardModal .reward-row { min-height:38px;margin:4px 0;padding:5px 12px; }
+      #rewardModal .modal-actions { margin-top:6px; }
+      #rewardModal .modal-actions .btn { min-height:36px; }
+    }
+
 </style>
 </head>
 <body>
@@ -841,12 +871,14 @@
     <div class="reward-character" aria-hidden="true">
       <img src="./icons/gamer.png" alt="" class="gamer-img" onerror="this.style.display='none'">
     </div>
-    <h3>همهٔ ۱۰ مرحله تموم شد! 🏆</h3>
+    <div class="complete-badge" aria-hidden="true">🏆</div>
+    <h3>همهٔ ۱۰ مرحله تموم شد!</h3>
+    <p class="complete-subtitle">شمارش را تا آخر انجام دادی؛ قهرمان خط‌کش قبیله‌ای!</p>
     <div class="reward-row">
       <span class="reward-label">ستاره‌های این دوره</span>
       <span class="reward-value"><b id="rewardStars">0</b> ⭐</span>
     </div>
-    <div class="reward-row">
+    <div class="reward-row coin-bonus">
       <span class="reward-label" id="rewardCoinHint">پاداش پایان دوره</span>
       <span class="reward-value coin-reward">
         <img src="./icons/coin.png" alt="" class="coin-icon" onerror="this.style.display='none'">
