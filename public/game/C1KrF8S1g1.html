@@ -477,19 +477,22 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
   #screen-game { align-items:stretch; overflow:hidden; padding:0; }
   #screen-game .game-area {
     display:grid; grid-template-columns:minmax(0,1fr) minmax(120px,24%);
-    grid-template-rows:minmax(0,1fr); align-items:stretch; gap:12px;
+    grid-template-rows:32px minmax(0,1fr); align-items:stretch; gap:8px 12px;
     width:100%; height:100%; min-height:0; flex:1 1 auto;
     padding:max(42px,calc(env(safe-area-inset-top) + 36px)) max(12px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
   }
+  #screen-game .game-instruction {
+    grid-column:1 / -1; grid-row:1; align-self:center; padding:4px 10px; font-size:12px;
+  }
   #screen-game .game-stage {
-    grid-column:1; grid-row:1; width:100%; height:100%; min-width:0; min-height:0;
+    grid-column:1; grid-row:2; width:100%; height:100%; min-width:0; min-height:0;
     align-items:center; justify-content:center; gap:clamp(8px,2vw,28px); padding:4px;
   }
   #screen-game .animal-area { max-width:48%; min-width:0; }
   #screen-game .animal-img,
   #screen-game #column-area { max-height:calc(100dvh - 100px) !important; }
   #screen-game .source-box {
-    grid-column:2; grid-row:1; align-self:stretch; justify-content:center;
+    grid-column:2; grid-row:2; align-self:stretch; justify-content:center;
     width:100%; max-width:220px; min-width:0; min-height:0; max-height:none;
     margin:0; padding:30px 10px 10px; display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr)); align-content:center; justify-items:center;
@@ -553,6 +556,12 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
 }
 #screen-game .food-item svg,
 #screen-game .source-food-item svg { display:block; width:100%; height:100%; object-fit:contain; }
+#screen-game .game-instruction {
+  position:relative; z-index:5; flex:none; width:100%; padding:6px 10px;
+  border:1px solid rgba(255,255,255,.28); border-radius:12px;
+  background:rgba(30,30,47,.84); color:#fff; font-size:13px; font-weight:700;
+  line-height:1.35; text-align:center; direction:rtl;
+}
 #screen-game .column-area { padding:5px 4px; }
 #screen-game .animal-area { max-width:48%; min-width:0; }
 #screen-game .animal-container { height:auto; max-width:100%; }
@@ -707,14 +716,15 @@ body { font-family: var(--font); background: linear-gradient(135deg, #0c0a14, #1
     </button>
     
     <div class="game-area">
+      <div class="game-instruction" role="note">قد حیوان را با ارتفاع ستون خوراکی‌ها مقایسه کن؛ غذاها را بکش تا هم‌قد شوند.</div>
       <div class="game-stage">
-        <div class="animal-area">
+        <div class="animal-area" aria-label="حیوان برای مقایسهٔ قد">
           <div class="animal-container">
-            <img src="./icons/khers.png" class="animal-img" id="animal-img" alt="Animal">
+            <img src="./icons/khers.png" class="animal-img" id="animal-img" alt="حیوان">
           </div>
         </div>
         
-        <div class="column-area" id="column-area">
+        <div class="column-area" id="column-area" aria-label="ستون خوراکی‌ها برای مقایسه با قد حیوان">
           <div class="target-line" id="target-line"></div>
         </div>
       </div>
