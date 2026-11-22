@@ -208,6 +208,83 @@ body{
 #toast.show{opacity:1;transform:translate(-50%,0)}
 
 @media (min-width:520px){ .screen{padding-top:22px} .title{font-size:2.4rem} }
+
+
+/* Landscape layouts for all quiz screens and their controls. */
+@media (orientation: landscape) {
+  html,body { width:100%; height:100%; overflow:hidden; }
+  .screen { position:fixed; inset:0; width:100vw; height:100vh; height:100dvh; min-height:0; max-width:none; margin:0; overflow:hidden; padding:max(8px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left)); }
+  #scr-home { align-items:stretch; }
+  #scr-home .topbar { flex:0 0 auto; justify-content:flex-start; min-height:38px; margin:0 0 4px; }
+  #scr-home .home-hero { flex:1; min-height:0; width:100%; max-width:1100px; margin:auto; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); grid-template-rows:auto auto auto auto; gap:4px clamp(12px,3vw,36px); align-items:center; justify-items:center; }
+  #scr-home .title { grid-column:2; grid-row:1; margin:0; font-size:clamp(24px,5.8vh,42px); }
+  #scr-home .hero { grid-column:1; grid-row:1 / 5; width:clamp(90px,29vh,190px); margin:0 auto; }
+  #scr-home #pauseBox, #scr-home #startBtn { grid-column:2; grid-row:2; width:min(100%,440px); align-self:center; }
+  #scr-home .pair { grid-column:2; grid-row:3; width:min(100%,440px); margin:0; }
+  #scr-home .foot { grid-column:2; grid-row:4; margin:0; font-size:clamp(10px,1.7vh,13px); }
+  #scr-home #pauseBox .btn { min-height:38px; padding:6px 10px; }
+  #scr-home #btnRestart { margin-top:5px!important; }
+
+  #scr-levels { align-items:stretch; }
+  #scr-levels .topbar { margin:0 0 4px; }
+  #scr-levels .lvl-hint { margin:0 0 5px; font-size:clamp(11px,1.8vh,14px); }
+  #scr-levels .lvls { flex:1; min-height:0; grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-rows:minmax(0,1fr); gap:clamp(6px,1.2vw,12px); align-content:start; overflow-y:auto; padding:4px 2px 8px; }
+  #scr-levels .lvl { min-width:0; min-height:clamp(60px,18vh,90px); aspect-ratio:auto; padding:6px; gap:3px; border-radius:14px; }
+  #scr-levels .lvl .n { font-size:clamp(18px,4vh,28px); }
+  #scr-levels .lmeta { font-size:clamp(9px,1.5vh,12px); }
+  #scr-levels .lstars { gap:1px; }
+  #scr-levels .lstars .ic { width:clamp(10px,1.6vh,14px); height:clamp(10px,1.6vh,14px); }
+
+  #scr-help { display:none; }
+  #scr-help.active { display:flex; align-items:stretch; overflow-y:auto; }
+  #scr-help .topbar { flex:none; margin:0 0 5px; }
+  #scr-help .help-hero { flex:none; margin:0 0 6px; padding:8px 12px; }
+  #scr-help .help-hero .himg { width:clamp(48px,11vh,68px); height:clamp(48px,11vh,68px); }
+  #scr-help .bubble { padding:6px 10px; font-size:clamp(11px,1.8vh,14px); line-height:1.55; }
+  #scr-help .help-item { padding:7px 10px; margin:0 0 6px; gap:8px; }
+  #scr-help .help-item .hico { width:32px; height:32px; border-radius:10px; }
+  #scr-help .help-item b { font-size:clamp(11px,1.7vh,14px); margin-bottom:1px; }
+  #scr-help .help-item p { font-size:clamp(10px,1.5vh,12px); line-height:1.55; }
+
+  #scr-shop { align-items:stretch; overflow-y:auto; }
+  #scr-shop .topbar { flex:none; margin:0 0 5px; }
+  #scr-shop .tabs { flex:none; margin:0 0 7px; }
+  #scr-shop .sitems { grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin:0; }
+  #scr-shop .sitem { min-width:0; padding:8px 6px; gap:4px; }
+  #scr-shop .sitem b { font-size:clamp(10px,1.6vh,13px); }
+  #scr-shop .sitem small { font-size:clamp(9px,1.4vh,11px); line-height:1.4; }
+  #scr-shop .mini { width:clamp(34px,8vh,50px); height:clamp(34px,8vh,50px); }
+  #scr-shop .sw { margin:2px 0; }
+  #scr-shop .sw i { width:25px; height:25px; }
+  #scr-shop .sbtn { min-height:32px; padding:5px; font-size:clamp(10px,1.5vh,12px); }
+
+  #scr-quiz { display:none; }
+  #scr-quiz.active { display:grid; grid-template-columns:minmax(0,1fr) minmax(190px,38%); grid-template-rows:auto minmax(0,1fr); align-items:stretch; gap:8px 16px; }
+  #scr-quiz .quiz-top { grid-column:1 / -1; grid-row:1; margin:0; min-height:40px; }
+  #scr-quiz .qcard { grid-column:1 / -1; grid-row:2; min-height:0; display:grid; grid-template-columns:minmax(0,1.3fr) minmax(190px,.7fr); grid-template-rows:auto minmax(0,1fr) auto; gap:6px 14px; padding:12px 16px; overflow-y:auto; }
+  #scr-quiz .qmeta { grid-column:1 / -1; }
+  #scr-quiz .qtext { align-self:center; margin:0; font-size:clamp(14px,2.7vh,20px); line-height:1.65; }
+  #scr-quiz .opts { align-self:center; display:grid; grid-template-columns:1fr 1fr; gap:7px; margin:0; }
+  #scr-quiz .opt { min-height:42px; padding:7px 9px; font-size:clamp(11px,1.8vh,14px); line-height:1.4; }
+  #scr-quiz .fb { grid-column:1 / -1; margin:0; }
+
+  #scr-stage,#scr-final { justify-content:center; overflow-y:auto; }
+  #scr-stage .topbar,#scr-final .topbar { flex:none; width:min(100%,1000px); margin:0 auto 4px; }
+  #scr-stage .center,#scr-final .center { width:min(100%,1000px); padding-top:0; gap:clamp(6px,1.6vh,12px); margin:auto; }
+  #scr-stage .badge-lg,#scr-final .badge-lg { width:clamp(48px,12vh,76px); height:clamp(48px,12vh,76px); }
+  #scr-stage .stars .ic { width:clamp(28px,7vh,42px); height:clamp(28px,7vh,42px); }
+  #scr-stage .center .btn,#scr-final .center .btn { width:min(100%,280px); min-height:38px; padding:7px 12px; }
+  .modal-overlay { padding:8px; overflow-y:auto; }
+  .modal { max-height:calc(100dvh - 16px); overflow-y:auto; }
+}
+@media (orientation:landscape) and (max-height:420px) {
+  #scr-home .hero { width:clamp(76px,23vh,96px); }
+  #scr-home .home-hero { gap:2px 12px; }
+  #scr-levels .lvl { min-height:52px; }
+  #scr-quiz .qcard { padding:8px 12px; }
+  #scr-stage .center,#scr-final .center { gap:4px; }
+}
+
 </style>
 </head>
 <body data-theme="sky">
@@ -539,7 +616,16 @@ function makeGame(st){
 }
 
 /* ================= ناوبری ================= */
+let landscapeHintShown=false;
+function requestLandscapeMode(){
+  if(!window.matchMedia||!window.matchMedia('(orientation: portrait)').matches||!window.matchMedia('(pointer: coarse)').matches)return;
+  const o=window.screen&&window.screen.orientation;
+  if(o&&typeof o.lock==='function'){try{const p=o.lock('landscape');if(p&&typeof p.catch==='function')p.catch(()=>showLandscapeHint());return}catch(_){}}
+  showLandscapeHint();
+}
+function showLandscapeHint(){if(!landscapeHintShown){landscapeHintShown=true;toast('برای نمایش افقی بهتر، دستگاه را بچرخانید','good')}}
 function showScreen(id){
+  if(id!=='home')requestLandscapeMode();
   $$('.screen').forEach(s=>s.classList.toggle('active',s.id==='scr-'+id));
   window.scrollTo(0,0);
   if(id==='home')updateHome();
