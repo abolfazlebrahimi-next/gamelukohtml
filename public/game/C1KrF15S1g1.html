@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>تقسیم‌بندی قشنگ | ماجراجویی ریاضی</title>
     <style>
         /* ===== فونت‌ها ===== */
@@ -250,6 +250,139 @@
 
         @media (max-width: 480px) {
             .menu-title { font-size: 1.8rem; } .menu-character { width: 120px; height: 120px; } .levels-container h2 { font-size: 1.5rem; } .level-grid { gap: 6px; } .level-box { min-height: 40px; font-size: 1rem; } .game-card { padding: 12px 10px; } .game-header .game-title { font-size: 0.65rem; } .game-header .game-level { font-size: 0.6rem; padding: 2px 8px; } .stop-btn { width: 34px; height: 34px; font-size: 1rem; } .modal-card { padding: 24px 18px; } .modal-card h3 { font-size: 1.6rem; } .modal-card p { font-size: 0.85rem; } .modal-card .result-char { width: 90px; height: 90px; } .shop-item { min-height: 140px; padding: 10px 6px; } .shop-item .shop-preview { height: 60px; font-size: 2.5rem; } .countdown-number { font-size: 9rem; } .countdown-number.go-text { font-size: 5rem; } .toast { padding: 14px 20px; font-size: 0.9rem; } .toast .toast-emoji { font-size: 2rem; } .guide-container .guide-text { font-size: 0.95rem; padding: 12px 16px; min-height: 100px; } .guide-container .guide-char { width: 90px; height: 90px; } .celebration-box { padding: 30px 20px; } .celebration-box .celeb-char { width: 100px; height: 100px; } .celebration-box h2 { font-size: 1.6rem; } .back-btn { width: 38px; height: 38px; font-size: 1.2rem; } .coin-display { padding: 4px 12px 4px 8px; } .coin-display img { width: 22px; height: 22px; } .coin-amount { font-size: 0.9rem; } .shop-coin img { width: 18px; height: 18px; } .modal-card .win-coin img { width: 32px; height: 32px; } .shop-item .price img { width: 14px; height: 14px; } .friend-container { width: 65px; } .friend-emoji { width: 45px; height: 45px; } .draggable-item { font-size: 1.5rem; } .friend-box { min-height: 55px; } .item-pool { min-height: 70px; }
+        }
+
+        /* Rebuild every screen as a landscape-first, no-scroll layout. */
+        @media (orientation: landscape) {
+            html, body { width:100%; height:100%; overflow:hidden; overscroll-behavior:none; }
+            .screen { position:fixed; inset:0; width:100vw; height:100vh; height:100dvh; padding:max(6px,env(safe-area-inset-top)) max(6px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(6px,env(safe-area-inset-left)); overflow:hidden; }
+
+            #homeScreen { align-items:stretch; }
+            #homeScreen .menu-container {
+                direction:ltr; display:grid; grid-template-columns:minmax(180px,.8fr) minmax(0,1.2fr);
+                grid-template-rows:auto auto minmax(0,1fr); align-items:center; justify-items:center;
+                gap:4px clamp(14px,3vw,42px); width:100%; max-width:1200px; height:100%; max-height:none;
+                margin:auto; padding:clamp(16px,4vh,42px) clamp(20px,5vw,64px);
+            }
+            #homeScreen .coin-display { top:10px; left:12px; padding:4px 12px 4px 8px; }
+            #homeScreen .menu-character { grid-column:1; grid-row:1 / span 3; width:clamp(100px,31vh,220px); height:clamp(100px,31vh,220px); margin:0; }
+            #homeScreen .menu-title { grid-column:2; grid-row:1; align-self:end; font-size:clamp(24px,6vh,48px); margin:0; direction:rtl; }
+            #homeScreen .menu-subtitle { grid-column:2; grid-row:2; margin:0; font-size:clamp(11px,2.2vh,16px); direction:rtl; }
+            #homeScreen .menu-buttons { grid-column:2; grid-row:3; align-self:start; width:min(100%,440px); margin:0; gap:8px; direction:rtl; }
+            #homeScreen .menu-buttons .btn { min-height:clamp(40px,10vh,56px); padding:8px 16px; font-size:clamp(13px,2.3vh,17px); }
+
+            #guideScreen { padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left)); }
+            #guideScreen .guide-container {
+                direction:ltr; display:grid; grid-template-columns:minmax(95px,16%) minmax(0,1fr) minmax(120px,18%);
+                grid-template-rows:minmax(0,1fr) 32px; gap:10px 18px; width:100%; max-width:1200px;
+                height:100%; min-height:0; padding:clamp(12px,3vh,28px); margin:auto; text-align:center;
+            }
+            #guideScreen .guide-char { grid-column:1; grid-row:1 / span 2; width:clamp(88px,20vh,150px); height:clamp(88px,20vh,150px); }
+            #guideScreen .guide-text { grid-column:2; grid-row:1; min-height:0; height:100%; padding:12px 18px; font-size:clamp(14px,2.8vh,22px); line-height:1.6; }
+            #guideScreen .guide-progress { grid-column:2; grid-row:2; margin:0; align-self:center; }
+            #guideScreen .guide-skip { grid-column:3; grid-row:2; min-height:38px; padding:6px 12px; margin:0; white-space:nowrap; }
+
+            #shopScreen { padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left)); }
+            #shopScreen .shop-container {
+                direction:ltr; display:grid; grid-template-columns:minmax(140px,19%) minmax(0,1fr);
+                grid-template-rows:48px minmax(0,1fr); gap:10px 14px; width:100%; max-width:1400px;
+                height:100%; max-height:none; padding:12px; margin:auto;
+            }
+            #shopScreen .shop-header { grid-column:1 / -1; grid-row:1; margin:0; direction:rtl; }
+            #shopScreen .shop-header h2 { flex:1; text-align:center; font-size:clamp(18px,3.4vh,26px); }
+            #shopScreen .shop-tabs { grid-column:1; grid-row:2; flex-direction:column; overflow:hidden; gap:8px; margin:0; padding:8px; direction:rtl; }
+            #shopScreen .shop-tab { flex:0 0 auto; min-height:44px; padding:8px; font-size:clamp(12px,2vh,16px); }
+            #shopScreen .shop-grid {
+                grid-column:2; grid-row:2; display:grid; grid-template-columns:repeat(5,minmax(0,1fr));
+                grid-template-rows:repeat(2,minmax(0,1fr)); gap:clamp(6px,1.4vh,12px); width:100%; height:100%;
+                min-height:0; padding:2px; overflow:hidden;
+            }
+            #shopScreen .shop-grid[data-tab="effects"] { grid-template-columns:repeat(3,minmax(0,1fr)); }
+            #shopScreen .shop-grid[data-tab="humans"] { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:minmax(0,1fr); }
+            #shopScreen .shop-item { min-width:0; min-height:0; height:100%; padding:clamp(5px,1vh,10px); gap:3px; overflow:hidden; }
+            #shopScreen .shop-item .shop-preview { width:100%; height:clamp(32px,9vh,68px); flex:0 0 auto; font-size:clamp(1.5rem,5vh,3rem); margin:0; }
+            #shopScreen .shop-item .name { max-width:100%; font-size:clamp(10px,1.7vh,14px); line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+            #shopScreen .shop-item .price { font-size:clamp(10px,1.6vh,13px); }
+            #shopScreen .shop-btn-sm { min-height:30px; padding:4px 6px; font-size:clamp(10px,1.6vh,13px); }
+
+            #levelScreen { padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left)); }
+            #levelScreen .levels-container {
+                display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:42px minmax(0,1fr) 44px; width:100%; max-width:1200px;
+                height:100%; max-height:none; min-height:0; padding:12px 18px; margin:auto;
+            }
+            #levelScreen .levels-container h2 { margin:0; font-size:clamp(18px,3.5vh,26px); }
+            #levelScreen .level-grid {
+                grid-row:2; grid-template-columns:repeat(5,minmax(0,1fr)); grid-template-rows:repeat(2,minmax(0,1fr));
+                gap:clamp(6px,1.2vh,12px); min-height:0; margin:6px 0; align-content:stretch; overflow:hidden;
+            }
+            #levelScreen .level-box { min-width:0; min-height:0; aspect-ratio:auto; font-size:clamp(18px,4vh,30px); }
+            #levelScreen #backHomeBtn { grid-row:3; width:min(100%,320px); min-height:40px; justify-self:center; padding:6px 14px; margin:0; }
+
+            #gameScreen { align-items:stretch; justify-content:stretch; padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left)); }
+            #gameScreen .game-card {
+                direction:ltr; display:grid; grid-template-columns:minmax(0,1fr) minmax(180px,25%);
+                grid-template-rows:44px 42px minmax(0,1fr) 48px; gap:8px 14px;
+                width:100%; max-width:1500px; height:100%; max-height:none; min-height:0; margin:auto; padding:12px;
+            }
+            #gameScreen .game-header { grid-column:1 / -1; grid-row:1; direction:rtl; margin:0; padding:4px 10px; }
+            #gameScreen .game-header .game-title { font-size:clamp(14px,2.5vh,20px); }
+            #gameScreen .game-header .game-level { font-size:clamp(11px,1.8vh,15px); }
+            #gameScreen .stop-btn { width:36px; height:36px; }
+            #gameScreen .instruction-msg { grid-column:1 / -1; grid-row:2; direction:rtl; min-height:0; margin:0; padding:4px 10px; font-size:clamp(12px,2vh,16px); }
+            #gameScreen .sharing-area {
+                grid-column:1; grid-row:3; flex-wrap:nowrap; align-items:stretch; align-content:center;
+                min-width:0; min-height:0; height:100%; gap:clamp(4px,1.2vw,14px); margin:0; overflow:hidden;
+            }
+            #gameScreen .friend-container { width:clamp(58px,10vw,124px); min-width:0; gap:4px; }
+            #gameScreen .friend-emoji { width:clamp(42px,10vh,86px); height:clamp(42px,10vh,86px); }
+            #gameScreen .friend-box { min-height:clamp(38px,11vh,64px); padding:3px; gap:2px; }
+            #gameScreen .friend-box .draggable-item { font-size:clamp(12px,3vh,24px); }
+            #gameScreen .pool-container { grid-column:2; grid-row:3; display:flex; flex-direction:column; min-width:0; min-height:0; margin:0; }
+            #gameScreen .pool-label { flex:0 0 auto; margin:0 0 4px; font-size:clamp(11px,1.8vh,14px); }
+            #gameScreen .item-pool { flex:1 1 auto; min-height:0; height:100%; padding:6px; gap:4px; align-content:center; overflow-y:auto; }
+            #gameScreen .draggable-item { font-size:clamp(20px,5vh,36px); line-height:1; }
+            #gameScreen #checkBtn { grid-column:1; grid-row:4; width:min(100%,420px); justify-self:center; min-height:42px; margin:0 !important; padding:6px 16px; font-size:clamp(13px,2vh,17px); }
+
+            .modal, .stop-modal, .celebration-overlay { padding:10px; overflow:hidden; }
+            .modal-card, .stop-modal-box, .celebration-box { width:min(90vw,700px); max-width:700px; max-height:calc(100dvh - 20px); padding:clamp(10px,2vh,18px); overflow:hidden; }
+            .modal-card .result-char, .celebration-box .celeb-char { width:clamp(48px,12vh,78px); height:clamp(48px,12vh,78px); margin:0 auto 6px; }
+            .modal-card h3, .celebration-box h2 { font-size:clamp(18px,4vh,28px); margin:0 0 4px; }
+            .modal-card p, .celebration-box .celeb-message { font-size:clamp(12px,2vh,15px); line-height:1.4; margin:4px 0; }
+            .modal-card .win-level { font-size:clamp(13px,2vh,17px); margin:0; }
+            .modal-card .win-coin { font-size:clamp(18px,4vh,26px); margin:2px 0; }
+            .modal-card .win-coin img { width:clamp(24px,6vh,36px); height:clamp(24px,6vh,36px); }
+            .result-buttons, .stop-modal-box .stop-btns { display:flex; flex-direction:row; gap:8px; }
+            .result-buttons .btn, .stop-btns .btn, .celebration-box .btn { flex:1; min-width:0; min-height:40px; margin:0 !important; padding:6px 10px; font-size:clamp(11px,1.7vh,14px); }
+            .stop-modal-box h2 { font-size:clamp(18px,3.6vh,24px); margin:0 0 4px; }
+            .stop-modal-box p { margin:0 0 8px; }
+            .countdown-number { font-size:clamp(48px,24vh,170px); }
+            .countdown-number.go-text { font-size:clamp(38px,16vh,110px); }
+            .countdown-label { font-size:clamp(12px,2.6vh,20px); margin-top:4px; }
+            .toast { bottom:12px; padding:8px 14px; gap:8px; font-size:clamp(11px,1.8vh,14px); }
+            .toast .toast-emoji { font-size:1.4rem; }
+        }
+        @media (orientation:landscape) and (max-height:420px) {
+            #homeScreen .menu-container { padding:10px 24px; gap:0 16px; }
+            #homeScreen .menu-character { width:clamp(90px,28vh,125px); height:clamp(90px,28vh,125px); }
+            #homeScreen .menu-title { font-size:clamp(22px,6vh,30px); }
+            #guideScreen .guide-container { grid-template-columns:minmax(80px,14%) minmax(0,1fr) minmax(100px,16%); padding:8px; gap:6px 10px; }
+            #guideScreen .guide-char { width:clamp(72px,18vh,96px); height:clamp(72px,18vh,96px); }
+            #shopScreen .shop-container { grid-template-columns:minmax(110px,18%) minmax(0,1fr); grid-template-rows:40px minmax(0,1fr); padding:8px; gap:6px 8px; }
+            #shopScreen .shop-tabs { gap:4px; padding:5px; }
+            #shopScreen .shop-tab { min-height:36px; }
+            #shopScreen .shop-item { padding:4px; gap:2px; }
+            #shopScreen .shop-item .shop-preview { height:clamp(28px,8vh,38px); }
+            #shopScreen .shop-btn-sm { min-height:26px; }
+            #levelScreen .levels-container { grid-template-rows:34px minmax(0,1fr) 38px; padding:8px 12px; }
+            #gameScreen .game-card { grid-template-rows:38px 36px minmax(0,1fr) 42px; gap:5px 10px; padding:8px; }
+            #gameScreen .friend-emoji { width:clamp(36px,10vh,54px); height:clamp(36px,10vh,54px); }
+            #gameScreen .friend-box { min-height:clamp(32px,10vh,44px); }
+            #gameScreen .item-pool { padding:4px; gap:2px; }
+            #gameScreen #checkBtn { min-height:36px; }
+            .modal-card .result-char, .celebration-box .celeb-char { display:none; }
+            .modal-card h3, .celebration-box h2 { font-size:18px; }
+            .modal-card p, .celebration-box .celeb-message { font-size:12px; }
+            .result-buttons .btn, .stop-btns .btn, .celebration-box .btn { min-height:36px; }
         }
     </style>
 </head>
@@ -515,7 +648,24 @@
         }
         createStars();
 
+        function requestLandscapeMode() {
+            if (!window.matchMedia('(orientation:portrait)').matches) return;
+            const orientation = window.screen && window.screen.orientation;
+            if (!orientation || typeof orientation.lock !== 'function') {
+                showToast('برای نمایش افقی کامل، دستگاه را بچرخانید.', 'info');
+                return;
+            }
+            const lock = () => orientation.lock('landscape').catch(() => {
+                showToast('برای نمایش افقی کامل، دستگاه را بچرخانید.', 'info');
+            });
+            if (document.fullscreenElement) lock();
+            else if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().then(lock).catch(lock);
+            } else lock();
+        }
+
         function showScreen(id) {
+            if (id !== 'homeScreen') requestLandscapeMode();
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
         }
@@ -687,6 +837,7 @@
             document.getElementById('shop-coin-amount').textContent = coins;
             const activeTab = document.querySelector('.shop-tab.active');
             const tab = activeTab ? activeTab.dataset.tab : 'themes';
+            grid.dataset.tab = tab;
 
             if (tab === 'themes') {
                 THEMES.forEach(theme => {
