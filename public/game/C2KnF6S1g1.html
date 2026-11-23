@@ -1530,13 +1530,14 @@
         #guideScreen .guide-skip { grid-column:2; grid-row:5; justify-self:end; min-height:44px; padding:8px 18px; background:linear-gradient(135deg,#FFC93C,#f59e0b); color:#302000; font-weight:900; }
         #guideScreen .guide-container > .btn { position:absolute; top:12px; inset-inline-start:12px; width:auto; min-height:38px; margin:0!important; padding:5px 12px; }
         .result-modal { padding:clamp(12px,4vw,28px); }
-        .result-modal .modal-content { width:min(100%,620px); max-width:620px; max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(18px,4vw,30px); border-radius:28px; }
-        .result-modal .result-icon { width:clamp(76px,15vh,118px); height:clamp(76px,15vh,118px); margin:0 auto 8px; }
-        .result-modal .result-title { font-size:clamp(23px,4vw,34px); margin:4px 0 8px; }
-        .result-modal .result-desc { max-width:44ch; margin:0 auto 12px; line-height:1.8; }
-        .result-modal .modal-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:12px 0 16px; }
-        .result-modal .result-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
-        .result-modal .result-options .btn { min-height:46px; margin:0; }
+        .result-modal .modal-content { display:flex; flex-direction:column; align-items:stretch; width:min(100%,620px); max-width:620px; max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(14px,3vw,24px); border-radius:28px; }
+        .result-modal .result-icon { align-self:center; width:clamp(62px,12vh,92px); height:clamp(62px,12vh,92px); margin:0 auto 5px; flex:none; }
+        .result-modal .result-title { flex:none; font-size:clamp(22px,4vw,32px); margin:2px 0 5px; }
+        .result-modal .result-desc { flex:none; max-width:44ch; margin:0 auto 7px; line-height:1.65; }
+        .result-modal .modal-stats { order:2; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; margin:9px 0 0; padding:9px; }
+        .result-modal .result-options { order:1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; width:100%; margin:4px 0 7px; }
+        .result-modal .result-options .btn { min-width:0; min-height:42px; margin:0; padding:8px 10px; font-size:clamp(12px,1.8vw,15px); line-height:1.4; }
+        .result-modal .result-options .btn:first-child { grid-column:1 / -1; min-height:48px; font-size:clamp(14px,2vw,17px); }
         .celebration-modal { padding:clamp(12px,4vw,28px); }
         .celebration-modal .modal-content { width:min(100%,480px); max-width:480px; max-height:calc(100dvh - 24px); overflow-y:auto; padding:clamp(20px,4vw,34px); border-radius:28px; }
         .celebration-modal .celeb-icon { width:clamp(82px,16vh,124px); height:clamp(82px,16vh,124px); }
@@ -1557,7 +1558,9 @@
             #guideScreen .guide-progress { grid-column:1; grid-row:5; }
             #guideScreen .guide-skip { grid-column:1; grid-row:6; justify-self:stretch; }
             #guideScreen .guide-example-card { padding:8px; gap:6px; }
-            .result-modal .result-options { grid-template-columns:1fr; }
+            .result-modal .result-options { grid-template-columns:repeat(2,minmax(0,1fr)); }
+            .result-modal .result-options .btn { min-height:40px; padding:7px; }
+            .result-modal .result-options .btn:first-child { min-height:46px; }
             .result-modal .modal-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
         }
 
